@@ -1,26 +1,550 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --foreground-rgb: 0, 0, 0;
+  --background-rgb: 255, 255, 255;
+  --brand-teal: #178086;
+  --brand-gold: #C4A265;
+  --brand-gray: #2d3748;
+  --dark-text: #1a202c;
+  --background-light: #F5F3F0;
+  
+  /* ReefQ brand colors */
+  --teal-primary: 23, 128, 134;  /* #178086 - Nile Teal */
+  --gold-accent: 196, 162, 101; /* #C4A265 - Pharaonic Gold */
+  
+  /* Complementary dark colors */
+  --dark-gray: 51, 51, 51;
+  --medium-gray: 102, 102, 102;
+  --light-gray: 245, 243, 240; /* #F5F3F0 - Light background */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    color: rgb(var(--foreground-rgb));
+    background: rgb(var(--background-rgb));
+  }
+  
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.2;
+  }
+  
+  h2 {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    line-height: 1.3;
+  }
+  
+  h3 {
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    line-height: 1.4;
+  }
+  
+  p {
+    font-size: clamp(1rem, 2vw, 1.125rem);
+    line-height: 1.6;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .container-fluid {
+    width: 100%;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    margin-right: auto;
+    margin-left: auto;
+    
+    @media (min-width: 640px) {
+      padding-right: 1.5rem;
+      padding-left: 1.5rem;
+    }
+    
+    @media (min-width: 1024px) {
+      padding-right: 2rem;
+      padding-left: 2rem;
+    }
+  }
+  
+  .btn {
+    @apply px-4 py-2 rounded-md transition-colors duration-200 font-medium;
+  }
+  
+  .btn-primary {
+    @apply bg-brand-teal text-white hover:bg-opacity-90;
+  }
+  
+  .btn-secondary {
+    @apply border border-brand-gold text-brand-gold hover:bg-brand-gold hover:text-white;
+  }
+  
+  .heading-xl {
+    @apply text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight;
+  }
+  
+  .heading-lg {
+    @apply text-3xl sm:text-4xl font-bold tracking-tight;
+  }
+  
+  .heading-md {
+    @apply text-2xl sm:text-3xl font-bold tracking-tight;
+  }
+  
+  .card {
+    @apply bg-white rounded-lg shadow-md overflow-hidden;
+  }
 }
+
+/* Brand Colors */
+.text-brand-teal {
+  color: var(--brand-teal);
+}
+
+.bg-brand-teal {
+  background-color: var(--brand-teal);
+}
+
+.text-brand-gold {
+  color: var(--brand-gold);
+}
+
+.bg-brand-gold {
+  background-color: var(--brand-gold);
+}
+
+.text-brand-gray {
+  color: var(--brand-gray);
+}
+
+.bg-brand-gray {
+  background-color: var(--brand-gray);
+}
+
+/* Custom Animations */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.6s ease-out forwards;
+}
+
+/* Responsive Images */
+.responsive-img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--brand-teal);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #006666;
+}
+
+/* Touch-friendly Interactive Elements */
+@media (max-width: 768px) {
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  button, 
+  .btn,
+  a.btn,
+  input[type="button"],
+  input[type="submit"] {
+    min-height: 44px;
+    padding: 0.625rem 1rem;
+  }
+  
+  select,
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"] {
+    min-height: 44px;
+    font-size: 16px; /* Prevents iOS zoom on focus */
+  }
+}
+
+/* Grid System */
+.grid-system {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(8, 1fr);
+  }
+  
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(12, 1fr);
+  }
+}
+
+/* RTL Language Support */
+html[dir="rtl"] .hero-content,
+html[dir="rtl"] .text-left,
+html[dir="rtl"] .md\:text-left {
+  text-align: right;
+}
+
+html[dir="rtl"] .text-right,
+html[dir="rtl"] .md\:text-right {
+  text-align: left;
+}
+
+html[dir="rtl"] .flex-row {
+  flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .md\:flex-row {
+  flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .ml-4 {
+  margin-left: 0;
+  margin-right: 1rem;
+}
+
+html[dir="rtl"] .mr-4 {
+  margin-right: 0;
+  margin-left: 1rem;
+}
+
+html[dir="rtl"] .pr-8 {
+  padding-right: 0;
+  padding-left: 2rem;
+}
+
+html[dir="rtl"] .pl-12 {
+  padding-left: 0;
+  padding-right: 3rem;
+}
+
+html[dir="rtl"] .pr-12 {
+  padding-right: 0;
+  padding-left: 3rem;
+}
+
+html[dir="rtl"] .right-0 {
+  right: auto;
+  left: 0;
+}
+
+html[dir="rtl"] .left-0 {
+  left: auto;
+  right: 0;
+}
+
+html[dir="rtl"] .left-1\/2 {
+  left: auto;
+  right: 50%;
+}
+
+html[dir="rtl"] .-translate-x-1\/2 {
+  --tw-translate-x: 50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+html[dir="rtl"] .space-x-8 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+}
+
+html[dir="rtl"] .md\:space-x-12 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+}
+
+/* Language-specific styles */
+.lang-ar {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+/* Language switcher dropdown arrow position fix for RTL */
+html[dir="rtl"] .language-switcher .pointer-events-none {
+  right: auto;
+  left: 0;
+}
+
+html[dir="rtl"] .language-switcher select {
+  padding-right: 0.75rem;
+  padding-left: 2rem;
+}
+
+/* Custom animations for RTL */
+@keyframes slide-in-rtl {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-ltr {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+html[dir="rtl"] .slide-in {
+  animation: slide-in-rtl 0.3s ease-out;
+}
+
+html[dir="ltr"] .slide-in {
+  animation: slide-in-ltr 0.3s ease-out;
+}
+
+/* RTL support */
+.rtl {
+  text-align: right;
+}
+
+.rtl .flex-row {
+  flex-direction: row-reverse;
+}
+
+.rtl .ml-auto {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.rtl .mr-auto {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+.rtl .ml-2 {
+  margin-left: 0;
+  margin-right: 0.5rem;
+}
+
+.rtl .mr-2 {
+  margin-right: 0;
+  margin-left: 0.5rem;
+}
+
+.rtl .ml-3 {
+  margin-left: 0;
+  margin-right: 0.75rem;
+}
+
+.rtl .mr-3 {
+  margin-right: 0;
+  margin-left: 0.75rem;
+}
+
+.rtl .ml-4 {
+  margin-left: 0;
+  margin-right: 1rem;
+}
+
+.rtl .mr-4 {
+  margin-right: 0;
+  margin-left: 1rem;
+}
+
+.rtl .space-x-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+}
+
+.rtl .space-x-6 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+}
+
+.rtl .space-x-8 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+}
+
+.rtl .pl-3 {
+  padding-left: 0;
+  padding-right: 0.75rem;
+}
+
+.rtl .pr-3 {
+  padding-right: 0;
+  padding-left: 0.75rem;
+}
+
+.rtl .pl-4 {
+  padding-left: 0;
+  padding-right: 1rem;
+}
+
+.rtl .pr-4 {
+  padding-right: 0;
+  padding-left: 1rem;
+}
+
+.rtl .right-0 {
+  right: auto;
+  left: 0;
+}
+
+.rtl .left-0 {
+  left: auto;
+  right: 0;
+}
+
+/* RTL Support - Enhanced */
+html[dir="rtl"] {
+  /* Reverse margins and paddings for RTL */
+  --tw-space-x-reverse: 1;
+}
+
+/* Order rules for RTL layout in header */
+html[dir="rtl"] .order-1 {
+  order: 1; /* Keep the order-1 for language switcher and mobile menu in RTL */
+}
+
+html[dir="rtl"] .order-2 {
+  order: 2; /* Keep nav in the middle */
+}
+
+html[dir="rtl"] .order-3 {
+  order: 3; /* Keep the logo at right in RTL */
+}
+
+/* Fix logo positioning in RTL */
+html[dir="rtl"] header .logo-container {
+  margin-left: 0;
+  margin-right: auto;
+  text-align: right;
+}
+
+/* Fix language switcher/CTA positioning in RTL */
+html[dir="rtl"] header .order-1 {
+  justify-content: flex-start;
+}
+
+/* Adjust navigation items for RTL */
+html[dir="rtl"] .desktop-nav {
+  justify-content: center;
+}
+
+/* Mobile menu button position in RTL */
+@media (max-width: 1023px) {
+  html[dir="rtl"] .order-1 {
+    justify-content: flex-start;
+  }
+  
+  html[dir="rtl"] .order-3 {
+    justify-content: flex-end;
+  }
+}
+
+/* Hide/show elements based on text direction */
+html[dir="rtl"] .ltr-only {
+  display: none !important;
+}
+
+html[dir="ltr"] .rtl-only {
+  display: none !important;
+}
+
+/* Main header fixes for RTL */
+html[dir="rtl"] header nav {
+  flex-direction: row-reverse;
+  width: 100%;
+}
+
+/* Fix navigation alignment in RTL */
+html[dir="rtl"] .desktop-nav {
+  justify-content: flex-end;
+}
+
+/* Fix text alignment for RTL */
+html[dir="rtl"] .text-left {
+  text-align: right;
+}
+
+html[dir="rtl"] .text-right {
+  text-align: left;
+}
+
+/* Fix flex direction for RTL */
+html[dir="rtl"] .flex-row {
+  flex-direction: row-reverse;
+}
+
+/* Fix margins for RTL */
+html[dir="rtl"] .mr-1, html[dir="rtl"] .mr-2, html[dir="rtl"] .mr-3, html[dir="rtl"] .mr-4 {
+  margin-right: 0 !important;
+}
+
+html[dir="rtl"] .ml-1, html[dir="rtl"] .ml-2, html[dir="rtl"] .ml-3, html[dir="rtl"] .ml-4 {
+  margin-left: 0 !important;
+}
+
+/* Mobile menu alignment for RTL */
+html[dir="rtl"] .mobile-menu {
+  right: auto;
+  left: 0;
+}
+
+/* Make header full width in all languages */
+header.full-width {
+  width: 100%;
+}
+
+/* RTL specific mobile adjustments */
+@media (max-width: 768px) {
+  html[dir="rtl"] .md\:flex-row {
+    flex-direction: row-reverse;
+  }
+  
+  html[dir="rtl"] .md\:justify-start {
+    justify-content: flex-end;
+  }
+  
+  html[dir="rtl"] .md\:justify-end {
+    justify-content: flex-start;
+  }
+  
+  html[dir="rtl"] .md\:items-start {
+    align-items: flex-end;
+  }
+  
+  html[dir="rtl"] .md\:items-end {
+    align-items: flex-start;
+  }
+}
+
+/* Card adjustments for RTL */
+html[dir="rtl"] .card-container {
+  flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .card-content {
+  text-align: right;
+}
+

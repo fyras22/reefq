@@ -1,0 +1,27 @@
+{
+  "common": {
+    "title": "ReefQ - 3D Jewelry Visualization & AR Try-On Platform",
+    "description": "Transform your jewelry business with stunning 3D visualization and AR try-on experiences.",
+    "button": {
+      "learn_more": "Learn More",
+      "get_started": "Get Started",
+      "try_now": "Try Now",
+      "sign_up": "Sign Up",
+      "sign_in": "Sign In",
+      "contact": "Contact Us"
+    },
+    "nav": {
+      "home": "Home",
+      "features": "Features",
+      "pricing": "Pricing",
+      "dashboard": "Dashboard",
+      "about": "About",
+      "contact": "Contact"
+    }
+  },
+  "language": {
+    "english": "English",
+    "french": "French",
+    "arabic": "Arabic"
+  }
+} 

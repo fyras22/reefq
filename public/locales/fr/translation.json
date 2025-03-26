@@ -1,0 +1,27 @@
+{
+  "common": {
+    "title": "ReefQ - Plateforme de Visualisation 3D et d'Essai en RA de Bijoux",
+    "description": "Transformez votre entreprise de bijoux avec une visualisation 3D impressionnante et des expériences d'essai en RA.",
+    "button": {
+      "learn_more": "En Savoir Plus",
+      "get_started": "Commencer",
+      "try_now": "Essayer Maintenant",
+      "sign_up": "S'inscrire",
+      "sign_in": "Se Connecter",
+      "contact": "Contactez-nous"
+    },
+    "nav": {
+      "home": "Accueil",
+      "features": "Fonctionnalités",
+      "pricing": "Tarifs",
+      "dashboard": "Tableau de Bord",
+      "about": "À Propos",
+      "contact": "Contact"
+    }
+  },
+  "language": {
+    "english": "Anglais",
+    "french": "Français",
+    "arabic": "Arabe"
+  }
+} 

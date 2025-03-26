@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+
+<!--[if IE 7]>
+<html id="ie7" lang="en-US">
+<![endif]-->
+<!--[if IE 8]>
+<html id="ie8" lang="en-US">
+<![endif]-->
+
+<!--[if !(IE 6) | !(IE 7) | !(IE 8)  ]><!-->
+<html lang="en-US">
+<!--<![endif]-->
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="initial-scale=1.0, width=device-width" />
+	<title>Page not found | 3D TEXTURES	</title>
+
+	<link rel="profile" href="http://gmpg.org/xfn/11" />
+	<link rel="pingback" href="https://3dtextures.me/xmlrpc.php" />
+
+	<!--[if lt IE 9]>
+	<script src="https://3dtextures.me/wp-content/themes/gridspace/inc/js/html5.js" type="text/javascript"></script>
+	<![endif]-->
+
+	<script type="text/javascript">
+  WebFontConfig = {"google":{"families":["PT+Sans:r,i,b,bi:latin,latin-ext"]},"api_url":"https:\/\/fonts-api.wp.com\/css"};
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = 'https://3dtextures.me/wp-content/mu-plugins/wpcomsh/vendor/automattic/custom-fonts/js/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+	})();
+</script><style id="jetpack-custom-fonts-css">.wf-active caption, .wf-active cite, .wf-active dfn, .wf-active th, .wf-active var{font-family:"PT Sans",sans-serif}.wf-active body{font-family:"PT Sans",sans-serif}.wf-active .says, .wf-active cite, .wf-active em, .wf-active i, .wf-active q{font-family:"PT Sans",sans-serif}.wf-active #access ul ul, .wf-active #access ul ul ul, .wf-active .widget .menu ul, .wf-active .widget .menu ul ul{font-family:"PT Sans",sans-serif}</style>
+	<style type="text/css">
+		.infinite-scroll #page #infinite-handle span {
+			background-color: #d8c2b1;
+			border-color: #cbb6a6;
+			color: #6d5f54;
+		}
+		.infinite-scroll #page #infinite-handle span::before {
+			color: #6d5f54;
+		}
+		.infinite-scroll #page #infinite-handle span:hover {
+			color: #60534a;
+			background-color: #cbb6a6;
+		}
+		#page #infinite-footer .container {
+			background-color: rgb( 245, 240, 236 );
+			background-color: rgba( 245, 240, 236, .7 );
+			border-color: rgb( 228, 215, 199 );
+		}
+		#infinite-footer .blog-credits {
+			color: #a89e93;
+		}
+		#page #infinite-footer .blog-credits a,
+		#page #infinite-footer .blog-info a,
+		#page #infinite-footer .blog-credits a:hover,
+		#page #infinite-footer .blog-info a:hover {
+			color: #898178;
+		}
+	</style>
+<meta name='robots' content='max-image-preview:large' />
+	<style>img:is([sizes="auto" i], [sizes^="auto," i]) { contain-intrinsic-size: 3000px 1500px }</style>
+	<!-- Jetpack Site Verification Tags -->
+<meta name="google-site-verification" content="x9Ea19CkGhXmObObmtZZE7-gDxJ5TNZiA7DQ63h_lQ4" />
+<link rel='dns-prefetch' href='//secure.gravatar.com' />
+<link rel='dns-prefetch' href='//www.googletagmanager.com' />
+<link rel='dns-prefetch' href='//stats.wp.com' />
+<link rel='dns-prefetch' href='//fonts-api.wp.com' />
+<link rel='dns-prefetch' href='//widgets.wp.com' />
+<link rel='dns-prefetch' href='//s0.wp.com' />
+<link rel='dns-prefetch' href='//0.gravatar.com' />
+<link rel='dns-prefetch' href='//1.gravatar.com' />
+<link rel='dns-prefetch' href='//2.gravatar.com' />
+<link rel='dns-prefetch' href='//jetpack.wordpress.com' />
+<link rel='dns-prefetch' href='//public-api.wordpress.com' />
+<link rel='preconnect' href='//i0.wp.com' />
+<link rel='preconnect' href='//c0.wp.com' />
+<link rel="alternate" type="application/rss+xml" title="3D TEXTURES &raquo; Feed" href="https://3dtextures.me/feed/" />
+<link rel="alternate" type="application/rss+xml" title="3D TEXTURES &raquo; Comments Feed" href="https://3dtextures.me/comments/feed/" />
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/3dtextures.me\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.7.2"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83d\udc26\u200d\u2b1b","\ud83d\udc26\u200b\u2b1b")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+<link rel='stylesheet' id='all-css-5af6fc90e4ce24089eceb89f3b165d27' href='https://3dtextures.me/_jb_static/??55399006be' type='text/css' media='all' />
+<style id='wp-block-library-inline-css'>
+.has-text-align-justify{text-align:justify;}
+</style>
+<style id='wp-emoji-styles-inline-css'>
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+</style>
+<style id='jetpack-sharing-buttons-style-inline-css'>
+.jetpack-sharing-buttons__services-list{display:flex;flex-direction:row;flex-wrap:wrap;gap:0;list-style-type:none;margin:5px;padding:0}.jetpack-sharing-buttons__services-list.has-small-icon-size{font-size:12px}.jetpack-sharing-buttons__services-list.has-normal-icon-size{font-size:16px}.jetpack-sharing-buttons__services-list.has-large-icon-size{font-size:24px}.jetpack-sharing-buttons__services-list.has-huge-icon-size{font-size:36px}@media print{.jetpack-sharing-buttons__services-list{display:none!important}}.editor-styles-wrapper .wp-block-jetpack-sharing-buttons{gap:0;padding-inline-start:0}ul.jetpack-sharing-buttons__services-list.has-background{padding:1.25em 2.375em}
+</style>
+<style id='classic-theme-styles-inline-css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+</style>
+<style id='global-styles-inline-css'>
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--font-family--albert-sans: 'Albert Sans', sans-serif;--wp--preset--font-family--alegreya: Alegreya, serif;--wp--preset--font-family--arvo: Arvo, serif;--wp--preset--font-family--bodoni-moda: 'Bodoni Moda', serif;--wp--preset--font-family--bricolage-grotesque: 'Bricolage Grotesque', sans-serif;--wp--preset--font-family--cabin: Cabin, sans-serif;--wp--preset--font-family--chivo: Chivo, sans-serif;--wp--preset--font-family--commissioner: Commissioner, sans-serif;--wp--preset--font-family--cormorant: Cormorant, serif;--wp--preset--font-family--courier-prime: 'Courier Prime', monospace;--wp--preset--font-family--crimson-pro: 'Crimson Pro', serif;--wp--preset--font-family--dm-mono: 'DM Mono', monospace;--wp--preset--font-family--dm-sans: 'DM Sans', sans-serif;--wp--preset--font-family--dm-serif-display: 'DM Serif Display', serif;--wp--preset--font-family--domine: Domine, serif;--wp--preset--font-family--eb-garamond: 'EB Garamond', serif;--wp--preset--font-family--epilogue: Epilogue, sans-serif;--wp--preset--font-family--fahkwang: Fahkwang, sans-serif;--wp--preset--font-family--figtree: Figtree, sans-serif;--wp--preset--font-family--fira-sans: 'Fira Sans', sans-serif;--wp--preset--font-family--fjalla-one: 'Fjalla One', sans-serif;--wp--preset--font-family--fraunces: Fraunces, serif;--wp--preset--font-family--gabarito: Gabarito, system-ui;--wp--preset--font-family--ibm-plex-mono: 'IBM Plex Mono', monospace;--wp--preset--font-family--ibm-plex-sans: 'IBM Plex Sans', sans-serif;--wp--preset--font-family--ibarra-real-nova: 'Ibarra Real Nova', serif;--wp--preset--font-family--instrument-serif: 'Instrument Serif', serif;--wp--preset--font-family--inter: Inter, sans-serif;--wp--preset--font-family--josefin-sans: 'Josefin Sans', sans-serif;--wp--preset--font-family--jost: Jost, sans-serif;--wp--preset--font-family--libre-baskerville: 'Libre Baskerville', serif;--wp--preset--font-family--libre-franklin: 'Libre Franklin', sans-serif;--wp--preset--font-family--literata: Literata, serif;--wp--preset--font-family--lora: Lora, serif;--wp--preset--font-family--merriweather: Merriweather, serif;--wp--preset--font-family--montserrat: Montserrat, sans-serif;--wp--preset--font-family--newsreader: Newsreader, serif;--wp--preset--font-family--noto-sans-mono: 'Noto Sans Mono', sans-serif;--wp--preset--font-family--nunito: Nunito, sans-serif;--wp--preset--font-family--open-sans: 'Open Sans', sans-serif;--wp--preset--font-family--overpass: Overpass, sans-serif;--wp--preset--font-family--pt-serif: 'PT Serif', serif;--wp--preset--font-family--petrona: Petrona, serif;--wp--preset--font-family--piazzolla: Piazzolla, serif;--wp--preset--font-family--playfair-display: 'Playfair Display', serif;--wp--preset--font-family--plus-jakarta-sans: 'Plus Jakarta Sans', sans-serif;--wp--preset--font-family--poppins: Poppins, sans-serif;--wp--preset--font-family--raleway: Raleway, sans-serif;--wp--preset--font-family--roboto: Roboto, sans-serif;--wp--preset--font-family--roboto-slab: 'Roboto Slab', serif;--wp--preset--font-family--rubik: Rubik, sans-serif;--wp--preset--font-family--rufina: Rufina, serif;--wp--preset--font-family--sora: Sora, sans-serif;--wp--preset--font-family--source-sans-3: 'Source Sans 3', sans-serif;--wp--preset--font-family--source-serif-4: 'Source Serif 4', serif;--wp--preset--font-family--space-mono: 'Space Mono', monospace;--wp--preset--font-family--syne: Syne, sans-serif;--wp--preset--font-family--texturina: Texturina, serif;--wp--preset--font-family--urbanist: Urbanist, sans-serif;--wp--preset--font-family--work-sans: 'Work Sans', sans-serif;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}.has-albert-sans-font-family{font-family: var(--wp--preset--font-family--albert-sans) !important;}.has-alegreya-font-family{font-family: var(--wp--preset--font-family--alegreya) !important;}.has-arvo-font-family{font-family: var(--wp--preset--font-family--arvo) !important;}.has-bodoni-moda-font-family{font-family: var(--wp--preset--font-family--bodoni-moda) !important;}.has-bricolage-grotesque-font-family{font-family: var(--wp--preset--font-family--bricolage-grotesque) !important;}.has-cabin-font-family{font-family: var(--wp--preset--font-family--cabin) !important;}.has-chivo-font-family{font-family: var(--wp--preset--font-family--chivo) !important;}.has-commissioner-font-family{font-family: var(--wp--preset--font-family--commissioner) !important;}.has-cormorant-font-family{font-family: var(--wp--preset--font-family--cormorant) !important;}.has-courier-prime-font-family{font-family: var(--wp--preset--font-family--courier-prime) !important;}.has-crimson-pro-font-family{font-family: var(--wp--preset--font-family--crimson-pro) !important;}.has-dm-mono-font-family{font-family: var(--wp--preset--font-family--dm-mono) !important;}.has-dm-sans-font-family{font-family: var(--wp--preset--font-family--dm-sans) !important;}.has-dm-serif-display-font-family{font-family: var(--wp--preset--font-family--dm-serif-display) !important;}.has-domine-font-family{font-family: var(--wp--preset--font-family--domine) !important;}.has-eb-garamond-font-family{font-family: var(--wp--preset--font-family--eb-garamond) !important;}.has-epilogue-font-family{font-family: var(--wp--preset--font-family--epilogue) !important;}.has-fahkwang-font-family{font-family: var(--wp--preset--font-family--fahkwang) !important;}.has-figtree-font-family{font-family: var(--wp--preset--font-family--figtree) !important;}.has-fira-sans-font-family{font-family: var(--wp--preset--font-family--fira-sans) !important;}.has-fjalla-one-font-family{font-family: var(--wp--preset--font-family--fjalla-one) !important;}.has-fraunces-font-family{font-family: var(--wp--preset--font-family--fraunces) !important;}.has-gabarito-font-family{font-family: var(--wp--preset--font-family--gabarito) !important;}.has-ibm-plex-mono-font-family{font-family: var(--wp--preset--font-family--ibm-plex-mono) !important;}.has-ibm-plex-sans-font-family{font-family: var(--wp--preset--font-family--ibm-plex-sans) !important;}.has-ibarra-real-nova-font-family{font-family: var(--wp--preset--font-family--ibarra-real-nova) !important;}.has-instrument-serif-font-family{font-family: var(--wp--preset--font-family--instrument-serif) !important;}.has-inter-font-family{font-family: var(--wp--preset--font-family--inter) !important;}.has-josefin-sans-font-family{font-family: var(--wp--preset--font-family--josefin-sans) !important;}.has-jost-font-family{font-family: var(--wp--preset--font-family--jost) !important;}.has-libre-baskerville-font-family{font-family: var(--wp--preset--font-family--libre-baskerville) !important;}.has-libre-franklin-font-family{font-family: var(--wp--preset--font-family--libre-franklin) !important;}.has-literata-font-family{font-family: var(--wp--preset--font-family--literata) !important;}.has-lora-font-family{font-family: var(--wp--preset--font-family--lora) !important;}.has-merriweather-font-family{font-family: var(--wp--preset--font-family--merriweather) !important;}.has-montserrat-font-family{font-family: var(--wp--preset--font-family--montserrat) !important;}.has-newsreader-font-family{font-family: var(--wp--preset--font-family--newsreader) !important;}.has-noto-sans-mono-font-family{font-family: var(--wp--preset--font-family--noto-sans-mono) !important;}.has-nunito-font-family{font-family: var(--wp--preset--font-family--nunito) !important;}.has-open-sans-font-family{font-family: var(--wp--preset--font-family--open-sans) !important;}.has-overpass-font-family{font-family: var(--wp--preset--font-family--overpass) !important;}.has-pt-serif-font-family{font-family: var(--wp--preset--font-family--pt-serif) !important;}.has-petrona-font-family{font-family: var(--wp--preset--font-family--petrona) !important;}.has-piazzolla-font-family{font-family: var(--wp--preset--font-family--piazzolla) !important;}.has-playfair-display-font-family{font-family: var(--wp--preset--font-family--playfair-display) !important;}.has-plus-jakarta-sans-font-family{font-family: var(--wp--preset--font-family--plus-jakarta-sans) !important;}.has-poppins-font-family{font-family: var(--wp--preset--font-family--poppins) !important;}.has-raleway-font-family{font-family: var(--wp--preset--font-family--raleway) !important;}.has-roboto-font-family{font-family: var(--wp--preset--font-family--roboto) !important;}.has-roboto-slab-font-family{font-family: var(--wp--preset--font-family--roboto-slab) !important;}.has-rubik-font-family{font-family: var(--wp--preset--font-family--rubik) !important;}.has-rufina-font-family{font-family: var(--wp--preset--font-family--rufina) !important;}.has-sora-font-family{font-family: var(--wp--preset--font-family--sora) !important;}.has-source-sans-3-font-family{font-family: var(--wp--preset--font-family--source-sans-3) !important;}.has-source-serif-4-font-family{font-family: var(--wp--preset--font-family--source-serif-4) !important;}.has-space-mono-font-family{font-family: var(--wp--preset--font-family--space-mono) !important;}.has-syne-font-family{font-family: var(--wp--preset--font-family--syne) !important;}.has-texturina-font-family{font-family: var(--wp--preset--font-family--texturina) !important;}.has-urbanist-font-family{font-family: var(--wp--preset--font-family--urbanist) !important;}.has-work-sans-font-family{font-family: var(--wp--preset--font-family--work-sans) !important;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel='stylesheet' id='dashicons-css' href='https://3dtextures.me/wp-includes/css/dashicons.min.css?ver=6.7.2' media='all' />
+<link rel='stylesheet' id='gridspace-oswald-css' href='https://fonts-api.wp.com/css?family=Oswald%3A400%2C300%2C700&#038;ver=6.7.2' media='all' />
+<link rel='stylesheet' id='gridspace-lora-css' href='https://fonts-api.wp.com/css?family=Lora%3A400%2C700%2C400italic&#038;ver=6.7.2' media='all' />
+<style id='akismet-widget-style-inline-css'>
+
+			.a-stats {
+				--akismet-color-mid-green: #357b49;
+				--akismet-color-white: #fff;
+				--akismet-color-light-grey: #f6f7f7;
+
+				max-width: 350px;
+				width: auto;
+			}
+
+			.a-stats * {
+				all: unset;
+				box-sizing: border-box;
+			}
+
+			.a-stats strong {
+				font-weight: 600;
+			}
+
+			.a-stats a.a-stats__link,
+			.a-stats a.a-stats__link:visited,
+			.a-stats a.a-stats__link:active {
+				background: var(--akismet-color-mid-green);
+				border: none;
+				box-shadow: none;
+				border-radius: 8px;
+				color: var(--akismet-color-white);
+				cursor: pointer;
+				display: block;
+				font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen-Sans', 'Ubuntu', 'Cantarell', 'Helvetica Neue', sans-serif;
+				font-weight: 500;
+				padding: 12px;
+				text-align: center;
+				text-decoration: none;
+				transition: all 0.2s ease;
+			}
+
+			/* Extra specificity to deal with TwentyTwentyOne focus style */
+			.widget .a-stats a.a-stats__link:focus {
+				background: var(--akismet-color-mid-green);
+				color: var(--akismet-color-white);
+				text-decoration: none;
+			}
+
+			.a-stats a.a-stats__link:hover {
+				filter: brightness(110%);
+				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06), 0 0 2px rgba(0, 0, 0, 0.16);
+			}
+
+			.a-stats .count {
+				color: var(--akismet-color-white);
+				display: block;
+				font-size: 1.5em;
+				line-height: 1.4;
+				padding: 0 13px;
+				white-space: nowrap;
+			}
+		
+</style>
+<style id='jetpack-global-styles-frontend-style-inline-css'>
+:root { --font-headings: unset; --font-base: unset; --font-headings-default: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif; --font-base-default: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;}
+</style>
+<script type="text/javascript" id="jetpack-mu-wpcom-settings-js-before">
+/* <![CDATA[ */
+var JETPACK_MU_WPCOM_SETTINGS = {"assetsUrl":"https:\/\/3dtextures.me\/wp-content\/mu-plugins\/wpcomsh\/jetpack_vendor\/automattic\/jetpack-mu-wpcom\/src\/build\/"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://3dtextures.me/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
+<script type="text/javascript" src="https://3dtextures.me/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js"></script>
+<script type="text/javascript" src="https://3dtextures.me/wp-content/plugins/ad-blocking-advisor/js/ad-blocking-advisor.js?ver=6.7.2" id="aba_script-js"></script>
+<script type="text/javascript" id="gridspace_scripts-js-extra">
+/* <![CDATA[ */
+var gpp = {"ajaxurl":"https:\/\/3dtextures.me\/wp-admin\/admin-ajax.php","ajaxnonce":"e624fbb2ea"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://3dtextures.me/wp-content/themes/gridspace/inc/js/scripts.js?ver=1.0" id="gridspace_scripts-js"></script>
+<script type="text/javascript" src="https://3dtextures.me/wp-content/themes/gridspace/inc/js/jquery.cookie.js?ver=1.0.0" id="jcookie-js"></script>
+
+<!-- Google tag (gtag.js) snippet added by Site Kit -->
+
+<!-- Google Analytics snippet added by Site Kit -->
+<script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=GT-K5QBJZP" id="google_gtagjs-js" async></script>
+<script type="text/javascript" id="google_gtagjs-js-after">
+/* <![CDATA[ */
+window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}
+gtag("set","linker",{"domains":["3dtextures.me"]});
+gtag("js", new Date());
+gtag("set", "developer_id.dZTNiMT", true);
+gtag("config", "GT-K5QBJZP");
+ window._googlesitekit = window._googlesitekit || {}; window._googlesitekit.throttledEvents = []; window._googlesitekit.gtagEvent = (name, data) => { var key = JSON.stringify( { name, data } ); if ( !! window._googlesitekit.throttledEvents[ key ] ) { return; } window._googlesitekit.throttledEvents[ key ] = true; setTimeout( () => { delete window._googlesitekit.throttledEvents[ key ]; }, 5 ); gtag( "event", name, { ...data, event_source: "site-kit" } ); } 
+/* ]]> */
+</script>
+
+<!-- End Google tag (gtag.js) snippet added by Site Kit -->
+<link rel="https://api.w.org/" href="https://3dtextures.me/wp-json/" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://3dtextures.me/xmlrpc.php?rsd" />
+
+<meta name="generator" content="Site Kit by Google 1.148.0" /><style>:root {
+			--lazy-loader-animation-duration: 300ms;
+		}
+		  
+		.lazyload {
+	display: block;
+}
+
+.lazyload,
+        .lazyloading {
+			opacity: 0;
+		}
+
+
+		.lazyloaded {
+			opacity: 1;
+			transition: opacity 300ms;
+			transition: opacity var(--lazy-loader-animation-duration);
+		}</style><noscript><style>.lazyload { display: none; } .lazyload[class*="lazy-loader-background-element-"] { display: block; opacity: 1; }</style></noscript>	<style>img#wpstats{display:none}</style>
+		<script type="text/javascript"> var gridspace_layout = "grid";</script>
+<!-- Google AdSense meta tags added by Site Kit -->
+<meta name="google-adsense-platform-account" content="ca-host-pub-2644536267352236">
+<meta name="google-adsense-platform-domain" content="sitekit.withgoogle.com">
+<!-- End Google AdSense meta tags added by Site Kit -->
+				<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+				<link rel="preload" as="style" href="//fonts.googleapis.com/css?family=Open+Sans&display=swap" />
+				<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans&display=swap" media="all" />
+				<meta name="description" content="Free seamless PBR textures with diffuse, normal, height, AO and roughness maps." />
+	<style type="text/css">
+			#site-title a,
+		#site-description {
+			color: #111111 !important;
+		}
+		</style>
+	<style type="text/css" id="custom-background-css">
+body.custom-background { background-color: #000000; }
+</style>
+	<!-- There is no amphtml version available for this URL. -->			            <style>
+				            
+					div[id*='ajaxsearchlitesettings'].searchsettings .asl_option_inner label {
+						font-size: 0px !important;
+						color: rgba(0, 0, 0, 0);
+					}
+					div[id*='ajaxsearchlitesettings'].searchsettings .asl_option_inner label:after {
+						font-size: 11px !important;
+						position: absolute;
+						top: 0;
+						left: 0;
+						z-index: 1;
+					}
+					.asl_w_container {
+						width: 100%;
+						margin: 0px 0px 0px 0px;
+						min-width: 200px;
+					}
+					div[id*='ajaxsearchlite'].asl_m {
+						width: 100%;
+					}
+					div[id*='ajaxsearchliteres'].wpdreams_asl_results div.resdrg span.highlighted {
+						font-weight: bold;
+						color: rgba(217, 49, 43, 1);
+						background-color: rgba(238, 238, 238, 1);
+					}
+					div[id*='ajaxsearchliteres'].wpdreams_asl_results .results img.asl_image {
+						width: 70px;
+						height: 70px;
+						object-fit: cover;
+					}
+					div.asl_r .results {
+						max-height: none;
+					}
+				
+						div.asl_r.asl_w.vertical .results .item::after {
+							display: block;
+							position: absolute;
+							bottom: 0;
+							content: '';
+							height: 1px;
+							width: 100%;
+							background: #D8D8D8;
+						}
+						div.asl_r.asl_w.vertical .results .item.asl_last_item::after {
+							display: none;
+						}
+								            </style>
+			            <!-- TradeDoubler site verification 3217710 --><style type="text/css" id="custom-colors-css">body{background-color:#000}#site-title,#site-title a{color:#292c37}a{color:#6d6d6d}.grid .entry-content a{color:#fff}a:visited{color:#6d6d6d}.entry-content a,.comment-content a{color:#6d6d6d}h1.widget-title,h3.widget-title{color:#6d6d6d}.list .portfolio .entry-content .entry-header a{color:#6d6d6d}.grid .portfolio .entry-content .entry-title a{color:#fff}h1,h2,h3,h4,h5,h6{color:#6d6d6d}h1.page-title,h1.entry-title{color:#6d6d6d}h1.page-title,h1.entry-title{border-color:#6d6d6d}</style>
+<link rel="icon" href="https://i0.wp.com/3dtextures.me/wp-content/uploads/2019/01/3dtextures.png?fit=32%2C32&#038;ssl=1" sizes="32x32" />
+<link rel="icon" href="https://i0.wp.com/3dtextures.me/wp-content/uploads/2019/01/3dtextures.png?fit=192%2C192&#038;ssl=1" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://i0.wp.com/3dtextures.me/wp-content/uploads/2019/01/3dtextures.png?fit=180%2C180&#038;ssl=1" />
+<meta name="msapplication-TileImage" content="https://i0.wp.com/3dtextures.me/wp-content/uploads/2019/01/3dtextures.png?fit=270%2C270&#038;ssl=1" />
+<style type="text/css" id="wp-custom-css">/*--- Adding space to iStock images from API / 1885033-zd caimin ---*/
+
+#phpeverywherewidget-3 a {
+    padding: 10px; 
+}</style><!-- Jetpack Google Analytics -->
+			<script type='text/javascript'>
+				var _gaq = _gaq || [];
+				_gaq.push(['_setAccount', 'UA-26980416-4']);
+_gaq.push(['_trackEvent', '404', document.location.href, document.referrer]);
+_gaq.push(['_trackPageview']);
+				(function() {
+					var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+					ga.src = ('https:' === document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+					var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+				})();
+			</script>
+			<!-- End Jetpack Google Analytics -->
+
+</head>
+
+<body lang="en" class="error404 custom-background  single-author vertical has-top-menu custom-colors">
+<script type="text/javascript"> var infolinks_pid = 3401032; var infolinks_wsid = 0; </script> <script type="text/javascript" src="//resources.infolinks.com/js/infolinks_main.js"></script>
+
+	
+	<div id="page" class="clearfix hfeed">
+	<ul id="menu-social-links" class="menu-top-menu social clearfix"><li id="menu-item-9" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-9"><a href="https://twitter.com/ErenKatsukagi">Twitter</a></li>
+<li id="menu-item-10" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-10"><a href="https://www.facebook.com/s.maiusculo.design/">Facebook</a></li>
+<li id="menu-item-3939" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3939"><a href="https://www.instagram.com/3dtextures.me/">Instagram</a></li>
+<li id="menu-item-3940" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3940"><a href="https://www.artstation.com/gendosplace">ArtStation</a></li>
+<li id="menu-item-4025" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4025"><a href="https://ko-fi.com/N4N259VG">Ko-Fi</a></li>
+<li id="menu-item-4026" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4026"><a href="https://www.patreon.com/gendo">Patreon</a></li>
+<li id="menu-item-5194" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5194"><a href="https://www.youtube.com/channel/UCMuYqN1ZQ_Nx1eYM2jpNU6w">YouTube</a></li>
+</ul>
+	
+	    
+		<header id="branding" role="banner">
+
+	        
+			<hgroup>
+							    <h1 id="site-title">
+			    	<a href="https://3dtextures.me/" title="3D TEXTURES" rel="home">
+			    		3D TEXTURES			    	</a>
+			   	</h1>
+				<h2 id="site-description">Free PBR textures and Stylized textures with Color, Normal, Displacement, Occlusion and Roughness Maps.</h2>
+			</hgroup>
+
+			<nav id="access" role="navigation">
+	            <h1 class="assistive-text">Main menu</h1>
+	            <div class="skip-link screen-reader-text"><a href="#content" title="Skip to content">Skip to content</a></div>
+			    		        	<div class="menu-primary-container"><ul id="menu-primary" class="menu clearfix"><li id="menu-item-6" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-6"><a href="/">Home</a></li>
+<li id="menu-item-11339" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11339"><a href="https://3dtextures.me/2017/12/02/news-and-updates/"><b><i>Interactive Material Library &#8211; Easier Way to Access the 1300+ Textures</b></i></a></li>
+<li id="menu-item-10382" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10382"><a href="https://3dtextures.me/unlock-high-quality-pbr-and-stylized-textures-for-free/">Unlock High-Quality PBR and Stylized Textures for Free</a></li>
+<li id="menu-item-7" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7"><a href="https://3dtextures.me/about/">F.A.Q./Textures License</a></li>
+<li id="menu-item-5149" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5149"><a href="https://3dtextures.me/what-are-sbs-sbsar-files/">What are SBS/SBSAR files?</a></li>
+<li id="menu-item-5192" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5192"><a href="https://www.youtube.com/channel/UCMuYqN1ZQ_Nx1eYM2jpNU6w">Tutorials and Videos</a></li>
+<li id="menu-item-8" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-privacy-policy menu-item-8"><a rel="privacy-policy" href="https://3dtextures.me/contact/">Contact</a></li>
+<li id="menu-item-8513" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-8513"><a href="https://gendosplace.gumroad.com/l/100scifitextures">100 Sci-fi PBR 4K Textures Pack</a></li>
+<li id="menu-item-500" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-500"><a href="https://3dtextures.me/texture-pack-vol-1/">Texture Pack – Vol. 1</a></li>
+<li id="menu-item-2933" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2933"><a href="https://discord.gg/ms6KVMD">Discord Channel</a></li>
+<li id="menu-item-2979" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2979"><a href="https://www.reddit.com/r/3D_Textures/">SubReddit</a></li>
+<li id="menu-item-6723" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-6723"><a href="https://creativetrio.art"><b><i>Free 3D Models @ CreativeTrio</a></li>
+<li id="menu-item-10943" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-10943"><a href="https://makerworld.com/en/@Katsukagi"><b><i>Free 3D Print models @ Makerworld</a></li>
+</ul></div>		        	        </nav><!-- #access -->
+
+		</header><!-- #branding -->
+
+	
+	<section id="primary">
+		<article id="post-0" class="post error404 not-found">
+
+			<header class="entry-header">
+				<h1 class="entry-title">Well this is somewhat embarrassing, isn&rsquo;t it?</h1>
+			</header>
+
+			<div class="entry-content">
+				<p>It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching, or one of the links below, can help.</p>
+				<style>
+	.belowsearch { margin-top: 20px; }
+	#secondary .belowsearch { display: none; }
+	.texture_search_image { padding: 2px; }
+	</style><form role="search" method="get" id="searchform" class="searchform" action="https://3dtextures.me/">
+				<div>
+					<label class="screen-reader-text" for="s">Search for:</label>
+					<input type="text" value="" name="s" id="s" />
+					<input type="submit" id="searchsubmit" value="Search" />
+				</div>
+			</form>				
+		<div class="widget widget_recent_entries">
+		<h2 class="widgettitle">Recent Posts</h2>
+		<ul>
+											<li>
+					<a href="https://3dtextures.me/2025/03/18/sci-fi-wall-016/">Sci-Fi Wall 016</a>
+									</li>
+											<li>
+					<a href="https://3dtextures.me/2025/03/18/metal-radiator-001/">Metal Radiator 001</a>
+									</li>
+											<li>
+					<a href="https://3dtextures.me/2025/03/18/fabric-embroidery-001/">Fabric Embroidery 001</a>
+									</li>
+											<li>
+					<a href="https://3dtextures.me/2025/03/18/concrete-wall-013/">Concrete Wall 013</a>
+									</li>
+											<li>
+					<a href="https://3dtextures.me/2025/03/18/tiles-ceramic-001/">Tiles Ceramic 001</a>
+									</li>
+					</ul>
+
+		</div>				<div class="widget">
+					<h2 class="widgettitle">Most Used Categories</h2>
+					<ul>
+							<li class="cat-item cat-item-118922322"><a href="https://3dtextures.me/tag/substance-designer/">Substance Designer</a> (10)
+</li>
+	<li class="cat-item cat-item-1393"><a href="https://3dtextures.me/tag/metal/">Metal</a> (330)
+</li>
+	<li class="cat-item cat-item-114044"><a href="https://3dtextures.me/tag/fabric/">Fabric</a> (186)
+</li>
+	<li class="cat-item cat-item-7244"><a href="https://3dtextures.me/tag/rocks/">Rocks</a> (41)
+</li>
+	<li class="cat-item cat-item-38180"><a href="https://3dtextures.me/tag/wood/">Wood</a> (158)
+</li>
+	<li class="cat-item cat-item-1733"><a href="https://3dtextures.me/tag/sci-fi/">Sci-fi</a> (120)
+</li>
+	<li class="cat-item cat-item-157460"><a href="https://3dtextures.me/tag/tiles/">Tiles</a> (145)
+</li>
+	<li class="cat-item cat-item-29947"><a href="https://3dtextures.me/tag/wall/">Wall</a> (177)
+</li>
+	<li class="cat-item cat-item-292853"><a href="https://3dtextures.me/tag/floor/">Floor</a> (125)
+</li>
+	<li class="cat-item cat-item-447639"><a href="https://3dtextures.me/tag/ground/">ground</a> (118)
+</li>
+					</ul>
+				</div>
+				<div class="widget widget_archive"><h2 class="widgettitle">Archives</h2><p>Try looking in the monthly archives. 🙂</p>		<label class="screen-reader-text" for="archives-dropdown--1">Archives</label>
+		<select id="archives-dropdown--1" name="archive-dropdown">
+			
+			<option value="">Select Month</option>
+				<option value='https://3dtextures.me/2025/03/'> March 2025 </option>
+	<option value='https://3dtextures.me/2025/02/'> February 2025 </option>
+	<option value='https://3dtextures.me/2025/01/'> January 2025 </option>
+	<option value='https://3dtextures.me/2024/12/'> December 2024 </option>
+	<option value='https://3dtextures.me/2024/11/'> November 2024 </option>
+	<option value='https://3dtextures.me/2024/10/'> October 2024 </option>
+	<option value='https://3dtextures.me/2024/09/'> September 2024 </option>
+	<option value='https://3dtextures.me/2024/08/'> August 2024 </option>
+	<option value='https://3dtextures.me/2024/07/'> July 2024 </option>
+	<option value='https://3dtextures.me/2024/06/'> June 2024 </option>
+	<option value='https://3dtextures.me/2024/05/'> May 2024 </option>
+	<option value='https://3dtextures.me/2022/09/'> September 2022 </option>
+	<option value='https://3dtextures.me/2022/06/'> June 2022 </option>
+	<option value='https://3dtextures.me/2022/05/'> May 2022 </option>
+	<option value='https://3dtextures.me/2022/04/'> April 2022 </option>
+	<option value='https://3dtextures.me/2022/03/'> March 2022 </option>
+	<option value='https://3dtextures.me/2022/02/'> February 2022 </option>
+	<option value='https://3dtextures.me/2022/01/'> January 2022 </option>
+	<option value='https://3dtextures.me/2021/12/'> December 2021 </option>
+	<option value='https://3dtextures.me/2021/11/'> November 2021 </option>
+	<option value='https://3dtextures.me/2021/10/'> October 2021 </option>
+	<option value='https://3dtextures.me/2021/09/'> September 2021 </option>
+	<option value='https://3dtextures.me/2021/08/'> August 2021 </option>
+	<option value='https://3dtextures.me/2021/07/'> July 2021 </option>
+	<option value='https://3dtextures.me/2021/06/'> June 2021 </option>
+	<option value='https://3dtextures.me/2021/05/'> May 2021 </option>
+	<option value='https://3dtextures.me/2021/04/'> April 2021 </option>
+	<option value='https://3dtextures.me/2021/03/'> March 2021 </option>
+	<option value='https://3dtextures.me/2021/02/'> February 2021 </option>
+	<option value='https://3dtextures.me/2021/01/'> January 2021 </option>
+	<option value='https://3dtextures.me/2020/12/'> December 2020 </option>
+	<option value='https://3dtextures.me/2020/11/'> November 2020 </option>
+	<option value='https://3dtextures.me/2020/10/'> October 2020 </option>
+	<option value='https://3dtextures.me/2020/09/'> September 2020 </option>
+	<option value='https://3dtextures.me/2020/08/'> August 2020 </option>
+	<option value='https://3dtextures.me/2020/07/'> July 2020 </option>
+	<option value='https://3dtextures.me/2020/06/'> June 2020 </option>
+	<option value='https://3dtextures.me/2020/05/'> May 2020 </option>
+	<option value='https://3dtextures.me/2020/04/'> April 2020 </option>
+	<option value='https://3dtextures.me/2020/03/'> March 2020 </option>
+	<option value='https://3dtextures.me/2020/02/'> February 2020 </option>
+	<option value='https://3dtextures.me/2020/01/'> January 2020 </option>
+	<option value='https://3dtextures.me/2019/12/'> December 2019 </option>
+	<option value='https://3dtextures.me/2019/11/'> November 2019 </option>
+	<option value='https://3dtextures.me/2019/10/'> October 2019 </option>
+	<option value='https://3dtextures.me/2019/09/'> September 2019 </option>
+	<option value='https://3dtextures.me/2019/08/'> August 2019 </option>
+	<option value='https://3dtextures.me/2019/07/'> July 2019 </option>
+	<option value='https://3dtextures.me/2019/06/'> June 2019 </option>
+	<option value='https://3dtextures.me/2019/05/'> May 2019 </option>
+	<option value='https://3dtextures.me/2019/04/'> April 2019 </option>
+	<option value='https://3dtextures.me/2019/03/'> March 2019 </option>
+	<option value='https://3dtextures.me/2019/02/'> February 2019 </option>
+	<option value='https://3dtextures.me/2019/01/'> January 2019 </option>
+	<option value='https://3dtextures.me/2018/12/'> December 2018 </option>
+	<option value='https://3dtextures.me/2018/11/'> November 2018 </option>
+	<option value='https://3dtextures.me/2018/10/'> October 2018 </option>
+	<option value='https://3dtextures.me/2018/09/'> September 2018 </option>
+	<option value='https://3dtextures.me/2018/08/'> August 2018 </option>
+	<option value='https://3dtextures.me/2018/07/'> July 2018 </option>
+	<option value='https://3dtextures.me/2018/06/'> June 2018 </option>
+	<option value='https://3dtextures.me/2018/05/'> May 2018 </option>
+	<option value='https://3dtextures.me/2018/04/'> April 2018 </option>
+	<option value='https://3dtextures.me/2018/03/'> March 2018 </option>
+	<option value='https://3dtextures.me/2018/02/'> February 2018 </option>
+	<option value='https://3dtextures.me/2018/01/'> January 2018 </option>
+	<option value='https://3dtextures.me/2017/12/'> December 2017 </option>
+	<option value='https://3dtextures.me/2017/11/'> November 2017 </option>
+	<option value='https://3dtextures.me/2017/04/'> April 2017 </option>
+	<option value='https://3dtextures.me/2017/03/'> March 2017 </option>
+	<option value='https://3dtextures.me/2016/10/'> October 2016 </option>
+	<option value='https://3dtextures.me/2016/09/'> September 2016 </option>
+	<option value='https://3dtextures.me/2016/08/'> August 2016 </option>
+	<option value='https://3dtextures.me/2016/07/'> July 2016 </option>
+	<option value='https://3dtextures.me/2016/06/'> June 2016 </option>
+	<option value='https://3dtextures.me/2016/05/'> May 2016 </option>
+	<option value='https://3dtextures.me/2016/04/'> April 2016 </option>
+
+		</select>
+
+			<script type="text/javascript">
+/* <![CDATA[ */
+
+(function() {
+	var dropdown = document.getElementById( "archives-dropdown--1" );
+	function onSelectChange() {
+		if ( dropdown.options[ dropdown.selectedIndex ].value !== '' ) {
+			document.location.href = this.options[ this.selectedIndex ].value;
+		}
+	}
+	dropdown.onchange = onSelectChange;
+})();
+
+/* ]]> */
+</script>
+</div>							</div><!-- .entry-content -->
+
+		</article><!-- #post-0 -->
+	</section><!-- #primary -->
+
+
+    
+<section id="secondary" class="widget-area" role="complementary">
+
+	<aside id="jetpack-search-filters-5" class="widget jetpack-filters widget_search">			<div id="jetpack-search-filters-5-wrapper" >
+		<style>
+	.belowsearch { margin-top: 20px; }
+	#secondary .belowsearch { display: none; }
+	.texture_search_image { padding: 2px; }
+	</style><div class="jetpack-search-form"><form role="search" method="get" id="searchform" class="searchform" action="https://3dtextures.me/">
+				<div>
+					<label class="screen-reader-text" for="s">Search for:</label>
+					<input type="text" value="" name="s" id="s" />
+					<input type="submit" id="searchsubmit" value="Search" />
+				</div>
+			<input type="hidden" name="orderby" value="relevance" /><input type="hidden" name="order" value="DESC" /></form></div></div></aside><aside id="block-5" class="widget widget_block widget_media_image">
+<figure class="wp-block-image size-full is-resized"><a href="https://automattic.pxf.io/c/1397861/2150838/22744" target="_blank" rel=" noreferrer noopener"><img decoding="async" width="160" height="600" src="https://3dtextures.me/wp-content/uploads/2024/10/160-x-600.jpeg" alt="" class="wp-image-10693" style="width:146px;height:auto" srcset="https://i0.wp.com/3dtextures.me/wp-content/uploads/2024/10/160-x-600.jpeg?w=160&amp;ssl=1 160w, https://i0.wp.com/3dtextures.me/wp-content/uploads/2024/10/160-x-600.jpeg?resize=80%2C300&amp;ssl=1 80w, https://i0.wp.com/3dtextures.me/wp-content/uploads/2024/10/160-x-600.jpeg?resize=40%2C150&amp;ssl=1 40w" sizes="(max-width: 160px) 100vw, 160px" /></a></figure>
+</aside><aside id="categories-5" class="widget widget_categories"><h3 class="widget-title">Categories</h3>
+			<ul>
+					<li class="cat-item cat-item-5348"><a href="https://3dtextures.me/tag/abstract/">Abstract</a> (17)
+</li>
+	<li class="cat-item cat-item-40487"><a href="https://3dtextures.me/tag/alien/">Alien</a> (6)
+</li>
+	<li class="cat-item cat-item-561062917"><a href="https://3dtextures.me/category/alpha-brushes/">Alpha Brushes</a> (3)
+</li>
+	<li class="cat-item cat-item-5408"><a href="https://3dtextures.me/tag/animal/">Animal</a> (22)
+</li>
+	<li class="cat-item cat-item-160943"><a href="https://3dtextures.me/tag/asphalt/">Asphalt</a> (9)
+</li>
+	<li class="cat-item cat-item-77717"><a href="https://3dtextures.me/tag/brick/">Brick</a> (28)
+</li>
+	<li class="cat-item cat-item-194724"><a href="https://3dtextures.me/tag/ceiling/">Ceiling</a> (11)
+</li>
+	<li class="cat-item cat-item-212605"><a href="https://3dtextures.me/tag/concrete/">Concrete</a> (51)
+</li>
+	<li class="cat-item cat-item-662"><a href="https://3dtextures.me/category/default/">Default</a> (9)
+</li>
+	<li class="cat-item cat-item-140141"><a href="https://3dtextures.me/tag/dirt/">Dirt</a> (35)
+</li>
+	<li class="cat-item cat-item-114044"><a href="https://3dtextures.me/tag/fabric/">Fabric</a> (186)
+</li>
+	<li class="cat-item cat-item-292853"><a href="https://3dtextures.me/tag/floor/">Floor</a> (125)
+</li>
+	<li class="cat-item cat-item-362999"><a href="https://3dtextures.me/tag/foliage/">Foliage</a> (3)
+</li>
+	<li class="cat-item cat-item-561062888"><a href="https://3dtextures.me/category/food/">Food</a> (9)
+</li>
+	<li class="cat-item cat-item-31081"><a href="https://3dtextures.me/tag/gems/">Gems</a> (7)
+</li>
+	<li class="cat-item cat-item-561062811"><a href="https://3dtextures.me/category/glass/">Glass</a> (13)
+</li>
+	<li class="cat-item cat-item-148564"><a href="https://3dtextures.me/tag/granite/">Granite</a> (3)
+</li>
+	<li class="cat-item cat-item-447639"><a href="https://3dtextures.me/tag/ground/">ground</a> (118)
+</li>
+	<li class="cat-item cat-item-1516544"><a href="https://3dtextures.me/category/hand-painted/">Hand Painted</a> (6)
+</li>
+	<li class="cat-item cat-item-157212"><a href="https://3dtextures.me/tag/ice/">Ice</a> (4)
+</li>
+	<li class="cat-item cat-item-1215228"><a href="https://3dtextures.me/tag/lava/">Lava</a> (7)
+</li>
+	<li class="cat-item cat-item-31992"><a href="https://3dtextures.me/tag/leather/">Leather</a> (29)
+</li>
+	<li class="cat-item cat-item-19092"><a href="https://3dtextures.me/tag/marble/">Marble</a> (28)
+</li>
+	<li class="cat-item cat-item-1393"><a href="https://3dtextures.me/tag/metal/">Metal</a> (330)
+</li>
+	<li class="cat-item cat-item-277"><a href="https://3dtextures.me/tag/misc/">Misc</a> (4)
+</li>
+	<li class="cat-item cat-item-42289"><a href="https://3dtextures.me/tag/organic/">Organic</a> (44)
+</li>
+	<li class="cat-item cat-item-116057426"><a href="https://3dtextures.me/category/paper-and-cardboard/">Paper and Cardboard</a> (10)
+</li>
+	<li class="cat-item cat-item-523608841"><a href="https://3dtextures.me/category/patreon-exclusive/">Patreon Exclusive</a> (2)
+</li>
+	<li class="cat-item cat-item-389735"><a href="https://3dtextures.me/tag/plaster/">Plaster</a> (5)
+</li>
+	<li class="cat-item cat-item-60614"><a href="https://3dtextures.me/tag/plastic/">Plastic</a> (13)
+</li>
+	<li class="cat-item cat-item-322544"><a href="https://3dtextures.me/tag/quartz/">Quartz</a> (3)
+</li>
+	<li class="cat-item cat-item-7244"><a href="https://3dtextures.me/tag/rocks/">Rocks</a> (41)
+</li>
+	<li class="cat-item cat-item-110091"><a href="https://3dtextures.me/tag/roof/">Roof</a> (36)
+</li>
+	<li class="cat-item cat-item-561062829"><a href="https://3dtextures.me/category/rubber/">Rubber</a> (4)
+</li>
+	<li class="cat-item cat-item-73165"><a href="https://3dtextures.me/tag/sand/">Sand</a> (11)
+</li>
+	<li class="cat-item cat-item-1733"><a href="https://3dtextures.me/tag/sci-fi/">Sci-fi</a> (120)
+</li>
+	<li class="cat-item cat-item-20341"><a href="https://3dtextures.me/tag/snow/">Snow</a> (4)
+</li>
+	<li class="cat-item cat-item-84203"><a href="https://3dtextures.me/tag/soil/">Soil</a> (5)
+</li>
+	<li class="cat-item cat-item-22960"><a href="https://3dtextures.me/tag/stone/">Stone</a> (178)
+</li>
+	<li class="cat-item cat-item-15035695"><a href="https://3dtextures.me/tag/stone-floor/">Stone Floor</a> (8)
+</li>
+	<li class="cat-item cat-item-561062526"><a href="https://3dtextures.me/category/stylized-textures/">Stylized Textures</a> (87)
+</li>
+	<li class="cat-item cat-item-118922322"><a href="https://3dtextures.me/tag/substance-designer/">Substance Designer</a> (10)
+</li>
+	<li class="cat-item cat-item-104445067"><a href="https://3dtextures.me/category/surface-imperfections/">Surface Imperfections</a> (10)
+</li>
+	<li class="cat-item cat-item-504794035"><a href="https://3dtextures.me/category/texturing-examples/">Texturing Examples</a> (4)
+</li>
+	<li class="cat-item cat-item-157460"><a href="https://3dtextures.me/tag/tiles/">Tiles</a> (145)
+</li>
+	<li class="cat-item cat-item-37475"><a href="https://3dtextures.me/tag/vegetable/">Vegetable</a> (8)
+</li>
+	<li class="cat-item cat-item-29947"><a href="https://3dtextures.me/tag/wall/">Wall</a> (177)
+</li>
+	<li class="cat-item cat-item-14157"><a href="https://3dtextures.me/tag/water/">Water</a> (10)
+</li>
+	<li class="cat-item cat-item-38180"><a href="https://3dtextures.me/tag/wood/">Wood</a> (158)
+</li>
+			</ul>
+
+			</aside>
+</section><!-- #secondary .widget-area -->
+
+
+	
+	<footer id="colophon" role="contentinfo">
+		<div id="footer-widgets" class="one">
+										<div id="widget-2" class="widget">
+					<aside id="block-3" class="widget widget_block"></aside><aside id="tag_cloud-3" class="widget widget_tag_cloud"><h3 class="widget-title">Tags</h3><div class="tagcloud"><a href="https://3dtextures.me/tag/aged/" class="tag-cloud-link tag-link-383991 tag-link-position-1" style="font-size: 8pt;" aria-label="aged (33 items)">aged</a>
+<a href="https://3dtextures.me/tag/archviz/" class="tag-cloud-link tag-link-561062860 tag-link-position-2" style="font-size: 20.369863013699pt;" aria-label="archviz (665 items)">archviz</a>
+<a href="https://3dtextures.me/tag/cc0/" class="tag-cloud-link tag-link-17337403 tag-link-position-3" style="font-size: 12.794520547945pt;" aria-label="cc0 (107 items)">cc0</a>
+<a href="https://3dtextures.me/tag/ceramic/" class="tag-cloud-link tag-link-179367 tag-link-position-4" style="font-size: 10.684931506849pt;" aria-label="ceramic (64 items)">ceramic</a>
+<a href="https://3dtextures.me/tag/cloth/" class="tag-cloud-link tag-link-377252 tag-link-position-5" style="font-size: 14.13698630137pt;" aria-label="cloth (146 items)">cloth</a>
+<a href="https://3dtextures.me/tag/clothes/" class="tag-cloud-link tag-link-28638 tag-link-position-6" style="font-size: 12.602739726027pt;" aria-label="clothes (102 items)">clothes</a>
+<a href="https://3dtextures.me/tag/concrete/" class="tag-cloud-link tag-link-212605 tag-link-position-7" style="font-size: 9.8219178082192pt;" aria-label="Concrete (51 items)">Concrete</a>
+<a href="https://3dtextures.me/tag/dirt/" class="tag-cloud-link tag-link-140141 tag-link-position-8" style="font-size: 8.2876712328767pt;" aria-label="Dirt (35 items)">Dirt</a>
+<a href="https://3dtextures.me/tag/fabric/" class="tag-cloud-link tag-link-114044 tag-link-position-9" style="font-size: 15.095890410959pt;" aria-label="Fabric (186 items)">Fabric</a>
+<a href="https://3dtextures.me/tag/floor/" class="tag-cloud-link tag-link-292853 tag-link-position-10" style="font-size: 13.465753424658pt;" aria-label="Floor (125 items)">Floor</a>
+<a href="https://3dtextures.me/tag/flooring/" class="tag-cloud-link tag-link-110096 tag-link-position-11" style="font-size: 8.3835616438356pt;" aria-label="flooring (36 items)">flooring</a>
+<a href="https://3dtextures.me/tag/free/" class="tag-cloud-link tag-link-561063134 tag-link-position-12" style="font-size: 12.794520547945pt;" aria-label="free (105 items)">free</a>
+<a href="https://3dtextures.me/tag/furniture/" class="tag-cloud-link tag-link-24600 tag-link-position-13" style="font-size: 8.3835616438356pt;" aria-label="furniture (36 items)">furniture</a>
+<a href="https://3dtextures.me/tag/ground/" class="tag-cloud-link tag-link-447639 tag-link-position-14" style="font-size: 13.27397260274pt;" aria-label="ground (118 items)">ground</a>
+<a href="https://3dtextures.me/tag/kitchen/" class="tag-cloud-link tag-link-8613 tag-link-position-15" style="font-size: 9.5342465753425pt;" aria-label="kitchen (48 items)">kitchen</a>
+<a href="https://3dtextures.me/tag/lace/" class="tag-cloud-link tag-link-561062884 tag-link-position-16" style="font-size: 8.6712328767123pt;" aria-label="lace (39 items)">lace</a>
+<a href="https://3dtextures.me/tag/metal/" class="tag-cloud-link tag-link-1393 tag-link-position-17" style="font-size: 17.493150684932pt;" aria-label="Metal (330 items)">Metal</a>
+<a href="https://3dtextures.me/tag/metallic/" class="tag-cloud-link tag-link-561062915 tag-link-position-18" style="font-size: 10.876712328767pt;" aria-label="metallic (66 items)">metallic</a>
+<a href="https://3dtextures.me/tag/organic/" class="tag-cloud-link tag-link-42289 tag-link-position-19" style="font-size: 9.1506849315068pt;" aria-label="Organic (44 items)">Organic</a>
+<a href="https://3dtextures.me/tag/pattern/" class="tag-cloud-link tag-link-40208 tag-link-position-20" style="font-size: 9.6301369863014pt;" aria-label="Pattern (49 items)">Pattern</a>
+<a href="https://3dtextures.me/tag/pbr/" class="tag-cloud-link tag-link-555228 tag-link-position-21" style="font-size: 22pt;" aria-label="pbr (972 items)">pbr</a>
+<a href="https://3dtextures.me/tag/pebbles/" class="tag-cloud-link tag-link-4376 tag-link-position-22" style="font-size: 8.958904109589pt;" aria-label="Pebbles (42 items)">Pebbles</a>
+<a href="https://3dtextures.me/tag/plate/" class="tag-cloud-link tag-link-266226 tag-link-position-23" style="font-size: 8.2876712328767pt;" aria-label="plate (35 items)">plate</a>
+<a href="https://3dtextures.me/tag/rock/" class="tag-cloud-link tag-link-1433 tag-link-position-24" style="font-size: 13.561643835616pt;" aria-label="rock (127 items)">rock</a>
+<a href="https://3dtextures.me/tag/rocks/" class="tag-cloud-link tag-link-7244 tag-link-position-25" style="font-size: 8.8630136986301pt;" aria-label="Rocks (41 items)">Rocks</a>
+<a href="https://3dtextures.me/tag/roof/" class="tag-cloud-link tag-link-110091 tag-link-position-26" style="font-size: 8.3835616438356pt;" aria-label="Roof (36 items)">Roof</a>
+<a href="https://3dtextures.me/tag/rough/" class="tag-cloud-link tag-link-387063 tag-link-position-27" style="font-size: 8.2876712328767pt;" aria-label="Rough (35 items)">Rough</a>
+<a href="https://3dtextures.me/tag/sci-fi/" class="tag-cloud-link tag-link-1733 tag-link-position-28" style="font-size: 13.27397260274pt;" aria-label="Sci-fi (120 items)">Sci-fi</a>
+<a href="https://3dtextures.me/tag/scifi/" class="tag-cloud-link tag-link-561062817 tag-link-position-29" style="font-size: 12.602739726027pt;" aria-label="scifi (102 items)">scifi</a>
+<a href="https://3dtextures.me/tag/seamless/" class="tag-cloud-link tag-link-1130131 tag-link-position-30" style="font-size: 15pt;" aria-label="seamless (182 items)">seamless</a>
+<a href="https://3dtextures.me/tag/spaceship/" class="tag-cloud-link tag-link-587875 tag-link-position-31" style="font-size: 8.6712328767123pt;" aria-label="spaceship (39 items)">spaceship</a>
+<a href="https://3dtextures.me/tag/stone/" class="tag-cloud-link tag-link-22960 tag-link-position-32" style="font-size: 14.904109589041pt;" aria-label="Stone (178 items)">Stone</a>
+<a href="https://3dtextures.me/tag/stylized/" class="tag-cloud-link tag-link-1099181 tag-link-position-33" style="font-size: 12.219178082192pt;" aria-label="stylized (92 items)">stylized</a>
+<a href="https://3dtextures.me/tag/textile/" class="tag-cloud-link tag-link-89104 tag-link-position-34" style="font-size: 12.698630136986pt;" aria-label="textile (103 items)">textile</a>
+<a href="https://3dtextures.me/tag/texture/" class="tag-cloud-link tag-link-320368 tag-link-position-35" style="font-size: 13.27397260274pt;" aria-label="texture (118 items)">texture</a>
+<a href="https://3dtextures.me/tag/tiles/" class="tag-cloud-link tag-link-157460 tag-link-position-36" style="font-size: 14.041095890411pt;" aria-label="Tiles (145 items)">Tiles</a>
+<a href="https://3dtextures.me/tag/wall/" class="tag-cloud-link tag-link-29947 tag-link-position-37" style="font-size: 14.904109589041pt;" aria-label="Wall (177 items)">Wall</a>
+<a href="https://3dtextures.me/tag/weave/" class="tag-cloud-link tag-link-189734 tag-link-position-38" style="font-size: 8.4794520547945pt;" aria-label="weave (37 items)">weave</a>
+<a href="https://3dtextures.me/tag/wood/" class="tag-cloud-link tag-link-38180 tag-link-position-39" style="font-size: 14.424657534247pt;" aria-label="Wood (158 items)">Wood</a></div>
+</aside><aside id="custom_html-13" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget"><p style="text-align:center;"><a href="https://3dtextures.me/privacy-policy/" >privacy policy</a></p>
+</div></aside>				</div>
+								</div>
+
+		<div id="site-generator">
+			
+			<a href="https://wordpress.com/?ref=footer_custom_powered">Powered by WordPress.com</a>. 
+		</div>
+
+	</footer><!-- #colophon -->
+
+	
+</div><!-- #page -->
+
+<!--  -->
+<meta id="bilmur" property="bilmur:data" content="" data-customproperties="{&quot;woo_active&quot;:&quot;0&quot;}" data-provider="wordpress.com" data-service="atomic"  data-site-tz="Europe/Lisbon" >
+<script defer src="https://s0.wp.com/wp-content/js/bilmur.min.js?m=202512"></script>
+
+				<!-- Special Message (ABA) Begin -->
+				<style>
+					.special-message-wrapper {
+						background:#1c1c1c;
+						color:#c1c1c1;
+						font-size:16px;
+					}
+				</style>
+				
+				<div class="special-message-wrapper" style="display:none;">
+					<div class="special-message-content">
+						<div class="special-message-left">
+							Thank you for visiting. If you enjoy my work please consider adding this website to your ad blocker whitelist. If not, then, enjoy the textures. :) <a href="https://www.patreon.com/gendo" target="_blank">Click here to be my Patron and unlock 4K textures and Substance Designer files!</a><a href="https://www.redbubble.com/people/gendosplace/explore?asc=u&page=1&sortOrder=recent" target="_blank">Click here to go to my Merch Store!</a>
+						</div>
+						<div class="special-message-right">
+
+			
+						</div>
+						<div style="clear:both;"></div>
+					</div>
+				</div>
+				
+				<script type="text/javascript">
+
+					jQuery( window ).load( function() {
+						if ( ! document.getElementById( "aba_detector" ) ) {
+							var aba_cookie = readCookie( "Ad_Blocking_Advisor_WP_Plugin" )
+							if ( ! aba_cookie ) {
+								jQuery( ".special-message-wrapper" ).show().prependTo( jQuery( "body" ) );
+							}
+						}
+					});
+					
+					jQuery( ".special-message-right" ).click(function(){
+						// User clicked close.
+						jQuery( ".special-message-wrapper" ).hide();
+			
+					});
+				</script>
+				<!-- Special Message (ABA) End -->
+			<script type="text/javascript">
+var infolinks_pid = 3401032;
+var infolinks_wsid = 0;
+</script>
+<script type="text/javascript" src="http://resources.infolinks.com/js/infolinks_main.js"></script><link rel='stylesheet' id='all-css-036218f918922ff4ffe0fcbc12170b24' href='https://3dtextures.me/wp-content/plugins/jetpack/jetpack_vendor/automattic/jetpack-search/src/widgets/css/search-widget-frontend.css?m=1644431352' type='text/css' media='all' />
+<script type="text/javascript" src="https://3dtextures.me/wp-content/plugins/ad-blocking-advisor/js/ads.js?ver=1742567903" id="aba_detector-js"></script>
+<script type="text/javascript" id="rtrar.appLocal-js-extra">
+/* <![CDATA[ */
+var rtafr = {"rules":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://3dtextures.me/wp-content/plugins/real-time-auto-find-and-replace/assets/js/rtafar.local.js?ver=1.6.9" id="rtrar.appLocal-js"></script>
+<script type="text/javascript" id="wd-asl-ajaxsearchlite-js-before">
+/* <![CDATA[ */
+window.ASL = typeof window.ASL !== 'undefined' ? window.ASL : {}; window.ASL.wp_rocket_exception = "DOMContentLoaded"; window.ASL.ajaxurl = "https:\/\/3dtextures.me\/wp-admin\/admin-ajax.php"; window.ASL.backend_ajaxurl = "https:\/\/3dtextures.me\/wp-admin\/admin-ajax.php"; window.ASL.js_scope = "jQuery"; window.ASL.asl_url = "https:\/\/3dtextures.me\/wp-content\/plugins\/ajax-search-lite\/"; window.ASL.detect_ajax = 1; window.ASL.media_query = 4768; window.ASL.version = 4768; window.ASL.pageHTML = ""; window.ASL.additional_scripts = [{"handle":"wd-asl-ajaxsearchlite","src":"https:\/\/3dtextures.me\/wp-content\/plugins\/ajax-search-lite\/js\/min\/plugin\/optimized\/asl-prereq.js","prereq":[]},{"handle":"wd-asl-ajaxsearchlite-core","src":"https:\/\/3dtextures.me\/wp-content\/plugins\/ajax-search-lite\/js\/min\/plugin\/optimized\/asl-core.js","prereq":[]},{"handle":"wd-asl-ajaxsearchlite-vertical","src":"https:\/\/3dtextures.me\/wp-content\/plugins\/ajax-search-lite\/js\/min\/plugin\/optimized\/asl-results-vertical.js","prereq":["wd-asl-ajaxsearchlite"]},{"handle":"wd-asl-ajaxsearchlite-autocomplete","src":"https:\/\/3dtextures.me\/wp-content\/plugins\/ajax-search-lite\/js\/min\/plugin\/optimized\/asl-autocomplete.js","prereq":["wd-asl-ajaxsearchlite"]},{"handle":"wd-asl-ajaxsearchlite-load","src":"https:\/\/3dtextures.me\/wp-content\/plugins\/ajax-search-lite\/js\/min\/plugin\/optimized\/asl-load.js","prereq":["wd-asl-ajaxsearchlite-autocomplete"]}]; window.ASL.script_async_load = false; window.ASL.init_only_in_viewport = true; window.ASL.font_url = "https:\/\/3dtextures.me\/wp-content\/plugins\/ajax-search-lite\/css\/fonts\/icons2.woff2"; window.ASL.css_async = false; window.ASL.highlight = {"enabled":false,"data":[]}; window.ASL.analytics = {"method":0,"tracking_id":"","string":"?ajax_search={asl_term}","event":{"focus":{"active":1,"action":"focus","category":"ASL","label":"Input focus","value":"1"},"search_start":{"active":0,"action":"search_start","category":"ASL","label":"Phrase: {phrase}","value":"1"},"search_end":{"active":1,"action":"search_end","category":"ASL","label":"{phrase} | {results_count}","value":"1"},"magnifier":{"active":1,"action":"magnifier","category":"ASL","label":"Magnifier clicked","value":"1"},"return":{"active":1,"action":"return","category":"ASL","label":"Return button pressed","value":"1"},"facet_change":{"active":0,"action":"facet_change","category":"ASL","label":"{option_label} | {option_value}","value":"1"},"result_click":{"active":1,"action":"result_click","category":"ASL","label":"{result_title} | {result_url}","value":"1"}}};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://3dtextures.me/wp-content/plugins/ajax-search-lite/js/min/plugin/optimized/asl-prereq.js?ver=4768" id="wd-asl-ajaxsearchlite-js"></script>
+<script type="text/javascript" src="https://3dtextures.me/wp-content/plugins/ajax-search-lite/js/min/plugin/optimized/asl-core.js?ver=4768" id="wd-asl-ajaxsearchlite-core-js"></script>
+<script type="text/javascript" src="https://3dtextures.me/wp-content/plugins/ajax-search-lite/js/min/plugin/optimized/asl-results-vertical.js?ver=4768" id="wd-asl-ajaxsearchlite-vertical-js"></script>
+<script type="text/javascript" src="https://3dtextures.me/wp-content/plugins/ajax-search-lite/js/min/plugin/optimized/asl-autocomplete.js?ver=4768" id="wd-asl-ajaxsearchlite-autocomplete-js"></script>
+<script type="text/javascript" src="https://3dtextures.me/wp-content/plugins/ajax-search-lite/js/min/plugin/optimized/asl-load.js?ver=4768" id="wd-asl-ajaxsearchlite-load-js"></script>
+<script type="text/javascript" src="https://3dtextures.me/wp-content/plugins/ajax-search-lite/js/min/plugin/optimized/asl-wrapper.js?ver=4768" id="wd-asl-ajaxsearchlite-wrapper-js"></script>
+<script type="text/javascript" src="https://3dtextures.me/wp-content/plugins/lazy-loading-responsive-images/js/lazysizes.min.js?ver=1740123211" id="lazysizes-js"></script>
+<script type="text/javascript" src="https://3dtextures.me/wp-content/plugins/real-time-auto-find-and-replace/assets/js/rtafar.app.min.js?ver=1.6.9" id="rtrar.app-js"></script>
+<script type="text/javascript" id="jetpack-stats-js-before">
+/* <![CDATA[ */
+_stq = window._stq || [];
+_stq.push([ "view", JSON.parse("{\"v\":\"ext\",\"blog\":\"110353861\",\"post\":\"0\",\"tz\":\"0\",\"srv\":\"3dtextures.me\",\"hp\":\"atomic\",\"ac\":\"2\",\"amp\":\"0\",\"j\":\"1:14.5-a.6\"}") ]);
+_stq.push([ "clickTrackerInit", "110353861", "0" ]);
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://stats.wp.com/e-202512.js" id="jetpack-stats-js" defer="defer" data-wp-strategy="defer"></script>
+<script type="text/javascript" src="https://3dtextures.me/wp-includes/js/dist/hooks.min.js?ver=4d63a3d491d11ffd8ac6" id="wp-hooks-js"></script>
+<script type="text/javascript" src="https://3dtextures.me/wp-includes/js/dist/i18n.min.js?ver=5e580eb46a90c2b997e6" id="wp-i18n-js"></script>
+<script type="text/javascript" id="wp-i18n-js-after">
+/* <![CDATA[ */
+wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://3dtextures.me/wp-content/plugins/jetpack/jetpack_vendor/automattic/jetpack-search/src/widgets/js/search-widget.js?minify=false&amp;ver=1645029952" id="jetpack-search-widget-js"></script>
+
+</body>
+</html>

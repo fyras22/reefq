@@ -1,0 +1,175 @@
+{
+  "header": {
+    "features": "Fonctionnalités",
+    "testimonials": "Témoignages",
+    "howItWorks": "Comment ça marche",
+    "pricing": "Tarification",
+    "faq": "FAQ",
+    "getStarted": "Commencer",
+    "login": "Connexion",
+    "signup": "Inscription"
+  },
+  "hero": {
+    "title": "ReefQ",
+    "subtitle": "Expérience Bijoux 3D",
+    "description": "Découvrez les bijoux comme jamais auparavant avec notre visionneuse 3D interactive et notre technologie d'essayage en RA. Personnalisez les métaux, les pierres précieuses et les tailles en temps réel.",
+    "exploreFeatures": "Explorer les fonctionnalités",
+    "howItWorks": "Comment ça marche"
+  },
+  "features": {
+    "title": "Shopping de bijoux immersif",
+    "subtitle": "Transformer l'expérience client avec des technologies 3D avancées",
+    "3dVisualization": {
+      "name": "Visualisation 3D",
+      "description": "Présentez votre collection de bijoux avec des modèles 3D photoréalistes qui capturent chaque détail et éclat.",
+      "stat": "67%",
+      "statText": "Réduction des retours"
+    },
+    "arTryOn": {
+      "name": "Essayage en RA",
+      "description": "Permettez aux clients d'essayer virtuellement les bijoux avant l'achat, réduisant les retours et augmentant la confiance.",
+      "stat": "89%",
+      "statText": "Processus de dimensionnement plus rapide"
+    },
+    "sizeOptimization": {
+      "name": "Optimisation de la taille",
+      "description": "Recommandations de taille alimentées par l'IA basées sur les photos et mesures des clients.",
+      "stat": "2000+",
+      "statText": "Ajustements parfaits livrés"
+    }
+  },
+  "howItWorks": {
+    "title": "Comment ça marche",
+    "subtitle": "Découvrez la simplicité de notre plateforme de bijoux 3D en quelques étapes",
+    "step1": {
+      "title": "Choisissez vos bijoux",
+      "description": "Sélectionnez parmi notre collection de bagues, colliers et boucles d'oreilles pour commencer à personnaliser."
+    },
+    "step2": {
+      "title": "Personnalisez les matériaux",
+      "description": "Choisissez votre type de métal préféré, pierre précieuse et ajustez la taille selon vos goûts."
+    },
+    "step3": {
+      "title": "Visualisez en 3D",
+      "description": "Interagissez avec vos bijoux en 3D pour les voir sous tous les angles avec des détails impressionnants."
+    },
+    "step4": {
+      "title": "Essayez avec la RA",
+      "description": "Utilisez la caméra de votre appareil pour voir comment les bijoux vous vont en réalité augmentée."
+    },
+    "cta": "Commencez à concevoir maintenant"
+  },
+  "testimonials": {
+    "title": "Témoignages",
+    "subtitle": "Approuvé par les principaux détaillants de bijoux",
+    "testimonial1": {
+      "quote": "ReefQ a transformé notre façon de vendre des bijoux en ligne. Nos clients peuvent désormais visualiser parfaitement les pièces avant l'achat.",
+      "author": "Sarah Chen",
+      "role": "PDG",
+      "company": "Luxe Jewelers"
+    },
+    "testimonial2": {
+      "quote": "La fonction d'essayage en RA a réduit notre taux de retour de plus de 60%. C'est révolutionnaire pour la vente de bijoux en ligne.",
+      "author": "Michael Rodriguez",
+      "role": "Responsable E-commerce",
+      "company": "Diamond & Co."
+    },
+    "testimonial3": {
+      "quote": "La qualité de visualisation 3D est exceptionnelle. Nos clients peuvent voir chaque détail de nos pièces.",
+      "author": "Emma Thompson",
+      "role": "Directrice créative",
+      "company": "Artisan Jewelry"
+    }
+  },
+  "pricing": {
+    "title": "Tarification Simple",
+    "subtitle": "Paiement unique, valeur à vie",
+    "description": "Choisissez le forfait parfait pour votre entreprise. Pas de frais cachés, pas d'abonnements mensuels.",
+    "free": {
+      "name": "Gratuit",
+      "price": "0€",
+      "description": "Parfait pour tester les eaux",
+      "features": [
+        "Jusqu'à 10 modèles 3D",
+        "Essayage en RA basique",
+        "Support standard",
+        "Accès communautaire"
+      ],
+      "cta": "Commencer"
+    },
+    "professional": {
+      "name": "Professionnel",
+      "price": "499€",
+      "description": "Paiement unique, accès à vie",
+      "features": [
+        "Modèles 3D illimités",
+        "Essayage en RA avancé",
+        "Support prioritaire",
+        "Marque personnalisée",
+        "Tableau de bord analytique",
+        "Accès API"
+      ],
+      "cta": "Acheter maintenant"
+    },
+    "enterprise": {
+      "name": "Entreprise",
+      "price": "Personnalisé",
+      "description": "Solutions sur mesure pour grandes entreprises",
+      "features": [
+        "Tout ce qui est inclus dans Professionnel",
+        "Développement personnalisé",
+        "Support dédié",
+        "Garantie SLA",
+        "Intégrations personnalisées",
+        "Sessions de formation"
+      ],
+      "cta": "Contacter les ventes"
+    },
+    "oneTime": "unique"
+  },
+  "faq": {
+    "title": "Questions fréquemment posées",
+    "subtitle": "Tout ce que vous devez savoir",
+    "description": "Vous ne trouvez pas la réponse que vous cherchez? Contactez notre équipe de support.",
+    "question1": {
+      "question": "Est-ce un abonnement?",
+      "answer": "Non, nous croyons en une tarification simple et transparente. Notre forfait Professionnel est un paiement unique de 499€, vous donnant un accès à vie à toutes les fonctionnalités."
+    },
+    "question2": {
+      "question": "Est-ce compatible avec ma plateforme?",
+      "answer": "Oui, notre solution fonctionne avec toutes les principales plateformes de commerce électronique, y compris Shopify, WooCommerce, Magento et les solutions personnalisées."
+    },
+    "question3": {
+      "question": "Dois-je savoir coder?",
+      "answer": "Aucun codage requis! Copiez et collez simplement notre extrait d'intégration dans votre site web. Notre solution est conçue pour être plug-and-play."
+    },
+    "question4": {
+      "question": "Ça fonctionne sur mobile?",
+      "answer": "Oui, notre visionneuse 3D et nos fonctionnalités d'essayage en RA sont entièrement réactives et optimisées pour tous les appareils."
+    }
+  },
+"footer": {
+    "company": "Entreprise",
+    "about": "À propos de ReefQ",
+    "careers": "Carrières",
+    "press": "Presse",
+    "blog": "Blog",
+    "resources": "Ressources",
+    "documentation": "Documentation",
+    "help": "Aide",
+    "tutorials": "Tutoriels",
+    "api": "API",
+    "legal": "Légal",
+    "privacy": "Politique de confidentialité",
+    "terms": "Conditions d'utilisation",
+    "cookies": "Politique des cookies",
+    "licensing": "Licence",
+    "copyright": "© {{year}} ReefQ. Tous droits réservés."
+  },
+  "languages": {
+    "en": "English",
+    "fr": "Français",
+    "ar": "العربية"
+  },
+  "direction": "ltr"
+} 

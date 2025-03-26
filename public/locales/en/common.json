@@ -1,0 +1,175 @@
+{
+  "header": {
+    "features": "Features",
+    "testimonials": "Testimonials",
+    "howItWorks": "How It Works",
+    "pricing": "Pricing",
+    "faq": "FAQ",
+    "getStarted": "Get Started",
+    "login": "Login",
+    "signup": "Sign up"
+  },
+  "hero": {
+    "title": "ReefQ",
+    "subtitle": "3D Jewelry Experience",
+    "description": "Unleash a new vision of digital jewelry with the ReefQ platform. We combine augmented reality technology with high-fidelity 3D visualization to provide a unique jewelry shopping experience for merchants and customers.",
+    "exploreFeatures": "Explore Features",
+    "howItWorks": "How It Works"
+  },
+  "features": {
+    "title": "Immersive Jewelry Shopping",
+    "subtitle": "Transform the customer experience with advanced 3D technologies",
+    "3dVisualization": {
+      "name": "3D Visualization",
+      "description": "Stunning jewelry display allowing customers to see every detail of the piece",
+      "stat": "+137%",
+      "statText": "increase in customer engagement"
+    },
+    "arTryOn": {
+      "name": "Virtual Try-On",
+      "description": "Allows customers to virtually try on jewelry, reducing returns",
+      "stat": "-42%",
+      "statText": "reduction in returns"
+    },
+    "sizeOptimization": {
+      "name": "Size Optimization",
+      "description": "Advanced algorithms providing accurate size suggestions based on customer data",
+      "stat": "+89%",
+      "statText": "increase in size accuracy"
+    }
+  },
+  "testimonials": {
+    "title": "What Our Customers Say",
+    "subtitle": "Feedback from customers using the ReefQ platform",
+    "testimonial1": {
+      "quote": "ReefQ has transformed how we sell jewelry online. Customers are more confident in their purchases, and returns have significantly decreased.",
+      "author": "Sarah Johnson",
+      "role": "Sales Director",
+      "company": "Diamond Jewelers"
+    },
+    "testimonial2": {
+      "quote": "Thanks to ReefQ technology, we can now showcase our entire jewelry collection in an interactive and engaging way. The results have been amazing!",
+      "author": "Michael Brown",
+      "role": "CEO",
+      "company": "Authentic Jewels"
+    },
+    "testimonial3": {
+      "quote": "Since integrating ReefQ into our online store, sales have increased by 45%. It's an indispensable tool for any serious jewelry retailer.",
+      "author": "Leila Richards",
+      "role": "Marketing Director",
+      "company": "Eastern Pearls"
+    }
+  },
+  "howItWorks": {
+    "title": "How It Works",
+    "subtitle": "Simple process to add 3D visualization to your store",
+    "step1": {
+      "title": "Registration and Setup",
+      "description": "Create your account and configure the basic settings for your store"
+    },
+    "step2": {
+      "title": "Upload Jewelry Models",
+      "description": "Upload your product images and we'll transform them into high-fidelity 3D models"
+    },
+    "step3": {
+      "title": "Customize User Experience",
+      "description": "Customize the 3D viewer interface to match your brand and website design"
+    },
+    "step4": {
+      "title": "Integration and Launch",
+      "description": "Integrate the 3D viewer into your website using the simple code snippet we provide"
+    },
+    "cta": "Start Designing Now"
+  },
+  "pricing": {
+    "title": "Simple Pricing",
+    "subtitle": "One-time payment, lifetime value",
+    "description": "Choose the perfect plan for your business. No hidden fees, no monthly subscriptions.",
+    "oneTime": "one-time",
+    "free": {
+      "name": "Free",
+      "price": "$0",
+      "description": "Perfect for testing the waters",
+      "features": {
+        "0": "Up to 10 3D models",
+        "1": "Basic AR try-on",
+        "2": "Standard support",
+        "3": "Community access"
+      },
+      "cta": "Get Started"
+    },
+    "professional": {
+      "name": "Professional",
+      "price": "$499",
+      "description": "One-time payment, lifetime access",
+      "features": {
+        "0": "Unlimited 3D models",
+        "1": "Advanced AR try-on",
+        "2": "Priority support",
+        "3": "Custom branding",
+        "4": "Analytics dashboard",
+        "5": "API access"
+      },
+      "cta": "Buy Now"
+    },
+    "enterprise": {
+      "name": "Enterprise",
+      "price": "Custom",
+      "description": "Tailored solutions for large businesses",
+      "features": {
+        "0": "Everything in Professional",
+        "1": "Custom development",
+        "2": "Dedicated support",
+        "3": "SLA guarantee",
+        "4": "Custom integrations",
+        "5": "Training sessions"
+      },
+      "cta": "Contact Sales"
+    }
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Everything you need to know",
+    "description": "Couldn't find the answer you're looking for? Reach out to our customer support team.",
+    "question1": {
+      "question": "Do I need technical expertise to use ReefQ?",
+      "answer": "No, we designed ReefQ to be easy to use. All you need to do is upload your product images, and we take care of the rest. User-friendly interface and clear instructions are provided."
+    },
+    "question2": {
+      "question": "How do I add the 3D viewer to my website?",
+      "answer": "After setting up your account, you'll get a simple code snippet that you can add to your website's HTML. We also offer integrations with popular e-commerce platforms like Shopify, WooCommerce, and Magento."
+    },
+    "question3": {
+      "question": "What are the hardware requirements for customers using the AR experience?",
+      "answer": "Most modern smartphones and tablets are compatible with our AR experience. For AR features, we recommend devices running iOS 12+ or Android 8.0+."
+    },
+    "question4": {
+      "question": "Can I customize the appearance of the 3D viewer?",
+      "answer": "Yes, we offer extensive customization options including colors, fonts, and overall layout of the interface. You can also adjust backgrounds and lighting to showcase your jewelry optimally."
+    }
+  },
+  "footer": {
+    "company": "Company",
+    "about": "About ReefQ",
+    "careers": "Careers",
+    "press": "Press",
+    "blog": "Blog",
+    "resources": "Resources",
+    "documentation": "Documentation",
+    "help": "Help",
+    "tutorials": "Tutorials",
+    "api": "API",
+    "legal": "Legal",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use",
+    "cookies": "Cookie Policy",
+    "licensing": "Licensing",
+    "copyright": "© {{year}} ReefQ. All rights reserved."
+  },
+  "language": {
+    "english": "English",
+    "french": "French",
+    "arabic": "Arabic (رِفق)",
+    "switchLanguage": "Switch Language"
+  }
+} 
