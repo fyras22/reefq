@@ -55,7 +55,7 @@ const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => 
 export default function Home() {
   const { t, i18n } = useTranslation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [scrolled, setScrolled] = useState(true);
   
   // Add scroll event listener
   useEffect(() => {
@@ -71,21 +71,6 @@ export default function Home() {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [scrolled]);
-  
-  // Add click outside listener for mobile menu
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      if (mobileMenuOpen && !target.closest('.mobile-menu') && !target.closest('.mobile-menu-button')) {
-        setMobileMenuOpen(false);
-      }
-    };
-    
-    document.addEventListener('click', handleClickOutside);
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, [mobileMenuOpen]);
   
   // Get current language
   const isRTL = i18n.dir() === 'rtl';
@@ -157,10 +142,32 @@ export default function Home() {
     }
   ];
   
+  // Add click outside listener for mobile menu
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const mobileMenu = document.querySelector('.mobile-menu');
+      const mobileMenuButton = document.querySelector('.mobile-menu-button');
+      
+      if (mobileMenuOpen && mobileMenu && !mobileMenu.contains(event.target as Node) && 
+          mobileMenuButton && !mobileMenuButton.contains(event.target as Node)) {
+        setMobileMenuOpen(false);
+      }
+    };
+    
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [mobileMenuOpen]);
+  
   return (
     <main className={`bg-white ${isRTL ? 'rtl' : 'ltr'}`}>
       {/* Header with Logo - Fixed with scroll effect */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-md py-2 w-full">
+      <header className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 w-full full-width ${
+        scrolled || mobileMenuOpen
+          ? 'bg-white/95 backdrop-blur-sm shadow-md py-2' 
+          : 'bg-transparent py-4'
+      }`}>
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav className={`flex items-center justify-between w-full`}>
             {/* Logo - Left in LTR, Right in RTL */}
@@ -179,22 +186,22 @@ export default function Home() {
             
             {/* Desktop Navigation - Always in the middle */}
             <div className="hidden lg:flex lg:gap-x-8 desktop-nav order-2">
-              <a href="#features" onClick={(e) => scrollToSection(e, 'features')} className="font-medium transition-colors text-gray-700 hover:text-pharaonic-gold">
+              <a href="#features" onClick={(e) => scrollToSection(e, 'features')} className={`font-medium transition-colors ${scrolled ? 'text-gray-700 hover:text-pharaonic-gold' : 'text-gray-800 hover:text-pharaonic-gold'}`}>
                 {t('header.features')}
               </a>
-              <a href="#testimonials" onClick={(e) => scrollToSection(e, 'testimonials')} className="font-medium transition-colors text-gray-700 hover:text-pharaonic-gold">
+              <a href="#testimonials" onClick={(e) => scrollToSection(e, 'testimonials')} className={`font-medium transition-colors ${scrolled ? 'text-gray-700 hover:text-pharaonic-gold' : 'text-gray-800 hover:text-pharaonic-gold'}`}>
                 {t('header.testimonials')}
               </a>
-              <a href="#how-it-works" onClick={(e) => scrollToSection(e, 'how-it-works')} className="font-medium transition-colors text-gray-700 hover:text-pharaonic-gold">
+              <a href="#how-it-works" onClick={(e) => scrollToSection(e, 'how-it-works')} className={`font-medium transition-colors ${scrolled ? 'text-gray-700 hover:text-pharaonic-gold' : 'text-gray-800 hover:text-pharaonic-gold'}`}>
                 {t('header.howItWorks')}
               </a>
-              <a href="#pricing" onClick={(e) => scrollToSection(e, 'pricing')} className="font-medium transition-colors text-gray-700 hover:text-pharaonic-gold">
+              <a href="#pricing" onClick={(e) => scrollToSection(e, 'pricing')} className={`font-medium transition-colors ${scrolled ? 'text-gray-700 hover:text-pharaonic-gold' : 'text-gray-800 hover:text-pharaonic-gold'}`}>
                 {t('header.pricing')}
               </a>
-              <a href="#faq" onClick={(e) => scrollToSection(e, 'faq')} className="font-medium transition-colors text-gray-700 hover:text-pharaonic-gold">
+              <a href="#faq" onClick={(e) => scrollToSection(e, 'faq')} className={`font-medium transition-colors ${scrolled ? 'text-gray-700 hover:text-pharaonic-gold' : 'text-gray-800 hover:text-pharaonic-gold'}`}>
                 {t('header.faq')}
               </a>
-              <Link href="/demo" className="font-medium transition-colors text-gray-700 hover:text-pharaonic-gold">
+              <Link href="/demo" className={`font-medium transition-colors ${scrolled ? 'text-gray-700 hover:text-pharaonic-gold' : 'text-gray-800 hover:text-pharaonic-gold'}`}>
                 Demo
               </Link>
             </div>
@@ -215,10 +222,7 @@ export default function Home() {
               <button
                 type="button"
                 className="inline-flex items-center justify-center rounded-md p-2.5 text-nile-teal hover:bg-nile-teal/10 transition-colors mobile-menu-button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setMobileMenuOpen(!mobileMenuOpen);
-                }}
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 aria-expanded={mobileMenuOpen}
                 aria-controls="mobile-menu"
               >
@@ -242,9 +246,8 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.2 }}
-              onClick={(e) => e.stopPropagation()}
             >
-              <div className={`bg-white shadow-xl rounded-b-xl mx-4 ${isRTL ? 'mr-auto ml-4 left-0' : 'ml-auto mr-4 right-0'} absolute w-64 max-w-xs border border-gray-100 z-50`} style={{ top: '64px' }}>
+              <div className={`bg-white shadow-xl rounded-b-xl mx-4 ${isRTL ? 'mr-auto ml-4 left-0' : 'ml-auto mr-4 right-0'} absolute w-64 max-w-xs border border-gray-100 z-50`} style={{ top: 'calc(100% + 2px)' }}>
                 <div className="space-y-2 px-4 py-6">
                   <a
                     href="#features"
@@ -323,14 +326,15 @@ export default function Home() {
       </header>
 
       {/* Hero section with 3D jewelry viewer */}
-      <section className="pt-20 bg-bg-light">
+      <section className="bg-bg-light pt-24">
         <div className="relative isolate px-6 lg:px-8">
           <div className="mx-auto max-w-7xl py-12 sm:py-20">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <motion.div 
                 className={`text-center lg:text-${isRTL ? 'right' : 'left'}`}
-                initial={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
               >
                 <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
                   <span className="block text-pharaonic-gold font-serif">{t('hero.title')}</span>
@@ -362,8 +366,9 @@ export default function Home() {
               
               <motion.div 
                 className="mt-8 lg:mt-0"
-                initial={{ opacity: 1 }}
+                initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
               >
                 <div className="relative h-[400px] sm:h-[500px] overflow-hidden rounded-xl shadow-2xl">
                   <JewelryViewer metalType="gold" gemType="emerald" />
@@ -415,7 +420,8 @@ export default function Home() {
                 key={feature.name} 
                 className="bg-bg-light p-8 rounded-xl shadow-md"
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 <div className="flex items-center justify-center h-14 w-14 rounded-full bg-nile-teal text-white mb-6">
@@ -444,16 +450,7 @@ export default function Home() {
               {t('howItWorks.subtitle')}
             </p>
           </div>
-          
-          {/* Process illustration image */}
-          <div className="mb-16 overflow-hidden rounded-xl shadow-lg mx-auto max-w-3xl">
-            <div className="aspect-[16/9] w-full bg-gray-200 relative">
-              {/* Placeholder for process image */}
-              <div className="absolute inset-0 flex items-center justify-center bg-pharaonic-gold/10 text-pharaonic-gold">
-                <p className="text-center font-medium">Jewelry design process illustration</p>
-              </div>
-            </div>
-          </div>
+
           
           <div className="relative">
             {/* Timeline connector - hidden on mobile */}
@@ -464,7 +461,8 @@ export default function Home() {
               <motion.div 
                 className={`relative flex flex-col items-center ${isRTL ? 'md:items-start' : 'md:items-end md:text-right'}`}
                 initial={{ opacity: 0, x: isRTL ? 50 : -50 }}
-                animate={{ opacity: 1, x: 0 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
               >
                 <div className={`flex ${isRTL ? '' : 'md:justify-end'}`}>
@@ -490,7 +488,8 @@ export default function Home() {
               <motion.div 
                 className={`relative flex flex-col items-center ${isRTL ? 'md:items-end md:text-right' : 'md:items-start'}`}
                 initial={{ opacity: 0, x: isRTL ? -50 : 50 }}
-                animate={{ opacity: 1, x: 0 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.1 }}
               >
                 <div className={`flex ${isRTL ? 'md:justify-end' : ''}`}>
@@ -510,7 +509,8 @@ export default function Home() {
               <motion.div 
                 className={`relative flex flex-col items-center ${isRTL ? 'md:items-start' : 'md:items-end md:text-right'}`}
                 initial={{ opacity: 0, x: isRTL ? 50 : -50 }}
-                animate={{ opacity: 1, x: 0 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
                 <div className={`flex ${isRTL ? '' : 'md:justify-end'}`}>
@@ -536,7 +536,8 @@ export default function Home() {
               <motion.div 
                 className={`relative flex flex-col items-center ${isRTL ? 'md:items-end md:text-right' : 'md:items-start'}`}
                 initial={{ opacity: 0, x: isRTL ? -50 : 50 }}
-                animate={{ opacity: 1, x: 0 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.3 }}
               >
                 <div className={`flex ${isRTL ? 'md:justify-end' : ''}`}>
@@ -557,7 +558,8 @@ export default function Home() {
             <div className="mt-16 text-center">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.4 }}
                 className="px-4"
               >
@@ -605,7 +607,8 @@ export default function Home() {
                 <motion.div
                   key={testimonial.author}
                   initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="flex flex-col justify-between bg-bg-light p-8 rounded-2xl shadow-lg ring-1 ring-gray-200"
                 >
@@ -690,7 +693,8 @@ export default function Home() {
               <motion.div
                 key={tier.name}
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className={`rounded-3xl p-8 ring-1 ring-gray-200 flex flex-col h-full transform transition-all duration-300 hover:scale-105 hover:shadow-xl ${
                   tier.highlighted ? 'bg-nile-teal text-white ring-nile-teal' : 'bg-white'
@@ -748,7 +752,8 @@ export default function Home() {
                 <motion.div
                   key={faq.question}
                   initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
                   transition={{ duration: 0.3, delay: index * 0.1 }}
                 >
                   <FaqItem key={faq.question} question={faq.question} answer={faq.answer} />
@@ -805,7 +810,7 @@ export default function Home() {
                   </div>
                   <p className="text-gray-300 mt-4 text-sm">
                     Your first draft is our final masterpiece ✨<br />
-                    The first jewelry digital ecosystem worldwide
+                    {/* The first jewelry digital ecosystem worldwide */}
                   </p>
                 </div>
                 <div>

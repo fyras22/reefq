@@ -96,8 +96,18 @@ function JewelryModel({ metalType = 'gold', gemType = 'emerald', size = 1 }: Jew
 }
 
 export function JewelryViewer(props: JewelryViewerProps) {
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const controlsRef = useRef<any>(null);
+  
+  useEffect(() => {
+    // Simulate loading completion
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+    
+    return () => clearTimeout(timer);
+  }, []);
 
   // Error handler for Three.js errors
   const handleError = (e: ErrorEvent) => {
@@ -121,6 +131,11 @@ export function JewelryViewer(props: JewelryViewerProps) {
 
   return (
     <div className="w-full h-[400px] sm:h-[500px] bg-bg-light rounded-lg overflow-hidden relative shadow-lg">
+      {isLoading && (
+        <div className="absolute inset-0 flex items-center justify-center bg-bg-light z-10">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pharaonic-gold"></div>
+        </div>
+      )}
       {error && (
         <div className="absolute inset-0 flex items-center justify-center bg-bg-light z-10">
           <div className="text-red-500 text-lg">{error}</div>
@@ -135,7 +150,6 @@ export function JewelryViewer(props: JewelryViewerProps) {
           outputColorSpace: THREE.SRGBColorSpace
         }}
         dpr={[1, 2]}
-        style={{ display: 'block' }}
       >
         <color attach="background" args={['#F5F3F0']} />
         
@@ -183,7 +197,7 @@ export function JewelryViewer(props: JewelryViewerProps) {
           enableDamping={true}
           autoRotate={true}
           autoRotateSpeed={0.5}
-          target={[0, 1.5, 0]}
+          target={[0, 1.5, 0]} // Target focused on the elevated ring position
         />
         
         <CustomEnvironment preset="studio" />

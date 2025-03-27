@@ -1,11 +1,26 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import Loader from '@/components/ui/Loader';
 import dynamic from 'next/dynamic';
 
 // Import the main page component
-const MainPage = dynamic(() => import('./page'), { ssr: false });
+const LandingPage = dynamic(() => import('./landing-page'), { ssr: false });
 
 export default function Home() {
-  return <MainPage />;
+  const [loading, setLoading] = useState(true);
+  
+  // Force a minimum load time for the loader
+  useEffect(() => {
+    return () => {
+      // Cleanup
+    };
+  }, []);
+  
+  return (
+    <>
+      <Loader onLoadingComplete={() => setLoading(false)} />
+      {!loading && <LandingPage />}
+    </>
+  );
 } 

@@ -1,15 +1,12 @@
 import { NextResponse } from 'next/server';
 import { createRouteSupabaseClient } from '@/lib/supabase-server';
 
-// Mark this route as dynamic to prevent static generation
-export const dynamic = 'force-dynamic';
-
 export async function GET(request: Request) {
   try {
     const requestUrl = new URL(request.url);
     const code = requestUrl.searchParams.get('code');
     const next = requestUrl.searchParams.get('next') || '/dashboard';
-    const origin = requestUrl.origin; // This will now be properly defined at runtime
+    const origin = requestUrl.origin;
     const hash = requestUrl.hash;
     const error = requestUrl.searchParams.get('error');
     const errorDescription = requestUrl.searchParams.get('error_description');
@@ -100,9 +97,7 @@ export async function GET(request: Request) {
     console.error('[Auth Callback] No authentication parameters found');
     return NextResponse.redirect(`${origin}/auth/login?error=${encodeURIComponent('Missing authentication parameters')}`);
   } catch (error: any) {
-    // Only access origin within the try/catch block
-    const fallbackOrigin = new URL(request.url).origin;
     console.error('[Auth Callback] Critical error in callback handler:', error);
-    return NextResponse.redirect(`${fallbackOrigin}/auth/login?error=${encodeURIComponent('Something went wrong during authentication')}`);
+    return NextResponse.redirect(`${origin}/auth/login?error=${encodeURIComponent('Something went wrong during authentication')}`);
   }
 } 

@@ -30,7 +30,9 @@ export const I18nProvider = ({ children }: I18nProviderProps) => {
       const supportedLanguages = ['en', 'fr', 'ar'];
       const language = cookieLang && supportedLanguages.includes(cookieLang) 
         ? cookieLang 
-        : navigator.language.split('-')[0] || 'en';
+        : (navigator.language && supportedLanguages.includes(navigator.language.split('-')[0]))
+          ? navigator.language.split('-')[0]
+          : 'en';
       
       if (i18n.language !== language) {
         i18n.changeLanguage(language);

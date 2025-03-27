@@ -453,16 +453,7 @@ export default function Home() {
                 </p>
               </div>
               
-              {/* Process illustration image */}
-              <div className="mb-16 overflow-hidden rounded-xl shadow-lg mx-auto max-w-3xl">
-                <div className="aspect-[16/9] w-full bg-gray-200 relative">
-                  {/* Placeholder for process image */}
-                  <div className="absolute inset-0 flex items-center justify-center bg-pharaonic-gold/10 text-pharaonic-gold">
-                    <p className="text-center font-medium">Jewelry design process illustration</p>
-                  </div>
-                </div>
-              </div>
-              
+     
               <div className="relative">
                 {/* Timeline connector - hidden on mobile */}
                 <div className="hidden md:block absolute left-1/2 top-0 bottom-auto h-[calc(100%-80px)] w-0.5 bg-pharaonic-gold/30 -translate-x-1/2"></div>
@@ -813,7 +804,7 @@ export default function Home() {
                       </div>
                       <p className="text-gray-300 mt-4 text-sm">
                         Your first draft is our final masterpiece ✨<br />
-                        The first jewelry digital ecosystem worldwide
+                        {/* The first jewelry digital ecosystem worldwide */}
                       </p>
                     </div>
                     <div>
