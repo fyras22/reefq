@@ -4,7 +4,6 @@ import { Metadata } from 'next'
 import { I18nProvider } from '@/providers/I18nProvider'
 import { AuthProvider } from '@/providers/AuthProvider'
 import { LoadingProvider } from '@/providers/LoadingProvider'
-import GlobalLoader from '@/components/GlobalLoader'
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -127,7 +126,6 @@ export default function RootLayout({
         <AuthProvider>
           <I18nProvider>
             <LoadingProvider>
-              <GlobalLoader />
               {children}
             </LoadingProvider>
           </I18nProvider>
