@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import React from 'react';
 
 // Dynamically import the JewelryViewer with no SSR
-const JewelryViewer = dynamic(() => import('./JewelryViewer'), {
+const JewelryViewer = dynamic(() => import('./JewelryViewer').then(mod => ({ default: mod.JewelryViewer })), {
   ssr: false,
   loading: () => (
     <div className="flex h-full w-full items-center justify-center">
@@ -19,7 +19,7 @@ const JewelryViewer = dynamic(() => import('./JewelryViewer'), {
 });
 
 // Dynamically import the AR Try-On component
-const ARTryOn = dynamic(() => import('./ARTryOn'), {
+const ARTryOn = dynamic(() => import('./ARTryOn').then(mod => ({ default: mod.default })), {
   ssr: false,
   loading: () => (
     <div className="flex h-full w-full items-center justify-center">
@@ -44,7 +44,7 @@ export function ClientWrapper() {
 export function ARWrapper() {
   return (
     <div className="h-full w-full">
-      <ARTryOn />
+      <ARTryOn selectedMetal="gold" selectedGem="emerald" />
     </div>
   );
-} 
+}
