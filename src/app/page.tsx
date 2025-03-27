@@ -583,7 +583,7 @@ export default function Home() {
           </div>
           
           {/* Success stories imagery */}
-          <div className="mt-10 mb-16 grid grid-cols-1 md:grid-cols-3 gap-4">
+          {/* <div className="mt-10 mb-16 grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="bg-gray-200 rounded-lg overflow-hidden aspect-[3/2] relative">
               <div className="absolute inset-0 flex items-center justify-center bg-gray-100 text-gray-500">
                 <p className="text-center font-medium">Customer story 1</p>
@@ -599,7 +599,7 @@ export default function Home() {
                 <p className="text-center font-medium">Customer story 3</p>
               </div>
             </div>
-          </div>
+          </div> */}
           
           <div className="mx-auto mt-16 flow-root max-w-2xl sm:mt-20 lg:mx-0 lg:max-w-none">
             <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
