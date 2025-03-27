@@ -160,11 +160,7 @@ export default function Home() {
   return (
     <main className={`bg-white ${isRTL ? 'rtl' : 'ltr'}`}>
       {/* Header with Logo - Fixed with scroll effect */}
-      <header className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 w-full full-width ${
-        scrolled 
-          ? 'bg-white/95 backdrop-blur-sm shadow-md py-2' 
-          : 'bg-transparent py-4'
-      }`}>
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-md py-2 w-full">
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav className={`flex items-center justify-between w-full`}>
             {/* Logo - Left in LTR, Right in RTL */}
@@ -183,22 +179,22 @@ export default function Home() {
             
             {/* Desktop Navigation - Always in the middle */}
             <div className="hidden lg:flex lg:gap-x-8 desktop-nav order-2">
-              <a href="#features" onClick={(e) => scrollToSection(e, 'features')} className={`font-medium transition-colors ${scrolled ? 'text-gray-700 hover:text-pharaonic-gold' : 'text-gray-800 hover:text-pharaonic-gold'}`}>
+              <a href="#features" onClick={(e) => scrollToSection(e, 'features')} className="font-medium transition-colors text-gray-700 hover:text-pharaonic-gold">
                 {t('header.features')}
               </a>
-              <a href="#testimonials" onClick={(e) => scrollToSection(e, 'testimonials')} className={`font-medium transition-colors ${scrolled ? 'text-gray-700 hover:text-pharaonic-gold' : 'text-gray-800 hover:text-pharaonic-gold'}`}>
+              <a href="#testimonials" onClick={(e) => scrollToSection(e, 'testimonials')} className="font-medium transition-colors text-gray-700 hover:text-pharaonic-gold">
                 {t('header.testimonials')}
               </a>
-              <a href="#how-it-works" onClick={(e) => scrollToSection(e, 'how-it-works')} className={`font-medium transition-colors ${scrolled ? 'text-gray-700 hover:text-pharaonic-gold' : 'text-gray-800 hover:text-pharaonic-gold'}`}>
+              <a href="#how-it-works" onClick={(e) => scrollToSection(e, 'how-it-works')} className="font-medium transition-colors text-gray-700 hover:text-pharaonic-gold">
                 {t('header.howItWorks')}
               </a>
-              <a href="#pricing" onClick={(e) => scrollToSection(e, 'pricing')} className={`font-medium transition-colors ${scrolled ? 'text-gray-700 hover:text-pharaonic-gold' : 'text-gray-800 hover:text-pharaonic-gold'}`}>
+              <a href="#pricing" onClick={(e) => scrollToSection(e, 'pricing')} className="font-medium transition-colors text-gray-700 hover:text-pharaonic-gold">
                 {t('header.pricing')}
               </a>
-              <a href="#faq" onClick={(e) => scrollToSection(e, 'faq')} className={`font-medium transition-colors ${scrolled ? 'text-gray-700 hover:text-pharaonic-gold' : 'text-gray-800 hover:text-pharaonic-gold'}`}>
+              <a href="#faq" onClick={(e) => scrollToSection(e, 'faq')} className="font-medium transition-colors text-gray-700 hover:text-pharaonic-gold">
                 {t('header.faq')}
               </a>
-              <Link href="/demo" className={`font-medium transition-colors ${scrolled ? 'text-gray-700 hover:text-pharaonic-gold' : 'text-gray-800 hover:text-pharaonic-gold'}`}>
+              <Link href="/demo" className="font-medium transition-colors text-gray-700 hover:text-pharaonic-gold">
                 Demo
               </Link>
             </div>
@@ -248,7 +244,7 @@ export default function Home() {
               transition={{ duration: 0.2 }}
               onClick={(e) => e.stopPropagation()}
             >
-              <div className={`bg-white shadow-xl rounded-b-xl mx-4 ${isRTL ? 'mr-auto ml-4 left-0' : 'ml-auto mr-4 right-0'} absolute w-64 max-w-xs border border-gray-100 z-50`} style={{ top: scrolled ? '64px' : '80px' }}>
+              <div className={`bg-white shadow-xl rounded-b-xl mx-4 ${isRTL ? 'mr-auto ml-4 left-0' : 'ml-auto mr-4 right-0'} absolute w-64 max-w-xs border border-gray-100 z-50`} style={{ top: '64px' }}>
                 <div className="space-y-2 px-4 py-6">
                   <a
                     href="#features"
@@ -327,15 +323,14 @@ export default function Home() {
       </header>
 
       {/* Hero section with 3D jewelry viewer */}
-      <section className="bg-bg-light pt-24">
+      <section className="pt-20 bg-bg-light">
         <div className="relative isolate px-6 lg:px-8">
           <div className="mx-auto max-w-7xl py-12 sm:py-20">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <motion.div 
                 className={`text-center lg:text-${isRTL ? 'right' : 'left'}`}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 1, y: 0 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
               >
                 <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
                   <span className="block text-pharaonic-gold font-serif">{t('hero.title')}</span>
@@ -367,9 +362,8 @@ export default function Home() {
               
               <motion.div 
                 className="mt-8 lg:mt-0"
-                initial={{ opacity: 0 }}
+                initial={{ opacity: 1 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
               >
                 <div className="relative h-[400px] sm:h-[500px] overflow-hidden rounded-xl shadow-2xl">
                   <JewelryViewer metalType="gold" gemType="emerald" />
