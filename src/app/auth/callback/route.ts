@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import { createRouteSupabaseClient } from '@/lib/supabase-server';
 
+// Mark this route as dynamic to prevent static pre-rendering
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: Request) {
   try {
     const requestUrl = new URL(request.url);
@@ -98,6 +101,9 @@ export async function GET(request: Request) {
     return NextResponse.redirect(`${origin}/auth/login?error=${encodeURIComponent('Missing authentication parameters')}`);
   } catch (error: any) {
     console.error('[Auth Callback] Critical error in callback handler:', error);
-    return NextResponse.redirect(`${origin}/auth/login?error=${encodeURIComponent('Something went wrong during authentication')}`);
+    
+    // Use a default origin if we're in the catch block and can't access the request
+    const fallbackOrigin = 'https://reefq.vercel.app';
+    return NextResponse.redirect(`${fallbackOrigin}/auth/login?error=${encodeURIComponent('Something went wrong during authentication')}`);
   }
 } 

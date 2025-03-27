@@ -459,7 +459,7 @@ function HandTrackingJewelry({ metalType, gemType, handPosition }: HandTrackingJ
   
   // Update position if hand tracking is active
   useEffect(() => {
-    if (handPosition) {
+    if (handPosition && handPosition.x !== undefined && handPosition.y !== undefined && handPosition.z !== undefined) {
       setPosition([handPosition.x, handPosition.y, handPosition.z]);
     }
   }, [handPosition]);
