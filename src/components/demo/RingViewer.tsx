@@ -37,7 +37,7 @@ function ErrorFallback({ error, resetErrorBoundary }: { error: Error; resetError
 function LoadingFallback() {
   return (
     <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
-      <Loader2 className="w-8 h-8 animate-spin text-brand-teal" />
+      <div className="w-12 h-12 border-t-4 border-b-4 border-nile-teal rounded-full animate-spin"></div>
     </div>
   );
 }

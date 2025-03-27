@@ -7,22 +7,29 @@ import Image from 'next/image';
 interface CircleLoaderProps {
   onLoadingComplete?: () => void;
   duration?: number; // Total duration in milliseconds
+  size?: 'default' | 'large'; // Size variant
 }
 
 export default function CircleLoader({ 
   onLoadingComplete, 
-  duration = 3000 
+  duration = 3000, // Changed to 3 seconds default
+  size = 'default'
 }: CircleLoaderProps) {
   const [loading, setLoading] = useState(true);
   const [showLogo, setShowLogo] = useState(false);
+  const [finalReveal, setFinalReveal] = useState(false);
   
   // Handle the loading animation sequence
   useEffect(() => {
     const timer1 = setTimeout(() => {
       setShowLogo(true);
-    }, duration * 0.7); // Show logo at 70% of the animation
+    }, duration * 0.3); // Show logo earlier at 30% of the animation
     
     const timer2 = setTimeout(() => {
+      setFinalReveal(true);
+    }, duration * 0.6); // Final reveal at 60%
+    
+    const timer3 = setTimeout(() => {
       setLoading(false);
       if (onLoadingComplete) onLoadingComplete();
     }, duration);
@@ -30,76 +37,105 @@ export default function CircleLoader({
     return () => {
       clearTimeout(timer1);
       clearTimeout(timer2);
+      clearTimeout(timer3);
     };
   }, [duration, onLoadingComplete]);
+
+  // Size variants - using much larger sizes
+  const circleSizes = {
+    default: {
+      outer: "w-64 h-64",
+      inner: "w-48 h-48",
+      logo: "w-36 h-36" // Fixed logo size - not too small, not too large
+    },
+    large: {
+      outer: "w-80 h-80",
+      inner: "w-60 h-60",
+      logo: "w-48 h-48" // Fixed logo size for large variant
+    }
+  };
+  
+  const sizeVariant = circleSizes[size];
   
   return (
     <AnimatePresence>
       {loading && (
         <motion.div
-          initial={{ opacity: 1 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
+          transition={{ duration: 0.5, ease: "easeInOut" }} // Faster transition
           className="fixed inset-0 z-50 flex items-center justify-center bg-white"
         >
           <div className="relative flex items-center justify-center">
-            {/* First animated circle */}
+            {/* First animated circle - fades out during final reveal */}
             <motion.div
-              initial={{ scale: 0, rotate: 0 }}
+              initial={{ scale: 0, rotate: 0, opacity: 1 }}
               animate={{ 
-                scale: [0, 1, 1.2, 1],
-                rotate: [0, 180, 360],
+                scale: 1,
+                rotate: 360,
+                opacity: finalReveal ? 0 : 1,
                 borderColor: ["#178086", "#C4A265", "#178086"]
               }}
               transition={{ 
-                duration: duration * 0.001 * 2, 
-                repeat: showLogo ? 0 : Infinity,
-                repeatType: "reverse"
+                duration: 2, // Faster rotation
+                repeat: finalReveal ? 0 : Infinity,
+                repeatType: "loop",
+                ease: "linear",
+                times: [0, 0.5, 1],
+                opacity: { duration: 0.4 } // Faster fade out
               }}
-              className="absolute w-32 h-32 border-t-4 border-b-4 rounded-full"
+              className={`absolute ${sizeVariant.outer} border-t-8 border-b-8 rounded-full shadow-lg`}
             />
             
-            {/* Second animated circle */}
+            {/* Second animated circle - fades out during final reveal */}
             <motion.div
-              initial={{ scale: 0, rotate: 0 }}
+              initial={{ scale: 0, rotate: 0, opacity: 1 }}
               animate={{ 
-                scale: [0, 1.2, 1, 1.2],
-                rotate: [0, -180, -360],
+                scale: 1,
+                rotate: -360,
+                opacity: finalReveal ? 0 : 1,
                 borderColor: ["#C4A265", "#178086", "#C4A265"]
               }}
               transition={{ 
-                duration: duration * 0.001 * 2, 
-                repeat: showLogo ? 0 : Infinity,
-                repeatType: "reverse",
-                delay: 0.2
+                duration: 2, // Faster rotation
+                repeat: finalReveal ? 0 : Infinity,
+                repeatType: "loop",
+                ease: "linear",
+                times: [0, 0.5, 1],
+                delay: 0.1, // Shorter delay
+                opacity: { duration: 0.4 } // Faster fade out
               }}
-              className="absolute w-24 h-24 border-l-4 border-r-4 rounded-full"
+              className={`absolute ${sizeVariant.inner} border-l-8 border-r-8 rounded-full shadow-lg`}
             />
             
-            {/* Logo reveal */}
-            <motion.div
-              initial={{ scale: 0, opacity: 0 }}
-              animate={showLogo ? { 
-                scale: [0, 1.2, 1],
-                opacity: 1
-              } : { scale: 0, opacity: 0 }}
-              transition={{ 
-                duration: 0.8,
-                type: "spring",
-                stiffness: 200,
-                damping: 10
-              }}
-              className="relative z-10"
-            >
-              <Image
-                src="/logo.png"
-                alt="ReefQ Logo"
-                width={220}
-                height={80}
-                priority
-                className="w-auto h-auto max-w-[220px]"
-              />
-            </motion.div>
+            {/* Logo remains at consistent size */}
+            {showLogo && (
+              <motion.div
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ 
+                  scale: 1,
+                  opacity: 1
+                }}
+                transition={{ 
+                  duration: 0.3, // Faster animation
+                  type: "spring",
+                  stiffness: 200,
+                  damping: 20
+                }}
+                className="relative z-10"
+              >
+                <div className={`relative ${sizeVariant.logo}`}>
+                  <Image
+                    src="/logo.png"
+                    alt="ReefQ Logo"
+                    fill
+                    className="object-contain"
+                    priority
+                  />
+                </div>
+              </motion.div>
+            )}
           </div>
         </motion.div>
       )}

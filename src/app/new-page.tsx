@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import CircleLoader from '@/components/ui/CircleLoader';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CubeIcon, SparklesIcon, ChartBarIcon, CheckIcon } from '@heroicons/react/24/outline';
 import { ChevronDownIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid';
@@ -54,7 +53,6 @@ const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => 
 };
 
 export default function Home() {
-  const [pageLoaded, setPageLoaded] = useState(false);
   const { t, i18n } = useTranslation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -160,132 +158,126 @@ export default function Home() {
   ];
   
   return (
-    <>
-      <CircleLoader onLoadingComplete={() => setPageLoaded(true)} />
-      
-      {pageLoaded && (
-        <main className={`bg-white ${isRTL ? 'rtl' : 'ltr'}`}>
-          {/* Header with Logo - Fixed with scroll effect */}
-          <header className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 w-full full-width ${
-            scrolled || mobileMenuOpen
-              ? 'bg-white/95 backdrop-blur-sm shadow-md py-2' 
-              : 'bg-transparent py-4'
-          }`}>
-            <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <nav className={`flex items-center justify-between w-full`}>
-                {/* Logo - Left in LTR, Right in RTL */}
-                <div className={`flex lg:flex-1 logo-container ${isRTL ? 'order-3' : 'order-1'}`}>
-                  <a href="#" className={`${isRTL ? 'ml-0 mr-4' : 'mr-4 ml-0'} relative w-48 h-16 flex items-center`}>
-                    <Image 
-                      src="/logo.png"
-                      alt="ReefQ Logo"
-                      width={180}
-                      height={60}
-                      className="w-auto h-[200%]"
-                      priority
-                    />
+    <main className={`bg-white ${isRTL ? 'rtl' : 'ltr'}`}>
+      {/* Header with Logo - Fixed with scroll effect */}
+      <header className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 w-full full-width ${
+        scrolled || mobileMenuOpen
+          ? 'bg-white/95 backdrop-blur-sm shadow-md py-2' 
+          : 'bg-transparent py-4'
+      }`}>
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <nav className={`flex items-center justify-between w-full`}>
+            {/* Logo - Left in LTR, Right in RTL */}
+            <div className={`flex lg:flex-1 logo-container ${isRTL ? 'order-3' : 'order-1'}`}>
+              <a href="#" className={`${isRTL ? 'ml-0 mr-4' : 'mr-4 ml-0'} relative w-48 h-16 flex items-center`}>
+                <Image 
+                  src="/logo.png"
+                  alt="ReefQ Logo"
+                  width={180}
+                  height={60}
+                  className="w-auto h-[200%]"
+                  priority
+                />
+              </a>
+            </div>
+            
+            {/* Desktop Navigation - Always in the middle */}
+            <div className="hidden lg:flex lg:gap-x-8 desktop-nav order-2">
+              <a href="#features" onClick={(e) => scrollToSection(e, 'features')} className={`font-medium transition-colors ${scrolled ? 'text-gray-700 hover:text-pharaonic-gold' : 'text-gray-800 hover:text-pharaonic-gold'}`}>
+                {t('header.features')}
+              </a>
+              <a href="#testimonials" onClick={(e) => scrollToSection(e, 'testimonials')} className={`font-medium transition-colors ${scrolled ? 'text-gray-700 hover:text-pharaonic-gold' : 'text-gray-800 hover:text-pharaonic-gold'}`}>
+                {t('header.testimonials')}
+              </a>
+              <a href="#how-it-works" onClick={(e) => scrollToSection(e, 'how-it-works')} className={`font-medium transition-colors ${scrolled ? 'text-gray-700 hover:text-pharaonic-gold' : 'text-gray-800 hover:text-pharaonic-gold'}`}>
+                {t('header.howItWorks')}
+              </a>
+              <a href="#pricing" onClick={(e) => scrollToSection(e, 'pricing')} className={`font-medium transition-colors ${scrolled ? 'text-gray-700 hover:text-pharaonic-gold' : 'text-gray-800 hover:text-pharaonic-gold'}`}>
+                {t('header.pricing')}
+              </a>
+              <a href="#faq" onClick={(e) => scrollToSection(e, 'faq')} className={`font-medium transition-colors ${scrolled ? 'text-gray-700 hover:text-pharaonic-gold' : 'text-gray-800 hover:text-pharaonic-gold'}`}>
+                {t('header.faq')}
+              </a>
+            </div>
+            
+            {/* Right action buttons - Right in LTR, Left in RTL */}
+            <div className={`lg:flex lg:flex-1 lg:justify-end items-center hidden ${isRTL ? 'order-1' : 'order-3'}`}>
+              <LanguageSwitcher />
+              <a href="#" className="ml-4 text-sm font-semibold leading-6 text-gray-900 hover:text-pharaonic-gold transition-colors">
+                {t('button.sign_in')} <span aria-hidden="true">&rarr;</span>
+              </a>
+              <a href="#" className="ml-8 px-4 py-2 rounded-md text-sm font-semibold bg-nile-teal text-white hover:bg-pharaonic-gold transition-colors duration-200">
+                {t('button.get_started')}
+              </a>
+            </div>
+            
+            {/* Mobile menu button */}
+            <div className="flex lg:hidden items-center">
+              <button
+                type="button"
+                className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-nile-teal hover:bg-gray-100 focus:outline-none"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              >
+                <span className="sr-only">Open main menu</span>
+                {mobileMenuOpen ? (
+                  <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
+                ) : (
+                  <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
+                )}
+              </button>
+            </div>
+          </nav>
+        </div>
+        
+        {/* Mobile menu, show/hide based on menu state. */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div 
+              ref={menuRef}
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2 }}
+              className="lg:hidden overflow-hidden"
+            >
+              <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 shadow-lg bg-white">
+                <a href="#features" onClick={(e) => {scrollToSection(e, 'features'); setMobileMenuOpen(false);}} className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50 hover:text-nile-teal">
+                  {t('header.features')}
+                </a>
+                <a href="#testimonials" onClick={(e) => {scrollToSection(e, 'testimonials'); setMobileMenuOpen(false);}} className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50 hover:text-nile-teal">
+                  {t('header.testimonials')}
+                </a>
+                <a href="#how-it-works" onClick={(e) => {scrollToSection(e, 'how-it-works'); setMobileMenuOpen(false);}} className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50 hover:text-nile-teal">
+                  {t('header.howItWorks')}
+                </a>
+                <a href="#pricing" onClick={(e) => {scrollToSection(e, 'pricing'); setMobileMenuOpen(false);}} className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50 hover:text-nile-teal">
+                  {t('header.pricing')}
+                </a>
+                <a href="#faq" onClick={(e) => {scrollToSection(e, 'faq'); setMobileMenuOpen(false);}} className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50 hover:text-nile-teal">
+                  {t('header.faq')}
+                </a>
+                <div className="flex items-center justify-between pt-4 border-t border-gray-200 mt-4">
+                  <a href="#" className="w-full block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:text-nile-teal">
+                    {t('button.sign_in')}
                   </a>
-                </div>
-                
-                {/* Desktop Navigation - Always in the middle */}
-                <div className="hidden lg:flex lg:gap-x-8 desktop-nav order-2">
-                  <a href="#features" onClick={(e) => scrollToSection(e, 'features')} className={`font-medium transition-colors ${scrolled ? 'text-gray-700 hover:text-pharaonic-gold' : 'text-gray-800 hover:text-pharaonic-gold'}`}>
-                    {t('header.features')}
-                  </a>
-                  <a href="#testimonials" onClick={(e) => scrollToSection(e, 'testimonials')} className={`font-medium transition-colors ${scrolled ? 'text-gray-700 hover:text-pharaonic-gold' : 'text-gray-800 hover:text-pharaonic-gold'}`}>
-                    {t('header.testimonials')}
-                  </a>
-                  <a href="#how-it-works" onClick={(e) => scrollToSection(e, 'how-it-works')} className={`font-medium transition-colors ${scrolled ? 'text-gray-700 hover:text-pharaonic-gold' : 'text-gray-800 hover:text-pharaonic-gold'}`}>
-                    {t('header.howItWorks')}
-                  </a>
-                  <a href="#pricing" onClick={(e) => scrollToSection(e, 'pricing')} className={`font-medium transition-colors ${scrolled ? 'text-gray-700 hover:text-pharaonic-gold' : 'text-gray-800 hover:text-pharaonic-gold'}`}>
-                    {t('header.pricing')}
-                  </a>
-                  <a href="#faq" onClick={(e) => scrollToSection(e, 'faq')} className={`font-medium transition-colors ${scrolled ? 'text-gray-700 hover:text-pharaonic-gold' : 'text-gray-800 hover:text-pharaonic-gold'}`}>
-                    {t('header.faq')}
-                  </a>
-                </div>
-                
-                {/* Right action buttons - Right in LTR, Left in RTL */}
-                <div className={`lg:flex lg:flex-1 lg:justify-end items-center hidden ${isRTL ? 'order-1' : 'order-3'}`}>
-                  <LanguageSwitcher />
-                  <a href="#" className="ml-4 text-sm font-semibold leading-6 text-gray-900 hover:text-pharaonic-gold transition-colors">
-                    {t('button.sign_in')} <span aria-hidden="true">&rarr;</span>
-                  </a>
-                  <a href="#" className="ml-8 px-4 py-2 rounded-md text-sm font-semibold bg-nile-teal text-white hover:bg-pharaonic-gold transition-colors duration-200">
+                  <a href="#" className="w-full block px-3 py-2 rounded-md text-base font-medium bg-nile-teal text-white text-center">
                     {t('button.get_started')}
                   </a>
                 </div>
-                
-                {/* Mobile menu button */}
-                <div className="flex lg:hidden items-center">
-                  <button
-                    type="button"
-                    className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-nile-teal hover:bg-gray-100 focus:outline-none"
-                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  >
-                    <span className="sr-only">Open main menu</span>
-                    {mobileMenuOpen ? (
-                      <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
-                    ) : (
-                      <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
-                    )}
-                  </button>
+                <div className="mt-4 flex justify-center">
+                  <LanguageSwitcher />
                 </div>
-              </nav>
-            </div>
-            
-            {/* Mobile menu, show/hide based on menu state. */}
-            <AnimatePresence>
-              {mobileMenuOpen && (
-                <motion.div 
-                  ref={menuRef}
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="lg:hidden overflow-hidden"
-                >
-                  <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 shadow-lg bg-white">
-                    <a href="#features" onClick={(e) => {scrollToSection(e, 'features'); setMobileMenuOpen(false);}} className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50 hover:text-nile-teal">
-                      {t('header.features')}
-                    </a>
-                    <a href="#testimonials" onClick={(e) => {scrollToSection(e, 'testimonials'); setMobileMenuOpen(false);}} className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50 hover:text-nile-teal">
-                      {t('header.testimonials')}
-                    </a>
-                    <a href="#how-it-works" onClick={(e) => {scrollToSection(e, 'how-it-works'); setMobileMenuOpen(false);}} className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50 hover:text-nile-teal">
-                      {t('header.howItWorks')}
-                    </a>
-                    <a href="#pricing" onClick={(e) => {scrollToSection(e, 'pricing'); setMobileMenuOpen(false);}} className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50 hover:text-nile-teal">
-                      {t('header.pricing')}
-                    </a>
-                    <a href="#faq" onClick={(e) => {scrollToSection(e, 'faq'); setMobileMenuOpen(false);}} className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50 hover:text-nile-teal">
-                      {t('header.faq')}
-                    </a>
-                    <div className="flex items-center justify-between pt-4 border-t border-gray-200 mt-4">
-                      <a href="#" className="w-full block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:text-nile-teal">
-                        {t('button.sign_in')}
-                      </a>
-                      <a href="#" className="w-full block px-3 py-2 rounded-md text-base font-medium bg-nile-teal text-white text-center">
-                        {t('button.get_started')}
-                      </a>
-                    </div>
-                    <div className="mt-4 flex justify-center">
-                      <LanguageSwitcher />
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </header>
-          
-          {/* The rest of the landing page content continues here... */}
-          
-          {/* Hero Section */}
-          {/* ... Rest of the page content ... */}
-          
-        </main>
-      )}
-    </>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </header>
+      
+      {/* The rest of the landing page content continues here... */}
+      
+      {/* Hero Section */}
+      {/* ... Rest of the page content ... */}
+      
+    </main>
   );
 } 

@@ -1,0 +1,59 @@
+'use client';
+
+import { ExampleLoader } from '@/components/ExampleLoader';
+
+export default function DemoPage() {
+  return (
+    <div className="min-h-screen bg-gray-50 py-20">
+      <div className="container mx-auto px-4">
+        <h1 className="text-3xl font-serif text-nile-teal mb-6 text-center">Loader Demo</h1>
+        
+        <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-md overflow-hidden p-8">
+          <p className="text-gray-600 mb-8 text-center">
+            This page demonstrates the global loader component that can be used throughout the application.
+          </p>
+          
+          <ExampleLoader />
+          
+          <div className="mt-12 pt-6 border-t border-gray-100">
+            <h2 className="text-xl font-medium text-gray-900 mb-4">How to use in your components:</h2>
+            <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto text-sm">
+              {`// In any component:
+import { useLoading } from '@/providers/LoadingProvider';
+
+function YourComponent() {
+  const { showLoader, hideLoader } = useLoading();
+  
+  const handleProcess = async () => {
+    // Show loader
+    showLoader({ 
+      duration: 3000,  // Optional: default is 3000ms
+      size: 'large'    // Optional: 'default' or 'large'
+    });
+    
+    try {
+      // Your async process
+      await someAsyncProcess();
+      
+      // Loader will hide automatically after duration
+      // Or you can hide it manually:
+      // hideLoader();
+    } catch (error) {
+      // Handle error
+      hideLoader();
+    }
+  };
+  
+  return (
+    <button onClick={handleProcess}>
+      Start Process
+    </button>
+  );
+}`}
+            </pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+} 
