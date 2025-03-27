@@ -1,0 +1,12 @@
+.git
+.github
+node_modules
+README.md
+.env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.next/cache
+*.log
+*.bak 
