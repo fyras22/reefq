@@ -1,288 +1,362 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { signIn, useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
-import { useAuth } from '@/providers/AuthProvider';
-import { Mail, Lock } from 'lucide-react';
-import { supabase } from '@/lib/supabase';
-
-const loginSchema = z.object({
-  email: z.string().email('Please enter a valid email'),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
-});
-
-type LoginFormValues = z.infer<typeof loginSchema>;
+import Link from 'next/link';
+import Image from 'next/image';
+import { motion } from 'framer-motion';
+import SocialAuthButtons from '@/components/ui/social-auth-buttons';
 
 export default function LoginPage() {
   const router = useRouter();
-  const { signIn, signInWithOAuth } = useAuth();
-  const [isLoading, setIsLoading] = useState(false);
-  const [magicLinkLoading, setMagicLinkLoading] = useState(false);
-  const [authError, setAuthError] = useState<string | null>(null);
-  const [magicLinkSent, setMagicLinkSent] = useState(false);
-  const [redirectUrl, setRedirectUrl] = useState<string | null>(null);
+  const { data: session, status } = useSession();
   const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl') || '/dashboard';
+  const error = searchParams.get('error');
+  
+  const [email, setEmail] = useState('admin@example.com');
+  const [password, setPassword] = useState('password123');
+  const [rememberMe, setRememberMe] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
-  // Get the redirectUrl from the query parameters
+  // Redirect if already authenticated
   useEffect(() => {
-    const url = new URL(window.location.href);
-    const redirect = url.searchParams.get('redirectUrl');
-    setRedirectUrl(redirect);
-  }, []);
+    if (status === 'authenticated') {
+      router.push(callbackUrl);
+    }
+  }, [status, router, callbackUrl]);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    watch,
-  } = useForm<LoginFormValues>({
-    resolver: zodResolver(loginSchema),
-    defaultValues: {
-      email: '',
-      password: '',
-    },
-  });
+  // Set error message if error query param exists
+  useEffect(() => {
+    if (error) {
+      setFormError(
+        error === 'CredentialsSignin' 
+          ? 'Invalid email or password' 
+          : 'An error occurred during sign in'
+      );
+    }
+  }, [error]);
 
-  const email = watch('email');
-
-  const onSubmit = async (data: LoginFormValues) => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     setIsLoading(true);
-    setAuthError(null);
+    setFormError(null);
     
     try {
-      console.log('[Login] Attempting to sign in with:', data.email);
-      const result = await signIn(data.email, data.password);
+      const result = await signIn('credentials', {
+        redirect: false,
+        email,
+        password,
+      });
       
-      if (result.error) {
-        console.error('[Login] Authentication failed:', result.error.message);
-        setAuthError(result.error.message);
-      } else {
-        console.log('[Login] Sign in successful, redirecting to:', redirectUrl || '/dashboard');
-        // Set flag to show welcome message on dashboard
-        if (typeof window !== 'undefined') {
-          try {
-            console.log('[Login] Setting justLoggedIn flag in sessionStorage');
-            sessionStorage.setItem('justLoggedIn', 'true');
-          } catch (e) {
-            console.error('[Login] Error setting sessionStorage flag:', e);
-          }
-        }
-        // Force hard navigation to dashboard to ensure proper session handling
-        window.location.href = redirectUrl || '/dashboard';
+      if (result?.error) {
+        setFormError('Invalid email or password');
+        setIsLoading(false);
+      } else if (result?.ok) {
+        router.push(callbackUrl);
       }
-    } catch (error: any) {
-      console.error('[Login] Exception during sign in:', error);
-      setAuthError(error.message || 'Something went wrong');
-    } finally {
+    } catch (err) {
+      setFormError('An unexpected error occurred');
       setIsLoading(false);
     }
   };
 
-  const handleOAuthSignIn = async (provider: 'google' | 'facebook') => {
-    setIsLoading(true);
-    setAuthError(null);
-    
-    try {
-      console.log(`[Login] Initiating ${provider} OAuth flow`);
-      await signInWithOAuth(provider);
-      // OAuth redirect will happen automatically
-    } catch (error: any) {
-      console.error(`[Login] ${provider} OAuth error:`, error);
-      setAuthError(error.message || `Something went wrong with ${provider} sign in`);
-      setIsLoading(false);
-    }
+  const handleOAuthSignIn = (provider: string) => {
+    signIn(provider, { callbackUrl });
+  };
+  
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
-  const handleMagicLinkSignIn = async () => {
-    if (!email || !email.includes('@')) {
-      setAuthError('Please enter a valid email address for magic link');
-      return;
-    }
-    
-    setMagicLinkLoading(true);
-    setAuthError(null);
-    
-    try {
-      // Implement magic link sign-in logic here
-      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate API call
-      setMagicLinkSent(true);
-    } catch (error: any) {
-      setAuthError(error.message || 'Error sending magic link');
-    } finally {
-      setMagicLinkLoading(false);
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: { 
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      }
     }
   };
+  
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: { y: 0, opacity: 1, transition: { duration: 0.5 } }
+  };
+
+  // If already authenticated, show loading state
+  if (status === 'authenticated') {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-50 to-indigo-50">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-600 mx-auto mb-4"></div>
+          <p className="text-gray-700">Already signed in. Redirecting...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="flex min-h-screen flex-col bg-gradient-to-b from-white to-gray-50">
-      {/* Header */}
-      <header className="py-4 border-b border-gray-200 bg-white/80 backdrop-blur-sm">
-        <div className="container mx-auto px-4 flex justify-center">
-          <Link href="/" className="flex items-center">
-            <span className="text-brand-teal text-2xl font-bold">ReefQ</span>
-          </Link>
-        </div>
-      </header>
-      
-      {/* Main content */}
-      <main className="flex-1 flex items-center justify-center px-4 py-12">
-        <div className="w-full max-w-md space-y-8 bg-white p-8 rounded-xl shadow-sm border border-gray-100">
-          {magicLinkSent ? (
-            <div className="text-center">
-              <div className="mx-auto w-16 h-16 flex items-center justify-center rounded-full bg-brand-teal/10 mb-4">
-                <Mail className="h-8 w-8 text-brand-teal" />
-              </div>
-              <h2 className="text-2xl font-bold text-gray-900">Check your inbox</h2>
-              <p className="mt-2 text-gray-600">We've sent a magic link to <strong>{email}</strong></p>
-              <p className="mt-4 text-sm text-gray-500">
-                Click the link in the email to sign in to your account.
+    <div className="min-h-screen flex bg-gradient-to-b from-blue-50 to-indigo-50">
+      {/* Left panel - decorative */}
+      <div className="hidden lg:flex w-1/2 bg-cover bg-center justify-center items-center" 
+        style={{ backgroundImage: 'url(/assets/images/auth-bg.jpg)' }}>
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="px-8 py-12 max-w-md mx-auto bg-white/80 backdrop-blur-sm rounded-xl shadow-lg"
+        >
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-gray-800 mb-2">ReefQ Jewelry</h2>
+            <div className="h-1 w-16 bg-indigo-600 mx-auto mb-4"></div>
+            <p className="mt-2 text-gray-600">Premium jewelry visualization platform</p>
+          </div>
+          <div className="space-y-6">
+            <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
+              <p className="text-sm text-gray-700">
+                Experience our luxury collection with stunning 3D visualizations and AR try-on features.
               </p>
-              <button 
-                onClick={() => setMagicLinkSent(false)} 
-                className="mt-6 text-brand-teal hover:text-brand-teal/80 text-sm font-medium"
-              >
-                Use a different method
-              </button>
             </div>
-          ) : (
-            <>
-              <div className="text-center">
-                <h1 className="text-3xl font-bold text-gray-900">Welcome back</h1>
-                <p className="mt-2 text-gray-600">Sign in to your account to continue</p>
-              </div>
-
-              {authError && (
-                <div className="rounded-md bg-red-50 p-4 text-red-500 text-sm">
-                  <p>{authError}</p>
-                </div>
-              )}
-
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                <Input
-                  label="Email address"
-                  type="email"
-                  error={errors.email?.message}
-                  {...register('email')}
-                />
-
-                <div className="space-y-2">
-                  <Input
-                    label="Password"
-                    type="password"
-                    error={errors.password?.message}
-                    {...register('password')}
-                  />
-                  <div className="text-right">
-                    <Link
-                      href="/auth/forgot-password"
-                      className="text-sm font-medium text-brand-teal hover:text-brand-teal/80"
-                    >
-                      Forgot password?
-                    </Link>
-                  </div>
-                </div>
-
-                <Button 
-                  type="submit" 
-                  fullWidth={true} 
-                  isLoading={isLoading}
-                  className="bg-brand-teal hover:bg-brand-teal/90 text-white font-medium"
-                >
-                  Sign in
-                </Button>
-              </form>
-
-              <button
-                type="button"
-                onClick={handleMagicLinkSignIn}
-                disabled={magicLinkLoading}
-                className="w-full mt-4 flex items-center justify-center py-2.5 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-teal"
+            <div className="flex justify-center space-x-6">
+              <motion.div 
+                whileHover={{ scale: 1.05, rotate: 5 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-20 h-20 bg-white rounded-full shadow-md flex items-center justify-center"
               >
-                {magicLinkLoading ? (
-                  <span className="flex items-center">
-                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-brand-teal" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <span className="text-3xl">💎</span>
+              </motion.div>
+              <motion.div 
+                whileHover={{ scale: 1.05, rotate: -5 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-20 h-20 bg-white rounded-full shadow-md flex items-center justify-center"
+              >
+                <span className="text-3xl">💍</span>
+              </motion.div>
+              <motion.div 
+                whileHover={{ scale: 1.05, rotate: 5 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-20 h-20 bg-white rounded-full shadow-md flex items-center justify-center"
+              >
+                <span className="text-3xl">👑</span>
+              </motion.div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+      
+      {/* Right panel - login form */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center px-6 py-12">
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="w-full max-w-md"
+        >
+          <motion.div variants={itemVariants} className="text-center mb-10">
+            <h2 className="text-3xl font-bold text-gray-900">Welcome Back</h2>
+            <div className="h-1 w-16 bg-indigo-600 mx-auto my-4"></div>
+            <p className="mt-2 text-gray-600">Please sign in to your account</p>
+            {formError && (
+              <motion.div 
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mt-4 p-3 bg-red-50 border border-red-200 text-red-700 text-sm rounded-md"
+              >
+                {formError}
+              </motion.div>
+            )}
+          </motion.div>
+          
+          {/* Replace OAuth buttons with SocialAuthButtons component */}
+          <motion.div variants={itemVariants}>
+            <SocialAuthButtons 
+              action="sign in"
+              callbackUrl={callbackUrl}
+            />
+          </motion.div>
+          
+          {/* Email/password form */}
+          <motion.form variants={itemVariants} className="space-y-5" onSubmit={handleSubmit}>
+            <div>
+              <label htmlFor="email-address" className="block text-sm font-medium text-gray-700 mb-1">
+                Email address
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <svg className="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                  </svg>
+                </div>
+                <input
+                  id="email-address"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  className="pl-10 mt-1 appearance-none block w-full px-3 py-2.5 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={isLoading}
+                />
+                {isLoading && (
+                  <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                    <svg className="animate-spin h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
-                    Sending magic link...
-                  </span>
-                ) : (
-                  <span className="flex items-center">
-                    <Mail className="mr-2 h-4 w-4" />
-                    Sign in with Magic Link
-                  </span>
+                  </div>
                 )}
-              </button>
-
-              <div className="relative mt-6">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-300"></div>
+              </div>
+            </div>
+            
+            <div>
+              <div className="flex items-center justify-between mb-1">
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                  Password
+                </label>
+                <Link href="/auth/forgot-password" className="text-sm font-medium text-indigo-600 hover:text-indigo-500 transition-colors">
+                  Forgot password?
+                </Link>
+              </div>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <svg className="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+                  </svg>
                 </div>
-                <div className="relative flex justify-center text-sm">
-                  <span className="bg-white px-4 text-gray-500">Or continue with</span>
+                <input
+                  id="password"
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  autoComplete="current-password"
+                  required
+                  className="pl-10 pr-10 mt-1 appearance-none block w-full px-3 py-2.5 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  disabled={isLoading}
+                />
+                <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+                  {isLoading ? (
+                    <svg className="animate-spin h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={togglePasswordVisibility}
+                      className="text-gray-400 hover:text-gray-500 focus:outline-none"
+                    >
+                      {showPassword ? (
+                        <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                          <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                          <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
+                        </svg>
+                      ) : (
+                        <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                          <path fillRule="evenodd" d="M3.707 2.293a1 1 0 00-1.414 1.414l14 14a1 1 0 001.414-1.414l-1.473-1.473A10.014 10.014 0 0019.542 10C18.268 5.943 14.478 3 10 3a9.958 9.958 0 00-4.512 1.074l-1.78-1.781zm4.261 4.26l1.514 1.515a2.003 2.003 0 012.45 2.45l1.514 1.514a4 4 0 00-5.478-5.478z" clipRule="evenodd" />
+                          <path d="M12.454 16.697L9.75 13.992a4 4 0 01-3.742-3.741L2.335 6.578A9.98 9.98 0 00.458 10c1.274 4.057 5.065 7 9.542 7 .847 0 1.669-.105 2.454-.303z" />
+                        </svg>
+                      )}
+                    </button>
+                  )}
                 </div>
               </div>
+            </div>
 
-              <div className="mt-6 grid grid-cols-2 gap-3">
-                <button
-                  type="button"
-                  onClick={() => handleOAuthSignIn('google')}
-                  disabled={isLoading}
-                  className="flex items-center justify-center py-2.5 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-teal"
-                >
-                  <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
-                    <g transform="matrix(1, 0, 0, 1, 27.009001, -39.238998)">
-                      <path fill="#4285F4" d="M -3.264 51.509 C -3.264 50.719 -3.334 49.969 -3.454 49.239 L -14.754 49.239 L -14.754 53.749 L -8.284 53.749 C -8.574 55.229 -9.424 56.479 -10.684 57.329 L -10.684 60.329 L -6.824 60.329 C -4.564 58.239 -3.264 55.159 -3.264 51.509 Z"/>
-                      <path fill="#34A853" d="M -14.754 63.239 C -11.514 63.239 -8.804 62.159 -6.824 60.329 L -10.684 57.329 C -11.764 58.049 -13.134 58.489 -14.754 58.489 C -17.884 58.489 -20.534 56.379 -21.484 53.529 L -25.464 53.529 L -25.464 56.619 C -23.494 60.539 -19.444 63.239 -14.754 63.239 Z"/>
-                      <path fill="#FBBC05" d="M -21.484 53.529 C -21.734 52.809 -21.864 52.039 -21.864 51.239 C -21.864 50.439 -21.724 49.669 -21.484 48.949 L -21.484 45.859 L -25.464 45.859 C -26.284 47.479 -26.754 49.299 -26.754 51.239 C -26.754 53.179 -26.284 54.999 -25.464 56.619 L -21.484 53.529 Z"/>
-                      <path fill="#EA4335" d="M -14.754 43.989 C -12.984 43.989 -11.404 44.599 -10.154 45.789 L -6.734 42.369 C -8.804 40.429 -11.514 39.239 -14.754 39.239 C -19.444 39.239 -23.494 41.939 -25.464 45.859 L -21.484 48.949 C -20.534 46.099 -17.884 43.989 -14.754 43.989 Z"/>
-                    </g>
-                  </svg>
-                  Google
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleOAuthSignIn('facebook')}
-                  disabled={isLoading}
-                  className="flex items-center justify-center py-2.5 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-teal"
-                >
-                  <svg className="mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#1877F2">
-                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                  </svg>
-                  Facebook
-                </button>
-              </div>
+            <div className="flex items-center">
+              <input
+                id="remember-me"
+                name="remember-me"
+                type="checkbox"
+                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+              />
+              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
+                Remember me
+              </label>
+            </div>
 
-              <p className="mt-8 text-center text-sm text-gray-600">
+            <div>
+              <motion.button
+                type="submit"
+                disabled={isLoading}
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.99 }}
+                className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
+              >
+                {isLoading ? (
+                  <span className="flex items-center">
+                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Signing in...
+                  </span>
+                ) : 'Sign in'}
+              </motion.button>
+            </div>
+          </motion.form>
+          
+          <motion.div variants={itemVariants} className="mt-6">
+            <div className="text-center">
+              <p className="text-sm text-gray-600">
                 Don't have an account?{' '}
-                <Link href="/auth/register" className="font-medium text-brand-teal hover:text-brand-teal/80">
+                <Link href="/auth/register" className="font-medium text-indigo-600 hover:text-indigo-500 transition-colors">
                   Sign up
                 </Link>
               </p>
-            </>
-          )}
-        </div>
-      </main>
-
-      {/* Footer */}
-      <footer className="py-4 border-t border-gray-200 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <p className="text-sm text-gray-500">© {new Date().getFullYear()} ReefQ. All rights reserved.</p>
-            <div className="mt-4 md:mt-0 flex space-x-6">
-              <Link href="/privacy" className="text-sm text-gray-500 hover:text-gray-700">Privacy</Link>
-              <Link href="/terms" className="text-sm text-gray-500 hover:text-gray-700">Terms</Link>
-              <Link href="/contact" className="text-sm text-gray-500 hover:text-gray-700">Contact</Link>
             </div>
-          </div>
-        </div>
-      </footer>
+          </motion.div>
+          
+          <motion.div 
+            variants={itemVariants}
+            className="mt-8 p-4 bg-blue-50 rounded-md border border-blue-100 relative overflow-hidden"
+          >
+            <div className="absolute top-0 right-0 pt-1 pr-1">
+              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+                Demo
+              </span>
+            </div>
+            <p className="text-center text-sm text-gray-700 font-medium mb-2">Test Credentials</p>
+            <div className="grid grid-cols-2 gap-4 text-sm">
+              <div className="bg-white p-2 rounded border border-gray-200">
+                <p className="font-medium text-gray-700 mb-1">Admin User</p>
+                <p className="text-gray-600">
+                  <span className="font-medium text-blue-600">admin@example.com</span><br />
+                  <span className="font-medium text-blue-600">password123</span>
+                </p>
+              </div>
+              <div className="bg-white p-2 rounded border border-gray-200">
+                <p className="font-medium text-gray-700 mb-1">Regular User</p>
+                <p className="text-gray-600">
+                  <span className="font-medium text-blue-600">user@example.com</span><br />
+                  <span className="font-medium text-blue-600">password123</span>
+                </p>
+              </div>
+            </div>
+          </motion.div>
+          
+          <motion.div variants={itemVariants} className="mt-6 text-center">
+            <Link href="/" className="inline-flex items-center text-sm text-gray-600 hover:text-indigo-600 transition-colors">
+              <svg className="mr-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
+              </svg>
+              Return to home
+            </Link>
+          </motion.div>
+        </motion.div>
+      </div>
     </div>
   );
 } 

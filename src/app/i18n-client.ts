@@ -22,7 +22,9 @@ i18next
     detection: {
       order: ['cookie', 'localStorage', 'navigator', 'htmlTag'],
       caches: ['cookie', 'localStorage'],
-      lookupCookie: 'NEXT_LOCALE'
+      lookupCookie: 'NEXT_LOCALE',
+      lookupFromPathIndex: 0,
+      cookieOptions: { path: '/' }
     }
   });
 

@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
 
 // Dynamically import components with no SSR
-const JewelryViewer = dynamic(() => import('@/components/JewelryViewer').then(mod => mod.JewelryViewer), {
+const JewelryViewer = dynamic(() => import('@/components/JewelryViewer').then(mod => ({ default: mod.JewelryViewer })), {
   ssr: false,
   loading: () => (
     <div className="w-full h-full flex items-center justify-center">
@@ -15,8 +15,8 @@ const JewelryViewer = dynamic(() => import('@/components/JewelryViewer').then(mo
 });
 
 export default function ThreeDModelingPage() {
-  const [metalType, setMetalType] = useState<'gold' | 'silver' | 'platinum'>('gold');
-  const [gemType, setGemType] = useState<'diamond' | 'ruby' | 'sapphire' | 'emerald'>('diamond');
+  const [selectedMetal, setSelectedMetal] = useState<'gold' | 'silver' | 'platinum'>('gold');
+  const [selectedGem, setSelectedGem] = useState<'diamond' | 'ruby' | 'sapphire' | 'emerald'>('diamond');
   const [size, setSize] = useState(1);
 
   return (
@@ -50,7 +50,7 @@ export default function ThreeDModelingPage() {
             {/* Jewelry Viewer */}
             <div className="bg-white rounded-lg shadow-xl overflow-hidden">
               <div style={{ height: "500px" }}>
-                <JewelryViewer metalType={metalType} gemType={gemType} size={size} />
+                <JewelryViewer modelPath="/models/diamond_engagement_ring.glb" selectedMetal={selectedMetal} selectedGem={selectedGem} />
               </div>
             </div>
           </div>
@@ -63,8 +63,8 @@ export default function ThreeDModelingPage() {
                   Metal Type
                 </label>
                 <select
-                  value={metalType}
-                  onChange={(e) => setMetalType(e.target.value as 'gold' | 'silver' | 'platinum')}
+                  value={selectedMetal}
+                  onChange={(e) => setSelectedMetal(e.target.value as 'gold' | 'silver' | 'platinum')}
                   className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 >
                   <option value="gold">Gold</option>
@@ -78,8 +78,8 @@ export default function ThreeDModelingPage() {
                   Gem Type
                 </label>
                 <select
-                  value={gemType}
-                  onChange={(e) => setGemType(e.target.value as 'diamond' | 'ruby' | 'sapphire' | 'emerald')}
+                  value={selectedGem}
+                  onChange={(e) => setSelectedGem(e.target.value as 'diamond' | 'ruby' | 'sapphire' | 'emerald')}
                   className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 >
                   <option value="diamond">Diamond</option>

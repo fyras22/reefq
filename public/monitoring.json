@@ -1,0 +1,48 @@
+{
+  "name": "ReefQ Platform",
+  "description": "3D jewelry visualization and AR try-on platform",
+  "version": "1.0.0",
+  "status": "healthy",
+  "endpoints": [
+    {
+      "name": "API Healthcheck",
+      "url": "/api/healthcheck",
+      "expectedStatus": 200,
+      "checkInterval": 60,
+      "timeout": 5000
+    },
+    {
+      "name": "Homepage",
+      "url": "/",
+      "expectedStatus": 200,
+      "checkInterval": 300,
+      "timeout": 10000
+    },
+    {
+      "name": "Jewelry Page",
+      "url": "/jewelry",
+      "expectedStatus": 200,
+      "checkInterval": 300,
+      "timeout": 10000
+    }
+  ],
+  "notifications": {
+    "email": "alerts@reefq.com",
+    "slack": "https://hooks.slack.com/services/REPLACE_WITH_ACTUAL_WEBHOOK"
+  },
+  "thresholds": {
+    "responseTime": {
+      "warning": 800,
+      "critical": 2000
+    },
+    "availability": {
+      "warning": 99.5,
+      "critical": 98.0
+    }
+  },
+  "features": {
+    "autoRetry": true,
+    "screenshot": true,
+    "traceroute": true
+  }
+} 

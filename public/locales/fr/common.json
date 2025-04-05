@@ -7,18 +7,60 @@
     "faq": "FAQ",
     "getStarted": "Commencer",
     "login": "Connexion",
-    "signup": "Inscription"
+    "signup": "S'inscrire",
+    "tryOn": "Essayage",
+    "customize": "Personnaliser",
+    "performance": "Performance",
+    "compare": "Comparer",
+    "demo": "Démo",
+    "products": "Produits",
+    "navigation": "Navigation",
+    "jewelryCollection": "Collection de Bijoux",
+    "virtualTryOn": "Essayage Virtuel",
+    "customizeJewelry": "Personnaliser Bijoux",
+    "knowledgeHub": "Centre de Connaissances"
   },
   "hero": {
     "title": "ReefQ",
-    "subtitle": "Expérience Bijoux 3D",
-    "description": "Découvrez les bijoux comme jamais auparavant avec notre visionneuse 3D interactive et notre technologie d'essayage en RA. Personnalisez les métaux, les pierres précieuses et les tailles en temps réel.",
+    "subtitle": "Expérience de Bijouterie en 3D",
+    "description": "Découvrez une nouvelle vision de la bijouterie numérique avec la plateforme ReefQ. Nous combinons la technologie de réalité augmentée avec une visualisation 3D haute-fidélité pour offrir une expérience unique d'achat de bijoux pour les marchands et les clients.",
     "exploreFeatures": "Explorer les fonctionnalités",
-    "howItWorks": "Comment ça marche"
+    "howItWorks": "Comment ça marche",
+    "browseButton": "Parcourir la Collection",
+    "tryOnButton": "Essayer en RA",
+    "tagline": "Le premier écosystème numérique de bijouterie au monde",
+    "colors": {
+      "pharaonicGold": "Or Pharaonique",
+      "nileTeal": "Bleu Nil"
+    },
+    "aiPowered": "Visualisation 3D alimentée par l'IA ✨"
   },
   "features": {
-    "title": "Shopping de bijoux immersif",
-    "subtitle": "Transformer l'expérience client avec des technologies 3D avancées",
+    "title": "Achat Immersif de Bijoux",
+    "subtitle": "Transformez l'expérience client avec des technologies 3D avancées",
+    "exploreTitle": "Explorez Nos Fonctionnalités",
+    "exploreSubtitle": "Découvrez les façons révolutionnaires de vivre l'expérience de la bijouterie en ligne",
+    "browseCollection": {
+      "title": "Parcourir la Collection",
+      "description": "Explorez notre exquise collection de bijoux avec des vues 3D détaillées",
+      "cta": "Voir la Collection"
+    },
+    "virtualTryOn": {
+      "title": "Essayage Virtuel",
+      "description": "Essayez virtuellement les bijoux avec notre technologie RA et nos outils de taille",
+      "cta": "Essayer Maintenant"
+    },
+    "designYourOwn": {
+      "title": "Concevez le Vôtre",
+      "description": "Créez des bijoux personnalisés avec notre studio de design interactif",
+      "cta": "Commencer à Concevoir"
+    },
+    "knowledgeHub": {
+      "title": "Centre de Connaissances",
+      "description": "Apprenez sur l'entretien des bijoux, les pierres précieuses et l'artisanat",
+      "cta": "Explorer les Guides"
+    },
+    "customizeOptions": "Explorer toutes les options de personnalisation",
     "3dVisualization": {
       "name": "Visualisation 3D",
       "description": "Présentez votre collection de bijoux avec des modèles 3D photoréalistes qui capturent chaque détail et éclat.",
@@ -148,7 +190,7 @@
       "answer": "Oui, notre visionneuse 3D et nos fonctionnalités d'essayage en RA sont entièrement réactives et optimisées pour tous les appareils."
     }
   },
-"footer": {
+  "footer": {
     "company": "Entreprise",
     "about": "À propos de ReefQ",
     "careers": "Carrières",
@@ -171,5 +213,22 @@
     "fr": "Français",
     "ar": "العربية"
   },
-  "direction": "ltr"
+  "direction": "ltr",
+  "performance": {
+    "badge": "Performance Optimisée",
+    "title": "Expérience Ultra-Rapide pour la Tunisie",
+    "description": "Notre plateforme est spécialement optimisée pour les conditions réseau tunisiennes, assurant une performance fluide même sur des connexions à faible bande passante. Expérimentez la 3D et la RA sans attente."
+  },
+  "comparison": {
+    "badge": "Transformation Numérique",
+    "title": "Expérience de Bijouterie Traditionnelle vs. Numérique",
+    "subtitle": "Découvrez comment ReefQ transforme l'expérience d'achat de bijoux tunisiens tout en préservant l'artisanat culturel",
+    "traditional": {
+      "title": "Expérience Traditionnelle"
+    },
+    "digital": {
+      "title": "Expérience Numérique avec ReefQ"
+    },
+    "ctaButton": "Découvrir la Différence"
+  }
 } 

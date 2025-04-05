@@ -12,20 +12,61 @@ module.exports = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      fontFamily: {
+        sans: ['var(--font-roboto)'],
+        serif: ['var(--font-playfair)'],
+      },
       colors: {
+        primary: {
+          50: '#ecfeff',
+          100: '#cffafe',
+          200: '#a5f3fc',
+          300: '#67e8f9',
+          400: '#22d3ee',
+          500: '#0B7D77',
+          600: '#0e7490',
+          700: '#155e75',
+          800: '#164e63',
+          900: '#083344',
+          950: '#042f2e',
+        },
         'brand-teal': '#178086',
         'brand-gold': '#C4A265',
-        'nile-teal': '#178086',
-        'pharaonic-gold': '#C4A265',
+        'nile-teal': 'rgb(var(--nile-teal))',
+        'pharaonic-gold': 'rgb(var(--pharaonic-gold))',
         'dark-gray': '#333333',
         'medium-gray': '#666666',
         'light-gray': '#F5F3F0',
         'bg-light': '#F5F3F0',
       },
-      fontFamily: {
-        serif: ['var(--font-playfair)', 'serif'],
+      keyframes: {
+        shimmer: {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(100%)' },
+        },
+        fadeOut: {
+          '0%': { opacity: '1' },
+          '75%': { opacity: '1' },
+          '100%': { opacity: '0' },
+        }
+      },
+      animation: {
+        shimmer: 'shimmer 1.5s infinite',
+        fadeOut: 'fadeOut 3s ease-in-out forwards',
+      },
+      container: {
+        center: true,
+        padding: {
+          DEFAULT: '1rem',
+          sm: '2rem',
+          lg: '4rem',
+          xl: '5rem',
+          '2xl': '6rem',
+        },
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/container-queries'),
+  ],
 } 

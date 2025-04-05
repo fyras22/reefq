@@ -1,84 +1,135 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { languages } from '@/app/i18n-settings';
-import { onLanguageChange } from '@/app/i18n';
-import { useTranslation } from '@/app/i18n';
+import { usePathname, useRouter } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
+import { useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import Image from 'next/image';
 
-export default function LanguageSwitcher() {
+// Map language codes to their flag images
+const languageFlags: Record<string, string> = {
+  en: '/flags/us.svg',
+  fr: '/flags/fr.svg',
+  ar: '/flags/ar.svg',
+};
+
+export function LanguageSwitcher() {
   const { i18n } = useTranslation();
+  const router = useRouter();
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
-  const [currentLang, setCurrentLang] = useState(() => {
-    if (typeof window !== 'undefined') {
-      // Get language from cookie or navigator
-      const cookieLang = document.cookie
-        .split('; ')
-        .find(row => row.startsWith('NEXT_LOCALE='))
-        ?.split('=')[1];
-      
-      return cookieLang || navigator.language.split('-')[0] || 'en';
-    }
-    return 'en';
-  });
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Set the initial direction based on the current language
+  // Close dropdown when clicking outside
   useEffect(() => {
-    if (typeof document !== 'undefined') {
-      document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-      document.documentElement.lang = currentLang;
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
     }
-  }, [currentLang]);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
-  const toggleDropdown = () => setIsOpen(!isOpen);
-  
-  const changeLanguage = (lang: string) => {
-    setCurrentLang(lang);
-    onLanguageChange(lang);
+  const currentLanguage = i18n.language.substring(0, 2);
+  const isRTL = currentLanguage === 'ar';
+
+  const languageOptions = [
+    { value: 'en', label: 'English' },
+    { value: 'fr', label: 'Français' },
+    { value: 'ar', label: 'العربية' },
+  ];
+
+  const handleLanguageChange = (language: string) => {
+    const newPathname = pathname.replace(/\/(en|fr|ar)/, `/${language}`);
+    router.push(newPathname);
     setIsOpen(false);
   };
-  
-  const getLanguageLabel = (code: string) => {
-    switch (code) {
-      case 'en': return 'English';
-      case 'fr': return 'Français';
-      case 'ar': return 'العربية';
-      default: return code;
-    }
-  };
-
-  const isRTL = currentLang === 'ar';
 
   return (
-    <div className="relative inline-block text-left">
-      <button 
+    <div ref={dropdownRef} className="relative">
+      <button
         type="button"
-        className={`inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-teal ${isRTL ? 'flex-row-reverse' : ''}`}
-        onClick={toggleDropdown}
+        onClick={() => setIsOpen(!isOpen)}
+        className={`flex items-center gap-2 px-3 py-2 text-gray-700 bg-white rounded-md border border-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-nile-teal ${
+          isRTL ? 'flex-row-reverse' : ''
+        }`}
+        aria-expanded={isOpen}
+        aria-haspopup="listbox"
       >
-        {getLanguageLabel(currentLang)}
-        <svg className={`h-5 w-5 ${isRTL ? 'mr-2' : 'ml-2'}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-          <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+        <div className="relative w-5 h-4 overflow-hidden">
+          <Image
+            src={languageFlags[currentLanguage]}
+            alt={`${currentLanguage} flag`}
+            fill
+            className="object-cover"
+          />
+        </div>
+        <span className="text-sm font-medium">
+          {languageOptions.find((lang) => lang.value === currentLanguage)?.label}
+        </span>
+        <svg
+          className={`w-4 h-4 text-gray-500 transition-transform ${
+            isOpen ? 'rotate-180' : ''
+          }`}
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            fillRule="evenodd"
+            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+            clipRule="evenodd"
+          />
         </svg>
       </button>
 
-      {isOpen && (
-        <div className={`origin-top-right absolute mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50 ${isRTL ? 'right-0' : 'left-0'}`}>
-          <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-            {languages.map((lang) => (
-              <button
-                key={lang}
-                onClick={() => changeLanguage(lang)}
-                className={`${
-                  currentLang === lang ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
-                } block w-full ${isRTL ? 'text-right pr-4' : 'text-left pl-4'} py-2 text-sm hover:bg-gray-100`}
-                role="menuitem"
-              >
-                {getLanguageLabel(lang)}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className={`absolute z-10 mt-2 w-48 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none ${
+              isRTL ? 'right-0' : 'left-0'
+            }`}
+            role="listbox"
+          >
+            <div className="py-1">
+              {languageOptions.map((option) => (
+                <button
+                  key={option.value}
+                  onClick={() => handleLanguageChange(option.value)}
+                  className={`${
+                    currentLanguage === option.value
+                      ? 'bg-nile-teal text-white'
+                      : 'text-gray-900 hover:bg-gray-100'
+                  } ${
+                    isRTL ? 'text-right flex-row-reverse' : 'text-left'
+                  } flex items-center w-full px-4 py-2 text-sm cursor-pointer`}
+                  role="option"
+                  aria-selected={currentLanguage === option.value}
+                >
+                  <div className="relative w-5 h-4 overflow-hidden mr-2">
+                    <Image
+                      src={languageFlags[option.value]}
+                      alt={`${option.value} flag`}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <span className={isRTL && currentLanguage !== option.value ? 'mr-2' : ''}>
+                    {option.label}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 } 

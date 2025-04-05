@@ -1,23 +1,51 @@
 import './globals.css'
-import { Playfair_Display } from 'next/font/google'
-import { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
+import { Playfair_Display, Roboto } from 'next/font/google'
+import { Suspense } from 'react'
+import WebVitalsMonitor from '@/components/layout/WebVitalsMonitor'
+import Providers from '@/providers/Providers'
+import { Analytics } from '@vercel/analytics/react'
+import { AnalyticsProvider } from '@/components/analytics/AnalyticsProvider'
 import { I18nProvider } from '@/providers/I18nProvider'
-import { AuthProvider } from '@/providers/AuthProvider'
 import { LoadingProvider } from '@/providers/LoadingProvider'
+import StoreProvider from '@/providers/StoreProvider'
+import WebVitalsTracker from '@/components/analytics/WebVitalsTracker'
+import NextAuthProvider from '@/components/providers/NextAuthProvider'
+import { SpeedInsights } from '@vercel/speed-insights/next'
+import ResourceHints from '@/components/optimization/ResourceHints'
+import { headers } from 'next/headers'
+import { optimizeFontLoading } from '@/lib/performance'
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
   variable: '--font-playfair',
+  display: 'swap',
 })
+
+const roboto = Roboto({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '700'],
+  variable: '--font-roboto',
+  display: 'swap',
+})
+
+// Get font URLs for preloading
+const fontUrls = [
+  '/fonts/roboto-v30-latin-regular.woff2',
+  '/fonts/playfair-display-v30-latin-600.woff2'
+]
+
+// Preload essential fonts for better LCP
+optimizeFontLoading(fontUrls)
 
 export const metadata: Metadata = {
   title: {
-    default: 'ReefQ - 3D Jewelry Visualization & AR Try-On Platform',
-    template: '%s | ReefQ'
+    template: '%s | ReefQ Jewelry',
+    default: 'ReefQ Jewelry - Premium 3D Jewelry Experience'
   },
-  description: 'Transform your jewelry business with stunning 3D visualization and AR try-on experiences. Boost sales with interactive product showcases.',
-  keywords: ['jewelry visualization', '3D jewelry', 'AR try-on', 'jewelry ecommerce', '3D product viewer', 'jewelry technology'],
-  authors: [{ name: 'ReefQ' }],
+  description: 'Interactive 3D jewelry visualization and customization platform with AR try-on capabilities',
+  keywords: ['jewelry', '3D jewelry', 'AR jewelry', 'virtual try-on', 'jewelry customization'],
+  authors: [{ name: 'ReefQ Team' }],
   creator: 'ReefQ',
   publisher: 'ReefQ',
   formatDetection: {
@@ -25,111 +53,120 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://reefq.vercel.app'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://reefq.com'),
   alternates: {
     canonical: '/',
+    languages: {
+      'en': '/en',
+      'fr': '/fr',
+      'ar': '/ar',
+    },
   },
   openGraph: {
-    type: 'website',
-    locale: 'en_US',
-    url: 'https://reefq.vercel.app',
-    siteName: 'ReefQ',
-    title: 'ReefQ - 3D Jewelry Visualization & AR Try-On Platform',
-    description: 'Transform your jewelry business with stunning 3D visualization and AR try-on experiences. Boost sales with interactive product showcases.',
+    title: 'ReefQ Jewelry - Premium 3D Jewelry Experience',
+    description: 'Interactive 3D jewelry visualization and customization platform with AR try-on capabilities',
+    url: 'https://reefq.com',
+    siteName: 'ReefQ Jewelry',
     images: [
       {
-        url: '/og-image.jpg',
+        url: '/images/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'ReefQ Platform Preview',
-      },
+        alt: 'ReefQ Jewelry visualization platform'
+      }
     ],
+    locale: 'en_US',
+    type: 'website'
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ReefQ - 3D Jewelry Visualization & AR Try-On Platform',
-    description: 'Transform your jewelry business with stunning 3D visualization and AR try-on experiences.',
-    images: ['/og-image.jpg'],
-    creator: '@reefq',
+    title: 'ReefQ Jewelry - Premium 3D Jewelry Experience',
+    description: 'Interactive 3D jewelry visualization and customization platform with AR try-on capabilities',
+    images: ['/images/twitter-image.jpg']
   },
   robots: {
     index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
+    follow: true
   },
   verification: {
     google: 'your-google-site-verification',
   },
+  manifest: '/manifest.json',
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/icons/apple-touch-icon.png'
+  }
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  themeColor: '#ffffff',
 }
 
 export default function RootLayout({
   children,
+  params,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
+  params: { lang: string };
 }) {
+  // Get user country for geo-specific optimizations 
+  const headersList = headers()
+  const country = headersList.get('x-vercel-ip-country') || 'US'
+  
   return (
-    <html lang="en" className={playfair.variable}>
+    <html lang={params.lang} className={`${playfair.variable} ${roboto.variable}`} suppressHydrationWarning>
       <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "SoftwareApplication",
-              "name": "ReefQ",
-              "applicationCategory": "BusinessApplication",
-              "operatingSystem": "Web",
-              "offers": {
-                "@type": "Offer",
-                "price": "499",
-                "priceCurrency": "USD"
-              },
-              "description": "3D jewelry visualization and AR try-on platform for e-commerce businesses",
-              "aggregateRating": {
-                "@type": "AggregateRating",
-                "ratingValue": "4.8",
-                "ratingCount": "150"
-              }
-            })
-          }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              "name": "ReefQ",
-              "url": "https://reefq.vercel.app",
-              "logo": "https://reefq.vercel.app/logo.png",
-              "sameAs": [
-                "https://twitter.com/reefq",
-                "https://linkedin.com/company/reefq"
-              ],
-              "contactPoint": {
-                "@type": "ContactPoint",
-                "telephone": "+1-555-0123",
-                "contactType": "customer service",
-                "email": "support@reefq.com"
-              }
-            })
-          }}
-        />
+        <meta name="theme-color" content="#0B7D77" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <ResourceHints />
       </head>
-      <body className="antialiased">
-        <AuthProvider>
-          <I18nProvider>
-            <LoadingProvider>
-              {children}
-            </LoadingProvider>
-          </I18nProvider>
-        </AuthProvider>
+      <body className="min-h-screen bg-gray-50 text-gray-900 antialiased font-sans">
+        <div className="flex flex-col min-h-screen">
+          <Providers>
+            <NextAuthProvider>
+            <StoreProvider>
+              <I18nProvider>
+                <LoadingProvider>
+                    <AnalyticsProvider>
+                  {children}
+                      <Analytics />
+                    </AnalyticsProvider>
+                </LoadingProvider>
+              </I18nProvider>
+            </StoreProvider>
+            </NextAuthProvider>
+          </Providers>
+          
+          {/* Footer */}
+          <footer className="bg-white border-t border-gray-200 py-8">
+            <div className="container mx-auto px-4">
+              <div className="flex flex-col md:flex-row justify-between items-center">
+                <div className="mb-4 md:mb-0">
+                  <p className="text-sm text-gray-500">
+                    &copy; {new Date().getFullYear()} ReefQ. All rights reserved.
+                  </p>
+                </div>
+                <div className="flex space-x-6">
+                  <a href="#" className="text-gray-500 hover:text-gray-700 transition-colors">
+                    Terms
+                  </a>
+                  <a href="#" className="text-gray-500 hover:text-gray-700 transition-colors">
+                    Privacy
+                  </a>
+                  <a href="#" className="text-gray-500 hover:text-gray-700 transition-colors">
+                    Contact
+                  </a>
+                </div>
+              </div>
+            </div>
+          </footer>
+        </div>
+        <SpeedInsights />
       </body>
     </html>
   )

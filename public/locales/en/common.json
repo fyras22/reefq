@@ -7,18 +7,60 @@
     "faq": "FAQ",
     "getStarted": "Get Started",
     "login": "Login",
-    "signup": "Sign up"
+    "signup": "Sign up",
+    "tryOn": "Try-On",
+    "customize": "Customize",
+    "performance": "Performance",
+    "compare": "Compare",
+    "demo": "Demo",
+    "products": "Products",
+    "navigation": "Navigation",
+    "jewelryCollection": "Jewelry Collection",
+    "virtualTryOn": "Virtual Try-On",
+    "customizeJewelry": "Customize Jewelry",
+    "knowledgeHub": "Knowledge Hub"
   },
   "hero": {
     "title": "ReefQ",
     "subtitle": "3D Jewelry Experience",
     "description": "Unleash a new vision of digital jewelry with the ReefQ platform. We combine augmented reality technology with high-fidelity 3D visualization to provide a unique jewelry shopping experience for merchants and customers.",
     "exploreFeatures": "Explore Features",
-    "howItWorks": "How It Works"
+    "howItWorks": "How It Works",
+    "browseButton": "Browse Collection",
+    "tryOnButton": "Try On AR",
+    "tagline": "The first jewelry digital ecosystem worldwide",
+    "colors": {
+      "pharaonicGold": "Pharaonic Gold",
+      "nileTeal": "Nile Teal"
+    },
+    "aiPowered": "AI-powered 3D visualization ✨"
   },
   "features": {
     "title": "Immersive Jewelry Shopping",
     "subtitle": "Transform the customer experience with advanced 3D technologies",
+    "exploreTitle": "Explore Our Features",
+    "exploreSubtitle": "Discover the revolutionary ways to experience jewelry online",
+    "browseCollection": {
+      "title": "Browse Collection",
+      "description": "Explore our exquisite jewelry collection with detailed 3D views",
+      "cta": "View Collection"
+    },
+    "virtualTryOn": {
+      "title": "Virtual Try-On",
+      "description": "Try jewelry virtually with our AR technology and size tools",
+      "cta": "Try Now"
+    },
+    "designYourOwn": {
+      "title": "Design Your Own",
+      "description": "Create custom jewelry with our interactive design studio",
+      "cta": "Start Designing"
+    },
+    "knowledgeHub": {
+      "title": "Knowledge Hub",
+      "description": "Learn about jewelry care, gemstones, and craftsmanship",
+      "cta": "Explore Guides"
+    },
+    "customizeOptions": "Explore all customization options",
     "3dVisualization": {
       "name": "3D Visualization",
       "description": "Stunning jewelry display allowing customers to see every detail of the piece",
@@ -166,10 +208,27 @@
     "licensing": "Licensing",
     "copyright": "© {{year}} ReefQ. All rights reserved."
   },
-  "language": {
-    "english": "English",
-    "french": "French",
-    "arabic": "Arabic (رِفق)",
+  "languages": {
+    "en": "English",
+    "fr": "French",
+    "ar": "Arabic (رِفق)",
     "switchLanguage": "Switch Language"
+  },
+  "performance": {
+    "badge": "Performance Optimized",
+    "title": "Lightning-Fast Experience for Tunisia",
+    "description": "Our platform is specially optimized for Tunisian network conditions, ensuring smooth performance even on lower bandwidth connections. Experience 3D and AR without the wait."
+  },
+  "comparison": {
+    "badge": "Digital Transformation",
+    "title": "Traditional vs. Digital Jewelry Experience",
+    "subtitle": "See how ReefQ transforms the Tunisian jewelry shopping experience while preserving cultural craftsmanship",
+    "traditional": {
+      "title": "Traditional Experience"
+    },
+    "digital": {
+      "title": "Digital Experience with ReefQ"
+    },
+    "ctaButton": "Experience The Difference"
   }
 } 

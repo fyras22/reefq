@@ -17,6 +17,10 @@ import {
   UserResponse,
 } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase';
+import { useSession, signIn as nextAuthSignIn, signOut as nextAuthSignOut } from 'next-auth/react';
+
+// Check if we're using NextAuth (environment variable can control this)
+const USE_NEXTAUTH = true;
 
 export interface AuthContextType {
   user: User | null;
@@ -45,9 +49,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
+  
+  // If using NextAuth, we'll use the session from NextAuth
+  const nextAuthSession = USE_NEXTAUTH ? useSession() : null;
 
   useEffect(() => {
-    // Get initial session and set up listener
+    // If we're using NextAuth, we don't need to fetch the Supabase session
+    if (USE_NEXTAUTH) {
+      setIsLoading(nextAuthSession?.status === 'loading');
+      return;
+    }
+    
+    // Get initial session and set up listener for Supabase
     const fetchSession = async () => {
       setIsLoading(true);
       
@@ -76,13 +89,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
 
     fetchSession();
-  }, []);
+  }, [nextAuthSession?.status]);
 
   const signUp = async (
     email: string,
     password: string,
     options?: { name?: string }
   ): Promise<AuthResponse> => {
+    if (USE_NEXTAUTH) {
+      throw new Error('SignUp not implemented with NextAuth');
+    }
+    
     try {
       const response = await supabase.auth.signUp({
         email,
@@ -103,6 +120,39 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     email: string,
     password: string
   ): Promise<AuthResponse> => {
+    if (USE_NEXTAUTH) {
+      try {
+        const result = await nextAuthSignIn('credentials', {
+          redirect: false,
+          email,
+          password,
+        });
+        
+        // Create a compatible response for the interface
+        if (result?.error) {
+          const authError = new Error(result.error) as any;
+          authError.status = 400;
+          authError.code = 'invalid_credentials';
+          authError.__isAuthError = true;
+          authError.severity = 'warning';
+          authError.name = 'AuthApiError';
+          
+          return {
+            data: { session: null, user: null },
+            error: authError as AuthError,
+          };
+        }
+        
+        return {
+          data: { session: null, user: null },
+          error: null,
+        };
+      } catch (error: any) {
+        setError(error);
+        throw error;
+      }
+    }
+    
     try {
       console.log('[AuthProvider] Attempting to sign in with email and password');
       const response = await supabase.auth.signInWithPassword({
@@ -125,6 +175,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const signInWithOAuth = async (provider: Provider): Promise<void> => {
+    if (USE_NEXTAUTH) {
+      try {
+        await nextAuthSignIn(provider as string, { callbackUrl: '/dashboard' });
+        return;
+      } catch (error: any) {
+        setError(error);
+        throw error;
+      }
+    }
+    
     try {
       // Create an absolute URL for the callback
       const callbackUrl = new URL('/auth/callback', window.location.origin);
@@ -164,6 +224,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const signOut = async (): Promise<void> => {
+    if (USE_NEXTAUTH) {
+      try {
+        await nextAuthSignOut({ redirect: false });
+        return;
+      } catch (error: any) {
+        setError(error);
+        throw error;
+      }
+    }
+    
     try {
       await supabase.auth.signOut();
     } catch (error: any) {
@@ -173,6 +243,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const requestPasswordReset = async (email: string) => {
+    if (USE_NEXTAUTH) {
+      throw new Error('Password reset not implemented with NextAuth');
+    }
+    
     try {
       return await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: `${window.location.origin}/auth/reset-password`,
@@ -184,6 +258,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const resetPassword = async (token: string, password: string): Promise<UserResponse> => {
+    if (USE_NEXTAUTH) {
+      throw new Error('Password reset not implemented with NextAuth');
+    }
+    
     try {
       return await supabase.auth.updateUser({
         password,
@@ -195,6 +273,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const updateProfile = async (data: { name?: string; avatar_url?: string }) => {
+    if (USE_NEXTAUTH) {
+      throw new Error('Profile update not implemented with NextAuth');
+    }
+    
     try {
       if (!user) throw new Error('No user logged in');
       
@@ -214,6 +296,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const verifyEmail = async (token: string) => {
+    if (USE_NEXTAUTH) {
+      throw new Error('Email verification not implemented with NextAuth');
+    }
+    
     try {
       // Verify email is handled automatically by Supabase when clicking the link
       // This is a placeholder function that would be used to verify the token
@@ -226,6 +312,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const clearAllSessions = async (): Promise<void> => {
+    if (USE_NEXTAUTH) {
+      try {
+        await nextAuthSignOut();
+        return;
+      } catch (error: any) {
+        setError(error);
+        throw error;
+      }
+    }
+    
     try {
       console.log('[AuthProvider] Clearing all sessions and auth data');
       
@@ -247,29 +343,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           'oauth_state'
         ];
         
-        // Loop through potential keys and remove them
-        keysToRemove.forEach(key => {
-          try {
-            localStorage.removeItem(key);
-          } catch (e) {
-            console.error(`[AuthProvider] Failed to remove ${key} from localStorage`, e);
-          }
-        });
-        
-        // Try to clear any item with 'supabase' in the key
-        for (let i = 0; i < localStorage.length; i++) {
-          const key = localStorage.key(i);
-          if (key && (key.includes('supabase') || key.includes('sb:'))) {
-            try {
-              localStorage.removeItem(key);
-            } catch (e) {
-              console.log(`[AuthProvider] Failed to remove dynamic key ${key}`, e);
-            }
-          }
+        for (const key of keysToRemove) {
+          localStorage.removeItem(key);
         }
       }
       
-      // Clear the user and session state
+      // Update state
       setUser(null);
       setSession(null);
       
@@ -281,7 +360,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const value = useMemo(
+  // If using NextAuth, we'll return a simplified context
+  const nextAuthValue = useMemo(() => {
+    // Always return a valid context, never null
+    const contextValue: AuthContextType = {
+      user: nextAuthSession?.data?.user ? { id: nextAuthSession.data.user.id, email: nextAuthSession.data.user.email } as User : null,
+      session: null, // NextAuth session is not compatible with Supabase Session
+      isLoading: nextAuthSession?.status === 'loading',
+      error: null,
+      signUp,
+      signIn,
+      signInWithOAuth,
+      signOut,
+      requestPasswordReset,
+      resetPassword,
+      updateProfile,
+      verifyEmail,
+      clearAllSessions,
+    };
+    
+    return contextValue;
+  }, [nextAuthSession]);
+
+  // Create context value for Supabase auth
+  const supabaseValue = useMemo(
     () => ({
       user,
       session,
@@ -300,7 +402,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     [user, session, isLoading, error]
   );
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={USE_NEXTAUTH ? nextAuthValue : supabaseValue}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 export const useAuth = (): AuthContextType => {

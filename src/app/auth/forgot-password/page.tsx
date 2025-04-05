@@ -2,152 +2,249 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
-import { useAuth } from '@/providers/AuthProvider';
-import { Mail } from 'lucide-react';
-
-const forgotPasswordSchema = z.object({
-  email: z.string().email('Please enter a valid email'),
-});
-
-type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>;
+import { useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
 
 export default function ForgotPasswordPage() {
-  const { requestPasswordReset } = useAuth();
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState(false);
+  const router = useRouter();
+  const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    watch,
-  } = useForm<ForgotPasswordFormValues>({
-    resolver: zodResolver(forgotPasswordSchema),
-    defaultValues: {
-      email: '',
-    },
-  });
-
-  const email = watch('email');
-
-  const onSubmit = async (data: ForgotPasswordFormValues) => {
-    setIsLoading(true);
-    setError(null);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!email || !/\S+@\S+\.\S+/.test(email)) {
+      setFormError('Please enter a valid email address');
+      return;
+    }
+    
+    setIsSubmitting(true);
+    setFormError(null);
     
     try {
-      const result = await requestPasswordReset(data.email);
-      if (result.error) {
-        setError(result.error.message);
-      } else {
-        setSuccess(true);
-      }
-    } catch (error: any) {
-      setError(error.message || 'Something went wrong');
+      // In a real application, this would call your API to handle the password reset
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      setSuccessMessage(`Password reset instructions have been sent to ${email}. Please check your inbox.`);
+      setEmail('');
+    } catch (error) {
+      setFormError('An error occurred while processing your request');
     } finally {
-      setIsLoading(false);
+      setIsSubmitting(false);
     }
   };
 
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: { 
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      }
+    }
+  };
+  
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: { y: 0, opacity: 1, transition: { duration: 0.5 } }
+  };
+
   return (
-    <div className="flex min-h-screen flex-col bg-gradient-to-b from-white to-gray-50">
-      {/* Header */}
-      <header className="py-4 border-b border-gray-200 bg-white/80 backdrop-blur-sm">
-        <div className="container mx-auto px-4 flex justify-center">
-          <Link href="/" className="flex items-center">
-            <span className="text-brand-teal text-2xl font-bold">ReefQ</span>
-          </Link>
-        </div>
-      </header>
-      
-      {/* Main content */}
-      <main className="flex-1 flex items-center justify-center px-4 py-12">
-        <div className="w-full max-w-md space-y-8 bg-white p-8 rounded-xl shadow-sm border border-gray-100">
-          {success ? (
-            <div className="text-center">
-              <div className="mx-auto w-16 h-16 flex items-center justify-center rounded-full bg-brand-teal/10 mb-4">
-                <Mail className="h-8 w-8 text-brand-teal" />
-              </div>
-              <h2 className="text-2xl font-bold text-gray-900">Check your inbox</h2>
-              <p className="mt-2 text-gray-600">
-                We've sent a password reset link to <strong>{email}</strong>
-              </p>
-              <p className="mt-4 text-sm text-gray-500">
-                Click the link in the email to reset your password.
-              </p>
-              <div className="mt-6">
-                <Link
-                  href="/auth/login"
-                  className="text-brand-teal hover:text-brand-teal/80 font-medium"
-                >
-                  Back to sign in
-                </Link>
-              </div>
-            </div>
-          ) : (
-            <>
-              <div className="text-center">
-                <h1 className="text-3xl font-bold text-gray-900">Reset your password</h1>
-                <p className="mt-2 text-gray-600">
-                  Enter your email and we'll send you a link to reset your password
-                </p>
-              </div>
-
-              {error && (
-                <div className="rounded-md bg-red-50 p-4 text-red-500 text-sm">
-                  <p>{error}</p>
-                </div>
-              )}
-
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                <Input
-                  label="Email address"
-                  type="email"
-                  error={errors.email?.message}
-                  {...register('email')}
-                />
-
-                <Button 
-                  type="submit" 
-                  fullWidth={true} 
-                  isLoading={isLoading}
-                  className="bg-brand-teal hover:bg-brand-teal/90 text-white font-medium"
-                >
-                  Send reset link
-                </Button>
-
-                <div className="text-center">
-                  <Link
-                    href="/auth/login"
-                    className="text-brand-teal hover:text-brand-teal/80 font-medium"
-                  >
-                    Back to sign in
-                  </Link>
-                </div>
-              </form>
-            </>
-          )}
-        </div>
-      </main>
-
-      {/* Footer */}
-      <footer className="py-4 border-t border-gray-200 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <p className="text-sm text-gray-500">© {new Date().getFullYear()} ReefQ. All rights reserved.</p>
-            <div className="mt-4 md:mt-0 flex space-x-6">
-              <Link href="/privacy" className="text-sm text-gray-500 hover:text-gray-700">Privacy</Link>
-              <Link href="/terms" className="text-sm text-gray-500 hover:text-gray-700">Terms</Link>
-              <Link href="/contact" className="text-sm text-gray-500 hover:text-gray-700">Contact</Link>
-            </div>
+    <div className="min-h-screen flex bg-gradient-to-b from-blue-50 to-indigo-50">
+      {/* Left panel - decorative */}
+      <div className="hidden lg:flex w-1/2 bg-cover bg-center justify-center items-center" 
+        style={{ backgroundImage: 'url(/assets/images/auth-bg.jpg)' }}>
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="px-8 py-12 max-w-md mx-auto bg-white/80 backdrop-blur-sm rounded-xl shadow-lg"
+        >
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-gray-800 mb-2">ReefQ Jewelry</h2>
+            <div className="h-1 w-16 bg-indigo-600 mx-auto mb-4"></div>
+            <p className="mt-2 text-gray-600">Premium jewelry visualization platform</p>
           </div>
-        </div>
-      </footer>
+          <div className="space-y-6">
+            <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
+              <p className="text-sm text-gray-700">
+                Don't worry, we've got you covered. We'll help you reset your password and get back to exploring our stunning jewelry collection.
+              </p>
+            </div>
+            <motion.div 
+              animate={{ 
+                y: [0, -10, 0],
+                opacity: [1, 0.8, 1]
+              }}
+              transition={{ 
+                duration: 3,
+                repeat: Infinity,
+                repeatType: "loop"
+              }}
+              className="flex justify-center"
+            >
+              <div className="w-20 h-20 bg-white rounded-full shadow-md flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
+            </motion.div>
+          </div>
+        </motion.div>
+      </div>
+      
+      {/* Right panel - forgot password form */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center px-6 py-12">
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="w-full max-w-md"
+        >
+          <motion.div variants={itemVariants} className="text-center mb-10">
+            <h2 className="text-3xl font-bold text-gray-900">Forgot Password</h2>
+            <div className="h-1 w-16 bg-indigo-600 mx-auto my-4"></div>
+            <p className="mt-2 text-gray-600">Enter your email to reset your password</p>
+            
+            {formError && (
+              <motion.div 
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mt-4 p-3 bg-red-50 border border-red-200 text-red-700 text-sm rounded-md"
+              >
+                {formError}
+              </motion.div>
+            )}
+            
+            {successMessage && (
+              <motion.div 
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mt-4 p-3 bg-green-50 border border-green-200 text-green-700 text-sm rounded-md"
+              >
+                {successMessage}
+              </motion.div>
+            )}
+          </motion.div>
+          
+          {!successMessage ? (
+            <motion.form variants={itemVariants} className="space-y-5" onSubmit={handleSubmit}>
+              <div>
+                <label htmlFor="email-address" className="block text-sm font-medium text-gray-700 mb-1">
+                  Email address
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <svg className="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                      <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                    </svg>
+                  </div>
+                  <input
+                    id="email-address"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    required
+                    className="pl-10 mt-1 appearance-none block w-full px-3 py-2.5 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
+                    placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    disabled={isSubmitting}
+                  />
+                  {isSubmitting && (
+                    <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                      <svg className="animate-spin h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="pt-2">
+                <motion.button
+                  type="submit"
+                  disabled={isSubmitting}
+                  whileHover={{ scale: 1.01 }}
+                  whileTap={{ scale: 0.99 }}
+                  className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
+                >
+                  {isSubmitting ? (
+                    <span className="flex items-center">
+                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Sending...
+                    </span>
+                  ) : 'Send Reset Instructions'}
+                </motion.button>
+              </div>
+            </motion.form>
+          ) : (
+            <motion.div
+              variants={itemVariants}
+              className="py-8 px-6 bg-white rounded-lg shadow-sm border border-gray-200"
+            >
+              <div className="text-center">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Check Your Email</h3>
+                <p className="text-sm text-gray-600 mb-4">
+                  We've sent a password reset link to your email address. The link will expire in 30 minutes.
+                </p>
+                <motion.button
+                  onClick={() => {
+                    setSuccessMessage(null);
+                    setEmail('');
+                  }}
+                  whileHover={{ scale: 1.01 }}
+                  whileTap={{ scale: 0.99 }}
+                  className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                  Send New Link
+                </motion.button>
+              </div>
+            </motion.div>
+          )}
+          
+          <motion.div variants={itemVariants} className="mt-6 text-center">
+            <p className="text-sm text-gray-600">
+              Remember your password?{' '}
+              <Link href="/auth/login" className="font-medium text-indigo-600 hover:text-indigo-500 transition-colors">
+                Sign in
+              </Link>
+            </p>
+          </motion.div>
+          
+          <motion.div variants={itemVariants} className="mt-6 text-center">
+            <p className="text-sm text-gray-600">
+              Don't have an account?{' '}
+              <Link href="/auth/register" className="font-medium text-indigo-600 hover:text-indigo-500 transition-colors">
+                Sign up
+              </Link>
+            </p>
+          </motion.div>
+          
+          <motion.div variants={itemVariants} className="mt-8 text-center">
+            <Link href="/" className="inline-flex items-center text-sm text-gray-600 hover:text-indigo-600 transition-colors">
+              <svg className="mr-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
+              </svg>
+              Return to home
+            </Link>
+          </motion.div>
+        </motion.div>
+      </div>
     </div>
   );
 } 

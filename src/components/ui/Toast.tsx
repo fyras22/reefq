@@ -1,64 +1,97 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { X } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon, ExclamationCircleIcon } from '@heroicons/react/24/solid';
 
-interface ToastProps {
+export interface ToastProps {
   message: string;
-  type?: 'success' | 'error' | 'info';
+  type: 'success' | 'error';
   duration?: number;
+  isVisible?: boolean;
   onClose?: () => void;
-  isVisible: boolean;
 }
 
-export const Toast: React.FC<ToastProps> = ({
+export function Toast({
   message,
   type = 'success',
-  duration = 5000,
-  onClose,
-  isVisible
-}) => {
+  duration = 3000,
+  isVisible = true,
+  onClose
+}: ToastProps) {
   const [visible, setVisible] = useState(isVisible);
 
   useEffect(() => {
     setVisible(isVisible);
-    
-    if (isVisible && duration > 0) {
+  }, [isVisible]);
+
+  useEffect(() => {
+    if (visible && duration !== Infinity) {
       const timer = setTimeout(() => {
         setVisible(false);
         if (onClose) onClose();
       }, duration);
-      
+
       return () => clearTimeout(timer);
     }
-  }, [isVisible, duration, onClose]);
+  }, [visible, duration, onClose]);
+
+  const handleClose = () => {
+    setVisible(false);
+    if (onClose) onClose();
+  };
 
   if (!visible) return null;
 
-  const typeClasses = {
-    success: 'bg-green-50 text-green-800 border-green-400',
-    error: 'bg-red-50 text-red-800 border-red-400',
-    info: 'bg-brand-teal/10 text-brand-teal border-brand-teal/30'
-  };
-
   return (
-    <div className="fixed top-4 right-4 z-50 max-w-md animate-in fade-in slide-in-from-top-3 duration-300">
-      <div className={`rounded-lg border p-4 shadow-md ${typeClasses[type]}`}>
+    <div
+      className={`max-w-sm w-full shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden ${
+        type === 'success' ? 'bg-green-50' : 'bg-red-50'
+      }`}
+      role="alert"
+      aria-live="assertive"
+      aria-atomic="true"
+    >
+      <div className="p-4">
         <div className="flex items-start">
-          <div className="flex-1 mr-2">
-            {message}
+          <div className="flex-shrink-0">
+            {type === 'success' ? (
+              <CheckCircleIcon
+                className="h-6 w-6 text-green-400"
+                aria-hidden="true"
+              />
+            ) : (
+              <ExclamationCircleIcon
+                className="h-6 w-6 text-red-400"
+                aria-hidden="true"
+              />
+            )}
           </div>
-          <button 
-            onClick={() => {
-              setVisible(false);
-              if (onClose) onClose();
-            }}
-            className="text-gray-500 hover:text-gray-700 transition-colors"
-          >
-            <X size={18} />
-          </button>
+          <div className="ml-3 w-0 flex-1 pt-0.5">
+            <p
+              className={`text-sm font-medium ${
+                type === 'success' ? 'text-green-800' : 'text-red-800'
+              }`}
+            >
+              {message}
+            </p>
+          </div>
+          <div className="ml-4 flex-shrink-0 flex">
+            <button
+              type="button"
+              className={`bg-transparent rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+                type === 'success'
+                  ? 'focus:ring-green-500'
+                  : 'focus:ring-red-500'
+              }`}
+              onClick={handleClose}
+            >
+              <span className="sr-only">Close</span>
+              <XMarkIcon className="h-5 w-5" aria-hidden="true" />
+            </button>
+          </div>
         </div>
       </div>
     </div>
   );
-}; 
+} 

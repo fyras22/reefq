@@ -8,6 +8,9 @@ import { XR, useXR, Interactive } from '@react-three/xr';
 import * as THREE from 'three';
 import * as handPoseDetection from '@tensorflow-models/hand-pose-detection';
 import * as tf from '@tensorflow/tfjs';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { HandPoseDetector } from '@/utils/handPoseDetector';
 
 // Enhanced type definitions for hand tracking
 interface HandLandmark {
@@ -36,7 +39,7 @@ interface HandPosition {
 }
 
 // Metal and gem type definitions
-type MetalType = 'gold' | 'silver' | 'platinum';
+type MetalType = 'gold' | 'silver' | 'platinum' | 'rosegold' | 'whitegold';
 type GemType = 'diamond' | 'ruby' | 'sapphire' | 'emerald';
 
 // Types for different jewelry positions
@@ -126,6 +129,7 @@ interface StabilizedPosition {
 interface ARTryOnProps {
   selectedMetal: MetalType;
   selectedGem: GemType;
+  modelPath?: string;
 }
 
 // Error boundary to catch and display XR errors
@@ -470,6 +474,8 @@ function HandTrackingJewelry({ metalType, gemType, handPosition }: HandTrackingJ
       case 'gold': return '#FFD700';
       case 'silver': return '#E0E0E0';
       case 'platinum': return '#E5E4E2';
+      case 'rosegold': return '#B76E79';
+      case 'whitegold': return '#F5F5F5';
       default: return '#FFD700';
     }
   };
@@ -480,7 +486,7 @@ function HandTrackingJewelry({ metalType, gemType, handPosition }: HandTrackingJ
       case 'diamond': return '#FFFFFF';
       case 'ruby': return '#E0115F';
       case 'sapphire': return '#0F52BA';
-      case 'emerald': return '#046307';
+      case 'emerald': return '#50C878';
       default: return '#FFFFFF';
     }
   };
@@ -1289,7 +1295,11 @@ function IntroScreen({ onStart }: { onStart: () => void }) {
 }
 
 // Main ARTryOn component
-export default function ARTryOn({ selectedMetal, selectedGem }: ARTryOnProps) {
+export default function ARTryOn({ 
+  selectedMetal = 'gold',
+  selectedGem = 'diamond',
+  modelPath = '/models/diamond_engagement_ring.glb'
+}: ARTryOnProps) {
   const [isARSupported, setIsARSupported] = useState(false);
   const [showARModal, setShowARModal] = useState(false);
   const [activeFinger, setActiveFinger] = useState<'thumb' | 'index' | 'middle' | 'ring' | 'pinky'>('ring');

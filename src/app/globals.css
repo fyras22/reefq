@@ -4,7 +4,10 @@
 
 :root {
   --foreground-rgb: 0, 0, 0;
-  --background-rgb: 255, 255, 255;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+  --nile-teal: 0, 128, 128; /* Teal color */
+  --pharaonic-gold: 212, 175, 55; /* Gold color */
   --brand-teal: #178086;
   --brand-gold: #C4A265;
   --brand-gray: #2d3748;
@@ -21,14 +24,27 @@
   --light-gray: 245, 243, 240; /* #F5F3F0 - Light background */
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
-  }
-  
-  body {
-    color: rgb(var(--foreground-rgb));
-    background: rgb(var(--background-rgb));
   }
   
   h1 {
@@ -76,11 +92,11 @@
   }
   
   .btn-primary {
-    @apply bg-brand-teal text-white hover:bg-opacity-90;
+    @apply bg-nile-teal text-white px-4 py-2 rounded-md hover:bg-nile-teal/90 transition-colors;
   }
   
   .btn-secondary {
-    @apply border border-brand-gold text-brand-gold hover:bg-brand-gold hover:text-white;
+    @apply bg-pharaonic-gold text-white px-4 py-2 rounded-md hover:bg-pharaonic-gold/90 transition-colors;
   }
   
   .heading-xl {
