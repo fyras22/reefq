@@ -77,7 +77,8 @@ export default function ProductMediaUpload({
         let fileTypeParam = fileType;
         if (fileType === 'model') {
           const fileExt = file.name.split('.').pop()?.toLowerCase();
-          fileTypeParam = fileExt === 'usdz' ? 'ar' : '3d';
+          // Use 'model' type instead of '3d' or 'ar'
+          fileTypeParam = 'model';
         }
         
         // When sending to the server, we might need different type values

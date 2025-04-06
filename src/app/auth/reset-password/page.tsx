@@ -82,7 +82,7 @@ export default function ResetPasswordPage() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-gradient-to-b from-white to-gray-50">
+    <div className="flex min-h-screen flex-col bg-gradient-to-b from-light-gray to-bg-light">
       {/* Header */}
       <header className="py-4 border-b border-gray-200 bg-white/80 backdrop-blur-sm">
         <div className="container mx-auto px-4 flex justify-center">

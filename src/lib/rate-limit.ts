@@ -1,5 +1,3 @@
-import { Redis } from '@upstash/redis';
-import { Ratelimit } from '@upstash/ratelimit';
 import { LRUCache } from 'lru-cache';
 
 /**
@@ -14,107 +12,70 @@ export interface RateLimitOptions {
   uniqueTokenPerInterval?: number;
 }
 
-interface RateLimitConfig {
-  limit: number;
-  interval: number; // in milliseconds
-  uniqueTokenPerInterval?: number;
-}
-
-interface RateLimitResponse {
-  success: boolean;
-  limit: number;
-  remaining: number;
-  reset: number;
-}
-
 /**
- * Create a memory-based rate limiter for local development
+ * Rate limiting implementation based on LRU cache
  */
-function createMemoryRateLimit(config: RateLimitConfig) {
-  const { limit, interval, uniqueTokenPerInterval = 500 } = config;
-  
-  // Create LRU cache for storing request counts
+export function rateLimit(options: RateLimitOptions = {}) {
+  const {
+    limit = 10,
+    interval = 60 * 1000, // 1 minute in milliseconds
+    uniqueTokenPerInterval = 500, // Max unique tokens per interval
+  } = options;
+
+  // Create LRU cache to store rate limit information
   const tokenCache = new LRUCache<string, number[]>({
     max: uniqueTokenPerInterval,
     ttl: interval,
   });
-  
+
   return {
-    check: async (token: string): Promise<RateLimitResponse> => {
+    /**
+     * Check if a request exceeds the rate limit
+     * @param maxRequests Maximum number of requests allowed
+     * @param token Unique identifier for the client (e.g., IP address, API key)
+     * @returns Promise that resolves if within limits, rejects if exceeded
+     */
+    check: (maxRequests: number = limit, token: string): Promise<void> => {
+      // Get current timestamp
       const now = Date.now();
+      
+      // Get existing timestamps for this token
+      const timestamps = tokenCache.get(token) || [];
+      
+      // Filter out timestamps outside the current interval window
       const windowStart = now - interval;
+      const validTimestamps = timestamps.filter(timestamp => timestamp > windowStart);
       
-      // Get existing requests from cache
-      const cachedRequests = tokenCache.get(token) || [];
+      // Check if the number of requests exceeds the limit
+      if (validTimestamps.length >= maxRequests) {
+        throw new Error('Rate limit exceeded');
+      }
       
-      // Filter out expired timestamps
-      const validRequests = [...cachedRequests.filter(timestamp => timestamp > windowStart), now];
+      // Add current timestamp and update cache
+      validTimestamps.push(now);
+      tokenCache.set(token, validTimestamps);
       
-      // Update cache
-      tokenCache.set(token, validRequests);
-      
-      const remaining = Math.max(0, limit - validRequests.length);
-      const success = validRequests.length <= limit;
-      const reset = Math.ceil((now + interval) / 1000); // Reset time in seconds
+      return Promise.resolve();
+    },
+    
+    /**
+     * Get current rate limit status
+     * @param token Unique identifier for the client
+     * @returns Object containing rate limit information
+     */
+    getStatus: (token: string, maxRequests: number = limit) => {
+      const now = Date.now();
+      const timestamps = tokenCache.get(token) || [];
+      const windowStart = now - interval;
+      const validTimestamps = timestamps.filter(timestamp => timestamp > windowStart);
       
       return {
-        success,
-        limit,
-        remaining,
-        reset,
+        limit: maxRequests,
+        current: validTimestamps.length,
+        remaining: Math.max(0, maxRequests - validTimestamps.length),
+        reset: new Date(windowStart + interval),
+        success: validTimestamps.length < maxRequests,
       };
     },
   };
-}
-
-/**
- * Create an Upstash Redis-based rate limiter for production
- */
-function createRedisRateLimit(config: RateLimitConfig) {
-  // Initialize Redis client if credentials are available
-  const redis = process.env.UPSTASH_REDIS_REST_URL
-    ? new Redis({
-        url: process.env.UPSTASH_REDIS_REST_URL || '',
-        token: process.env.UPSTASH_REDIS_REST_TOKEN || '',
-      })
-    : null;
-  
-  // If Redis is not available, fall back to memory cache
-  if (!redis) {
-    console.warn('Redis credentials not found, falling back to memory rate limiter');
-    return createMemoryRateLimit(config);
-  }
-  
-  // Create Upstash rate limiter
-  const ratelimit = new Ratelimit({
-    redis,
-    limiter: Ratelimit.slidingWindow(config.limit, `${config.interval}ms`),
-    analytics: true,
-  });
-  
-  return {
-    check: async (token: string): Promise<RateLimitResponse> => {
-      const result = await ratelimit.limit(token);
-      
-      return {
-        success: !result.success,
-        limit: result.limit,
-        remaining: result.remaining,
-        reset: Math.ceil(result.reset / 1000), // Convert to seconds
-      };
-    },
-  };
-}
-
-/**
- * Create a rate limiter based on environment
- */
-export function rateLimit(config: RateLimitConfig) {
-  // Use in-memory implementation for development
-  if (process.env.NODE_ENV === 'development') {
-    return createMemoryRateLimit(config);
-  }
-  
-  // Use Redis implementation for production
-  return createRedisRateLimit(config);
 } 

@@ -8,6 +8,12 @@ const nextConfig = {
   
   images: {
     formats: ['image/avif', 'image/webp'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
     minimumCacheTTL: 60,
   },
@@ -19,7 +25,11 @@ const nextConfig = {
     removeConsole: process.env.NODE_ENV === 'production',
   },
   productionBrowserSourceMaps: false,
+  skipTrailingSlashRedirect: true,
+  skipMiddlewareUrlNormalize: true,
+  staticPageGenerationTimeout: 0,
   poweredByHeader: false,
+  trailingSlash: false,
 }
 
 module.exports = nextConfig 

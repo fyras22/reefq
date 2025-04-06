@@ -4,6 +4,10 @@ import { join } from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import { auth } from '@/lib/auth';
 
+// New route segment config
+export const dynamic = 'force-dynamic';
+export const maxDuration = 60; // Set appropriate timeout for upload operations
+
 // Allowed file types
 const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
 const ALLOWED_MODEL_TYPES = ['model/gltf-binary', 'model/gltf+json', 'application/octet-stream'];
@@ -137,11 +141,4 @@ export async function OPTIONS() {
       'Access-Control-Max-Age': '86400',
     },
   });
-}
-
-// Configure Next.js API route config to handle file uploads
-export const config = {
-  api: {
-    bodyParser: false, // Disable body parsing, we'll handle the multipart form data manually
-  },
-}; 
+} 

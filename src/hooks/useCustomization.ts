@@ -1,22 +1,17 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useSession } from 'next-auth/react';
-import { 
-  CustomizationSettings, 
+// import { useSession } from 'next-auth/react'; // Remove NextAuth import
+import { useAuth } from '@/providers/AuthProvider'; // Import the new useAuth hook
+import {
+  CustomizationSettings,
   CustomDesign,
   calculatePrice,
-  saveUserDesign,
-  getUserDesigns,
-  deleteUserDesign,
-  getRecommendationsByOccasion,
-  getRecommendationsByBudget
+  // remove unused imports from customizationService if they were only for non-Supabase fallback
+  // getUserDesigns, // Likely unused now
+  // deleteUserDesign, // Likely unused now
+  // getRecommendationsByOccasion, // Stubbed out later
+  // getRecommendationsByBudget // Stubbed out later
 } from '@/services/customizationService';
-import {
-  saveDesignToSupabase,
-  getUserDesignsFromSupabase,
-  deleteDesignFromSupabase,
-  updateDesignInSupabase,
-  getDesignByIdFromSupabase
-} from '@/services/supabaseCustomizationService';
+// Remove imports for supabaseCustomizationService
 import { MetalType, GemstoneType } from '@/data/materialsData';
 
 // Default customization settings
@@ -52,6 +47,8 @@ export interface UseCustomizationReturn {
   prevStep: () => void;
   canProceed: () => boolean;
   saveCurrentDesign: (name: string, makePublic?: boolean) => Promise<CustomDesign | null>;
+  updateCurrentDesign: (designId: string, updates: Partial<Omit<CustomDesign, 'id' | 'createdAt'>>) => Promise<boolean>;
+  deleteCurrentDesign: (designId: string) => Promise<boolean>;
   savedDesigns: CustomDesign[];
   isLoading: boolean;
   error: string | null;
@@ -66,8 +63,8 @@ export interface UseCustomizationReturn {
 }
 
 export function useCustomization(options: UseCustomizationOptions = {}): UseCustomizationReturn {
-  const { data: session } = useSession();
-  const userId = session?.user?.id as string | undefined;
+  const { user } = useAuth();
+  const userId = user?.id;
   
   // State
   const [settings, setSettings] = useState<CustomizationSettings>({
@@ -88,16 +85,23 @@ export function useCustomization(options: UseCustomizationOptions = {}): UseCust
     if (options.designId) {
       const loadDesign = async () => {
         setIsLoading(true);
+        setError(null);
         try {
-          const design = await getDesignByIdFromSupabase(options.designId!);
+          const response = await fetch(`/api/designs/${options.designId}`);
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+          }
+          const design: CustomDesign = await response.json();
+
           if (design) {
             setSettings(design.settings);
             setDesignPreviewURL(design.previewImage);
           } else {
             setError('Design not found');
           }
-        } catch (err) {
-          setError('Failed to load design');
+        } catch (err: any) {
+          setError(err.message || 'Failed to load design');
           console.error(err);
         } finally {
           setIsLoading(false);
@@ -111,20 +115,23 @@ export function useCustomization(options: UseCustomizationOptions = {}): UseCust
   // Load saved designs
   useEffect(() => {
     const loadDesigns = async () => {
+      if (!userId) {
+        setSavedDesigns([]);
+        return;
+      }
+
       setIsLoading(true);
+      setError(null);
       try {
-        let designs: CustomDesign[] = [];
-        
-        if (userId) {
-          // If logged in, load from Supabase
-          designs = await getUserDesignsFromSupabase(userId);
-        } else {
-          // Otherwise load from localStorage
-          designs = getUserDesigns();
+        const response = await fetch(`/api/designs?type=user`);
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
         }
-        
+        const designs: CustomDesign[] = await response.json();
         setSavedDesigns(designs);
-      } catch (err) {
+      } catch (err: any) {
+        setError(err.message || 'Failed to load saved designs');
         console.error('Error loading designs:', err);
       } finally {
         setIsLoading(false);
@@ -179,6 +186,7 @@ export function useCustomization(options: UseCustomizationOptions = {}): UseCust
   const resetSettings = useCallback(() => {
     setSettings(defaultSettings);
     setDesignPreviewURL('');
+    setModelPath('');
   }, []);
 
   // Navigation functions
@@ -227,6 +235,10 @@ export function useCustomization(options: UseCustomizationOptions = {}): UseCust
     name: string, 
     makePublic: boolean = false
   ): Promise<CustomDesign | null> => {
+    if (!userId) {
+      setError('You must be logged in to save designs.');
+      return null;
+    }
     if (!name.trim()) {
       setError('Please provide a name for your design');
       return null;
@@ -244,28 +256,22 @@ export function useCustomization(options: UseCustomizationOptions = {}): UseCust
         isPublic: makePublic
       };
       
-      let savedDesign: CustomDesign | null = null;
-      
-      if (userId) {
-        // Save to Supabase if logged in
-        savedDesign = await saveDesignToSupabase(designToSave, userId);
-      } else {
-        // Save to localStorage if not logged in
-        savedDesign = saveUserDesign(designToSave);
+      const response = await fetch('/api/designs', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(designToSave),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
       }
-      
-      if (savedDesign) {
-        setSavedDesigns(prev => [savedDesign!, ...prev]);
-        
-        if (options.onSaveComplete) {
-          options.onSaveComplete(savedDesign);
-        }
-        
-        return savedDesign;
-      } else {
-        setError('Failed to save design');
-        return null;
-      }
+
+      const savedDesign: CustomDesign = await response.json();
+
+      setSavedDesigns(prev => [...prev, savedDesign]);
+      options.onSaveComplete?.(savedDesign);
+      return savedDesign;
     } catch (error) {
       console.error('Error saving design:', error);
       setError('An error occurred while saving your design');
@@ -273,23 +279,17 @@ export function useCustomization(options: UseCustomizationOptions = {}): UseCust
     } finally {
       setIsLoading(false);
     }
-  }, [settings, currentPrice, designPreviewURL, userId, options.onSaveComplete]);
+  }, [userId, settings, currentPrice, designPreviewURL, options.onSaveComplete]);
 
   // Apply occasion recommendation
   const applyOccasionRecommendation = useCallback((occasion: string) => {
-    const recommendation = getRecommendationsByOccasion(occasion);
-    if (recommendation) {
-      updateMultipleSettings(recommendation);
-    }
-  }, [updateMultipleSettings]);
+    console.log('Applying recommendations for occasion:', occasion);
+  }, []);
 
   // Apply budget recommendation
   const applyBudgetRecommendation = useCallback((budget: number) => {
-    const recommendation = getRecommendationsByBudget(budget);
-    if (recommendation) {
-      updateMultipleSettings(recommendation);
-    }
-  }, [updateMultipleSettings]);
+    console.log('Applying recommendations for budget:', budget);
+  }, []);
 
   // Check if a design is in wishlist
   const isInWishlist = useCallback((designId: string) => {
@@ -298,22 +298,107 @@ export function useCustomization(options: UseCustomizationOptions = {}): UseCust
 
   // Toggle wishlist item
   const toggleWishlist = useCallback((designId: string) => {
-    let newWishlist: string[];
-    
-    if (wishlistItems.includes(designId)) {
-      newWishlist = wishlistItems.filter(id => id !== designId);
-    } else {
-      newWishlist = [...wishlistItems, designId];
-    }
-    
-    setWishlistItems(newWishlist);
-    localStorage.setItem('jewelry_wishlist', JSON.stringify(newWishlist));
-  }, [wishlistItems]);
+    setWishlistItems(prev => {
+      const newWishlist = prev.includes(designId)
+        ? prev.filter(id => id !== designId)
+        : [...prev, designId];
+      localStorage.setItem('jewelry_wishlist', JSON.stringify(newWishlist));
+      return newWishlist;
+    });
+  }, []);
 
   // Save screenshot as preview
   const takeScreenshot = useCallback((dataUrl: string) => {
     setDesignPreviewURL(dataUrl);
+    console.log('Screenshot taken and set as preview URL');
   }, []);
+
+  // Update design
+  const updateCurrentDesign = useCallback(async (designId: string, updates: Partial<Omit<CustomDesign, 'id' | 'createdAt'>>) => {
+    if (!userId) {
+      setError('You must be logged in to update designs.');
+      return false;
+    }
+    if (!designId) {
+      setError('Design ID is missing for update.');
+      return false;
+    }
+
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch(`/api/designs/${designId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updates),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+      }
+
+      const updatedDesign: CustomDesign = await response.json();
+
+      setSavedDesigns(prev => prev.map(d => d.id === designId ? updatedDesign : d));
+      if (options.designId === designId) {
+        setSettings(updatedDesign.settings);
+        setDesignPreviewURL(updatedDesign.previewImage);
+      }
+      return true;
+    } catch (err: any) {
+      setError(err.message || 'Failed to update design');
+      console.error(err);
+      return false;
+    } finally {
+      setIsLoading(false);
+    }
+  }, [userId, options.designId]);
+
+  // Delete a design
+  const deleteCurrentDesign = useCallback(async (designId: string) => {
+    if (!userId) {
+      setError('You must be logged in to delete designs.');
+      return false;
+    }
+    if (!designId) {
+      setError('Design ID is missing for delete.');
+      return false;
+    }
+
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch(`/api/designs/${designId}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        if (response.status === 404) {
+          console.warn(`Design ${designId} not found for deletion.`);
+          setSavedDesigns(prev => prev.filter(d => d.id !== designId));
+          return true;
+        } else {
+          const errorData = await response.json();
+          throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+        }
+      }
+
+      setSavedDesigns(prev => prev.filter(d => d.id !== designId));
+      if (options.designId === designId) {
+        resetSettings();
+      }
+      return true;
+    } catch (err: any) {
+      setError(err.message || 'Failed to delete design');
+      console.error(err);
+      return false;
+    } finally {
+      setIsLoading(false);
+    }
+  }, [userId, options.designId, resetSettings]);
 
   return {
     settings,
@@ -327,6 +412,8 @@ export function useCustomization(options: UseCustomizationOptions = {}): UseCust
     prevStep,
     canProceed,
     saveCurrentDesign,
+    updateCurrentDesign,
+    deleteCurrentDesign,
     savedDesigns,
     isLoading,
     error,

@@ -49,37 +49,98 @@ export interface DNSPrefetchResource {
  * 3. Preloading critical resources needed for current page
  * 4. DNS prefetching for faster hostname resolution
  */
-export default function ResourceHints() {
+export default function ResourceHints({
+  preloads = [],
+  preconnects = [],
+  prefetches = [],
+  dnsPrefetches = [],
+  conditionalResources = {},
+  disableDefaultHints = false,
+}: {
+  preloads?: PreloadResource[];
+  preconnects?: PreconnectResource[];
+  prefetches?: PrefetchResource[];
+  dnsPrefetches?: DNSPrefetchResource[];
+  conditionalResources?: Record<string, Array<PreloadResource | PrefetchResource>>;
+  disableDefaultHints?: boolean;
+}) {
+  const pathname = usePathname();
+
+  // Default resources that should be optimized for any site
+  const defaultPreconnects: PreconnectResource[] = disableDefaultHints ? [] : [
+    // Google Fonts
+    { href: 'https://fonts.googleapis.com' },
+    { href: 'https://fonts.gstatic.com', crossOrigin: true },
+    // Analytics
+    { href: 'https://vitals.vercel-analytics.com' },
+    // CDNs
+    { href: 'https://cdn.jsdelivr.net' },
+  ];
+
+  // Combine default resources with user-provided resources
+  const allPreconnects = [...defaultPreconnects, ...preconnects];
+  
+  // Get path-specific conditional resources
+  const pathSpecificResources = conditionalResources[pathname] || [];
+  
+  // Filter conditional resources by type
+  const conditionalPreloads = pathSpecificResources.filter(
+    (resource): resource is PreloadResource => 'as' in resource
+  );
+  
+  const conditionalPrefetches = pathSpecificResources.filter(
+    (resource): resource is PrefetchResource => !('as' in resource)
+  );
+
   return (
-    <>
-      {/* Preconnect to critical domains */}
-      <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-      <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="" />
-      
-      {/* DNS prefetch for less critical domains */}
-      <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-      <link rel="dns-prefetch" href="https://analytics.google.com" />
-      
-      {/* Preload critical assets */}
-      <link 
-        rel="preload" 
-        href="/models/low-poly-ring.glb" 
-        as="fetch" 
-        crossOrigin="anonymous" 
-      />
-      
-      {/* Preload critical styles */}
-      <link 
-        rel="preload" 
-        href="/styles/critical.css" 
-        as="style" 
-      />
-      
-      {/* Prefetch important pages likely to be navigated to */}
-      <link rel="prefetch" href="/jewelry" />
-      <link rel="prefetch" href="/3d-modeling" />
-    </>
+    <Head>
+      {/* Preconnect hints */}
+      {allPreconnects.map((resource, index) => (
+        <link
+          key={`preconnect-${index}-${resource.href}`}
+          rel="preconnect"
+          href={resource.href}
+          crossOrigin={resource.crossOrigin ? 'anonymous' : undefined}
+        />
+      ))}
+
+      {/* DNS prefetch hints */}
+      {dnsPrefetches.map((resource, index) => (
+        <link
+          key={`dns-prefetch-${index}-${resource.href}`}
+          rel="dns-prefetch"
+          href={resource.href}
+        />
+      ))}
+
+      {/* Preload hints */}
+      {[...preloads, ...conditionalPreloads].map((resource, index) => (
+        <link
+          key={`preload-${index}-${resource.href}`}
+          rel="preload"
+          href={resource.href}
+          as={resource.as}
+          type={resource.type}
+          crossOrigin={resource.crossOrigin}
+          media={resource.media}
+          integrity={resource.integrity}
+          // @ts-ignore - fetchpriority exists but is not in the types
+          fetchpriority={resource.priority}
+        />
+      ))}
+
+      {/* Prefetch hints */}
+      {[...prefetches, ...conditionalPrefetches].map((resource, index) => (
+        <link
+          key={`prefetch-${index}-${resource.href}`}
+          rel="prefetch"
+          href={resource.href}
+          as={resource.as}
+          crossOrigin={resource.crossOrigin}
+          integrity={resource.integrity}
+        />
+      ))}
+    </Head>
   );
 }
 

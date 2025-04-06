@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { analytics, initAnalytics } from '@/lib/analytics';
-import { useSession } from 'next-auth/react';
+import { createClient } from '@/lib/supabase/client';
 
 interface AnalyticsProviderProps {
   children: React.ReactNode;
@@ -18,13 +18,32 @@ interface AnalyticsProviderProps {
 export function AnalyticsProvider({ children }: AnalyticsProviderProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const { data: session } = useSession();
+  const [userId, setUserId] = useState<string | undefined>(undefined);
   
-  // Initialize analytics on mount
+  // Get user session from Supabase
+  useEffect(() => {
+    const supabase = createClient();
+    // Fetch initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUserId(session?.user?.id);
+    });
+
+    // Listen for auth state changes
+    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+      setUserId(session?.user?.id);
+    });
+
+    // Cleanup listener on unmount
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, []);
+  
+  // Initialize analytics on mount or when user ID changes
   useEffect(() => {
     // Initialize with user ID if available
-    initAnalytics(session?.user?.id);
-  }, [session?.user?.id]);
+    initAnalytics(userId);
+  }, [userId]);
   
   // Track page views when route changes
   useEffect(() => {

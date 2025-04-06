@@ -1,25 +1,25 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useSession } from 'next-auth/react';
+import { useAuth } from '@/providers/AuthProvider';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 export default function AdminDashboardPage() {
-  const { data: session, status } = useSession();
+  const { user } = useAuth();
   const router = useRouter();
   
   // Check authentication and role on the client side
   useEffect(() => {
-    if (status === 'unauthenticated') {
+    if (!user) {
       router.push('/auth/login?callbackUrl=/dashboard/admin');
-    } else if (status === 'authenticated' && session.user.role !== 'admin') {
+    } else if (user.role !== 'admin') {
       router.push('/auth/unauthorized');
     }
-  }, [status, session, router]);
+  }, [user, router]);
   
   // Show loading state while checking auth
-  if (status === 'loading' || !session) {
+  if (!user) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
@@ -142,7 +142,7 @@ export default function AdminDashboardPage() {
                 <div className="px-4 py-5 sm:px-6">
                   <h3 className="text-lg leading-6 font-medium text-gray-900">Current User</h3>
                   <div className="mt-2 max-w-xl text-sm text-gray-500">
-                    <p>You are signed in as {session.user.name} ({session.user.email}) with role: <span className="font-semibold">{session.user.role}</span></p>
+                    <p>You are signed in as {user.email} with role: <span className="font-semibold">{user.role}</span></p>
                   </div>
                   <div className="mt-3 text-sm">
                     <Link href="/demo/jewelry/assets-demo" className="font-medium text-indigo-600 hover:text-indigo-500">

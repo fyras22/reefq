@@ -1,7 +1,6 @@
-import { randomBytes, createCipheriv, createDecipheriv, scrypt, createHash } from 'crypto';
+import { randomBytes, createCipheriv, createDecipheriv, scrypt } from 'crypto';
 import { promisify } from 'util';
 import { NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
 
 // Helper for generating random bytes
 const randomBytesAsync = promisify(randomBytes);
@@ -176,106 +175,34 @@ export function hashValue(value: string): string {
 
 // CSRF Protection utilities
 
-const CSRF_SECRET = process.env.CSRF_SECRET || 'YOUR_SECURE_SECRET_KEY_CHANGE_THIS';
-const CSRF_COOKIE_NAME = 'csrf_token';
-const CSRF_HEADER_NAME = 'x-csrf-token';
-const TOKEN_EXPIRY = 24 * 60 * 60 * 1000; // 24 hours
-
-interface CSRFToken {
-  token: string;
-  expires: number;
-}
-
 /**
- * Generate a secure CSRF token and store it in a cookie
+ * Generate a CSRF token for a session
+ * 
+ * @param sessionId Session identifier
+ * @returns CSRF token
  */
-export function generateCSRFToken(): string {
-  const timestamp = Date.now();
-  const randomString = randomBytes(32).toString('hex');
-  const signature = createHash('sha256')
-    .update(`${randomString}${timestamp}${CSRF_SECRET}`)
-    .digest('hex');
+export async function generateCsrfToken(sessionId: string): Promise<string> {
+  // Generate a secure random token
+  const randomToken = await generateSecureToken(16);
   
-  const tokenData: CSRFToken = {
-    token: `${randomString}.${timestamp}.${signature}`,
-    expires: timestamp + TOKEN_EXPIRY,
-  };
+  // Combine with session ID and hash
+  return hashValue(`${sessionId}:${randomToken}:${Date.now()}`);
+}
+
+/**
+ * Validate a CSRF token
+ * 
+ * @param token Token to validate
+ * @param expectedToken Expected token
+ * @returns Whether the token is valid
+ */
+export function validateCsrfToken(token: string, expectedToken: string): boolean {
+  if (!token || !expectedToken) return false;
   
-  // Store in a cookie
-  cookies().set({
-    name: CSRF_COOKIE_NAME,
-    value: JSON.stringify(tokenData),
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'strict',
-    path: '/',
-    maxAge: TOKEN_EXPIRY / 1000, // Convert to seconds
-  });
-  
-  return tokenData.token;
-}
-
-/**
- * Validate a CSRF token against the stored cookie
- */
-export function validateCSRFToken(token: string): boolean {
-  try {
-    // Get token from cookie
-    const storedTokenJson = cookies().get(CSRF_COOKIE_NAME)?.value;
-    if (!storedTokenJson) return false;
-    
-    const storedToken: CSRFToken = JSON.parse(storedTokenJson);
-    
-    // Check if token has expired
-    if (storedToken.expires < Date.now()) return false;
-    
-    // Verify the token matches
-    return storedToken.token === token;
-  } catch (error) {
-    console.error('Error validating CSRF token:', error);
-    return false;
-  }
-}
-
-/**
- * Encrypt sensitive data with AES-256
- */
-export function encryptData(data: string): string {
-  // Implementation details would go here using crypto module
-  // This is a placeholder for actual encryption logic
-  return `encrypted:${data}`;
-}
-
-/**
- * Decrypt sensitive data
- */
-export function decryptData(encryptedData: string): string {
-  // Implementation details would go here using crypto module
-  // This is a placeholder for actual decryption logic
-  return encryptedData.replace('encrypted:', '');
-}
-
-/**
- * Sanitize user input to prevent XSS attacks
- */
-export function sanitizeInput(input: string): string {
-  return input
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
-}
-
-/**
- * Hash a password with a secure algorithm
- */
-export function hashPassword(password: string): Promise<string> {
-  // This would typically use bcrypt or Argon2
-  // For the sake of this example, we'll use a simple implementation
-  return Promise.resolve(
-    createHash('sha256')
-      .update(`${password}${CSRF_SECRET}`)
-      .digest('hex')
+  // Constant-time comparison to prevent timing attacks
+  return require('crypto').timingSafeEqual(
+    Buffer.from(token),
+    Buffer.from(expectedToken)
   );
 }
 

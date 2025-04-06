@@ -54,7 +54,7 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div className="min-h-screen flex bg-gradient-to-b from-blue-50 to-indigo-50">
+    <div className="min-h-screen flex bg-gradient-to-b from-light-gray to-bg-light">
       {/* Left panel - decorative */}
       <div className="hidden lg:flex w-1/2 bg-cover bg-center justify-center items-center" 
         style={{ backgroundImage: 'url(/assets/images/auth-bg.jpg)' }}>
@@ -66,11 +66,11 @@ export default function ForgotPasswordPage() {
         >
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-gray-800 mb-2">ReefQ Jewelry</h2>
-            <div className="h-1 w-16 bg-indigo-600 mx-auto mb-4"></div>
+            <div className="h-1 w-16 bg-brand-teal mx-auto mb-4"></div>
             <p className="mt-2 text-gray-600">Premium jewelry visualization platform</p>
           </div>
           <div className="space-y-6">
-            <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
+            <div className="bg-light-gray p-4 rounded-lg border border-gray-200">
               <p className="text-sm text-gray-700">
                 Don't worry, we've got you covered. We'll help you reset your password and get back to exploring our stunning jewelry collection.
               </p>
@@ -88,7 +88,7 @@ export default function ForgotPasswordPage() {
               className="flex justify-center"
             >
               <div className="w-20 h-20 bg-white rounded-full shadow-md flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
               </div>
@@ -107,7 +107,7 @@ export default function ForgotPasswordPage() {
         >
           <motion.div variants={itemVariants} className="text-center mb-10">
             <h2 className="text-3xl font-bold text-gray-900">Forgot Password</h2>
-            <div className="h-1 w-16 bg-indigo-600 mx-auto my-4"></div>
+            <div className="h-1 w-16 bg-brand-teal mx-auto my-4"></div>
             <p className="mt-2 text-gray-600">Enter your email to reset your password</p>
             
             {formError && (
@@ -150,7 +150,7 @@ export default function ForgotPasswordPage() {
                     type="email"
                     autoComplete="email"
                     required
-                    className="pl-10 mt-1 appearance-none block w-full px-3 py-2.5 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
+                    className="pl-10 mt-1 appearance-none block w-full px-3 py-2.5 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-brand-teal focus:border-brand-teal transition-colors"
                     placeholder="Enter your email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -173,7 +173,7 @@ export default function ForgotPasswordPage() {
                   disabled={isSubmitting}
                   whileHover={{ scale: 1.01 }}
                   whileTap={{ scale: 0.99 }}
-                  className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
+                  className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-brand-teal hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-gold transition-colors"
                 >
                   {isSubmitting ? (
                     <span className="flex items-center">
@@ -209,7 +209,7 @@ export default function ForgotPasswordPage() {
                   }}
                   whileHover={{ scale: 1.01 }}
                   whileTap={{ scale: 0.99 }}
-                  className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-brand-teal hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-gold"
                 >
                   Send New Link
                 </motion.button>
@@ -220,7 +220,7 @@ export default function ForgotPasswordPage() {
           <motion.div variants={itemVariants} className="mt-6 text-center">
             <p className="text-sm text-gray-600">
               Remember your password?{' '}
-              <Link href="/auth/login" className="font-medium text-indigo-600 hover:text-indigo-500 transition-colors">
+              <Link href="/auth/login" className="font-medium text-brand-teal hover:text-brand-gold transition-colors">
                 Sign in
               </Link>
             </p>
@@ -229,14 +229,14 @@ export default function ForgotPasswordPage() {
           <motion.div variants={itemVariants} className="mt-6 text-center">
             <p className="text-sm text-gray-600">
               Don't have an account?{' '}
-              <Link href="/auth/register" className="font-medium text-indigo-600 hover:text-indigo-500 transition-colors">
+              <Link href="/auth/register" className="font-medium text-brand-teal hover:text-brand-gold transition-colors">
                 Sign up
               </Link>
             </p>
           </motion.div>
           
           <motion.div variants={itemVariants} className="mt-8 text-center">
-            <Link href="/" className="inline-flex items-center text-sm text-gray-600 hover:text-indigo-600 transition-colors">
+            <Link href="/" className="inline-flex items-center text-sm text-gray-600 hover:text-brand-teal transition-colors">
               <svg className="mr-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
               </svg>

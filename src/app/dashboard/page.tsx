@@ -1,13 +1,13 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
+import { useAuth } from '@/providers/AuthProvider';
 import Link from 'next/link';
 
 export default function DashboardPage() {
-  const { data: session, status } = useSession();
+  const { user } = useAuth();
   
-  const isAdmin = session?.user?.role === 'admin';
-  const isLoading = status === 'loading';
+  const isAdmin = user?.role === 'admin';
+  const isLoading = !user;
 
   if (isLoading) {
     return (
@@ -22,7 +22,7 @@ export default function DashboardPage() {
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
         <p className="mt-2 text-gray-600">
-          Welcome, {session?.user?.name || session?.user?.email}
+          Welcome, {user?.email}
         </p>
       </div>
       
@@ -103,7 +103,7 @@ export default function DashboardPage() {
           <div className="space-y-4">
             <div>
               <h3 className="text-sm font-medium text-gray-500">Email</h3>
-              <p className="mt-1 text-md text-gray-900">{session?.user?.email}</p>
+              <p className="mt-1 text-md text-gray-900">{user?.email}</p>
             </div>
             <div>
               <h3 className="text-sm font-medium text-gray-500">Role</h3>

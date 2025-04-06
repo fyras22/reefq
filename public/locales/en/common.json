@@ -206,7 +206,13 @@
     "terms": "Terms of Use",
     "cookies": "Cookie Policy",
     "licensing": "Licensing",
-    "copyright": "© {{year}} ReefQ. All rights reserved."
+    "copyright": "© {{year}} ReefQ. All rights reserved.",
+    "tagline": "Your first draft is our final masterpiece ✨",
+    "socialMedia": {
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "twitter": "Twitter"
+    }
   },
   "languages": {
     "en": "English",
@@ -217,18 +223,105 @@
   "performance": {
     "badge": "Performance Optimized",
     "title": "Lightning-Fast Experience for Tunisia",
-    "description": "Our platform is specially optimized for Tunisian network conditions, ensuring smooth performance even on lower bandwidth connections. Experience 3D and AR without the wait."
+    "description": "Our platform is specially optimized for Tunisian network conditions, ensuring smooth performance even on lower bandwidth connections. Experience 3D and AR without the wait.",
+    "metric1": {
+      "title": "Loading Time",
+      "unit": "seconds",
+      "avgLabel": "Average",
+      "comparison": "40% faster than industry average"
+    },
+    "metric2": {
+      "title": "Frame Rate",
+      "unit": "FPS",
+      "avgLabel": "Average",
+      "comparison": "Smooth experience on most devices"
+    },
+    "metric3": {
+      "title": "Bandwidth Usage",
+      "unit": "MB",
+      "avgLabel": "Average",
+      "comparison": "30% less data than competitors"
+    },
+    "metric4": {
+      "title": "AR Initialization",
+      "unit": "seconds",
+      "avgLabel": "Average",
+      "comparison": "Quick AR setup on most devices"
+    },
+    "monitor": {
+      "title": "Performance Monitoring",
+      "live": "Live",
+      "chartTitle": "Real-time Performance Metrics",
+      "chartSubtitle": "Track your platform's performance",
+      "timeLabel1": "1h ago",
+      "timeLabel2": "2h ago",
+      "timeLabel3": "3h ago",
+      "timeLabel4": "4h ago",
+      "timeLabel5": "5h ago",
+      "timeLabel6": "6h ago",
+      "stat1": {
+        "label": "Response Time",
+        "change": "↓ 12%",
+        "value": "215ms",
+        "context": "Excellent"
+      },
+      "stat2": {
+        "label": "Availability",
+        "change": "↑ 2%",
+        "value": "99.9%",
+        "context": "Excellent"
+      },
+      "compatibilityTitle": "Compatibility",
+      "compat1": {
+        "label": "Desktop: 100%"
+      },
+      "compat2": {
+        "label": "Mobile: 98%"
+      },
+      "compat3": {
+        "label": "Tablet: 99%"
+      }
+    }
   },
   "comparison": {
     "badge": "Digital Transformation",
     "title": "Traditional vs. Digital Jewelry Experience",
     "subtitle": "See how ReefQ transforms the Tunisian jewelry shopping experience while preserving cultural craftsmanship",
     "traditional": {
-      "title": "Traditional Experience"
+      "title": "Traditional Experience",
+      "imageAlt": "Traditional jewelry shopping experience",
+      "item1Title": "Physical Limitations",
+      "item1Desc": "Limited by showroom space and physical inventory",
+      "item2Title": "Travel Required",
+      "item2Desc": "Customers must visit multiple stores to compare",
+      "item3Title": "Time-Consuming",
+      "item3Desc": "Requires significant time investment to browse options",
+      "item4Title": "Limited Customization",
+      "item4Desc": "Customization requires multiple shop visits",
+      "item5Title": "Return Challenges",
+      "item5Desc": "Returns and exchanges can be challenging"
     },
     "digital": {
-      "title": "Digital Experience with ReefQ"
+      "title": "Digital Experience with ReefQ",
+      "imageAlt": "Digital jewelry shopping experience with ReefQ",
+      "item1Title": "Unlimited Showcase",
+      "item1Desc": "Display your entire collection without physical limitations",
+      "item2Title": "Accessible Anywhere",
+      "item2Desc": "Customers shop from comfort of their homes",
+      "item3Title": "Efficient Browsing",
+      "item3Desc": "Quick filtering and comparison of options",
+      "item4Title": "Real-time Customization",
+      "item4Desc": "Instantly visualize custom designs and modifications",
+      "item5Title": "Confident Purchases",
+      "item5Desc": "Reduced returns due to accurate visualization"
     },
     "ctaButton": "Experience The Difference"
+  },
+  "tryOn": {
+    "currentlyTrying": "Currently Trying On",
+    "exampleItem": "Diamond Engagement Ring",
+    "demoBadge": "Demo Mode",
+    "quickOptions": "Quick Options",
+    "optionAlt": "Try-on option"
   }
 } 

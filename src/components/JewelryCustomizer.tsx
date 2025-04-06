@@ -15,8 +15,6 @@ import { MaterialSelector } from './MaterialSelector';
 import { MetalType, GemstoneType, METALS, GEMSTONES } from '@/data/materialsData';
 import EnhancedJewelryViewer from './EnhancedJewelryViewer';
 import ARJewelryViewer from './ARJewelryViewer';
-import PerformanceRecommendations from './PerformanceRecommendations';
-import { useQualitySettings } from '../utils/performanceUtils';
 
 // Types of jewelry that can be customized
 const PRODUCT_TYPES = [
@@ -118,136 +116,6 @@ export default function JewelryCustomizer() {
   // AR related state
   const [showARViewer, setShowARViewer] = useState(false);
   
-  // Performance optimization settings
-  const [performanceSettings, setPerformanceSettings] = useState({
-    quality: 'auto' as 'low' | 'medium' | 'high' | 'ultra' | 'auto',
-    enableShadows: true,
-    enableBloom: true,
-    enableReflections: true,
-    enableProgressiveLoading: true,
-  });
-  
-  // Device detection for automatic quality settings
-  const [deviceCapabilities, setDeviceCapabilities] = useState({
-    isHighPerformance: false,
-    isLowPower: false,
-    isMobile: false,
-    supportsWebGPU: false,
-    pixelRatio: 1
-  });
-  
-  // Model cache to prevent re-downloading
-  const [modelCache, setModelCache] = useState<Record<string, boolean>>({});
-  
-  // Detect device capabilities on mount
-  useEffect(() => {
-    const detectCapabilities = async () => {
-      // Detect if mobile device
-      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-      
-      // Check for WebGPU support
-      let supportsWebGPU = false;
-      try {
-        if (navigator.gpu) {
-          const adapter = await navigator.gpu.requestAdapter();
-          supportsWebGPU = !!adapter;
-        }
-      } catch (e) {
-        console.warn("WebGPU detection failed:", e);
-      }
-      
-      // Get device pixel ratio
-      const pixelRatio = window.devicePixelRatio || 1;
-      
-      // Check for battery status if available
-      let isLowPower = false;
-      try {
-        if ('getBattery' in navigator) {
-          const battery = await (navigator as any).getBattery();
-          isLowPower = battery.charging === false && battery.level < 0.2;
-        }
-      } catch (e) {
-        console.warn("Battery status detection failed:", e);
-      }
-      
-      // GPU/CPU detection heuristics
-      const isHighPerformance = supportsWebGPU || pixelRatio >= 2;
-      
-      // Update state with detected capabilities
-      setDeviceCapabilities({
-        isHighPerformance,
-        isLowPower,
-        isMobile,
-        supportsWebGPU,
-        pixelRatio
-      });
-      
-      // Set automatic quality based on capabilities
-      if (performanceSettings.quality === 'auto') {
-        let autoQuality: 'low' | 'medium' | 'high' | 'ultra' = 'medium';
-        
-        if (isLowPower) {
-          autoQuality = 'low';
-        } else if (isMobile && !isHighPerformance) {
-          autoQuality = 'medium';
-        } else if (supportsWebGPU) {
-          autoQuality = 'ultra';
-        } else if (isHighPerformance) {
-          autoQuality = 'high';
-        }
-        
-        setPerformanceSettings(prev => ({
-          ...prev,
-          quality: autoQuality,
-          enableShadows: autoQuality !== 'low',
-          enableBloom: autoQuality !== 'low',
-          enableReflections: autoQuality !== 'low',
-        }));
-      }
-    };
-    
-    detectCapabilities();
-  }, []);
-  
-  // Pre-cache commonly used models
-  useEffect(() => {
-    const prefetchModels = async () => {
-      if (!performanceSettings.enableProgressiveLoading) return;
-      
-      const commonModels = [
-        '/models/jewelry/ring-solitaire.glb',
-        '/models/jewelry/ring-halo.glb'
-      ];
-      
-      try {
-        // Simple pre-caching mechanism
-        commonModels.forEach(async (modelUrl) => {
-          if (!modelCache[modelUrl]) {
-            const cacheKey = `model_cache_${modelUrl}`;
-            
-            // Check if already cached in localStorage
-            const isCached = localStorage.getItem(cacheKey) === 'true';
-            
-            if (!isCached) {
-              // Fetch the model file to ensure it's cached by the browser
-              await fetch(modelUrl, { method: 'HEAD' });
-              
-              // Mark as cached
-              localStorage.setItem(cacheKey, 'true');
-              setModelCache(prev => ({...prev, [modelUrl]: true}));
-            } else {
-              setModelCache(prev => ({...prev, [modelUrl]: true}));
-            }
-          }
-        });
-      } catch (e) {
-        console.warn("Model prefetching failed:", e);
-      }
-    };
-    
-    prefetchModels();
-  }, [performanceSettings.enableProgressiveLoading]);
-  
   // Add wishlist functionality
   const [wishlistItems, setWishlistItems] = useState<Array<{
     id: string;
@@ -301,121 +169,94 @@ export default function JewelryCustomizer() {
   const [giftCardMessage, setGiftCardMessage] = useState('');
   const [giftRecipientName, setGiftRecipientName] = useState('');
   
-  // Performance settings toggle component
-  const PerformanceSettingsPanel = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    
-    return (
-      <div className="mt-4 border border-gray-200 rounded-lg overflow-hidden">
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="w-full flex items-center justify-between p-3 bg-gray-50 hover:bg-gray-100 text-sm font-medium"
-        >
-          <div className="flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-2 text-nile-teal">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            Performance Settings
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-5 h-5 transition-transform ${isOpen ? 'rotate-180' : ''}`}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-          </svg>
-        </button>
-        
-        {isOpen && (
-          <div className="p-4 bg-white">
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Rendering Quality
-              </label>
-              <select
-                value={performanceSettings.quality}
-                onChange={(e) => setPerformanceSettings(prev => ({
-                  ...prev,
-                  quality: e.target.value as any
-                }))}
-                className="w-full border border-gray-300 rounded-md p-2 text-sm"
-              >
-                <option value="auto">Automatic (Based on device)</option>
-                <option value="low">Low (Better performance)</option>
-                <option value="medium">Medium (Balanced)</option>
-                <option value="high">High (Better quality)</option>
-                <option value="ultra">Ultra (Maximum quality)</option>
-              </select>
-              <p className="text-xs text-gray-500 mt-1">
-                {deviceCapabilities.isMobile ? 'Mobile device detected. ' : ''}
-                {deviceCapabilities.isLowPower ? 'Low power mode detected. ' : ''}
-                {deviceCapabilities.supportsWebGPU ? 'WebGPU supported. ' : ''}
-              </p>
-            </div>
-            
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="flex items-center mb-1">
-                  <input
-                    type="checkbox"
-                    checked={performanceSettings.enableShadows}
-                    onChange={(e) => setPerformanceSettings(prev => ({
-                      ...prev,
-                      enableShadows: e.target.checked
-                    }))}
-                    className="mr-2 h-4 w-4 border-gray-300 rounded text-nile-teal focus:ring-nile-teal"
-                  />
-                  <span className="text-sm text-gray-700">Shadows</span>
-                </label>
-              </div>
-              
-              <div>
-                <label className="flex items-center mb-1">
-                  <input
-                    type="checkbox"
-                    checked={performanceSettings.enableBloom}
-                    onChange={(e) => setPerformanceSettings(prev => ({
-                      ...prev,
-                      enableBloom: e.target.checked
-                    }))}
-                    className="mr-2 h-4 w-4 border-gray-300 rounded text-nile-teal focus:ring-nile-teal"
-                  />
-                  <span className="text-sm text-gray-700">Bloom Effect</span>
-                </label>
-              </div>
-              
-              <div>
-                <label className="flex items-center mb-1">
-                  <input
-                    type="checkbox"
-                    checked={performanceSettings.enableReflections}
-                    onChange={(e) => setPerformanceSettings(prev => ({
-                      ...prev,
-                      enableReflections: e.target.checked
-                    }))}
-                    className="mr-2 h-4 w-4 border-gray-300 rounded text-nile-teal focus:ring-nile-teal"
-                  />
-                  <span className="text-sm text-gray-700">Reflections</span>
-                </label>
-              </div>
-              
-              <div>
-                <label className="flex items-center mb-1">
-                  <input
-                    type="checkbox"
-                    checked={performanceSettings.enableProgressiveLoading}
-                    onChange={(e) => setPerformanceSettings(prev => ({
-                      ...prev,
-                      enableProgressiveLoading: e.target.checked
-                    }))}
-                    className="mr-2 h-4 w-4 border-gray-300 rounded text-nile-teal focus:ring-nile-teal"
-                  />
-                  <span className="text-sm text-gray-700">Progressive Loading</span>
-                </label>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-    );
+  // Gift box options with pricing
+  const GIFT_BOXES = {
+    classic: { 
+      name: 'Classic Box', 
+      description: 'Elegant black velvet box with satin interior', 
+      price: 15,
+      image: '/images/packaging/classic-box.png'
+    },
+    premium: { 
+      name: 'Premium Box', 
+      description: 'Wooden box with custom engraving option and LED lighting', 
+      price: 35,
+      image: '/images/packaging/premium-box.png'
+    },
+    luxury: { 
+      name: 'Luxury Box', 
+      description: 'Handcrafted leather case with gold accents and certificate of authenticity', 
+      price: 75,
+      image: '/images/packaging/luxury-box.png'
+    }
   };
+  
+  // Gift wrapping options
+  const GIFT_WRAPPING = {
+    none: { 
+      name: 'No Wrapping', 
+      description: 'Just the gift box', 
+      price: 0,
+      image: '/images/packaging/no-wrapping.png'
+    },
+    ribbon: { 
+      name: 'Ribbon', 
+      description: 'Elegant satin ribbon with bow', 
+      price: 8,
+      image: '/images/packaging/ribbon.png'
+    },
+    paper: { 
+      name: 'Gift Paper', 
+      description: 'Premium wrapping paper with ribbon', 
+      price: 12,
+      image: '/images/packaging/gift-paper.png'
+    }
+  };
+  
+  // Skin tone options for visualization
+  const SKIN_TONES = [
+    { id: 'fair', name: 'Fair', color: '#F8D9C0' },
+    { id: 'medium', name: 'Medium', color: '#E5C298' },
+    { id: 'olive', name: 'Olive', color: '#C5A679' },
+    { id: 'tan', name: 'Tan', color: '#A67B52' },
+    { id: 'deep', name: 'Deep', color: '#794E3D' },
+  ];
+  
+  // Gift registry integration
+  const [showGiftRegistry, setShowGiftRegistry] = useState(false);
+  const [selectedRegistry, setSelectedRegistry] = useState<'wedding' | 'baby' | 'anniversary' | 'birthday'>('wedding');
+  const [giftMessage, setGiftMessage] = useState('');
+  
+  // Registry platform options
+  const REGISTRY_PLATFORMS = [
+    'Zola', 'The Knot', 'Amazon', 'Macy\'s'
+  ];
+  
+  // Update model path when selections change
+  useEffect(() => {
+    // In a real app, you'd have more models and dynamically select them
+    // This is just a simple example
+    if (productType.id === 'ring') {
+      if (designStyle.id === 'solitaire') {
+        setModelPath('/models/jewelry/ring-solitaire.glb');
+      } else if (designStyle.id === 'halo') {
+        setModelPath('/models/jewelry/ring-halo.glb');
+      } else if (designStyle.id === 'three-stone') {
+        setModelPath('/models/jewelry/ring-three-stone.glb');
+      } else {
+        setModelPath('/models/jewelry/ring-solitaire.glb');
+      }
+    } else if (productType.id === 'necklace') {
+      setModelPath('/models/jewelry/necklace.glb');
+    } else if (productType.id === 'bracelet') {
+      setModelPath('/models/jewelry/bracelet.glb');
+    } else if (productType.id === 'earrings') {
+      setModelPath('/models/jewelry/earrings.glb');
+    }
+    
+    // Force re-render of the 3D viewer
+    setViewerKey(prev => prev + 1);
+  }, [productType.id, designStyle.id]);
   
   // Calculate price when options change
   useEffect(() => {
@@ -879,59 +720,8 @@ export default function JewelryCustomizer() {
     }
   }, [selectedBox, selectedWrapping]);
 
-  // In the component, use the useQualitySettings hook
-  const { settings, capabilities } = useQualitySettings(performanceSettings.quality);
-
+  // Make sure the component is properly closed
   return (
-    <div className="relative">
-      {/* Steps indicator */}
-      <div className="mb-8">
-        {/* ... existing step indicators ... */}
-      </div>
-      
-      <div className="flex flex-col md:flex-row gap-8">
-        {/* Left column: 3D viewer */}
-        <div className="md:w-1/2 flex flex-col">
-          <div className="bg-white p-6 rounded-lg shadow-md mb-4">
-            {/* Pass performance settings to the EnhancedJewelryViewer and enable performance stats */}
-            <EnhancedJewelryViewer
-              modelPath={modelPath}
-              selectedMetal={selectedMetal}
-              selectedGem={selectedGem}
-              environmentPreset="jewelry_store"
-              enableBloom={performanceSettings.enableBloom}
-              enableShadows={performanceSettings.enableShadows}
-              rotationSpeed={0.5}
-              key={viewerKey}
-              enableZoom={true}
-              quality={performanceSettings.quality === 'auto' ? 'medium' : performanceSettings.quality}
-              showPerformanceStats={true}
-            />
-          </div>
-          
-          {/* Add Performance Recommendations */}
-          <PerformanceRecommendations 
-            className="mb-4"
-            onQualityChange={(quality) => {
-              setPerformanceSettings(prev => ({
-                ...prev,
-                quality,
-                enableShadows: quality !== 'low',
-                enableBloom: quality !== 'low',
-                enableReflections: quality !== 'low',
-              }));
-            }}
-          />
-          
-          {/* Performance Settings Panel */}
-          <PerformanceSettingsPanel />
-        </div>
-        
-        {/* Right column: Customization controls */}
-        <div className="md:w-1/2">
-          {/* ... existing customization controls ... */}
-        </div>
-      </div>
-    </div>
+    {/* Component JSX */}
   );
-} 
+} // End of JewelryCustomizer component

@@ -4,17 +4,18 @@ import ThreeDModelingPage from '@/app/3d-modeling/page';
 
 // Mock dynamic import
 jest.mock('next/dynamic', () => {
-  const MockComponent = jest.fn(({ children, ...props }) => {
-    // When the component renders, we create a div displaying the passed props
-    return (
+  const dynamicMock = jest.fn(() => {
+    const MockComponent = (props: any) => (
       <div data-testid="mock-jewelry-viewer">
-        Metal: {props.selectedMetal}, Gem: {props.selectedGem}, Size: {props.size || '1'}
+        Metal: {props.metalType}, Gem: {props.gemType}, Size: {props.size}
       </div>
     );
+    return MockComponent;
   });
   
-  return function mockedDynamic() {
-    return MockComponent;
+  return {
+    __esModule: true,
+    default: dynamicMock
   };
 });
 
@@ -79,14 +80,12 @@ describe('3D Modeling Page', () => {
     // Find the size slider using selectors instead of label
     const sizeSlider = screen.getByRole('slider');
     
-    // Verify initial value
-    expect(sizeSlider).toHaveValue('1');
-    
     // Change the slider value to 1.2
     fireEvent.change(sizeSlider, { target: { value: '1.2' } });
     
-    // Verify the slider value was updated
-    expect(sizeSlider).toHaveValue('1.2');
+    // Check if the 3D viewer is updated
+    const viewer = screen.getByTestId('mock-jewelry-viewer');
+    expect(viewer).toHaveTextContent('Size: 1.2');
   });
 
   it('renders all feature sections', () => {

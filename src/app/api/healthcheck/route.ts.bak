@@ -1,0 +1,76 @@
+import { NextResponse } from 'next/server';
+import { connectDB } from '@/lib/mongodb';
+import mongoose from 'mongoose';
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
+interface DatabaseStatus {
+  status: string;
+  responseTime: number;
+  message?: string;
+}
+
+interface HealthcheckResponse {
+  uptime: number;
+  status: string;
+  timestamp: string;
+  environment: string;
+  version: string;
+  responseTime?: number;
+  services: {
+    database: DatabaseStatus;
+  };
+}
+
+export async function GET() {
+  const startTime = Date.now();
+  const healthcheck: HealthcheckResponse = {
+    uptime: process.uptime(),
+    status: 'ok',
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'development',
+    version: process.env.NEXT_PUBLIC_APP_VERSION || '1.0.0',
+    services: {
+      database: {
+        status: 'unknown',
+        responseTime: 0
+      }
+    }
+  };
+
+  try {
+    // Check MongoDB connection
+    const dbStartTime = Date.now();
+    await connectDB();
+    const dbConnection = mongoose.connection.readyState;
+    
+    healthcheck.services.database = {
+      status: dbConnection === 1 ? 'ok' : 'error',
+      responseTime: Date.now() - dbStartTime
+    };
+  } catch (error) {
+    healthcheck.services.database = {
+      status: 'error',
+      responseTime: Date.now() - startTime,
+      message: error instanceof Error ? error.message : 'Unknown error'
+    };
+    
+    // If database is down, update overall status
+    healthcheck.status = 'error';
+  }
+
+  // Calculate total response time
+  const totalResponseTime = Date.now() - startTime;
+  
+  // Return health status with appropriate status code
+  return NextResponse.json(
+    { ...healthcheck, responseTime: totalResponseTime },
+    { 
+      status: healthcheck.status === 'ok' ? 200 : 503,
+      headers: {
+        'Cache-Control': 'no-store, max-age=0'
+      }
+    }
+  );
+} 

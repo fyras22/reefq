@@ -1,20 +1,23 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useSession } from 'next-auth/react';
+import { useAuth } from '@/providers/AuthProvider';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 export default function UnauthorizedPage() {
-  const { data: session, status } = useSession();
+  const { user } = useAuth();
   const router = useRouter();
+
+  // Use user instead of session
+  const displayName = user?.email || 'Guest';
 
   // If not authenticated, redirect to login
   useEffect(() => {
-    if (status === 'unauthenticated') {
+    if (!user) {
       router.push('/auth/login');
     }
-  }, [status, router]);
+  }, [user, router]);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 px-4 py-12">
@@ -39,8 +42,8 @@ export default function UnauthorizedPage() {
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Access Denied</h2>
           <p className="text-gray-600 mb-6">
             You don't have permission to access this page.
-            {session?.user && (
-              <span> You are signed in as <strong>{session.user.email}</strong> with role <strong>{session.user.role}</strong>.</span>
+            {user && (
+              <span> You are signed in as <strong>{displayName}</strong>.</span>
             )}
           </p>
           
@@ -59,7 +62,7 @@ export default function UnauthorizedPage() {
               Go to Jewelry Demo
             </Link>
             
-            {session?.user && (
+            {user && (
               <button 
                 onClick={() => router.back()}
                 className="block w-full px-4 py-2 bg-white text-gray-600 border border-gray-300 rounded hover:bg-gray-50 text-center"

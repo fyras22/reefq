@@ -1,109 +1,40 @@
-import { NextResponse } from 'next/server';
-import { createRouteSupabaseClient } from '@/lib/supabase-server';
+import { createServerComponentClient } from '@/lib/supabase-server';
+import { NextRequest, NextResponse } from 'next/server';
 
-// Mark this route as dynamic to prevent static pre-rendering
-export const dynamic = 'force-dynamic';
+// This is the route that Supabase Auth calls when a user completes the OAuth flow
+// or when a passwordless login email link is clicked
+export async function GET(request: NextRequest) {
+  const requestUrl = new URL(request.url);
+  const code = requestUrl.searchParams.get('code');
+  
+  // If no code is provided in the request, redirect to login
+  if (!code) {
+    return NextResponse.redirect(
+      new URL('/auth/login?error=No+auth+code+provided', request.url)
+    );
+  }
 
-export async function GET(request: Request) {
   try {
-    const requestUrl = new URL(request.url);
-    const code = requestUrl.searchParams.get('code');
-    const next = requestUrl.searchParams.get('next') || '/dashboard';
-    const origin = requestUrl.origin;
-    const hash = requestUrl.hash;
-    const error = requestUrl.searchParams.get('error');
-    const errorDescription = requestUrl.searchParams.get('error_description');
-    const state = requestUrl.searchParams.get('state');
-
-    console.log(`[Auth Callback] Processing OAuth callback:`);
-    console.log(`- URL: ${requestUrl.toString()}`);
-    console.log(`- Code parameter: ${!!code}`);
-    console.log(`- Next parameter: ${next}`);
-    console.log(`- State parameter: ${!!state}`);
-    console.log(`- Hash exists: ${!!hash && hash.length > 0}`);
-    console.log(`- Error: ${error || 'none'}`);
-    console.log(`- Error description: ${errorDescription || 'none'}`);
+    const supabase = createServerComponentClient();
     
-    // Handle error case from OAuth provider
+    // Exchange the auth code for session
+    // This automatically sets the cookies in the response
+    const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+    
     if (error) {
-      console.error(`[Auth Callback] Error from OAuth provider: ${error}: ${errorDescription}`);
-      
-      // If we get a bad_oauth_state error, provide a more specific error message
-      if (error === 'invalid_request' && errorDescription?.includes('bad_oauth_state')) {
-        return NextResponse.redirect(
-          `${origin}/auth/login?error=${encodeURIComponent('Authentication session expired. Please try again.')}`
-        );
-      }
-      
+      console.error('Auth callback error:', error);
       return NextResponse.redirect(
-        `${origin}/auth/login?error=${encodeURIComponent(errorDescription || error)}`
-      );
-    }
-    
-    // If we have a hash with access_token (implicit flow), we need to preserve it
-    if (hash && hash.includes('access_token')) {
-      console.log('[Auth Callback] Hash contains access_token, forwarding to set-login-flag');
-      
-      // Forward the hash to the client-side handler
-      return NextResponse.redirect(
-        new URL(`/auth/set-login-flag?redirectTo=${encodeURIComponent(next)}&hash=${encodeURIComponent(hash)}`, origin)
+        new URL(`/auth/login?error=${encodeURIComponent(error.message)}`, request.url)
       );
     }
 
-    // If we have a code parameter, exchange it for a session (PKCE flow)
-    if (code) {
-      console.log('[Auth Callback] Exchanging code for session');
-      
-      try {
-        const supabase = await createRouteSupabaseClient();
-        
-        // Exchange the code for a session
-        const { data, error } = await supabase.auth.exchangeCodeForSession(code);
-
-        if (error) {
-          console.error('[Auth Callback] Error exchanging code for session:', error.message);
-          return NextResponse.redirect(`${origin}/auth/login?error=${encodeURIComponent('Authentication failed. Please try again.')}`);
-        }
-
-        // Verify we have a session
-        if (!data.session) {
-          console.error('[Auth Callback] No session returned after code exchange');
-          return NextResponse.redirect(`${origin}/auth/login?error=${encodeURIComponent('Failed to create session')}`);
-        }
-        
-        console.log('[Auth Callback] Session established successfully');
-        
-        // Set cookies for the session
-        const response = NextResponse.redirect(
-          new URL(`/auth/set-login-flag?redirectTo=${encodeURIComponent(next)}`, origin)
-        );
-        
-        // Set the session cookie
-        response.cookies.set('sb-access-token', data.session.access_token, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === 'production',
-          sameSite: 'lax',
-          path: '/',
-          maxAge: 60 * 60 * 24 * 7 // 1 week
-        });
-        
-        return response;
-      } catch (exchangeError: any) {
-        console.error('[Auth Callback] Exception during code exchange:', exchangeError);
-        return NextResponse.redirect(
-          `${origin}/auth/login?error=${encodeURIComponent('Authentication process failed')}`
-        );
-      }
-    }
-    
-    // Neither code nor access_token hash found
-    console.error('[Auth Callback] No authentication parameters found');
-    return NextResponse.redirect(`${origin}/auth/login?error=${encodeURIComponent('Missing authentication parameters')}`);
+    // Redirect to the dashboard or a specified redirect_to parameter
+    const redirectTo = requestUrl.searchParams.get('redirect_to') || '/dashboard';
+    return NextResponse.redirect(new URL(redirectTo, request.url));
   } catch (error: any) {
-    console.error('[Auth Callback] Critical error in callback handler:', error);
-    
-    // Use a default origin if we're in the catch block and can't access the request
-    const fallbackOrigin = 'https://reefq.vercel.app';
-    return NextResponse.redirect(`${fallbackOrigin}/auth/login?error=${encodeURIComponent('Something went wrong during authentication')}`);
+    console.error('Unexpected error in auth callback:', error);
+    return NextResponse.redirect(
+      new URL('/auth/login?error=Unexpected+error+during+sign+in', request.url)
+    );
   }
 } 

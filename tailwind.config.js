@@ -44,15 +44,9 @@ module.exports = {
           '0%': { transform: 'translateX(-100%)' },
           '100%': { transform: 'translateX(100%)' },
         },
-        fadeOut: {
-          '0%': { opacity: '1' },
-          '75%': { opacity: '1' },
-          '100%': { opacity: '0' },
-        }
       },
       animation: {
         shimmer: 'shimmer 1.5s infinite',
-        fadeOut: 'fadeOut 3s ease-in-out forwards',
       },
       container: {
         center: true,

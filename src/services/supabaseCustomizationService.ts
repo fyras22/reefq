@@ -1,10 +1,5 @@
-import { createClient } from '@supabase/supabase-js';
+import type { SupabaseClient } from '@supabase/supabase-js';
 import { CustomizationSettings, CustomDesign } from './customizationService';
-
-// Initialize Supabase client
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL as string;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string;
-const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Database tables
 const DESIGNS_TABLE = 'jewelry_designs';
@@ -21,6 +16,7 @@ interface SupabaseCustomDesign extends Omit<CustomDesign, 'settings' | 'createdA
 
 // Save a design to Supabase
 export async function saveDesignToSupabase(
+  supabase: SupabaseClient,
   design: Omit<CustomDesign, 'id' | 'createdAt'>, 
   userId?: string
 ): Promise<CustomDesign | null> {
@@ -73,7 +69,10 @@ export async function saveDesignToSupabase(
 }
 
 // Get user's designs from Supabase
-export async function getUserDesignsFromSupabase(userId: string): Promise<CustomDesign[]> {
+export async function getUserDesignsFromSupabase(
+  supabase: SupabaseClient,
+  userId: string
+): Promise<CustomDesign[]> {
   try {
     const { data, error } = await supabase
       .from(DESIGNS_TABLE)
@@ -102,7 +101,9 @@ export async function getUserDesignsFromSupabase(userId: string): Promise<Custom
 }
 
 // Get popular designs from Supabase
-export async function getPopularDesignsFromSupabase(): Promise<CustomDesign[]> {
+export async function getPopularDesignsFromSupabase(
+  supabase: SupabaseClient
+): Promise<CustomDesign[]> {
   try {
     const { data, error } = await supabase
       .from(DESIGNS_TABLE)
@@ -133,7 +134,10 @@ export async function getPopularDesignsFromSupabase(): Promise<CustomDesign[]> {
 }
 
 // Delete a design from Supabase
-export async function deleteDesignFromSupabase(designId: string): Promise<boolean> {
+export async function deleteDesignFromSupabase(
+  supabase: SupabaseClient,
+  designId: string
+): Promise<boolean> {
   try {
     // Get the settings ID first
     const { data: designData, error: fetchError } = await supabase
@@ -178,6 +182,7 @@ export async function deleteDesignFromSupabase(designId: string): Promise<boolea
 
 // Update a design in Supabase
 export async function updateDesignInSupabase(
+  supabase: SupabaseClient,
   designId: string, 
   updates: Partial<Omit<CustomDesign, 'id' | 'createdAt'>>
 ): Promise<boolean> {
@@ -237,7 +242,10 @@ export async function updateDesignInSupabase(
 }
 
 // Get design by ID from Supabase
-export async function getDesignByIdFromSupabase(designId: string): Promise<CustomDesign | null> {
+export async function getDesignByIdFromSupabase(
+  supabase: SupabaseClient,
+  designId: string
+): Promise<CustomDesign | null> {
   try {
     const { data, error } = await supabase
       .from(DESIGNS_TABLE)
@@ -267,7 +275,10 @@ export async function getDesignByIdFromSupabase(designId: string): Promise<Custo
 }
 
 // Increment view count for a design
-export async function incrementDesignViewCount(designId: string): Promise<void> {
+export async function incrementDesignViewCount(
+  supabase: SupabaseClient,
+  designId: string
+): Promise<void> {
   try {
     await supabase.rpc('increment_design_view_count', { design_id: designId });
   } catch (error) {
@@ -277,6 +288,7 @@ export async function incrementDesignViewCount(designId: string): Promise<void> 
 
 // Search designs by keyword
 export async function searchDesigns(
+  supabase: SupabaseClient,
   query: string, 
   onlyPublic: boolean = true
 ): Promise<CustomDesign[]> {
@@ -317,6 +329,7 @@ export async function searchDesigns(
 
 // Get recent designs by specific type or style
 export async function getDesignsByAttribute(
+  supabase: SupabaseClient,
   attribute: 'productType' | 'designStyle' | 'culturalStyle' | 'metal' | 'gemstone',
   value: string,
   limit: number = 6

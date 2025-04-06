@@ -374,23 +374,6 @@ export function applyContainmentStyles(element: HTMLElement) {
 }
 
 /**
- * Format a date as a string
- * @param date Date to format
- * @param options Intl.DateTimeFormat options
- */
-export function formatDate(
-  date: Date | string | number,
-  options: Intl.DateTimeFormatOptions = {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  }
-): string {
-  const d = typeof date === 'string' || typeof date === 'number' ? new Date(date) : date;
-  return new Intl.DateTimeFormat('en-US', options).format(d);
-}
-
-/**
  * Format currency value
  * @param value Amount to format
  * @param currency Currency code
@@ -492,40 +475,33 @@ export function generateSlug(str: string): string {
 }
 
 /**
- * Create a cache key for an object
- * @param obj Object to generate key for
- */
-export function createCacheKey(obj: Record<string, any>): string {
-  const str = JSON.stringify(obj, Object.keys(obj).sort());
-  return createHash('md5').update(str).digest('hex');
-}
-
-/**
  * Deep merge two objects
  * @param target Target object
  * @param source Source object
  */
-export function deepMerge<T extends Record<string, any>>(
-  target: T,
-  source: Record<string, any>
-): T {
+export function deepMerge<T extends Record<string, any>>(target: T, source: Partial<T>): T {
   const output = { ...target };
-
+  
   if (isObject(target) && isObject(source)) {
-    Object.keys(source).forEach((key) => {
+    Object.keys(source).forEach(key => {
       if (isObject(source[key])) {
         if (!(key in target)) {
           Object.assign(output, { [key]: source[key] });
         } else {
-          output[key] = deepMerge(target[key], source[key]);
+          Object.assign(output, { 
+            [key]: deepMerge(
+              target[key as keyof T] as Record<string, any>, 
+              source[key as keyof T] as Record<string, any>
+            ) 
+          });
         }
       } else {
         Object.assign(output, { [key]: source[key] });
       }
     });
   }
-
-  return output;
+  
+  return output as T;
 }
 
 /**
@@ -534,56 +510,6 @@ export function deepMerge<T extends Record<string, any>>(
  */
 export function isObject(item: any): boolean {
   return item && typeof item === 'object' && !Array.isArray(item);
-}
-
-/**
- * Debounce a function
- * @param func Function to debounce
- * @param wait Milliseconds to wait
- */
-export function debounce<T extends (...args: any[]) => any>(
-  func: T,
-  wait: number = 300
-): (...args: Parameters<T>) => void {
-  let timeout: NodeJS.Timeout | null = null;
-
-  return function executedFunction(...args: Parameters<T>) {
-    const later = () => {
-      timeout = null;
-      func(...args);
-    };
-
-    if (timeout) clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-  };
-}
-
-/**
- * Throttle a function
- * @param func Function to throttle
- * @param limit Milliseconds to limit
- */
-export function throttle<T extends (...args: any[]) => any>(
-  func: T,
-  limit: number = 300
-): (...args: Parameters<T>) => void {
-  let lastFunc: NodeJS.Timeout;
-  let lastRan: number;
-
-  return function executedFunction(...args: Parameters<T>) {
-    if (!lastRan) {
-      func(...args);
-      lastRan = Date.now();
-    } else {
-      clearTimeout(lastFunc);
-      lastFunc = setTimeout(() => {
-        if (Date.now() - lastRan >= limit) {
-          func(...args);
-          lastRan = Date.now();
-        }
-      }, limit - (Date.now() - lastRan));
-    }
-  };
 }
 
 /**
@@ -699,10 +625,11 @@ export function waitFor(
  * Serialize form data to object
  * @param formData Form data to serialize
  */
-export function serializeForm(formData: FormData): Record<string, string | string[]> {
+export function formDataToObject(formData: FormData): Record<string, string | string[]> {
   const result: Record<string, string | string[]> = {};
   
-  for (const [key, value] of formData.entries()) {
+  // Convert to array first to avoid the iterator issue
+  Array.from(formData.entries()).forEach(([key, value]) => {
     if (typeof value === 'string') {
       if (result[key]) {
         if (Array.isArray(result[key])) {
@@ -714,7 +641,7 @@ export function serializeForm(formData: FormData): Record<string, string | strin
         result[key] = value;
       }
     }
-  }
+  });
   
   return result;
 }
@@ -759,22 +686,6 @@ export function safeJsonParse<T>(jsonString: string, fallback: T): T {
   } catch (error) {
     return fallback;
   }
-}
-
-/**
- * Format a date with localized options
- */
-export function formatDate(
-  date: Date | string | number,
-  options: Intl.DateTimeFormatOptions = { 
-    month: 'long', 
-    day: 'numeric', 
-    year: 'numeric' 
-  },
-  locale: string = 'en-US'
-): string {
-  const dateObject = new Date(date);
-  return new Intl.DateTimeFormat(locale, options).format(dateObject);
 }
 
 /**

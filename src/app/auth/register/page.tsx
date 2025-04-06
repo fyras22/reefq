@@ -3,13 +3,16 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { signIn } from 'next-auth/react';
+import { useAuth } from '@/providers/AuthProvider';
 import { motion } from 'framer-motion';
 import PasswordStrengthMeter from '@/components/ui/password-strength-meter';
 import SocialAuthButtons from '@/components/ui/social-auth-buttons';
+import type { Provider } from '@supabase/supabase-js';
 
 export default function RegisterPage() {
   const router = useRouter();
+  const { signUp, signInWithOAuth } = useAuth();
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -25,85 +28,71 @@ export default function RegisterPage() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-    // Clear error when user types
     if (errors[name]) {
-      setErrors(prev => {
-        const newErrors = { ...prev };
-        delete newErrors[name];
-        return newErrors;
-      });
+      setErrors(prev => { const newErrors = { ...prev }; delete newErrors[name]; return newErrors; });
     }
   };
 
   const validateForm = () => {
     const newErrors: {[key: string]: string} = {};
-    
-    if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
-    }
-    
+    if (!formData.name.trim()) newErrors.name = 'Name is required';
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = 'Email is invalid';
     }
-    
     if (!formData.password) {
       newErrors.password = 'Password is required';
     } else if (formData.password.length < 8) {
       newErrors.password = 'Password must be at least 8 characters';
     }
-    
     if (formData.password !== formData.confirmPassword) {
       newErrors.confirmPassword = 'Passwords do not match';
     }
-    
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
     if (!validateForm()) return;
-    
+
     setIsSubmitting(true);
     setServerError(null);
-    
+
     try {
-      // In a real app, this would call an API endpoint to register the user
-      // For this demo, we'll just simulate a successful registration
-      
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      // Automatically sign in the user after successful registration
-      const result = await signIn('credentials', {
-        redirect: false,
-        email: formData.email,
-        password: formData.password,
-      });
-      
-      if (result?.error) {
-        setServerError('Failed to sign in after registration');
-        setIsSubmitting(false);
+      const { error } = await signUp(formData.email, formData.password, { name: formData.name });
+
+      if (error) {
+        setServerError(error.message || 'Failed to register account.');
       } else {
-        router.push('/dashboard');
+        router.push('/auth/login?message=Registration successful. Please check your email for verification.');
       }
-    } catch (err) {
-      setServerError('An error occurred during registration');
+    } catch (err: any) {
+      setServerError(err.message || 'An unexpected error occurred during registration');
+    } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const handleOAuthSignIn = async (provider: Provider) => {
+    setIsSubmitting(true);
+    setServerError(null);
+    try {
+        await signInWithOAuth(provider);
+    } catch(err: any) {
+        setServerError(err.message || `Failed to initiate sign in with ${provider}`);
+        setIsSubmitting(false);
     }
   };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-  
   const toggleConfirmPasswordVisibility = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
 
-  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: { 
@@ -121,8 +110,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex bg-gradient-to-b from-blue-50 to-indigo-50">
-      {/* Left panel - decorative */}
+    <div className="min-h-screen flex bg-gradient-to-b from-light-gray to-bg-light">
       <div className="hidden lg:flex w-1/2 bg-cover bg-center justify-center items-center" 
         style={{ backgroundImage: 'url(/assets/images/auth-bg.jpg)' }}>
         <motion.div 
@@ -133,7 +121,7 @@ export default function RegisterPage() {
         >
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-gray-800 mb-2">ReefQ Jewelry</h2>
-            <div className="h-1 w-16 bg-indigo-600 mx-auto mb-4"></div>
+            <div className="h-1 w-16 bg-brand-teal mx-auto mb-4"></div>
             <p className="mt-2 text-gray-600">Premium jewelry visualization platform</p>
           </div>
           <div className="space-y-6">
@@ -153,7 +141,7 @@ export default function RegisterPage() {
               }}
               className="flex justify-center"
             >
-              <div className="w-24 h-24 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-full shadow-lg flex items-center justify-center">
+              <div className="w-24 h-24 bg-gradient-to-br from-brand-teal to-brand-gold rounded-full shadow-lg flex items-center justify-center">
                 <span className="text-4xl">✨</span>
               </div>
             </motion.div>
@@ -161,7 +149,6 @@ export default function RegisterPage() {
         </motion.div>
       </div>
       
-      {/* Right panel - registration form */}
       <div className="w-full lg:w-1/2 flex items-center justify-center px-6 py-12">
         <motion.div 
           variants={containerVariants}
@@ -171,7 +158,7 @@ export default function RegisterPage() {
         >
           <motion.div variants={itemVariants} className="text-center mb-8">
             <h2 className="text-3xl font-bold text-gray-900">Create Account</h2>
-            <div className="h-1 w-16 bg-indigo-600 mx-auto my-4"></div>
+            <div className="h-1 w-16 bg-brand-teal mx-auto my-4"></div>
             <p className="mt-2 text-gray-600">Sign up to get started with ReefQ</p>
             {serverError && (
               <motion.div 
@@ -184,15 +171,17 @@ export default function RegisterPage() {
             )}
           </motion.div>
           
-          {/* Replace OAuth buttons with SocialAuthButtons component */}
           <motion.div variants={itemVariants}>
             <SocialAuthButtons 
-              action="sign up"
-              callbackUrl="/dashboard"
+              onSignInWithProvider={handleOAuthSignIn}
+              isLoading={isSubmitting}
             />
           </motion.div>
           
-          {/* Registration form */}
+          <div className="my-6 flex items-center justify-center">
+            <span className="px-2 bg-light-gray text-sm text-gray-500">Or sign up with email</span>
+          </div>
+          
           <motion.form variants={itemVariants} className="space-y-4" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
@@ -210,7 +199,7 @@ export default function RegisterPage() {
                   type="text"
                   autoComplete="name"
                   required
-                  className={`pl-10 appearance-none block w-full px-3 py-2.5 border ${errors.name ? 'border-red-300' : 'border-gray-300'} rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 transition-colors`}
+                  className={`pl-10 appearance-none block w-full px-3 py-2.5 border ${errors.name ? 'border-red-300' : 'border-gray-300'} rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-brand-teal focus:border-brand-teal transition-colors`}
                   placeholder="Enter your full name"
                   value={formData.name}
                   onChange={handleChange}
@@ -245,7 +234,7 @@ export default function RegisterPage() {
                   type="email"
                   autoComplete="email"
                   required
-                  className={`pl-10 appearance-none block w-full px-3 py-2.5 border ${errors.email ? 'border-red-300' : 'border-gray-300'} rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 transition-colors`}
+                  className={`pl-10 appearance-none block w-full px-3 py-2.5 border ${errors.email ? 'border-red-300' : 'border-gray-300'} rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-brand-teal focus:border-brand-teal transition-colors`}
                   placeholder="Enter your email"
                   value={formData.email}
                   onChange={handleChange}
@@ -279,7 +268,7 @@ export default function RegisterPage() {
                   type={showPassword ? "text" : "password"}
                   autoComplete="new-password"
                   required
-                  className={`pl-10 pr-10 appearance-none block w-full px-3 py-2.5 border ${errors.password ? 'border-red-300' : 'border-gray-300'} rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 transition-colors`}
+                  className={`pl-10 pr-10 appearance-none block w-full px-3 py-2.5 border ${errors.password ? 'border-red-300' : 'border-gray-300'} rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-brand-teal focus:border-brand-teal transition-colors`}
                   placeholder="Create a password (min. 8 characters)"
                   value={formData.password}
                   onChange={handleChange}
@@ -332,7 +321,7 @@ export default function RegisterPage() {
                   type={showConfirmPassword ? "text" : "password"}
                   autoComplete="new-password"
                   required
-                  className={`pl-10 pr-10 appearance-none block w-full px-3 py-2.5 border ${errors.confirmPassword ? 'border-red-300' : 'border-gray-300'} rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 transition-colors`}
+                  className={`pl-10 pr-10 appearance-none block w-full px-3 py-2.5 border ${errors.confirmPassword ? 'border-red-300' : 'border-gray-300'} rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-brand-teal focus:border-brand-teal transition-colors`}
                   placeholder="Confirm your password"
                   value={formData.confirmPassword}
                   onChange={handleChange}
@@ -374,7 +363,7 @@ export default function RegisterPage() {
                 disabled={isSubmitting}
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.99 }}
-                className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
+                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-brand-teal hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-gold disabled:opacity-50 transition-all duration-300 ease-in-out"
               >
                 {isSubmitting ? (
                   <span className="flex items-center">
@@ -392,7 +381,7 @@ export default function RegisterPage() {
           <motion.div variants={itemVariants} className="mt-6 text-center">
             <p className="text-sm text-gray-600">
               Already have an account?{' '}
-              <Link href="/auth/login" className="font-medium text-indigo-600 hover:text-indigo-500 transition-colors">
+              <Link href="/auth/login" className="font-medium text-brand-teal hover:text-brand-gold transition-colors">
                 Sign in
               </Link>
             </p>
@@ -400,13 +389,13 @@ export default function RegisterPage() {
           
           <motion.div variants={itemVariants} className="mt-6 text-center text-xs text-gray-500">
             By creating an account, you agree to our{' '}
-            <Link href="/terms" className="text-indigo-600 hover:underline">Terms of Service</Link>{' '}
+            <Link href="/terms" className="text-brand-teal hover:underline">Terms of Service</Link>{' '}
             and{' '}
-            <Link href="/privacy" className="text-indigo-600 hover:underline">Privacy Policy</Link>
+            <Link href="/privacy" className="text-brand-teal hover:underline">Privacy Policy</Link>
           </motion.div>
           
           <motion.div variants={itemVariants} className="mt-6 text-center">
-            <Link href="/" className="inline-flex items-center text-sm text-gray-600 hover:text-indigo-600 transition-colors">
+            <Link href="/" className="inline-flex items-center text-sm text-gray-600 hover:text-brand-teal transition-colors">
               <svg className="mr-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
               </svg>

@@ -351,20 +351,14 @@ export async function GET(request: NextRequest) {
       }
     },
     {
-      // Cache for 5 minutes
-      ttl: 300,
-      
-      // Allow serving stale data for up to 1 hour while revalidating
-      staleWhileRevalidate: 3600,
+      // Cache products for 30 minutes
+      ttl: 1800,
       
       // Tag for cache invalidation
       tags: ['products'],
       
-      // Only vary cache by these query parameters
-      queryParams: ['category', 'featured', 'bestseller', 'new', 'hasAR', 'has3D', 'inStock', 'minPrice', 'maxPrice', 'sort', 'limit', 'offset', 'search'],
-      
-      // Include cache info in response headers in non-production environments
-      includeCacheMetadata: process.env.NODE_ENV !== 'production',
+      // Include cache info in response headers in development
+      includeCacheMetadata: process.env.NODE_ENV === 'development',
     }
   );
 }

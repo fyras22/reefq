@@ -1,6 +1,6 @@
 # Reefq - 3D Jewelry Visualization Platform
 
-A modern web platform for jewelry visualization and AR try-on experiences, built with Next.js 14, Three.js, and TypeScript.
+A modern web platform for jewelry visualization and AR try-on experiences, built with Next.js 14, Three.js, TypeScript, and Supabase.
 
 ## Features
 
@@ -8,8 +8,9 @@ A modern web platform for jewelry visualization and AR try-on experiences, built
 - 👕 AR try-on experience
 - 📱 Fully responsive design
 - 🚀 Optimized performance
-- 🔒 Secure authentication
-- 📊 Analytics dashboard
+- 🔒 Secure authentication (Supabase Auth)
+- 💾 Database persistence (Supabase Postgres)
+- 📊 Analytics dashboard (Vercel Analytics)
 
 ## Tech Stack
 
@@ -18,24 +19,25 @@ A modern web platform for jewelry visualization and AR try-on experiences, built
 - **Styling**: Tailwind CSS
 - **3D Rendering**: Three.js with React Three Fiber
 - **AR**: WebXR API
-- **Authentication**: NextAuth.js
-- **Database**: MongoDB Atlas
+- **Backend**: Supabase (Authentication, Database)
 - **Analytics**: Vercel Analytics
 
 ## Prerequisites
 
 - Node.js 18.17 or later
-- npm 9.0 or later
-- MongoDB Atlas account
+- npm or yarn (check lockfile)
+- Supabase account (for Auth and Database)
 - Vercel account (for deployment)
 
 ## Environment Variables
 
-Create a `.env.local` file in the root directory with the following variables:
+Create a `.env.local` file in the root directory with the following variables obtained from your Supabase project settings:
 
 ```env
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_KEY=your_supabase_key
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+# Optional: Needed for certain backend operations if policies require it
+# SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key 
 ```
 
 ## Getting Started
@@ -46,19 +48,26 @@ NEXT_PUBLIC_SUPABASE_KEY=your_supabase_key
    cd reefq
    ```
 
-2. Install dependencies:
+2. Install dependencies (use `yarn install` if `yarn.lock` exists, otherwise `npm install`):
    ```bash
-   npm install
+   # Check for yarn.lock first
+   yarn install 
+   # OR
+   npm install 
    ```
 
 3. Set up environment variables:
    ```bash
-   cp .env.example .env.local
-   # Edit .env.local with your values
+   # Create the file
+   touch .env.local 
+   # Edit .env.local with your Supabase URL and Anon Key
    ```
+   **Important:** Also configure the necessary Supabase database tables (e.g., `jewelry_designs`, `customization_settings`) and potentially RLS policies and RPC functions (`increment_view_count`). Set up OAuth providers in your Supabase project dashboard if you intend to use them.
 
 4. Start the development server:
    ```bash
+   yarn dev
+   # OR
    npm run dev
    ```
 
@@ -66,28 +75,19 @@ NEXT_PUBLIC_SUPABASE_KEY=your_supabase_key
 
 ## Development Scripts
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run start` - Start production server
-- `npm run lint` - Run ESLint
-- `npm run type-check` - Run TypeScript type checking
-- `npm run format` - Format code with Prettier
-- `npm run analyze` - Analyze bundle size
+- `yarn dev` / `npm run dev` - Start development server
+- `yarn build` / `npm run build` - Build for production
+- `yarn start` / `npm run start` - Start production server
+- `yarn lint` / `npm run lint` - Run ESLint
+- `yarn test` / `npm run test` - Run Jest tests
+- `yarn analyze` / `npm run analyze` - Analyze bundle size
 
 ## Deployment
 
 1. Push your code to GitHub
 2. Connect your repository to Vercel
-3. Configure environment variables in Vercel
+3. Configure environment variables in Vercel (matching your `.env.local`)
 4. Deploy!
-
-```bash
-# Build for production
-npm run build
-
-# Start production server
-npm run start
-```
 
 ## Performance Optimization
 
@@ -95,7 +95,7 @@ npm run start
 - 3D models are loaded dynamically
 - Code splitting is implemented for all major components
 - Static assets are cached with optimal headers
-- Bundle analysis is available with `npm run analyze`
+- Bundle analysis is available with `yarn analyze` / `npm run analyze`
 
 ## Contributing
 
@@ -117,18 +117,24 @@ For support, email support@reefq.com or join our Slack channel.
 
 ```
 src/
-├── app/             # App router pages and layouts
-├── components/      # React components
-├── lib/            # Utility functions and shared logic
-└── types/          # TypeScript type definitions
+├── app/             # App router pages, layouts, API routes
+├── components/      # React components (UI, shared)
+├── hooks/           # Custom React hooks (e.g., useCustomization)
+├── lib/             # Utility functions, Supabase client helpers
+├── providers/       # React Context providers (e.g., AuthProvider)
+├── services/        # Business logic, data transformation (e.g., customizationService)
+└── types/           # TypeScript type definitions (if any)
+public/            # Static assets (images, models)
 ```
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+To learn more about the technologies used:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Supabase Documentation](https://supabase.com/docs)
+- [React Three Fiber Documentation](https://docs.pmnd.rs/react-three-fiber)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 

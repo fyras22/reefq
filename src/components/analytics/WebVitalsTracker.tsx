@@ -1,79 +1,160 @@
 'use client';
 
-import { useReportWebVitals } from 'next/web-vitals';
-import { useEffect } from 'react';
-import { usePathname, useSearchParams } from 'next/navigation';
-import { Metric } from 'web-vitals';
+import { useEffect, useRef } from 'react';
+import { onCLS, onFID, onLCP, onFCP, onTTFB, onINP } from 'web-vitals';
 
-// Extend window interface to include umami analytics
-declare global {
-  interface Window {
-    umami?: {
-      track: (eventName: string, eventData?: Record<string, any>) => void;
-    };
-  }
+export type WebVitalName = 'CLS' | 'FID' | 'LCP' | 'FCP' | 'TTFB' | 'INP';
+
+export interface WebVitalsMetric {
+  name: WebVitalName;
+  value: number;
+  rating: 'good' | 'needs-improvement' | 'poor';
+  delta: number;
+  id: string;
+  navigationType?: string;
 }
 
-export default function WebVitalsTracker() {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+export interface WebVitalsTrackerProps {
+  /**
+   * Function to report metrics to your analytics service
+   */
+  reportWebVitals?: (metric: WebVitalsMetric) => void;
   
-  // Report Web Vitals metrics to analytics
-  useReportWebVitals((metric) => {
-    const { name, value, id, rating } = metric;
+  /**
+   * Override default thresholds for metrics
+   */
+  thresholds?: {
+    [K in WebVitalName]?: {
+      good: number;
+      poor: number;
+    };
+  };
+  
+  /**
+   * Which metrics to track
+   */
+  metrics?: WebVitalName[];
+  
+  /**
+   * Whether to automatically send metrics to Vercel Analytics if available
+   */
+  useVercelAnalytics?: boolean;
+  
+  /**
+   * Whether to automatically log metrics to console in development
+   */
+  debugMode?: boolean;
+  
+  /**
+   * Whether to alert when metrics are poor
+   */
+  alertOnPoor?: boolean;
+}
+
+// Default thresholds based on Google's Core Web Vitals recommendations
+const DEFAULT_THRESHOLDS = {
+  CLS: { good: 0.1, poor: 0.25 },   // Cumulative Layout Shift
+  FID: { good: 100, poor: 300 },    // First Input Delay (ms)
+  LCP: { good: 2500, poor: 4000 },  // Largest Contentful Paint (ms)
+  FCP: { good: 1800, poor: 3000 },  // First Contentful Paint (ms)
+  TTFB: { good: 800, poor: 1800 },  // Time to First Byte (ms)
+  INP: { good: 200, poor: 500 },    // Interaction to Next Paint (ms)
+};
+
+// All available metrics
+const ALL_METRICS: WebVitalName[] = ['CLS', 'FID', 'LCP', 'FCP', 'TTFB', 'INP'];
+
+/**
+ * Component that tracks and reports Core Web Vitals metrics
+ */
+export default function WebVitalsTracker({
+  reportWebVitals,
+  thresholds = {},
+  metrics = ALL_METRICS,
+  useVercelAnalytics = true,
+  debugMode = process.env.NODE_ENV === 'development',
+  alertOnPoor = false,
+}: WebVitalsTrackerProps) {
+  // Merge custom thresholds with defaults
+  const mergedThresholds = { ...DEFAULT_THRESHOLDS, ...thresholds };
+  
+  // Ref to track if metrics have been reported already
+  const reportedMetrics = useRef<Set<string>>(new Set());
+  
+  // Get rating for a metric based on its value and thresholds
+  const getRating = (name: WebVitalName, value: number): 'good' | 'needs-improvement' | 'poor' => {
+    const thresholds = mergedThresholds[name];
+    if (!thresholds) return 'needs-improvement';
     
-    // Send to analytics
-    if (window.umami) {
-      window.umami.track('web-vitals', {
-        name,
-        value: Math.round(name === 'CLS' ? value * 1000 : value),
-        id,
-        rating,
-        page: pathname,
+    if (value <= thresholds.good) return 'good';
+    if (value >= thresholds.poor) return 'poor';
+    return 'needs-improvement';
+  };
+  
+  // Process and report a metric
+  const processMetric = (metric: any) => {
+    // Skip if this exact metric has already been reported
+    if (reportedMetrics.current.has(metric.id)) return;
+    reportedMetrics.current.add(metric.id);
+    
+    // Prepare the metric with rating
+    const enrichedMetric: WebVitalsMetric = {
+      name: metric.name as WebVitalName,
+      value: metric.value,
+      rating: getRating(metric.name as WebVitalName, metric.value),
+      delta: metric.delta,
+      id: metric.id,
+      navigationType: metric.navigationType,
+    };
+    
+    // Log to console in debug mode
+    if (debugMode) {
+      const formattedValue = metric.name === 'CLS' ? metric.value.toFixed(3) : Math.round(metric.value);
+      const color = enrichedMetric.rating === 'good' ? 'green' : enrichedMetric.rating === 'poor' ? 'red' : 'orange';
+      console.log(
+        `%c Web Vital: ${metric.name} %c ${formattedValue} %c ${enrichedMetric.rating}`,
+        'background:#eee; padding: 2px; border-radius: 3px;',
+        `background:${color}; color:white; padding: 2px; border-radius: 3px;`,
+        'font-weight: bold;'
+      );
+    }
+    
+    // Alert if metric is poor and alerting is enabled
+    if (alertOnPoor && enrichedMetric.rating === 'poor') {
+      console.warn(`Poor Web Vital: ${metric.name} - ${metric.value}`);
+    }
+    
+    // Send to custom reporter if provided
+    if (reportWebVitals) {
+      reportWebVitals(enrichedMetric);
+    }
+    
+    // Send to Vercel Analytics if enabled and available
+    if (useVercelAnalytics && typeof window !== 'undefined' && (window as any).va) {
+      (window as any).va('event', {
+        name: `web-vital-${metric.name.toLowerCase()}`,
+        value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
+        rating: enrichedMetric.rating,
       });
     }
-    
-    // Log to console in development
-    if (process.env.NODE_ENV === 'development') {
-      console.log(`Web Vitals: ${name} - ${value} (${rating})`);
-    }
-    
-    // Send to custom endpoint
-    fetch('/api/metrics', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name,
-        value: Math.round(name === 'CLS' ? value * 1000 : value),
-        id,
-        rating,
-        path: pathname,
-        timestamp: Date.now(),
-      }),
-      // Don't block rendering or processing
-      keepalive: true,
-    }).catch(() => {
-      // Ignore errors to avoid impacting user experience
-    });
-  });
+  };
   
-  // Track page views
   useEffect(() => {
-    // Skip during development unless explicitly enabled
-    if (process.env.NODE_ENV === 'development' && !process.env.NEXT_PUBLIC_TRACK_DEV_ANALYTICS) {
-      return;
-    }
+    // Only track metrics that are requested
+    if (metrics.includes('CLS')) onCLS(processMetric);
+    if (metrics.includes('FID')) onFID(processMetric);
+    if (metrics.includes('LCP')) onLCP(processMetric);
+    if (metrics.includes('FCP')) onFCP(processMetric);
+    if (metrics.includes('TTFB')) onTTFB(processMetric);
+    if (metrics.includes('INP')) onINP(processMetric);
     
-    const url = pathname + (searchParams.toString() ? `?${searchParams.toString()}` : '');
-    
-    // Send to analytics
-    if (window.umami) {
-      window.umami.track('pageview', { url });
-    }
-  }, [pathname, searchParams]);
+    // Clear reported metrics when component unmounts
+    return () => {
+      reportedMetrics.current.clear();
+    };
+  }, [metrics]); // eslint-disable-line react-hooks/exhaustive-deps
   
+  // This component doesn't render anything
   return null;
 }
 

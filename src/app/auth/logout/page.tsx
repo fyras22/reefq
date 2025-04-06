@@ -1,20 +1,26 @@
 'use client';
 
 import { useEffect } from 'react';
-import { signOut } from 'next-auth/react';
+import { useAuth } from '@/providers/AuthProvider';
 import { useRouter } from 'next/navigation';
 
 export default function LogoutPage() {
   const router = useRouter();
+  const { signOut } = useAuth();
   
   useEffect(() => {
     const handleLogout = async () => {
-      await signOut({ redirect: false });
-      router.push('/auth/login');
+      try {
+        await signOut();
+        router.push('/auth/login?message=You have been signed out successfully.');
+      } catch (error) {
+        console.error('Error during logout:', error);
+        router.push('/auth/login?error=Failed to sign out');
+      }
     };
     
     handleLogout();
-  }, [router]);
+  }, [router, signOut]);
   
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">

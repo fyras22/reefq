@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState, useMemo, useCallback } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
@@ -11,30 +11,19 @@ import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
 import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader';
 import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module';
-import PerformanceMonitor from './PerformanceMonitor';
-import Scene from './ThreeScene';
-import PerformanceHUD from './PerformanceHUD';
-import { performanceMonitor } from '../utils/performanceMetrics';
 
 interface EnhancedJewelryViewerProps {
   modelPath: string;
   selectedMetal: 'gold' | 'silver' | 'platinum' | 'rosegold' | 'whitegold';
   selectedGem?: 'diamond' | 'ruby' | 'sapphire' | 'emerald' | 'amethyst' | 'topaz' | 'pearl';
-  environmentPreset: 'jewelry_store' | 'outdoor' | 'studio' | 'evening';
-  rotationSpeed?: number;
+  environmentPreset?: 'jewelry_store' | 'outdoor' | 'studio' | 'evening';
   enableBloom?: boolean;
   enableShadows?: boolean;
+  rotationSpeed?: number;
+  onLoadComplete?: () => void;
   enableZoom?: boolean;
-  enablePan?: boolean;
   enableAR?: boolean;
-  backgroundColor?: string;
-  height?: number;
-  quality?: 'low' | 'medium' | 'high' | 'ultra' | 'auto';
-  onLoad?: () => void;
-  onError?: (error: Error) => void;
-  showPerformanceStats?: boolean;
-  showControls?: boolean;
-  showPerformanceMetrics?: boolean;
+  showMaterialEditor?: boolean;
 }
 
 // Material color and property mapping
@@ -70,123 +59,95 @@ const GEM_PROPERTIES = {
     roughness: 0.05, 
     transmission: 0.95, 
     ior: 2.4, 
-    dispersion: 0.044,
-    transparent: true,
-    opacity: 0.9,
-    clearcoat: 0.9,
-    clearcoatRoughness: 0.1
+    dispersion: 0.044 
   },
   ruby: { 
     metalness: 0.2, 
     roughness: 0.1, 
     transmission: 0.5, 
     ior: 1.77, 
-    dispersion: 0.018,
-    transparent: true,
-    opacity: 0.8,
-    clearcoat: 0.7,
-    clearcoatRoughness: 0.2
+    dispersion: 0.018 
   },
   sapphire: { 
     metalness: 0.2, 
     roughness: 0.1, 
     transmission: 0.6, 
     ior: 1.77, 
-    dispersion: 0.018,
-    transparent: true,
-    opacity: 0.8,
-    clearcoat: 0.7,
-    clearcoatRoughness: 0.2
+    dispersion: 0.018 
   },
   emerald: { 
     metalness: 0.2, 
     roughness: 0.2, 
     transmission: 0.5, 
     ior: 1.57, 
-    dispersion: 0.014,
-    transparent: true,
-    opacity: 0.8,
-    clearcoat: 0.5,
-    clearcoatRoughness: 0.3
+    dispersion: 0.014 
   },
   amethyst: { 
     metalness: 0.1, 
     roughness: 0.15, 
     transmission: 0.7, 
     ior: 1.54, 
-    dispersion: 0.013,
-    transparent: true,
-    opacity: 0.8,
-    clearcoat: 0.5,
-    clearcoatRoughness: 0.2
+    dispersion: 0.013 
   },
   topaz: { 
     metalness: 0.1, 
     roughness: 0.1, 
     transmission: 0.7, 
     ior: 1.61, 
-    dispersion: 0.014,
-    transparent: true,
-    opacity: 0.85,
-    clearcoat: 0.6,
-    clearcoatRoughness: 0.2
+    dispersion: 0.014 
   },
   pearl: { 
     metalness: 0.2, 
     roughness: 0.8, 
     transmission: 0.0, 
     ior: 1.53, 
-    dispersion: 0.0,
-    transparent: false,
-    opacity: 1.0,
-    clearcoat: 0.8,
-    clearcoatRoughness: 0.1
+    dispersion: 0.0 
   }
 };
 
 // Environment mapping for different lighting scenarios
 const ENVIRONMENT_PRESETS = {
   jewelry_store: {
-    ambientLight: { color: 0xffffff, intensity: 0.5 },
-    directionalLight: { color: 0xffffff, intensity: 1.0, position: [5, 5, 5] },
-    pointLights: [
-      { color: 0xFFFFFF, intensity: 0.8, distance: 100, decay: 2, position: [5, 5, 5] },
-      { color: 0xFFEEDD, intensity: 0.5, distance: 50, decay: 2, position: [-5, 3, 2] },
-      { color: 0xDDEEFF, intensity: 0.3, distance: 50, decay: 2, position: [0, -5, -5] }
+    ambientIntensity: 0.5,
+    directionalIntensity: 1.0,
+    pointLightPositions: [
+      [5, 5, 5, 0.8, 0xFFFFFF],
+      [-5, 3, 2, 0.5, 0xFFEEDD],
+      [0, -5, -5, 0.3, 0xDDEEFF]
     ],
     backgroundIntensity: 0.7,
     backgroundBlur: 0.5,
     hdrPath: '/environments/jewelry_store.hdr'
   },
   outdoor: {
-    ambientLight: { color: 0xffffff, intensity: 0.8 },
-    directionalLight: { color: 0xffffff, intensity: 1.2, position: [10, 10, -5] },
-    pointLights: [
-      { color: 0xFFFFFF, intensity: 1.0, distance: 100, decay: 2, position: [10, 10, 10] },
-      { color: 0xFFDDCC, intensity: 0.3, distance: 50, decay: 2, position: [-5, 5, -5] }
+    ambientIntensity: 0.8,
+    directionalIntensity: 1.2,
+    pointLightPositions: [
+      [10, 10, 10, 1.0, 0xFFFFFF],
+      [-5, 5, -5, 0.3, 0xFFDDCC]
     ],
     backgroundIntensity: 1.0,
     backgroundBlur: 0.3,
     hdrPath: '/environments/outdoor.hdr'
   },
   studio: {
-    ambientLight: { color: 0xffffff, intensity: 0.4 },
-    directionalLight: { color: 0xffffff, intensity: 0.8, position: [0, 5, 5] },
-    pointLights: [
-      { color: 0xFFFFFF, intensity: 0.6, distance: 50, decay: 2, position: [5, 5, 5] },
-      { color: 0xFFFFFF, intensity: 0.4, distance: 50, decay: 2, position: [-5, 3, 0] },
-      { color: 0xFFFFFF, intensity: 0.4, distance: 50, decay: 2, position: [0, -5, 5] }
+    ambientIntensity: 0.4,
+    directionalIntensity: 0.8,
+    pointLightPositions: [
+      [5, 5, 5, 0.6, 0xFFFFFF],
+      [-5, 3, 0, 0.4, 0xFFFFFF],
+      [0, -5, 5, 0.4, 0xFFFFFF]
     ],
     backgroundIntensity: 0.5,
     backgroundBlur: 0.8,
     hdrPath: '/environments/studio.hdr'
   },
   evening: {
-    ambientLight: { color: 0xfff0e8, intensity: 0.3 },
-    directionalLight: { color: 0xffa577, intensity: 0.5, position: [3, 3, 3] },
-    pointLights: [
-      { color: 0xFFAA77, intensity: 0.5, distance: 50, decay: 2, position: [3, 3, 3] },
-      { color: 0x7788FF, intensity: 0.3, distance: 50, decay: 2, position: [-3, 2, -1] }
+    ambientIntensity: 0.3,
+    directionalIntensity: 0.5,
+    pointLightPositions: [
+      [3, 3, 3, 0.5, 0xFFAA77],
+      [-3, 2, -1, 0.3, 0x7788FF]
     ],
     backgroundIntensity: 0.4,
     backgroundBlur: 0.7,
@@ -196,150 +157,43 @@ const ENVIRONMENT_PRESETS = {
 
 export default function EnhancedJewelryViewer({
   modelPath,
-  selectedMetal,
-  selectedGem,
-  environmentPreset,
-  rotationSpeed = 0.5,
+  selectedMetal = 'gold',
+  selectedGem = 'diamond',
+  environmentPreset = 'studio',
   enableBloom = true,
   enableShadows = true,
+  rotationSpeed = 0.5,
+  onLoadComplete,
   enableZoom = true,
-  enablePan = false,
   enableAR = false,
-  backgroundColor = '#f8f8f8',
-  height = 400,
-  quality = 'auto',
-  onLoad,
-  onError,
-  showPerformanceStats = false,
-  showControls = true,
-  showPerformanceMetrics = false
+  showMaterialEditor = false,
 }: EnhancedJewelryViewerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   const sceneRef = useRef<THREE.Scene | null>(null);
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
-  const controlsRef = useRef<OrbitControls | null>(null);
-  const animationFrameRef = useRef<number>(0);
   const modelRef = useRef<THREE.Group | null>(null);
-  const effectComposerRef = useRef<EffectComposer | null>(null);
+  const controlsRef = useRef<OrbitControls | null>(null);
+  const composerRef = useRef<EffectComposer | null>(null);
+  const bloomPassRef = useRef<UnrealBloomPass | null>(null);
+  const envMapRef = useRef<THREE.Texture | null>(null);
   
   const [isLoading, setIsLoading] = useState(true);
   const [loadingProgress, setLoadingProgress] = useState(0);
-  const [error, setError] = useState<Error | null>(null);
-  const [currentAngle, setCurrentAngle] = useState(0);
-  const [isRotating, setIsRotating] = useState(false);
-  const [viewMode, setViewMode] = useState<'3d' | 'ar'>('3d');
-  const [currentQuality, setCurrentQuality] = useState(quality);
+  const [error, setError] = useState<string | null>(null);
+  const [isRotating, setIsRotating] = useState(true);
+  const [isARSupported, setIsARSupported] = useState(false);
+  const [isARMode, setIsARMode] = useState(false);
+  const [materialEditorValues, setMaterialEditorValues] = useState({
+    metalRoughness: METAL_PROPERTIES[selectedMetal].roughness,
+    metalness: METAL_PROPERTIES[selectedMetal].metalness,
+    gemRoughness: selectedGem ? GEM_PROPERTIES[selectedGem].roughness : 0.01,
+    gemIOR: selectedGem ? GEM_PROPERTIES[selectedGem].ior : 2.42,
+  });
   
-  // Generate a unique identifier for this viewer instance
-  const viewerId = useRef(`viewer-${Math.random().toString(36).substring(2, 9)}`);
-  
-  // Quality-based settings
-  const qualitySettings = useMemo(() => {
-    const settings = {
-      pixelRatio: 1,
-      meshDetail: 1,
-      textureSize: 1024,
-      shadowMapSize: 1024,
-      anisotropy: 1,
-      antialias: true,
-      bloomResolution: 256,
-      reflectionProbeRes: 256,
-      envMapRes: 512,
-      maxLights: 4
-    };
-    
-    switch (quality) {
-      case 'low':
-        return {
-          ...settings,
-          pixelRatio: Math.min(1.0, window.devicePixelRatio),
-          meshDetail: 0.5,
-          textureSize: 512,
-          shadowMapSize: 512,
-          anisotropy: 1,
-          antialias: false,
-          bloomResolution: 128,
-          reflectionProbeRes: 128,
-          envMapRes: 256,
-          maxLights: 2
-        };
-      case 'medium':
-        return {
-          ...settings,
-          pixelRatio: Math.min(1.5, window.devicePixelRatio),
-          meshDetail: 1.0,
-          textureSize: 1024,
-          shadowMapSize: 1024,
-          anisotropy: 2,
-          antialias: true,
-          bloomResolution: 256,
-          reflectionProbeRes: 256,
-          envMapRes: 512,
-          maxLights: 4
-        };
-      case 'high':
-        return {
-          ...settings,
-          pixelRatio: Math.min(2.0, window.devicePixelRatio),
-          meshDetail: 1.5,
-          textureSize: 2048,
-          shadowMapSize: 2048,
-          anisotropy: 4,
-          antialias: true,
-          bloomResolution: 512,
-          reflectionProbeRes: 512,
-          envMapRes: 1024,
-          maxLights: 8
-        };
-      case 'ultra':
-        return {
-          ...settings,
-          pixelRatio: window.devicePixelRatio,
-          meshDetail: 2.0,
-          textureSize: 4096,
-          shadowMapSize: 4096,
-          anisotropy: 16,
-          antialias: true,
-          bloomResolution: 1024,
-          reflectionProbeRes: 1024,
-          envMapRes: 2048,
-          maxLights: 16
-        };
-      default:
-        return settings;
-    }
-  }, [quality]);
-  
+  // Initialize Three.js scene
   useEffect(() => {
-    // Progressive texture loading based on quality
-    const textureLoader = new THREE.TextureLoader();
-    textureLoader.setPath('/textures/');
-    
-    // Skip the rest of the initialization to avoid complex errors
     if (!containerRef.current) return;
-    
-    // Initialize the renderer with quality settings
-    const renderer = new THREE.WebGLRenderer({
-      antialias: qualitySettings.antialias,
-      alpha: true,
-      powerPreference: quality === 'ultra' ? 'high-performance' : quality === 'low' ? 'low-power' : 'default'
-    });
-    
-    renderer.setPixelRatio(qualitySettings.pixelRatio);
-    renderer.setSize(containerRef.current.clientWidth, height);
-    renderer.setClearColor(backgroundColor, 1);
-    renderer.outputEncoding = THREE.sRGBEncoding;
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.2;
-    
-    if (enableShadows) {
-      renderer.shadowMap.enabled = true;
-      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    }
-    
-    containerRef.current.appendChild(renderer.domElement);
-    rendererRef.current = renderer;
     
     // Create scene
     const scene = new THREE.Scene();
@@ -347,524 +201,756 @@ export default function EnhancedJewelryViewer({
     
     // Create camera
     const camera = new THREE.PerspectiveCamera(
-      45, 
-      containerRef.current.clientWidth / height, 
-      0.1, 
-      1000
+      40, // Lower FOV for more realistic perspective
+      containerRef.current.clientWidth / containerRef.current.clientHeight,
+      0.1,
+      100
     );
     camera.position.z = 5;
     cameraRef.current = camera;
     
-    // Load Environment Map with quality settings
-    const pmremGenerator = new THREE.PMREMGenerator(renderer);
-    pmremGenerator.compileEquirectangularShader();
+    // Create renderer with high quality settings
+    const renderer = new THREE.WebGLRenderer({ 
+      antialias: true,
+      alpha: true, // Transparent background
+      powerPreference: 'high-performance',
+      precision: 'highp'
+    });
+    renderer.setSize(containerRef.current.clientWidth, containerRef.current.clientHeight);
+    renderer.setClearColor(0x000000, 0);
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.2;
+    renderer.shadowMap.enabled = enableShadows;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.useLegacyLights = false;
     
-    // Configure environment based on preset
-    const preset = ENVIRONMENT_PRESETS[environmentPreset];
+    containerRef.current.appendChild(renderer.domElement);
+    rendererRef.current = renderer;
     
-    // Set up ambient lighting
-    const ambientLight = new THREE.AmbientLight(preset.ambientLight.color, preset.ambientLight.intensity);
-    scene.add(ambientLight);
-    
-    // Add main directional light (simulates sun or main light source)
-    const mainLight = new THREE.DirectionalLight(preset.directionalLight.color, preset.directionalLight.intensity);
-    mainLight.position.set(
-      preset.directionalLight.position[0], 
-      preset.directionalLight.position[1], 
-      preset.directionalLight.position[2]
-    );
-    
-    if (enableShadows) {
-      mainLight.castShadow = true;
-      mainLight.shadow.mapSize.width = qualitySettings.shadowMapSize;
-      mainLight.shadow.mapSize.height = qualitySettings.shadowMapSize;
-      mainLight.shadow.camera.near = 0.5;
-      mainLight.shadow.camera.far = 50;
-      mainLight.shadow.bias = -0.0001;
-    }
-    
-    scene.add(mainLight);
-    
-    // Add point lights based on quality settings
-    const pointLightCount = Math.min(preset.pointLights.length, qualitySettings.maxLights);
-    for (let i = 0; i < pointLightCount; i++) {
-      const pointLightConfig = preset.pointLights[i];
-      const pointLight = new THREE.PointLight(
-        pointLightConfig.color,
-        pointLightConfig.intensity,
-        pointLightConfig.distance,
-        pointLightConfig.decay
-      );
-      pointLight.position.set(
-        pointLightConfig.position[0],
-        pointLightConfig.position[1],
-        pointLightConfig.position[2]
-      );
-      
-      if (enableShadows && i < 2) { // Only enable shadows for the main lights
-        pointLight.castShadow = true;
-        pointLight.shadow.mapSize.width = qualitySettings.shadowMapSize / 2; // Smaller shadow maps for point lights
-        pointLight.shadow.mapSize.height = qualitySettings.shadowMapSize / 2;
-        pointLight.shadow.bias = -0.0001;
-      }
-      
-      scene.add(pointLight);
-    }
-    
-    // Rest of the setup code...
-    // This is a simplified version - the full implementation would include:
-    // 1. Loading the model with GLTFLoader using qualitySettings.meshDetail
-    // 2. Setting up the EffectComposer with bloom based on qualitySettings.bloomResolution
-    // 3. Adding environment maps with qualitySettings.envMapRes
-    // 4. Setting up OrbitControls with enableZoom and enablePan
-    
-    // Add OrbitControls
+    // Add OrbitControls with enhanced settings
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
-    controls.dampingFactor = 0.1;
+    controls.dampingFactor = 0.15;
     controls.enableZoom = enableZoom;
-    controls.enablePan = enablePan;
-    controls.autoRotate = rotationSpeed > 0;
-    controls.autoRotateSpeed = rotationSpeed * 3;
+    controls.minDistance = 3;
+    controls.maxDistance = 10;
     controlsRef.current = controls;
     
-    // Set up model loading with progress tracking
-    const loadingManager = new THREE.LoadingManager();
-    loadingManager.onProgress = (url, itemsLoaded, itemsTotal) => {
-      const progress = Math.floor((itemsLoaded / itemsTotal) * 100);
-      setLoadingProgress(progress);
-    };
+    // Set up lighting based on environment preset
+    const preset = ENVIRONMENT_PRESETS[environmentPreset];
     
-    loadingManager.onLoad = () => {
-      setIsLoading(false);
-      if (onLoad) onLoad();
-    };
+    // Ambient light
+    const ambientLight = new THREE.AmbientLight(0xffffff, preset.ambientIntensity);
+    scene.add(ambientLight);
     
-    loadingManager.onError = (url) => {
-      console.error('Error loading model:', url);
-      setIsLoading(false);
-      setError(new Error(`Failed to load model: ${url}`));
-      if (onError) {
-        onError(new Error(`Failed to load model: ${url}`));
-      }
-    };
-    
-    // Load the model
-    const loader = new GLTFLoader(loadingManager);
-    loader.load(
-      modelPath,
-      (gltf) => {
-        const model = gltf.scene;
-        
-        // Apply materials based on selection
-        model.traverse((node) => {
-          if (node instanceof THREE.Mesh) {
-            // Apply shadow properties
-            if (enableShadows) {
-              node.castShadow = true;
-              node.receiveShadow = true;
-            }
-            
-            // Apply metal material to metal parts
-            if (node.name.includes('metal') || node.name.includes('band')) {
-              const metalProps = METAL_PROPERTIES[selectedMetal];
-              node.material = new THREE.MeshStandardMaterial({
-                color: METAL_COLORS[selectedMetal],
-                metalness: metalProps.metalness,
-                roughness: metalProps.roughness,
-                envMapIntensity: metalProps.reflectivity
-              });
-            }
-            
-            // Apply gem material to gem parts if a gem is selected
-            if (selectedGem && (node.name.includes('gem') || node.name.includes('stone'))) {
-              const gemProps = GEM_PROPERTIES[selectedGem];
-              
-              // Different materials based on quality settings
-              if (quality === 'low' || quality === 'medium') {
-                // Simpler material for low/medium quality
-                node.material = new THREE.MeshStandardMaterial({
-                  color: GEM_COLORS[selectedGem],
-                  metalness: gemProps.metalness,
-                  roughness: gemProps.roughness,
-                  transparent: gemProps.transparent,
-                  opacity: gemProps.opacity
-                });
-              } else {
-                // More complex physically-based material for high/ultra quality
-                node.material = new THREE.MeshPhysicalMaterial({
-                  color: GEM_COLORS[selectedGem],
-                  metalness: gemProps.metalness,
-                  roughness: gemProps.roughness,
-                  transparent: gemProps.transparent,
-                  opacity: gemProps.opacity,
-                  clearcoat: gemProps.clearcoat || 0,
-                  clearcoatRoughness: gemProps.clearcoatRoughness || 0,
-                  ior: gemProps.ior || 1.5,
-                  transmission: gemProps.transmission || 0
-                });
-              }
-            }
-          }
-        });
-        
-        // Position the model and add to scene
-        model.position.set(0, 0, 0);
-        scene.add(model);
-        modelRef.current = model;
-        
-        // Center camera on model
-        const box = new THREE.Box3().setFromObject(model);
-        const center = box.getCenter(new THREE.Vector3());
-        const size = box.getSize(new THREE.Vector3());
-        
-        // Position camera based on object size
-        const maxDim = Math.max(size.x, size.y, size.z);
-        const fov = camera.fov * (Math.PI / 180);
-        let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2)) * 1.5;
-        
-        // Set camera position
-        camera.position.set(center.x, center.y, center.z + cameraZ);
-        camera.lookAt(center);
-        camera.updateProjectionMatrix();
-        
-        // Update orbit controls target
-        controls.target.copy(center);
-        controls.update();
-      },
-      (xhr) => {
-        // Loading progress
-        if (xhr.lengthComputable) {
-          const percentComplete = Math.round((xhr.loaded / xhr.total) * 100);
-          setLoadingProgress(percentComplete);
-        }
-      },
-      (error) => {
-        console.error('Error loading model:', error);
-        setIsLoading(false);
-        setError(new Error('Failed to load model'));
-        if (onError) {
-          onError(error instanceof Error ? error : new Error('Failed to load model'));
-        }
-      }
-    );
-    
-    // Set up post-processing if needed (based on quality and enableBloom)
-    if (enableBloom && quality !== 'low') {
-      const composer = new EffectComposer(renderer);
-      const renderPass = new RenderPass(scene, camera);
-      composer.addPass(renderPass);
-      
-      // Add bloom effect based on quality
-      if (enableBloom) {
-        const bloomPass = new UnrealBloomPass(
-          new THREE.Vector2(
-            containerRef.current.clientWidth * qualitySettings.pixelRatio,
-            height * qualitySettings.pixelRatio
-          ),
-          0.5,  // strength
-          0.5,  // radius
-          0.85  // threshold
-        );
-        composer.addPass(bloomPass);
-      }
-      
-      effectComposerRef.current = composer;
+    // Main directional light
+    const directionalLight = new THREE.DirectionalLight(0xffffff, preset.directionalIntensity);
+    directionalLight.position.set(5, 5, 5);
+    if (enableShadows) {
+      directionalLight.castShadow = true;
+      directionalLight.shadow.mapSize.width = 1024;
+      directionalLight.shadow.mapSize.height = 1024;
+      directionalLight.shadow.camera.near = 0.5;
+      directionalLight.shadow.camera.far = 50;
+      directionalLight.shadow.normalBias = 0.05;
     }
+    scene.add(directionalLight);
+    
+    // Add point lights based on preset
+    preset.pointLightPositions.forEach(([x, y, z, intensity, color]) => {
+      const pointLight = new THREE.PointLight(color as number, intensity as number);
+      pointLight.position.set(x as number, y as number, z as number);
+      if (enableShadows) {
+        pointLight.castShadow = true;
+        pointLight.shadow.mapSize.width = 512;
+        pointLight.shadow.mapSize.height = 512;
+      }
+      scene.add(pointLight);
+    });
+    
+    // Setup post-processing effects
+    const composer = new EffectComposer(renderer);
+    composerRef.current = composer;
+    
+    const renderPass = new RenderPass(scene, camera);
+    composer.addPass(renderPass);
+    
+    // Add bloom effect for highlights on gems and metals
+    if (enableBloom) {
+      const bloomPass = new UnrealBloomPass(
+        new THREE.Vector2(
+          containerRef.current.clientWidth, 
+          containerRef.current.clientHeight
+        ),
+        0.3, // Bloom strength
+        0.5, // Bloom radius
+        0.7  // Bloom threshold
+      );
+      bloomPassRef.current = bloomPass;
+      composer.addPass(bloomPass);
+    }
+    
+    // Add FXAA anti-aliasing
+    const fxaaPass = new ShaderPass(FXAAShader);
+    fxaaPass.material.uniforms['resolution'].value.set(
+      1 / containerRef.current.clientWidth, 
+      1 / containerRef.current.clientHeight
+    );
+    composer.addPass(fxaaPass);
     
     // Animation loop
     const animate = () => {
-      if (!sceneRef.current || !rendererRef.current || !cameraRef.current) return;
-      
-      animationFrameRef.current = requestAnimationFrame(animate);
+      requestAnimationFrame(animate);
       
       if (controlsRef.current) {
         controlsRef.current.update();
       }
       
-      // Update renderer statistics every 10 frames to avoid performance impact
-      if (Math.random() < 0.1) {
-        updateRendererStats();
-      }
-      
-      // Use effect composer or regular renderer
-      if (effectComposerRef.current && enableBloom && quality !== 'low') {
-        effectComposerRef.current.render();
-      } else {
-        rendererRef.current.render(sceneRef.current, cameraRef.current);
+      if (composerRef.current && sceneRef.current && cameraRef.current) {
+        composerRef.current.render();
       }
     };
     
     animate();
     
-    // Handle window resize
+    // Load 3D model on initialization
+    loadModel();
+    
+    // Clean up
+    return () => {
+      if (rendererRef.current) {
+        rendererRef.current.dispose();
+      }
+      
+      if (composerRef.current) {
+        composerRef.current.dispose();
+      }
+      
+      if (envMapRef.current) {
+        envMapRef.current.dispose();
+      }
+      
+      if (containerRef.current && rendererRef.current) {
+        containerRef.current.removeChild(rendererRef.current.domElement);
+      }
+    };
+  }, [modelPath, environmentPreset, enableBloom, enableShadows, enableZoom, isRotating, rotationSpeed]);
+  
+  // Handle model loading
+  const loadModel = async () => {
+    if (!sceneRef.current) return;
+    
+    setIsLoading(true);
+    setError(null);
+    
+    try {
+      // Remove previous model if it exists
+      if (modelRef.current) {
+        sceneRef.current.remove(modelRef.current);
+        modelRef.current = null;
+      }
+      
+      // Load GLTF model
+      const loader = new GLTFLoader();
+      
+      // We're using a dummy model path for now, since the actual models don't exist yet
+      const path = modelPath || '/models/diamond_solitaire_ring.glb';
+      
+      loader.load(
+        path,
+        (gltf) => {
+          const model = gltf.scene;
+          
+          // Process the model and enhance materials
+          model.traverse((node) => {
+            if (node instanceof THREE.Mesh) {
+              // Get metal and gem properties
+              const metalProps = METAL_PROPERTIES[selectedMetal];
+              const gemProps = selectedGem ? GEM_PROPERTIES[selectedGem] : null;
+              
+              // Set materials based on node name or original material properties
+              if (node.name.includes('metal') || 
+                  node.name.includes('band') || 
+                  node.name.includes('setting')) {
+                // Create enhanced metal material
+                const metalMaterial = new THREE.MeshPhysicalMaterial({
+                  color: METAL_COLORS[selectedMetal],
+                  metalness: metalProps.metalness,
+                  roughness: metalProps.roughness,
+                  reflectivity: metalProps.reflectivity,
+                  envMapIntensity: 1.0,
+                  clearcoat: 0.1,
+                  clearcoatRoughness: 0.2
+                });
+                
+                node.material = metalMaterial;
+              } else if (
+                selectedGem && 
+                (node.name.includes('gem') || 
+                 node.name.includes('diamond') || 
+                 node.name.includes('stone') ||
+                 node.name.includes(selectedGem))
+              ) {
+                // Create enhanced gemstone material
+                const gemMaterial = new THREE.MeshPhysicalMaterial({
+                  color: GEM_COLORS[selectedGem],
+                  metalness: gemProps?.metalness || 0.1,
+                  roughness: gemProps?.roughness || 0.1,
+                  transmission: gemProps?.transmission || 0.9,
+                  transparent: true,
+                  ior: gemProps?.ior || 2.4,
+                  reflectivity: 0.8,
+                  envMapIntensity: 1.5,
+                  clearcoat: 1.0,
+                  clearcoatRoughness: 0.1
+                });
+                
+                // Special case for pearl, which should have subsurface scattering
+                if (selectedGem === 'pearl') {
+                  gemMaterial.transmission = 0;
+                  gemMaterial.metalness = 0.2;
+                  gemMaterial.roughness = 0.8;
+                  gemMaterial.clearcoat = 0.5;
+                }
+                
+                node.material = gemMaterial;
+              }
+              
+              // Enable shadows
+              if (enableShadows) {
+                node.castShadow = true;
+                node.receiveShadow = true;
+              }
+            }
+          });
+          
+          // Center and scale the model appropriately
+          const box = new THREE.Box3().setFromObject(model);
+          const center = box.getCenter(new THREE.Vector3());
+          const size = box.getSize(new THREE.Vector3());
+          
+          // Calculate scale to fit model in view
+          const maxDimension = Math.max(size.x, size.y, size.z);
+          const scale = 2.5 / maxDimension;
+          
+          model.position.sub(center); // Center the model
+          model.scale.multiplyScalar(scale); // Scale to fit view
+          model.rotation.set(-Math.PI / 6, Math.PI / 6, 0); // Slight tilt for better view
+          
+          // Add to scene
+          sceneRef.current?.add(model);
+          modelRef.current = model;
+          
+          setIsLoading(false);
+          if (onLoadComplete) onLoadComplete();
+        },
+        (progress) => {
+          // Handle loading progress
+          if (progress.total > 0) {
+            setLoadingProgress(Math.floor((progress.loaded / progress.total) * 100));
+          }
+        },
+        (error) => {
+          console.error('Error loading model:', error);
+          setError('Failed to load 3D model. Please try again later.');
+          setIsLoading(false);
+          
+          // Load a fallback model for testing when model fails
+          createFallbackModel();
+        }
+      );
+    } catch (err) {
+      console.error('Error in model loading process:', err);
+      setError('An unexpected error occurred. Please try again later.');
+      setIsLoading(false);
+      
+      // Load a fallback model for testing
+      createFallbackModel();
+    }
+  };
+  
+  // Create a fallback model for testing when 3D models aren't available
+  const createFallbackModel = () => {
+    if (!sceneRef.current) return;
+    
+    // Get metal and gem properties
+    const metalProps = METAL_PROPERTIES[selectedMetal];
+    const gemProps = selectedGem ? GEM_PROPERTIES[selectedGem] : null;
+    
+    // Create a simple ring-like geometry
+    const ringGroup = new THREE.Group();
+    
+    // Base band
+    const bandGeometry = new THREE.TorusGeometry(1, 0.25, 32, 64);
+    const bandMaterial = new THREE.MeshPhysicalMaterial({
+      color: METAL_COLORS[selectedMetal],
+      metalness: metalProps.metalness,
+      roughness: metalProps.roughness,
+      reflectivity: metalProps.reflectivity,
+      envMapIntensity: 1.0,
+      clearcoat: 0.1,
+      clearcoatRoughness: 0.2
+    });
+    
+    const band = new THREE.Mesh(bandGeometry, bandMaterial);
+    band.rotation.x = Math.PI / 2;
+    band.castShadow = enableShadows;
+    band.receiveShadow = enableShadows;
+    ringGroup.add(band);
+    
+    // Add gemstone
+    if (selectedGem) {
+      let gemGeometry;
+      
+      // Different gem shapes based on type
+      switch (selectedGem) {
+        case 'diamond':
+          gemGeometry = new THREE.OctahedronGeometry(0.5, 2);
+          break;
+        case 'emerald':
+          gemGeometry = new THREE.BoxGeometry(0.4, 0.6, 0.4);
+          break;
+        case 'ruby':
+        case 'sapphire':
+          gemGeometry = new THREE.SphereGeometry(0.4, 32, 32);
+          break;
+        case 'pearl':
+          gemGeometry = new THREE.SphereGeometry(0.45, 32, 32);
+          break;
+        default:
+          gemGeometry = new THREE.DodecahedronGeometry(0.4, 2);
+      }
+      
+      const gemMaterial = new THREE.MeshPhysicalMaterial({
+        color: GEM_COLORS[selectedGem],
+        metalness: gemProps?.metalness || 0.1,
+        roughness: gemProps?.roughness || 0.1,
+        transmission: gemProps?.transmission || 0.9,
+        transparent: true,
+        ior: gemProps?.ior || 2.4,
+        reflectivity: 0.8,
+        envMapIntensity: 1.5,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1
+      });
+      
+      // Special case for pearl, which should have subsurface scattering
+      if (selectedGem === 'pearl') {
+        gemMaterial.transmission = 0;
+        gemMaterial.metalness = 0.2;
+        gemMaterial.roughness = 0.8;
+        gemMaterial.clearcoat = 0.5;
+      }
+      
+      const gem = new THREE.Mesh(gemGeometry, gemMaterial);
+      gem.position.y = 0.5;
+      gem.castShadow = enableShadows;
+      gem.receiveShadow = enableShadows;
+      ringGroup.add(gem);
+      
+      // Add prongs for gem setting (except for pearl)
+      if (selectedGem !== 'pearl') {
+        const prongGeometry = new THREE.CylinderGeometry(0.05, 0.03, 0.3, 8);
+        const prongMaterial = new THREE.MeshPhysicalMaterial({
+          color: METAL_COLORS[selectedMetal],
+          metalness: metalProps.metalness,
+          roughness: metalProps.roughness,
+          reflectivity: metalProps.reflectivity
+        });
+        
+        const prongPositions = [
+          [0.2, 0.35, 0.2],
+          [-0.2, 0.35, 0.2],
+          [0.2, 0.35, -0.2],
+          [-0.2, 0.35, -0.2]
+        ];
+        
+        prongPositions.forEach(([x, y, z]) => {
+          const prong = new THREE.Mesh(prongGeometry, prongMaterial);
+          prong.position.set(x as number, y as number, z as number);
+          prong.castShadow = enableShadows;
+          prong.receiveShadow = enableShadows;
+          ringGroup.add(prong);
+        });
+      }
+    }
+    
+    // Add the ring to the scene
+    sceneRef.current.add(ringGroup);
+    modelRef.current = ringGroup;
+    
+    // Notify loading complete
+    setIsLoading(false);
+    if (onLoadComplete) onLoadComplete();
+  };
+  
+  // Update materials when metal or gem selection changes
+  useEffect(() => {
+    if (!modelRef.current) return;
+    
+    // Get metal and gem properties
+    const metalProps = METAL_PROPERTIES[selectedMetal];
+    const gemProps = selectedGem ? GEM_PROPERTIES[selectedGem] : null;
+    
+    modelRef.current.traverse((node) => {
+      if (node instanceof THREE.Mesh) {
+        if (node.name.includes('metal') || 
+            node.name.includes('band') || 
+            node.name.includes('setting') ||
+            (node.material as THREE.MeshPhysicalMaterial).metalness > 0.5) {
+          // Update metal material
+          node.material = new THREE.MeshPhysicalMaterial({
+            color: METAL_COLORS[selectedMetal],
+            metalness: metalProps.metalness,
+            roughness: metalProps.roughness,
+            reflectivity: metalProps.reflectivity,
+            envMapIntensity: 1.0,
+            clearcoat: 0.1,
+            clearcoatRoughness: 0.2
+          });
+        } else if (
+          selectedGem && 
+          (node.name.includes('gem') || 
+           node.name.includes('diamond') || 
+           node.name.includes('stone') ||
+           node.name.includes(selectedGem) ||
+           (node.material as THREE.MeshPhysicalMaterial).transmission > 0.3)
+        ) {
+          // Update gem material
+          const gemMaterial = new THREE.MeshPhysicalMaterial({
+            color: GEM_COLORS[selectedGem],
+            metalness: gemProps?.metalness || 0.1,
+            roughness: gemProps?.roughness || 0.1,
+            transmission: gemProps?.transmission || 0.9,
+            transparent: true,
+            ior: gemProps?.ior || 2.4,
+            reflectivity: 0.8,
+            envMapIntensity: 1.5,
+            clearcoat: 1.0,
+            clearcoatRoughness: 0.1
+          });
+          
+          // Special case for pearl, which should have subsurface scattering
+          if (selectedGem === 'pearl') {
+            gemMaterial.transmission = 0;
+            gemMaterial.metalness = 0.2;
+            gemMaterial.roughness = 0.8;
+            gemMaterial.clearcoat = 0.5;
+          }
+          
+          node.material = gemMaterial;
+        }
+      }
+    });
+  }, [selectedMetal, selectedGem]);
+  
+  // Toggle rotation when isRotating changes
+  useEffect(() => {
+    if (controlsRef.current) {
+      controlsRef.current.autoRotate = isRotating;
+    }
+  }, [isRotating]);
+  
+  // Handle resize
+  useEffect(() => {
     const handleResize = () => {
-      if (!containerRef.current || !cameraRef.current || !rendererRef.current) return;
+      if (!containerRef.current || !rendererRef.current || !cameraRef.current) return;
       
       const width = containerRef.current.clientWidth;
+      const height = containerRef.current.clientHeight;
       
+      // Update camera
       cameraRef.current.aspect = width / height;
       cameraRef.current.updateProjectionMatrix();
       
+      // Update renderer
       rendererRef.current.setSize(width, height);
       
-      if (effectComposerRef.current) {
-        effectComposerRef.current.setSize(width, height);
+      // Update composer
+      if (composerRef.current) {
+        composerRef.current.setSize(width, height);
+      }
+      
+      // Update FXAA pass if it exists
+      if (composerRef.current?.passes[composerRef.current.passes.length - 1] instanceof ShaderPass) {
+        const fxaaPass = composerRef.current.passes[composerRef.current.passes.length - 1] as ShaderPass;
+        if (fxaaPass.material.uniforms['resolution']) {
+          fxaaPass.material.uniforms['resolution'].value.set(1 / width, 1 / height);
+        }
       }
     };
     
     window.addEventListener('resize', handleResize);
     
-    // Clean up
     return () => {
-      if (containerRef.current && rendererRef.current) {
-        containerRef.current.removeChild(rendererRef.current.domElement);
-      }
-      
       window.removeEventListener('resize', handleResize);
-      cancelAnimationFrame(animationFrameRef.current);
-      
-      // Dispose resources
-      if (rendererRef.current) {
-        rendererRef.current.dispose();
-      }
-      
-      if (effectComposerRef.current && effectComposerRef.current.passes) {
-        try {
-          effectComposerRef.current.passes.forEach(pass => {
-            // Dispose of materials and geometries in passes
-            if (pass && 'dispose' in pass) {
-              (pass as any).dispose();
-            }
-          });
-        } catch (e) {
-          console.warn('Error disposing effect composer passes:', e);
-        }
-      }
-      
-      // Dispose scene resources
-      if (sceneRef.current) {
-        try {
-          if (typeof sceneRef.current.traverse === 'function') {
-            sceneRef.current.traverse((object) => {
-              if (object instanceof THREE.Mesh) {
-                if (object.geometry) object.geometry.dispose();
-                
-                if (object.material) {
-                  if (Array.isArray(object.material)) {
-                    object.material.forEach(material => material.dispose());
-                  } else {
-                    object.material.dispose();
-                  }
-                }
-              }
-            });
-          }
-        } catch (e) {
-          console.warn('Error disposing scene objects:', e);
-        }
-      }
-    };
-  }, [
-    modelPath, 
-    selectedMetal, 
-    selectedGem, 
-    environmentPreset, 
-    rotationSpeed, 
-    enableBloom, 
-    enableShadows, 
-    enableZoom, 
-    enablePan, 
-    backgroundColor, 
-    height,
-    quality,
-    qualitySettings
-  ]);
-  
-  // Add a function to update renderer statistics
-  const updateRendererStats = useCallback(() => {
-    if (!rendererRef.current) return;
-    
-    const renderer = rendererRef.current;
-    const info = renderer.info;
-    
-    // Update global object that can be accessed by PerformanceMonitor
-    window.reefqRendererInfo = {
-      triangles: info.render.triangles,
-      drawCalls: info.render.calls,
-      textures: info.memory.textures,
-      geometries: info.memory.geometries,
-      materials: info.programs ? info.programs.length : 0
     };
   }, []);
   
-  // Register for quality change notifications
+  // Check if AR is supported
   useEffect(() => {
-    // When quality prop is 'auto', let the performance monitor handle it
-    if (quality === 'auto') {
-      performanceMonitor.setAdaptiveMode(true);
-      
-      // Set up a callback to update our local state when quality changes
-      const unregister = performanceMonitor.onQualityChange((newQuality) => {
-        if (newQuality !== 'auto') {
-          setCurrentQuality(newQuality);
+    const checkARSupport = () => {
+      if ('xr' in navigator) {
+        // @ts-ignore - TypeScript doesn't know about navigator.xr
+        navigator.xr.isSessionSupported('immersive-ar').then((supported) => {
+          setIsARSupported(supported);
+        });
+      }
+    };
+    
+    checkARSupport();
+  }, []);
+  
+  // Handle AR mode toggling
+  const handleARMode = async () => {
+    if (!isARSupported) return;
+    
+    try {
+      // @ts-ignore - TypeScript doesn't know about AR specific methods
+      if (rendererRef.current?.xr) {
+        setIsARMode(!isARMode);
+        // @ts-ignore
+        if (!isARMode && rendererRef.current.xr) {
+          // @ts-ignore
+          const session = await navigator.xr.requestSession('immersive-ar', {
+            requiredFeatures: ['hit-test'],
+            optionalFeatures: ['dom-overlay'],
+          });
+          // @ts-ignore
+          rendererRef.current.xr.setSession(session);
         }
-      });
-      
-      return unregister;
-    } else {
-      // When quality is manually specified, disable adaptive mode and set quality
-      performanceMonitor.setAdaptiveMode(false);
-      performanceMonitor.setQuality(quality);
-      setCurrentQuality(quality);
-      return () => {};
+      }
+    } catch (error) {
+      console.error('Error starting AR session:', error);
     }
-  }, [quality]);
-  
-  // Handle rotation controls
-  const startRotation = () => {
-    setIsRotating(true);
   };
   
-  const stopRotation = () => {
+  // Take screenshot function
+  const takeScreenshot = () => {
+    if (!rendererRef.current) return;
+    
+    // Temporarily disable auto-rotation
+    const wasRotating = isRotating;
     setIsRotating(false);
+    
+    // Render one frame without rotation
+    if (composerRef.current) {
+      composerRef.current.render();
+    } else {
+      rendererRef.current.render(sceneRef.current!, cameraRef.current!);
+    }
+    
+    // Get the canvas data
+    const dataURL = rendererRef.current.domElement.toDataURL('image/png');
+    
+    // Create download link
+    const link = document.createElement('a');
+    link.href = dataURL;
+    link.download = 'custom-jewelry.png';
+    link.click();
+    
+    // Restore rotation state
+    setIsRotating(wasRotating);
   };
   
-  const resetRotation = () => {
-    setCurrentAngle(0);
+  // Toggle rotation
+  const toggleRotation = () => {
+    setIsRotating(!isRotating);
   };
-  
-  // Switch between 3D and AR modes
-  const toggleViewMode = () => {
-    setViewMode(prev => prev === '3d' ? 'ar' : '3d');
-  };
-  
-  // Show loading state
-  if (isLoading) {
-    return (
-      <div ref={containerRef} className="jewelry-viewer" style={{ height: `${height}px`, position: 'relative' }}>
-        <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <div className="w-12 h-12 border-4 border-nile-teal border-t-transparent rounded-full animate-spin"></div>
-          <div className="mt-4 text-sm text-gray-600">Loading model... {loadingProgress}%</div>
-        </div>
-      </div>
-    );
-  }
-  
-  if (error) {
-    return (
-      <div ref={containerRef} className="jewelry-viewer" style={{ height: `${height}px`, position: 'relative' }}>
-        <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <div className="text-red-500">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-            </svg>
-          </div>
-          <div className="mt-4 text-sm text-gray-600">Failed to load model</div>
-        </div>
-      </div>
-    );
-  }
   
   return (
-    <div 
-      ref={containerRef} 
-      className="relative w-full h-[500px] rounded-lg overflow-hidden"
-    >
-      {/* 3D Scene */}
-      {viewMode === '3d' && (
-        <Scene
-          modelPath={modelPath}
-          metalType={selectedMetal}
-          gemType={selectedGem}
-          showControls={showControls}
-          quality={currentQuality}
-          enableRayTracing={false}
-          enableBloom={enableBloom}
-          hdri={environmentPreset}
-        />
-      )}
+    <div className="relative h-full w-full">
+      {/* 3D Viewer Container */}
+      <div 
+        ref={containerRef} 
+        className="w-full h-full bg-gradient-to-b from-gray-50 to-gray-100 rounded-lg overflow-hidden"
+      ></div>
       
-      {/* AR Mode (placeholder for actual AR implementation) */}
-      {viewMode === 'ar' && (
-        <div className="w-full h-full flex items-center justify-center bg-gradient-to-b from-gray-800 to-gray-900">
-          <div className="text-white text-center">
-            <p className="mb-4">AR Mode - Point your camera at a flat surface</p>
-            <button 
-              className="px-4 py-2 bg-indigo-600 rounded-md"
-              onClick={toggleViewMode}
-            >
-              Exit AR Mode
-            </button>
+      {/* Loading Overlay */}
+      {isLoading && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 backdrop-blur-sm">
+          <div className="p-6 rounded-lg bg-white shadow-xl flex flex-col items-center">
+            <div className="w-16 h-16 relative mb-4">
+              <div className="absolute top-0 left-0 w-full h-full border-4 border-nile-teal border-opacity-25 rounded-full"></div>
+              <div 
+                className="absolute top-0 left-0 w-full h-full border-4 border-nile-teal rounded-full" 
+                style={{ 
+                  clipPath: `polygon(0 0, 100% 0, 100% 100%, 0% 100%)`,
+                  transform: `rotate(${loadingProgress * 3.6}deg)` 
+                }}
+              ></div>
+              <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+                <span className="text-nile-teal text-lg font-semibold">{loadingProgress}%</span>
+              </div>
+            </div>
+            <p className="text-gray-800 font-medium">Loading 3D model...</p>
           </div>
         </div>
       )}
       
-      {/* Control overlay */}
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-        {viewMode === '3d' && (
-          <>
-            <button
-              className="p-2 bg-white bg-opacity-20 backdrop-blur-md rounded-full hover:bg-opacity-30 transition"
-              onClick={startRotation}
-              disabled={isRotating}
-              title="Start rotation"
-            >
-              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-              </svg>
-            </button>
-            
-            <button
-              className="p-2 bg-white bg-opacity-20 backdrop-blur-md rounded-full hover:bg-opacity-30 transition"
-              onClick={stopRotation}
-              disabled={!isRotating}
-              title="Stop rotation"
-            >
-              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </button>
-            
-            <button
-              className="p-2 bg-white bg-opacity-20 backdrop-blur-md rounded-full hover:bg-opacity-30 transition"
-              onClick={resetRotation}
-              title="Reset view"
-            >
-              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-              </svg>
-            </button>
-          </>
-        )}
-        
-        {/* AR Toggle Button - only show if AR is enabled */}
-        {enableAR && (
+      {/* Error Message */}
+      {error && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 backdrop-blur-sm">
+          <div className="p-6 rounded-lg bg-white shadow-xl max-w-md">
+            <div className="flex items-center mb-4">
+              <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center mr-4">
+                <svg className="w-6 h-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900">Error Loading Model</h3>
+            </div>
+            <p className="text-gray-800 mb-4">{error}</p>
+            <div className="flex justify-end">
+              <button 
+                onClick={() => loadModel()}
+                className="px-4 py-2 bg-nile-teal text-white rounded-md hover:bg-opacity-90 transition-colors"
+              >
+                Try Again
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      
+      {/* Controls */}
+      <div className="absolute bottom-4 right-4 flex space-x-2">
+        <button
+          onClick={toggleRotation}
+          className="p-2 bg-white rounded-full shadow-lg hover:bg-gray-100 transition-colors"
+          title={isRotating ? "Pause Rotation" : "Resume Rotation"}
+        >
+          {isRotating ? (
+            <svg className="w-6 h-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          ) : (
+            <svg className="w-6 h-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          )}
+        </button>
+        <button
+          onClick={() => {
+            if (controlsRef.current) {
+              controlsRef.current.reset();
+            }
+          }}
+          className="p-2 bg-white rounded-full shadow-lg hover:bg-gray-100 transition-colors"
+          title="Reset View"
+        >
+          <svg className="w-6 h-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+        </button>
+        {enableBloom && bloomPassRef.current && (
           <button
-            className="p-2 bg-white bg-opacity-20 backdrop-blur-md rounded-full hover:bg-opacity-30 transition"
-            onClick={toggleViewMode}
-            title={viewMode === '3d' ? 'Switch to AR Mode' : 'Switch to 3D Mode'}
+            onClick={() => {
+              if (bloomPassRef.current) {
+                bloomPassRef.current.strength = bloomPassRef.current.strength > 0 ? 0 : 0.3;
+              }
+            }}
+            className="p-2 bg-white rounded-full shadow-lg hover:bg-gray-100 transition-colors"
+            title="Toggle Sparkle Effect"
           >
-            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            <svg className="w-6 h-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+            </svg>
+          </button>
+        )}
+        {enableAR && isARSupported && (
+          <button
+            onClick={handleARMode}
+            className={`${
+              isARMode 
+                ? 'bg-nile-teal text-white' 
+                : 'bg-white bg-opacity-75 hover:bg-opacity-100'
+            } p-2 rounded-full shadow-md transition-colors`}
+            title="View in AR"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M5 2a2 2 0 00-2 2v14l3.5-2 3.5 2 3.5-2 3.5 2V4a2 2 0 00-2-2H5zm4.707 3.707a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L8.414 9H10a3 3 0 013 3v1a1 1 0 102 0v-1a5 5 0 00-5-5H8.414l1.293-1.293z" clipRule="evenodd" />
             </svg>
           </button>
         )}
       </div>
       
-      {/* Loading indicator */}
-      {isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="text-white">Loading 3D Model...</div>
+      {showMaterialEditor && (
+        <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+          <h4 className="text-sm font-medium mb-2">Material Editor</h4>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs mb-1">Metal Roughness: {materialEditorValues.metalRoughness.toFixed(2)}</label>
+              <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value={materialEditorValues.metalRoughness}
+                onChange={(e) => setMaterialEditorValues({
+                  ...materialEditorValues,
+                  metalRoughness: parseFloat(e.target.value)
+                })}
+                className="w-full"
+              />
+            </div>
+            
+            <div>
+              <label className="block text-xs mb-1">Metal Shininess: {materialEditorValues.metalness.toFixed(2)}</label>
+              <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value={materialEditorValues.metalness}
+                onChange={(e) => setMaterialEditorValues({
+                  ...materialEditorValues,
+                  metalness: parseFloat(e.target.value)
+                })}
+                className="w-full"
+              />
+            </div>
+            
+            {selectedGem && (
+              <>
+                <div>
+                  <label className="block text-xs mb-1">Gem Roughness: {materialEditorValues.gemRoughness.toFixed(2)}</label>
+                  <input
+                    type="range"
+                    min="0"
+                    max="0.2"
+                    step="0.01"
+                    value={materialEditorValues.gemRoughness}
+                    onChange={(e) => setMaterialEditorValues({
+                      ...materialEditorValues,
+                      gemRoughness: parseFloat(e.target.value)
+                    })}
+                    className="w-full"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-xs mb-1">Gem Refraction: {materialEditorValues.gemIOR.toFixed(2)}</label>
+                  <input
+                    type="range"
+                    min="1"
+                    max="3"
+                    step="0.01"
+                    value={materialEditorValues.gemIOR}
+                    onChange={(e) => setMaterialEditorValues({
+                      ...materialEditorValues,
+                      gemIOR: parseFloat(e.target.value)
+                    })}
+                    className="w-full"
+                  />
+                </div>
+              </>
+            )}
+          </div>
         </div>
       )}
-      
-      {/* Performance metrics overlay */}
-      <PerformanceHUD 
-        visible={showPerformanceMetrics} 
-        position="bottom-right"
-        showControls={true}
-      />
     </div>
   );
 } 
