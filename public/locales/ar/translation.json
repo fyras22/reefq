@@ -23,5 +23,27 @@
     "english": "الإنجليزية",
     "french": "الفرنسية",
     "arabic": "العربية"
-  }
+  },
+  "home": "الرئيسية",
+  "products": "المنتجات",
+  "try_fit": "التجربة والمقاس",
+  "jewelry_knowledge": "معرفة المجوهرات",
+  "about": "عن الشركة",
+  "contact": "اتصل بنا",
+  "cart": "سلة التسوق",
+  "account": "الحساب",
+  "all_articles": "جميع المقالات",
+  "featured_article": "مقال مميز",
+  "read_more": "قراءة المزيد",
+  "related_articles": "مقالات ذات صلة",
+  "back_to_all_articles": "العودة إلى جميع المقالات",
+  "features": "المميزات",
+  "testimonials": "آراء العملاء",
+  "howItWorks": "كيف يعمل",
+  "pricing": "الأسعار",
+  "faq": "الأسئلة الشائعة",
+  "getStarted": "ابدأ الآن",
+  "login": "تسجيل الدخول",
+  "signup": "إنشاء حساب",
+  "tryAndFit": "جرّب وقيس"
 } 

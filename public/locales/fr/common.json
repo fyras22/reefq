@@ -7,14 +7,17 @@
     "faq": "FAQ",
     "getStarted": "Commencer",
     "login": "Connexion",
-    "signup": "Inscription"
+    "signup": "Inscription",
+    "tryAndFit": "Essayer & Ajuster"
   },
   "hero": {
     "title": "ReefQ",
     "subtitle": "Expérience Bijoux 3D",
     "description": "Découvrez les bijoux comme jamais auparavant avec notre visionneuse 3D interactive et notre technologie d'essayage en RA. Personnalisez les métaux, les pierres précieuses et les tailles en temps réel.",
     "exploreFeatures": "Explorer les fonctionnalités",
-    "howItWorks": "Comment ça marche"
+    "howItWorks": "Comment ça marche",
+    "getStarted": "Commencer",
+    "tryAndFit": "Essayer & Ajuster"
   },
   "features": {
     "title": "Shopping de bijoux immersif",

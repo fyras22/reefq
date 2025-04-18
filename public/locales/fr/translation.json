@@ -23,5 +23,27 @@
     "english": "Anglais",
     "french": "Français",
     "arabic": "Arabe"
-  }
+  },
+  "home": "Accueil",
+  "products": "Produits",
+  "try_fit": "Essayer & Ajuster",
+  "jewelry_knowledge": "Connaissances sur les Bijoux",
+  "about": "À Propos",
+  "contact": "Contact",
+  "cart": "Panier",
+  "account": "Compte",
+  "all_articles": "Tous les Articles",
+  "featured_article": "Article en Vedette",
+  "read_more": "Lire Plus",
+  "related_articles": "Articles Connexes",
+  "back_to_all_articles": "Retour à Tous les Articles",
+  "features": "Fonctionnalités",
+  "testimonials": "Témoignages",
+  "howItWorks": "Comment ça marche",
+  "pricing": "Tarification",
+  "faq": "FAQ",
+  "getStarted": "Commencer",
+  "login": "Connexion",
+  "signup": "Inscription",
+  "tryAndFit": "Essayer & Ajuster"
 } 

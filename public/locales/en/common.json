@@ -7,14 +7,17 @@
     "faq": "FAQ",
     "getStarted": "Get Started",
     "login": "Login",
-    "signup": "Sign up"
+    "signup": "Sign up",
+    "tryAndFit": "Try & Fit"
   },
   "hero": {
     "title": "ReefQ",
     "subtitle": "3D Jewelry Experience",
     "description": "Unleash a new vision of digital jewelry with the ReefQ platform. We combine augmented reality technology with high-fidelity 3D visualization to provide a unique jewelry shopping experience for merchants and customers.",
     "exploreFeatures": "Explore Features",
-    "howItWorks": "How It Works"
+    "howItWorks": "How It Works",
+    "getStarted": "Get Started",
+    "tryAndFit": "Try & Fit"
   },
   "features": {
     "title": "Immersive Jewelry Shopping",
