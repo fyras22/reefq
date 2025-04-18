@@ -1,7 +1,11 @@
 {
   "version": 2,
+  "buildCommand": "next build",
+  "outputDirectory": ".next",
   "framework": "nextjs",
-  "buildCommand": "npm run build",
+  "env": {
+    "NEXT_PUBLIC_VERCEL_ENV": "production"
+  },
   "installCommand": "npm install",
   "devCommand": "npm run dev",
   "headers": [
