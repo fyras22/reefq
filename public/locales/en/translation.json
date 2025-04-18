@@ -36,5 +36,157 @@
   "featured_article": "Featured Article",
   "read_more": "Read More",
   "related_articles": "Related Articles",
-  "back_to_all_articles": "Back to All Articles"
+  "back_to_all_articles": "Back to All Articles",
+  "features": "Features",
+  "testimonials": "Testimonials",
+  "howItWorks": "How It Works",
+  "pricing": "Pricing",
+  "faq": "FAQ",
+  "getStarted": "Get Started",
+  "login": "Login",
+  "signup": "Sign up",
+  "tryAndFit": "Try & Fit",
+  "header": {
+    "tryOn": "Try On",
+    "customize": "Customize",
+    "performance": "Performance",
+    "comparison": "Comparison",
+    "products": "Products"
+  },
+  "hero": {
+    "badge": "Innovative Jewelry Technology",
+    "title1": "Your digital jewelry",
+    "title2": "experience reimagined",
+    "description": "Unleash a new vision of digital jewelry with the ReefQ platform. We combine augmented reality technology with high-fidelity 3D visualization to provide a unique jewelry shopping experience for merchants and customers.",
+    "ctaPrimary": "Explore Features",
+    "ctaSecondary": "How It Works",
+    "trustBadge1": "Trusted by 200+ retailers",
+    "trustBadge2": "Industry-leading technology",
+    "trustBadge3": "Award-winning platform",
+    "imageAlt": "ReefQ 3D Jewelry Visualization Platform",
+    "badge1Title": "Precision",
+    "badge1Text": "High-fidelity visualization",
+    "badge2Title": "Innovation",
+    "badge2Text": "Cutting-edge AR technology"
+  },
+  "featureCards": {
+    "sectionTitle": "Powerful Features",
+    "sectionDescription": "Discover how ReefQ transforms the jewelry shopping experience",
+    "visualization": {
+      "title": "Realistic 3D Visualization",
+      "description": "High-fidelity models that capture every detail and sparkle"
+    },
+    "tryOn": {
+      "title": "Virtual Try-On",
+      "description": "Let customers see how jewelry looks on them through AR"
+    },
+    "customization": {
+      "title": "Customization Tools",
+      "description": "Allow customers to personalize materials, gems, and sizes"
+    },
+    "sizing": {
+      "title": "Smart Size Recommendations",
+      "description": "AI-powered sizing suggestions based on customer data"
+    },
+    "security": {
+      "title": "Secure Platform",
+      "description": "Enterprise-grade security protecting your designs and data"
+    },
+    "ai": {
+      "title": "AI-Enhanced Experience",
+      "description": "Machine learning algorithms that improve over time"
+    },
+    "showcaseAlt": "ReefQ jewelry showcase",
+    "showcase": {
+      "title": "Interactive Jewelry Showcase",
+      "description": "Engage customers with an immersive shopping experience",
+      "cta": "See it in action"
+    }
+  },
+  "coreFeatures": {
+    "title": "Core Features",
+    "subtitle": "Transform your jewelry business with cutting-edge technology",
+    "cta": {
+      "title": "Ready to transform your business?",
+      "description": "Join leading jewelry retailers who are already using ReefQ to enhance their customer experience.",
+      "button": "Get Started Today"
+    }
+  },
+  "testimonials": {
+    "trustedBy": "Trusted by leading jewelry retailers"
+  },
+  "virtualTryOn": {
+    "title": "Virtual Try-On Experience",
+    "description": "Let customers try before they buy, right from their device",
+    "feature1": {
+      "title": "Realistic Rendering",
+      "description": "Our advanced AR technology shows how jewelry will look in real life"
+    },
+    "feature2": {
+      "title": "Easy Integration",
+      "description": "Simple to add to your website with our ready-to-use components"
+    },
+    "cta": "Try the Demo",
+    "imageAlt": "Virtual jewelry try-on demonstration",
+    "demo": "Live Demo",
+    "livePreview": "See how it works"
+  },
+  "performance": {
+    "title": "Optimized Performance",
+    "description": "Built with speed and efficiency in mind",
+    "metrics": {
+      "loading": {
+        "name": "Loading Speed",
+        "value": "< 1s",
+        "description": "Fast loading time for optimal user experience"
+      },
+      "rendering": {
+        "name": "Rendering Quality",
+        "value": "Ultra HD",
+        "description": "High-definition visuals for detailed viewing"
+      },
+      "memory": {
+        "name": "Memory Usage",
+        "value": "Minimal",
+        "description": "Optimized for all devices including mobile"
+      },
+      "size": {
+        "name": "Package Size",
+        "value": "< 300KB",
+        "description": "Lightweight integration for fast websites"
+      }
+    },
+    "chart": {
+      "title": "Performance Comparison",
+      "placeholder": "Interactive performance chart",
+      "description": "See how ReefQ outperforms competitors"
+    }
+  },
+  "comparison": {
+    "title": "Why Choose ReefQ",
+    "description": "See how we compare to other solutions",
+    "competitors": {
+      "competitor1": "Competitor A",
+      "competitor2": "Competitor B"
+    },
+    "features": {
+      "feature1": "3D Visualization",
+      "feature2": "AR Try-On",
+      "feature3": "Customization Tools",
+      "feature4": "Size Calculator",
+      "feature5": "Mobile Optimization",
+      "feature6": "Customer Analytics",
+      "feature7": "API Access",
+      "feature8": "White-label Solution"
+    },
+    "cta": "Choose ReefQ Today"
+  },
+  "faq": {
+    "stillHaveQuestions": "Still have questions?",
+    "contactUs": "Contact our team"
+  },
+  "footer": {
+    "slogan": "Transforming jewelry shopping with innovative technology",
+    "craftedWith": "Crafted with"
+  }
 } 

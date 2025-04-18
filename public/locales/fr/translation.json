@@ -45,5 +45,152 @@
   "getStarted": "Commencer",
   "login": "Connexion",
   "signup": "Inscription",
-  "tryAndFit": "Essayer & Ajuster"
+  "tryAndFit": "Essayer & Ajuster",
+  "header": {
+    "tryOn": "Essayer",
+    "customize": "Personnaliser",
+    "performance": "Performance",
+    "comparison": "Comparaison",
+    "products": "Produits"
+  },
+  "hero": {
+    "badge": "Technologie Innovante de Bijoux",
+    "title1": "Votre expérience bijoux",
+    "title2": "numérique réinventée",
+    "description": "Découvrez une nouvelle vision des bijoux numériques avec la plateforme ReefQ. Nous combinons la technologie de réalité augmentée avec une visualisation 3D haute-fidélité pour offrir une expérience d'achat unique aux marchands et aux clients.",
+    "ctaPrimary": "Explorer les Fonctionnalités",
+    "ctaSecondary": "Comment ça Marche",
+    "trustBadge1": "Utilisé par plus de 200 détaillants",
+    "trustBadge2": "Technologie de pointe",
+    "trustBadge3": "Plateforme primée",
+    "imageAlt": "Plateforme de Visualisation de Bijoux 3D ReefQ",
+    "badge1Title": "Précision",
+    "badge1Text": "Visualisation haute-fidélité",
+    "badge2Title": "Innovation",
+    "badge2Text": "Technologie RA de pointe"
+  },
+  "featureCards": {
+    "sectionTitle": "Fonctionnalités Puissantes",
+    "sectionDescription": "Découvrez comment ReefQ transforme l'expérience d'achat de bijoux",
+    "visualization": {
+      "title": "Visualisation 3D Réaliste",
+      "description": "Modèles haute-fidélité qui capturent chaque détail et brillance"
+    },
+    "tryOn": {
+      "title": "Essayage Virtuel",
+      "description": "Permettez aux clients de voir comment les bijoux leur vont grâce à la RA"
+    },
+    "customization": {
+      "title": "Outils de Personnalisation",
+      "description": "Permettez aux clients de personnaliser les matériaux, les pierres et les tailles"
+    },
+    "sizing": {
+      "title": "Recommandations Intelligentes de Taille",
+      "description": "Suggestions de taille basées sur l'IA et les données clients"
+    },
+    "security": {
+      "title": "Plateforme Sécurisée",
+      "description": "Sécurité de niveau entreprise protégeant vos designs et données"
+    },
+    "ai": {
+      "title": "Expérience Améliorée par l'IA",
+      "description": "Algorithmes d'apprentissage automatique qui s'améliorent avec le temps"
+    },
+    "showcaseAlt": "Vitrine de bijoux ReefQ",
+    "showcase": {
+      "title": "Vitrine Interactive de Bijoux",
+      "description": "Engagez les clients avec une expérience d'achat immersive",
+      "cta": "Voir en action"
+    }
+  },
+  "coreFeatures": {
+    "title": "Fonctionnalités Principales",
+    "subtitle": "Transformez votre entreprise de bijoux avec une technologie de pointe",
+    "cta": {
+      "title": "Prêt à transformer votre entreprise ?",
+      "description": "Rejoignez les principaux détaillants de bijoux qui utilisent déjà ReefQ pour améliorer leur expérience client.",
+      "button": "Commencez Aujourd'hui"
+    }
+  },
+  "testimonials": {
+    "trustedBy": "Approuvé par les principaux détaillants de bijoux"
+  },
+  "pricing": {
+    "mostPopular": "Le Plus Populaire",
+    "contactUs": "Contactez-Nous"
+  },
+  "virtualTryOn": {
+    "title": "Expérience d'Essayage Virtuel",
+    "description": "Permettez aux clients d'essayer avant d'acheter, directement depuis leur appareil",
+    "feature1": {
+      "title": "Rendu Réaliste",
+      "description": "Notre technologie RA avancée montre comment les bijoux apparaîtront dans la vie réelle"
+    },
+    "feature2": {
+      "title": "Intégration Facile",
+      "description": "Simple à ajouter à votre site web avec nos composants prêts à l'emploi"
+    },
+    "cta": "Essayer la Démo",
+    "imageAlt": "Démonstration d'essayage virtuel de bijoux",
+    "demo": "Démo en Direct",
+    "livePreview": "Voir comment ça fonctionne"
+  },
+  "performance": {
+    "title": "Performance Optimisée",
+    "description": "Conçu avec la rapidité et l'efficacité à l'esprit",
+    "metrics": {
+      "loading": {
+        "name": "Vitesse de Chargement",
+        "value": "< 1s",
+        "description": "Temps de chargement rapide pour une expérience utilisateur optimale"
+      },
+      "rendering": {
+        "name": "Qualité de Rendu",
+        "value": "Ultra HD",
+        "description": "Visuels haute définition pour une visualisation détaillée"
+      },
+      "memory": {
+        "name": "Utilisation de la Mémoire",
+        "value": "Minimale",
+        "description": "Optimisé pour tous les appareils, y compris mobiles"
+      },
+      "size": {
+        "name": "Taille du Package",
+        "value": "< 300KB",
+        "description": "Intégration légère pour des sites web rapides"
+      }
+    },
+    "chart": {
+      "title": "Comparaison de Performance",
+      "placeholder": "Graphique de performance interactif",
+      "description": "Voyez comment ReefQ surpasse les concurrents"
+    }
+  },
+  "comparison": {
+    "title": "Pourquoi Choisir ReefQ",
+    "description": "Voyez comment nous nous comparons aux autres solutions",
+    "competitors": {
+      "competitor1": "Concurrent A",
+      "competitor2": "Concurrent B"
+    },
+    "features": {
+      "feature1": "Visualisation 3D",
+      "feature2": "Essayage en RA",
+      "feature3": "Outils de Personnalisation",
+      "feature4": "Calculateur de Taille",
+      "feature5": "Optimisation Mobile",
+      "feature6": "Analytique Client",
+      "feature7": "Accès API",
+      "feature8": "Solution en Marque Blanche"
+    },
+    "cta": "Choisissez ReefQ Aujourd'hui"
+  },
+  "faq": {
+    "stillHaveQuestions": "Vous avez encore des questions ?",
+    "contactUs": "Contactez notre équipe"
+  },
+  "footer": {
+    "slogan": "Transformer l'achat de bijoux avec une technologie innovante",
+    "craftedWith": "Conçu avec"
+  }
 } 
