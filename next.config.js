@@ -12,9 +12,6 @@ const nextConfig = {
   // Configure API routes and server components
   experimental: {
     serverComponentsExternalPackages: ['@supabase/supabase-js'],
-    // Improved API route handling
-    appDir: true,
-    serverActions: true,
   },
   
   // Image configuration for deployment
