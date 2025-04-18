@@ -145,7 +145,7 @@ export function LandingHeader({ t, isRTL, scrolled, activeSection = 'hero' }: La
                     }`}
                   >
                     <Link
-                      href="/collection"
+                      href="/collections"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     >
                       {t('header.jewelryCollection')}
@@ -269,7 +269,7 @@ export function LandingHeader({ t, isRTL, scrolled, activeSection = 'hero' }: La
                 {productsOpen && (
                   <div className="mt-2 pl-4 space-y-1 border-l-2 border-gray-100 ml-3">
                     <Link
-                      href="/collection"
+                      href="/collections"
                       className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-nile-teal"
                       onClick={() => setMobileMenuOpen(false)}
                     >
