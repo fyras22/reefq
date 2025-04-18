@@ -3,11 +3,12 @@ import Link from 'next/link';
 import { useTranslation } from '@/app/i18n-client';
 import { useParams, usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { Bars3Icon, XMarkIcon, ShoppingCartIcon, UserIcon } from '@heroicons/react/24/outline';
+import { Bars3Icon, XMarkIcon, ShoppingCartIcon, UserIcon, HeartIcon } from '@heroicons/react/24/outline';
 
 const navLinks = [
   { name: 'Home', path: '/' },
   { name: 'Products', path: '/products' },
+  { name: 'Collections', path: '/collections' },
   { name: 'Try & Fit', path: '/try-and-fit' },
   { name: 'Jewelry Knowledge', path: '/jewelry-knowledge' },
   { name: 'About', path: '/about' },
@@ -67,6 +68,9 @@ export default function Navbar() {
 
         {/* User Actions */}
         <div className="hidden lg:flex items-center space-x-4">
+          <Link href={`/${lang}/wishlist`} className="p-2 text-gray-700 hover:text-primary transition-colors">
+            <HeartIcon className="h-6 w-6" />
+          </Link>
           <Link href={`/${lang}/cart`} className="p-2 text-gray-700 hover:text-primary transition-colors">
             <ShoppingCartIcon className="h-6 w-6" />
           </Link>
@@ -102,6 +106,14 @@ export default function Navbar() {
               </Link>
             ))}
             <div className="flex space-x-4 pt-4 border-t">
+              <Link
+                href={`/${lang}/wishlist`}
+                className="flex items-center text-gray-700 hover:text-primary transition-colors"
+                onClick={() => setIsOpen(false)}
+              >
+                <HeartIcon className="h-5 w-5 mr-2" />
+                {t('wishlist')}
+              </Link>
               <Link
                 href={`/${lang}/cart`}
                 className="flex items-center text-gray-700 hover:text-primary transition-colors"

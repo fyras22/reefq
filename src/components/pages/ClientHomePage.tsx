@@ -8,6 +8,7 @@ import { FeatureCardsSection } from '@/components/landing/FeatureCardsSection';
 import { CoreFeaturesSection } from '@/components/landing/CoreFeaturesSection';
 import { HowItWorksSection } from '@/components/landing/HowItWorksSection';
 import { TestimonialsSection } from '@/components/landing/TestimonialsSection';
+import { FeaturedCollections } from '@/components/FeaturedCollections';
 // Lazy load non-critical sections
 const PricingSection = lazy(() => import('@/components/landing/PricingSection').then(mod => ({ default: mod.PricingSection })));
 const VirtualTryOnSection = lazy(() => import('@/components/landing/VirtualTryOnSection'));
@@ -245,6 +246,10 @@ export default function ClientHomePage({ lang }: ClientHomePageProps) {
           
           <div id="how-it-works">
             <HowItWorksSection t={t} isRTL={isRTL} />
+          </div>
+          
+          <div id="featured-collections">
+            <FeaturedCollections />
           </div>
           
           <div id="testimonials">

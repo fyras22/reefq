@@ -13,6 +13,23 @@
   "wishlist": "المفضلة",
   "cart": "سلة التسوق",
   "account": "الحساب",
+  "collections": {
+    "title": "مجموعاتنا",
+    "description": "اكتشف مجموعات المجوهرات المنسقة لدينا، المصممة لتناسب أسلوبك ومناسباتك.",
+    "featuredTitle": "المجموعات المميزة",
+    "featuredDescription": "اكتشف أكثر مجموعات المجوهرات شعبية لهذا الموسم.",
+    "itemCount": "{{count}} قطعة",
+    "viewCollection": "عرض المجموعة",
+    "viewAllCollections": "عرض جميع المجموعات",
+    "productsInCollection": "المنتجات في هذه المجموعة",
+    "featured": "مميزة",
+    "notFound": "المجموعة غير موجودة",
+    "notFoundDescription": "المجموعة التي تبحث عنها غير موجودة أو تمت إزالتها.",
+    "backToCollections": "العودة إلى المجموعات",
+    "addToCart": "إضافة إلى السلة",
+    "errorTitle": "تعذر تحميل المجموعات",
+    "tryAgain": "حاول مرة أخرى"
+  },
   "hero": {
     "title": "رِفق",
     "subtitle": "تجربة المجوهرات ثلاثية الأبعاد",

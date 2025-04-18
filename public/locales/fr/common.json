@@ -13,6 +13,23 @@
   "wishlist": "Favoris",
   "cart": "Panier",
   "account": "Compte",
+  "collections": {
+    "title": "Nos Collections",
+    "description": "Explorez nos collections de bijoux soigneusement sélectionnées, conçues pour correspondre à votre style et à vos occasions.",
+    "featuredTitle": "Collections en Vedette",
+    "featuredDescription": "Découvrez nos collections de bijoux les plus populaires pour cette saison.",
+    "itemCount": "{{count}} articles",
+    "viewCollection": "Voir la Collection",
+    "viewAllCollections": "Voir Toutes les Collections",
+    "productsInCollection": "Produits dans cette Collection",
+    "featured": "En Vedette",
+    "notFound": "Collection Non Trouvée",
+    "notFoundDescription": "La collection que vous recherchez n'existe pas ou a été supprimée.",
+    "backToCollections": "Retour aux Collections",
+    "addToCart": "Ajouter au Panier",
+    "errorTitle": "Impossible de Charger les Collections",
+    "tryAgain": "Réessayer"
+  },
   "hero": {
     "title": "ReefQ",
     "subtitle": "Expérience Bijoux 3D",
