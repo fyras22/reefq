@@ -1,15 +1,18 @@
 {
   "header": {
-    "features": "المميزات",
-    "testimonials": "آراء العملاء",
-    "howItWorks": "كيف يعمل",
-    "pricing": "الأسعار",
+    "features": "الميزات",
+    "testimonials": "الشهادات",
+    "howItWorks": "كيف تعمل",
+    "pricing": "التسعير",
     "faq": "الأسئلة الشائعة",
-    "getStarted": "ابدأ الآن",
+    "getStarted": "البدء",
     "login": "تسجيل الدخول",
     "signup": "إنشاء حساب",
-    "tryAndFit": "جرّب وقيس"
+    "tryAndFit": "تجربة"
   },
+  "wishlist": "المفضلة",
+  "cart": "سلة التسوق",
+  "account": "الحساب",
   "hero": {
     "title": "رِفق",
     "subtitle": "تجربة المجوهرات ثلاثية الأبعاد",

@@ -3,13 +3,16 @@
     "features": "Fonctionnalités",
     "testimonials": "Témoignages",
     "howItWorks": "Comment ça marche",
-    "pricing": "Tarification",
+    "pricing": "Tarifs",
     "faq": "FAQ",
     "getStarted": "Commencer",
     "login": "Connexion",
-    "signup": "Inscription",
-    "tryAndFit": "Essayer & Ajuster"
+    "signup": "S'inscrire",
+    "tryAndFit": "Essayer"
   },
+  "wishlist": "Favoris",
+  "cart": "Panier",
+  "account": "Compte",
   "hero": {
     "title": "ReefQ",
     "subtitle": "Expérience Bijoux 3D",
