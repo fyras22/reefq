@@ -79,14 +79,15 @@ export function LandingHeader({ t, isRTL, scrolled, activeSection = 'hero' }: La
               alt="Reefq"
               width={120}
               height={40}
-              className="h-8 w-auto"
+              className="h-8 w-auto object-contain"
+              priority
             />
           </Link>
         </div>
 
         {/* Desktop Navigation - Center */}
         <div className={`hidden lg:flex items-center justify-center order-2 flex-1`}>
-          <ul className={`flex gap-1 ${isRTL ? 'flex-row-reverse' : 'flex-row'}`}>
+          <ul className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : 'flex-row'}`}>
             {navigationItems.map((item) => (
               <li key={item.section}>
                 <a
