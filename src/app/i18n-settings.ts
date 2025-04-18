@@ -38,7 +38,8 @@ export const getLanguageDirection = (lng: string): 'ltr' | 'rtl' => {
 
 // Function to detect the users preferred language from headers or cookies
 export const getLanguage = (acceptLanguage?: string, cookieValue?: string) => {
-  // Check if language is stored in cookie
+  // Check if language is stored in cookie - this has highest priority 
+  // to ensure consistent rendering between server and client
   if (cookieValue && languages.includes(cookieValue)) {
     return cookieValue;
   }
