@@ -16,7 +16,7 @@ Follow these steps to deploy your application to Vercel:
 3. **Configure Project Settings**
    - Framework Preset: Next.js
    - Root Directory: ./ (root)
-   - Build Command: npm run build
+   - Build Command: next build
    - Output Directory: .next
    - Install Command: npm install
    - Environment Variables:
@@ -30,6 +30,30 @@ Follow these steps to deploy your application to Vercel:
 5. **Verify Deployment**
    - Once deployed, Vercel will provide a URL to access your application
    - Test the application's functionality on the live URL
+
+## Set Up GitHub Integration for Automatic Deployments
+
+For continuous deployment from GitHub:
+
+1. **Configure GitHub Integration**
+   - In your Vercel project settings, go to "Git"
+   - Ensure the GitHub repository is connected
+   - Set up branch deployments:
+     - Production branch: main
+     - Preview branches: all other branches
+
+2. **Set Up Production Branch Protection**
+   - In Vercel project settings, go to "Git Integration"
+   - Under "Production Branch", select "main"
+   - Enable "Protect Production Branch" to prevent direct pushes
+
+3. **Configure Auto-Deployment**
+   - In the same section, ensure "Auto-Deploy" is enabled
+   - This will automatically deploy changes when you push to GitHub
+
+4. **Enable Comment on Pull Requests**
+   - Enable "Comment on Pull Requests" to get deployment previews
+   - This helps review changes before merging to main
 
 ## Troubleshooting Build Errors
 
@@ -54,6 +78,12 @@ If you encounter build errors during deployment:
 4. **Check Logs**
    - In the Vercel dashboard, navigate to your deployment
    - Click on "View Logs" to see detailed build and runtime logs
+   - Focus on any errors in the "Build Logs" section
+
+5. **Troubleshoot Common Next.js Errors**
+   - If you see "Error during SSR/SSG" - check your getServerSideProps or getStaticProps functions
+   - If you see "Module not found" - ensure all dependencies are properly installed
+   - If you see "API resolved without sending a response" - check your API routes for proper response handling
 
 ## Post-Deployment Tasks
 

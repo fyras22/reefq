@@ -6,13 +6,27 @@ const nextConfig = {
   // App Router does not support the i18n config in next.config.js
   // Instead, use the middleware-based approach
   
-  // Optimize for Vercel deployment
+  // Production deployment settings
   output: 'standalone',
   
-  // Configure API routes to be server-side only
+  // Configure API routes and server components
   experimental: {
     serverComponentsExternalPackages: ['@supabase/supabase-js'],
-  }
+    // Improved API route handling
+    appDir: true,
+    serverActions: true,
+  },
+  
+  // Image configuration for deployment
+  images: {
+    domains: ['reefq.vercel.app'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**.vercel.app',
+      },
+    ],
+  },
 }
 
 module.exports = nextConfig 
