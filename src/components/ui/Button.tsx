@@ -1,66 +1,106 @@
 'use client';
 
-import { ButtonHTMLAttributes, forwardRef, ReactNode } from 'react';
-import { VariantProps, cva } from 'class-variance-authority';
+import React, { ButtonHTMLAttributes, ReactNode } from 'react';
+import { motion, HTMLMotionProps } from 'framer-motion';
+import { cva, type VariantProps } from 'class-variance-authority';
 import { Loader2 } from 'lucide-react';
-import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background',
+  'inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none',
   {
     variants: {
       variant: {
-        default: 'bg-primary text-primary-foreground hover:bg-primary/90',
-        destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
-        outline: 'border border-input hover:bg-accent hover:text-accent-foreground',
-        secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
-        ghost: 'hover:bg-accent hover:text-accent-foreground',
-        link: 'underline-offset-4 hover:underline text-primary',
+        default: 'bg-nile-teal text-white hover:bg-nile-teal/90 focus-visible:ring-nile-teal',
+        primary: 'bg-pharaonic-gold text-white hover:bg-pharaonic-gold/90 focus-visible:ring-pharaonic-gold',
+        secondary: 'bg-white text-gray-900 ring-1 ring-gray-300 hover:bg-gray-50 focus-visible:ring-nile-teal',
+        outline: 'border border-gray-300 bg-transparent hover:bg-gray-50 focus-visible:ring-nile-teal',
+        ghost: 'bg-transparent hover:bg-gray-100 focus-visible:ring-nile-teal',
+        destructive: 'bg-red-500 text-white hover:bg-red-600 focus-visible:ring-red-500',
       },
       size: {
-        default: 'h-10 py-2 px-4',
-        sm: 'h-9 px-3 rounded-md',
-        lg: 'h-11 px-8 rounded-md',
-        icon: 'h-10 w-10',
+        xs: 'h-8 px-2 text-xs',
+        sm: 'h-9 px-3',
+        md: 'h-10 px-4',
+        lg: 'h-11 px-6',
+        xl: 'h-12 px-8 text-base',
       },
       fullWidth: {
         true: 'w-full',
       },
+      roundness: {
+        square: 'rounded-none',
+        default: 'rounded-md',
+        pill: 'rounded-full',
+      },
     },
     defaultVariants: {
       variant: 'default',
-      size: 'default',
-      fullWidth: false,
+      size: 'md',
+      roundness: 'default',
     },
   }
 );
 
-export interface ButtonProps
-  extends ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+type ButtonVariantProps = VariantProps<typeof buttonVariants>;
+
+export interface ButtonProps extends 
+  Omit<ButtonHTMLAttributes<HTMLButtonElement>, keyof HTMLMotionProps<'button'>>,
+  ButtonVariantProps {
+  children: ReactNode;
   isLoading?: boolean;
+  loadingText?: string;
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
+  className?: string;
+  disabled?: boolean;
+  onClick?: () => void;
+  type?: 'button' | 'submit' | 'reset';
+  motionProps?: Omit<HTMLMotionProps<'button'>, 'className' | 'children' | 'disabled' | 'onClick'>;
 }
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, fullWidth, isLoading, leftIcon, rightIcon, children, ...props }, ref) => {
-    return (
-      <button
-        ref={ref}
-        className={cn(buttonVariants({ variant, size, fullWidth, className }))}
-        disabled={isLoading || props.disabled}
-        {...props}
-      >
-        {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-        {!isLoading && leftIcon && <span className="mr-2">{leftIcon}</span>}
-        {children}
-        {!isLoading && rightIcon && <span className="ml-2">{rightIcon}</span>}
-      </button>
-    );
-  }
-);
+export function Button({
+  children,
+  className,
+  variant,
+  size,
+  fullWidth,
+  roundness,
+  isLoading = false,
+  loadingText,
+  leftIcon,
+  rightIcon,
+  disabled,
+  onClick,
+  type = 'button',
+  motionProps = {
+    whileHover: { scale: 1.02 },
+    whileTap: { scale: 0.98 },
+  },
+  ...props
+}: ButtonProps) {
+  const buttonClassName = buttonVariants({ variant, size, fullWidth, roundness, className });
+  const isDisabled = isLoading || disabled;
 
-Button.displayName = 'Button';
+  // Combine onClick with motionProps if provided
+  const combinedMotionProps = {
+    ...motionProps,
+    ...(onClick && { onClick }),
+  };
 
-export { Button, buttonVariants }; 
+  return (
+    <motion.button
+      className={buttonClassName}
+      disabled={isDisabled}
+      type={type}
+      {...combinedMotionProps}
+      {...props}
+    >
+      {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+      {!isLoading && leftIcon && <span className="mr-2">{leftIcon}</span>}
+      {isLoading && loadingText ? loadingText : children}
+      {!isLoading && rightIcon && <span className="ml-2">{rightIcon}</span>}
+    </motion.button>
+  );
+}
+
+export default Button; 

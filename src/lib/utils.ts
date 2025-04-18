@@ -9,15 +9,18 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 /**
- * Format a date to a readable string
+ * Format a date string using Intl.DateTimeFormat
+ * @param dateString - ISO date string to format
+ * @param locale - Optional locale string (defaults to 'en')
+ * @returns Formatted date string
  */
-export function formatDate(date: Date | string): string {
-  const d = typeof date === 'string' ? new Date(date) : date;
-  return d.toLocaleDateString('en-US', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  });
+export function formatDate(dateString: string, locale: string = 'en') {
+  const date = new Date(dateString);
+  return new Intl.DateTimeFormat(locale, { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  }).format(date);
 }
 
 /**

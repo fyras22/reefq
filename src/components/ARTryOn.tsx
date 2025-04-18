@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef, Component, ErrorInfo } from 'react';
-import { CameraIcon, DevicePhoneMobileIcon, HandRaisedIcon } from '@heroicons/react/24/outline';
+import { CameraIcon, DevicePhoneMobileIcon, HandRaisedIcon, ViewfinderCircleIcon, ArrowLongLeftIcon, ShareIcon, ShoppingBagIcon, ArrowPathIcon } from '@heroicons/react/24/outline';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { useGLTF, useTexture, Plane, Text } from '@react-three/drei';
 import { XR, useXR, Interactive } from '@react-three/xr';
@@ -1289,51 +1289,269 @@ function IntroScreen({ onStart }: { onStart: () => void }) {
 }
 
 // Main ARTryOn component
-export default function ARTryOn({ selectedMetal, selectedGem }: ARTryOnProps) {
-  const [isARSupported, setIsARSupported] = useState(false);
-  const [showARModal, setShowARModal] = useState(false);
-  const [activeFinger, setActiveFinger] = useState<'thumb' | 'index' | 'middle' | 'ring' | 'pinky'>('ring');
-  const [isHandTrackingActive, setIsHandTrackingActive] = useState(false);
+export default function ARTryOn({ selectedMetal: initialMetal, selectedGem: initialGem }: ARTryOnProps) {
+  const [activeJewelryType, setActiveJewelryType] = useState<'ring' | 'bracelet' | 'necklace' | 'earring'>('ring');
+  const [selectedMetal, setSelectedMetal] = useState<MetalType>(initialMetal || 'gold');
+  const [selectedGem, setSelectedGem] = useState<GemType>(initialGem || 'diamond');
+  const [showInstructions, setShowInstructions] = useState(true);
+  const [arStarted, setArStarted] = useState(false);
+  const [capturingPhoto, setCapturingPhoto] = useState(false);
+  const [capturedPhoto, setCapturedPhoto] = useState<string | null>(null);
+  const [showARButton, setShowARButton] = useState(true);
+  const [isXRSupported, setIsXRSupported] = useState(false);
   
   useEffect(() => {
-    // Check if WebXR is supported
-    if ('xr' in navigator) {
-      (navigator as any).xr.isSessionSupported('immersive-ar')
-        .then((supported: boolean) => {
-          setIsARSupported(supported);
-        })
-        .catch(() => {
-          setIsARSupported(false);
-        });
-    } else {
-      setIsARSupported(false);
+    // Check XR support
+    if (typeof navigator !== 'undefined' && navigator.xr) {
+      navigator.xr.isSessionSupported('immersive-ar').then((supported) => {
+        setIsXRSupported(supported);
+      }).catch(() => {
+        setIsXRSupported(false);
+      });
     }
   }, []);
+  
+  // Simulate AR session completion for demo purposes
+  const handleARCompleted = () => {
+    setArStarted(false);
+    setCapturedPhoto('/images/ar-sample.jpg');
+  };
 
   return (
-    <div className="relative w-full h-[600px] bg-gray-100 rounded-lg overflow-hidden">
-      <ARViewer metalType={selectedMetal} gemType={selectedGem} />
-      <FingerSelector activeFinger={activeFinger} onChange={setActiveFinger} />
-      
-      {/* AR Compatibility Badge */}
-      <div className="absolute top-4 right-4 z-10">
-        <div className="bg-black bg-opacity-50 p-2 rounded flex items-center space-x-2">
-          <DevicePhoneMobileIcon className="w-5 h-5 text-white" />
-          <span className="text-white text-sm">
-            {isARSupported ? 'AR Ready' : 'AR Not Supported'}
-          </span>
+    <div className="bg-white rounded-lg overflow-hidden">
+      {!arStarted && !capturedPhoto && (
+        <div className="p-6">
+          {/* AR Start Panel */}
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-primary/10 text-primary mb-4">
+              <ViewfinderCircleIcon className="h-10 w-10" />
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">Virtual Try-On Experience</h3>
+            <p className="text-gray-600 max-w-md mx-auto">
+              See how jewelry looks on you in real time using your device's camera
+            </p>
+          </div>
+          
+          {/* Jewelry Type Selection */}
+          <div className="mb-8">
+            <h4 className="text-sm font-medium text-gray-500 mb-3">Select Jewelry Type</h4>
+            <div className="grid grid-cols-4 gap-3">
+              {[
+                { id: 'ring', icon: '💍', label: 'Ring' },
+                { id: 'bracelet', icon: '⌚', label: 'Bracelet' },
+                { id: 'necklace', icon: '📿', label: 'Necklace' },
+                { id: 'earring', icon: '👂', label: 'Earring' }
+              ].map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => setActiveJewelryType(item.id as any)}
+                  className={`py-3 px-4 rounded-lg flex flex-col items-center transition ${
+                    activeJewelryType === item.id
+                      ? 'bg-primary text-white shadow-md'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
+                >
+                  <span className="text-2xl mb-1">{item.icon}</span>
+                  <span className="text-xs">{item.label}</span>
+                </button>
+              ))}
         </div>
       </div>
       
-      {/* Hand Tracking Status */}
-      <div className="absolute bottom-4 left-4 z-10">
-        <div className="bg-black bg-opacity-50 p-2 rounded flex items-center space-x-2">
-          <HandRaisedIcon className="w-5 h-5 text-white" />
-          <span className="text-white text-sm">
-            {isHandTrackingActive ? 'Hand Tracking Active' : 'Hand Tracking Inactive'}
+          {/* Metal & Gem Selection */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div>
+              <h4 className="text-sm font-medium text-gray-500 mb-3">Select Metal</h4>
+              <div className="flex space-x-3">
+                {[
+                  { id: 'gold', color: '#FFD700', label: 'Gold' },
+                  { id: 'silver', color: '#E0E0E0', label: 'Silver' },
+                  { id: 'platinum', color: '#E5E4E2', label: 'Platinum' }
+                ].map((metal) => (
+                  <button
+                    key={metal.id}
+                    onClick={() => setSelectedMetal(metal.id as MetalType)}
+                    className={`flex flex-col items-center ${
+                      selectedMetal === metal.id ? 'opacity-100 scale-110' : 'opacity-80 hover:opacity-100'
+                    }`}
+                  >
+                    <div 
+                      className={`w-12 h-12 rounded-full border-2 ${
+                        selectedMetal === metal.id ? 'border-primary' : 'border-transparent'
+                      }`}
+                      style={{ backgroundColor: metal.color }}
+                    ></div>
+                    <span className="text-xs mt-1">{metal.label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+            
+            <div>
+              <h4 className="text-sm font-medium text-gray-500 mb-3">Select Gem</h4>
+              <div className="flex space-x-3">
+                {[
+                  { id: 'diamond', color: '#FFFFFF', label: 'Diamond' },
+                  { id: 'ruby', color: '#E0115F', label: 'Ruby' },
+                  { id: 'sapphire', color: '#0F52BA', label: 'Sapphire' },
+                  { id: 'emerald', color: '#046307', label: 'Emerald' }
+                ].map((gem) => (
+                  <button
+                    key={gem.id}
+                    onClick={() => setSelectedGem(gem.id as GemType)}
+                    className={`flex flex-col items-center ${
+                      selectedGem === gem.id ? 'opacity-100 scale-110' : 'opacity-80 hover:opacity-100'
+                    }`}
+                  >
+                    <div 
+                      className={`w-10 h-10 rounded-full border-2 ${
+                        selectedGem === gem.id ? 'border-primary' : 'border-transparent'
+                      }`}
+                      style={{ backgroundColor: gem.color }}
+                    ></div>
+                    <span className="text-xs mt-1">{gem.label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+          
+          {/* Start AR Button */}
+          {showARButton && (
+            <div className="text-center">
+              <button
+                onClick={() => {
+                  setArStarted(true);
+                  setShowInstructions(true);
+                }}
+                disabled={!isXRSupported}
+                className={`px-8 py-4 rounded-lg font-medium text-lg ${
+                  isXRSupported
+                    ? 'bg-primary text-white hover:bg-primary/90'
+                    : 'bg-gray-300 text-gray-600 cursor-not-allowed'
+                }`}
+              >
+                Start AR Experience
+              </button>
+              
+              {!isXRSupported && (
+                <p className="text-red-500 text-sm mt-2">
+                  AR is not supported on your device. Please try using a different device.
+                </p>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+      
+      {/* AR Viewer */}
+      {arStarted && (
+        <div className="relative">
+          {/* AR Experience - In a real implementation this would be the actual AR viewer */}
+          <div className="h-[500px] bg-black relative">
+            {/* This is a placeholder for the AR experience */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="text-white">AR Experience Loading...</div>
+            </div>
+            
+            {/* Overlay controls */}
+            <div className="absolute top-4 left-4 right-4 flex justify-between items-center">
+              <button 
+                onClick={() => setArStarted(false)}
+                className="bg-black bg-opacity-50 text-white p-2 rounded-full"
+              >
+                <ArrowLongLeftIcon className="h-6 w-6" />
+              </button>
+              
+              <button 
+                onClick={() => setCapturingPhoto(true)}
+                className="bg-white text-primary p-3 rounded-full"
+              >
+                <CameraIcon className="h-6 w-6" />
+              </button>
+            </div>
+            
+            {/* Instructions Overlay */}
+            {showInstructions && (
+              <div className="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center p-6">
+                <div className="bg-white rounded-lg p-6 max-w-md">
+                  <h3 className="text-xl font-bold text-gray-900 mb-4">How to Use AR Try-On</h3>
+                  <ol className="list-decimal list-inside text-gray-700 space-y-3 mb-6">
+                    <li>Hold your device at arm's length</li>
+                    <li>Position your hand in the frame</li>
+                    <li>Keep your hand steady while the tracking initializes</li>
+                    <li>Once tracking is stable, the jewelry will appear</li>
+                    <li>Capture a photo when you're happy with the result</li>
+                  </ol>
+                  <button
+                    onClick={() => {
+                      setShowInstructions(false);
+                      // Simulate AR session completion after 5 seconds
+                      setTimeout(() => {
+                        handleARCompleted();
+                      }, 5000);
+                    }}
+                    className="w-full py-3 bg-primary text-white rounded-md font-medium"
+                  >
+                    Got it!
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+      
+      {/* Captured Photo Results */}
+      {capturedPhoto && (
+        <div className="p-6">
+          <div className="text-center mb-6">
+            <h3 className="text-xl font-bold text-gray-900 mb-2">Your Virtual Try-On</h3>
+            <p className="text-gray-600">
+              Here's how the {activeJewelryType} looks on you. Save the image or share with friends!
+            </p>
+          </div>
+          
+          <div className="aspect-video bg-gray-200 rounded-lg mb-6 overflow-hidden">
+            {/* This would show the actual captured photo */}
+            <div className="h-full w-full flex items-center justify-center">
+              <div className="text-gray-500">Captured AR Photo</div>
+            </div>
+          </div>
+          
+          <div className="flex flex-wrap gap-3 justify-center">
+            <button className="px-4 py-2 bg-primary text-white rounded-md font-medium hover:bg-primary/90">
+              <span className="flex items-center">
+                <ShareIcon className="h-5 w-5 mr-2" />
+                Share Photo
           </span>
+            </button>
+            
+            <button 
+              onClick={() => {
+                setCapturedPhoto(null);
+                setArStarted(false);
+              }}
+              className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md font-medium hover:bg-gray-50"
+            >
+              <span className="flex items-center">
+                <ArrowPathIcon className="h-5 w-5 mr-2" />
+                Try Again
+              </span>
+            </button>
+            
+            <a
+              href={`/jewelry?type=${activeJewelryType}`}
+              className="px-4 py-2 bg-secondary text-white rounded-md font-medium hover:bg-secondary/90"
+            >
+              <span className="flex items-center">
+                <ShoppingBagIcon className="h-5 w-5 mr-2" />
+                Shop Now
+              </span>
+            </a>
         </div>
       </div>
+      )}
     </div>
   );
 } 

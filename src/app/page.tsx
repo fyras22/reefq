@@ -201,8 +201,10 @@ export default function Home() {
               <a href="#faq" onClick={(e) => scrollToSection(e, 'faq')} className={`font-medium transition-colors ${scrolled ? 'text-gray-700 hover:text-pharaonic-gold' : 'text-gray-800 hover:text-pharaonic-gold'}`}>
                 {t('header.faq')}
               </a>
-              <Link href="/demo" className={`font-medium transition-colors ${scrolled ? 'text-gray-700 hover:text-pharaonic-gold' : 'text-gray-800 hover:text-pharaonic-gold'}`}>
-                Demo
+              
+              <Link href="/try-and-fit" className={`font-medium transition-colors flex items-center ${scrolled ? 'text-gray-700 hover:text-pharaonic-gold' : 'text-gray-800 hover:text-pharaonic-gold'}`}>
+                <SparklesIcon className="h-4 w-4 mr-1" aria-hidden="true" />
+                {t('header.tryAndFit') || 'Try & Fit'}
               </Link>
             </div>
             
@@ -248,63 +250,26 @@ export default function Home() {
               transition={{ duration: 0.2 }}
             >
               <div className={`bg-white shadow-xl rounded-b-xl mx-4 ${isRTL ? 'mr-auto ml-4 left-0' : 'ml-auto mr-4 right-0'} absolute w-64 max-w-xs border border-gray-100 z-50`} style={{ top: 'calc(100% + 2px)' }}>
-                <div className="space-y-2 px-4 py-6">
-                  <a
-                    href="#features"
-                    className={`block rounded-md px-4 py-3 text-base font-medium text-gray-900 hover:bg-nile-teal/10 hover:text-nile-teal transition-colors ${isRTL ? 'text-right' : 'text-left'}`}
-                    onClick={(e) => {
-                      scrollToSection(e, 'features');
-                      setMobileMenuOpen(false);
-                    }}
-                  >
+                <div className={`space-y-3 py-5 ${isRTL ? 'text-right' : 'text-left'}`}>
+                  <a href="#features" onClick={(e) => { scrollToSection(e, 'features'); setMobileMenuOpen(false); }} className="block px-4 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 transition-colors rounded-md">
                     {t('header.features')}
                   </a>
-                  <a
-                    href="#testimonials"
-                    className={`block rounded-md px-4 py-3 text-base font-medium text-gray-900 hover:bg-nile-teal/10 hover:text-nile-teal transition-colors ${isRTL ? 'text-right' : 'text-left'}`}
-                    onClick={(e) => {
-                      scrollToSection(e, 'testimonials');
-                      setMobileMenuOpen(false);
-                    }}
-                  >
+                  <a href="#testimonials" onClick={(e) => { scrollToSection(e, 'testimonials'); setMobileMenuOpen(false); }} className="block px-4 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 transition-colors rounded-md">
                     {t('header.testimonials')}
                   </a>
-                  <a
-                    href="#how-it-works"
-                    className={`block rounded-md px-4 py-3 text-base font-medium text-gray-900 hover:bg-nile-teal/10 hover:text-nile-teal transition-colors ${isRTL ? 'text-right' : 'text-left'}`}
-                    onClick={(e) => {
-                      scrollToSection(e, 'how-it-works');
-                      setMobileMenuOpen(false);
-                    }}
-                  >
+                  <a href="#how-it-works" onClick={(e) => { scrollToSection(e, 'how-it-works'); setMobileMenuOpen(false); }} className="block px-4 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 transition-colors rounded-md">
                     {t('header.howItWorks')}
                   </a>
-                  <a
-                    href="#pricing"
-                    className={`block rounded-md px-4 py-3 text-base font-medium text-gray-900 hover:bg-nile-teal/10 hover:text-nile-teal transition-colors ${isRTL ? 'text-right' : 'text-left'}`}
-                    onClick={(e) => {
-                      scrollToSection(e, 'pricing');
-                      setMobileMenuOpen(false);
-                    }}
-                  >
+                  <a href="#pricing" onClick={(e) => { scrollToSection(e, 'pricing'); setMobileMenuOpen(false); }} className="block px-4 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 transition-colors rounded-md">
                     {t('header.pricing')}
                   </a>
-                  <a
-                    href="#faq"
-                    className={`block rounded-md px-4 py-3 text-base font-medium text-gray-900 hover:bg-nile-teal/10 hover:text-nile-teal transition-colors ${isRTL ? 'text-right' : 'text-left'}`}
-                    onClick={(e) => {
-                      scrollToSection(e, 'faq');
-                      setMobileMenuOpen(false);
-                    }}
-                  >
+                  <a href="#faq" onClick={(e) => { scrollToSection(e, 'faq'); setMobileMenuOpen(false); }} className="block px-4 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 transition-colors rounded-md">
                     {t('header.faq')}
                   </a>
-                  <Link
-                    href="/demo"
-                    className={`block rounded-md px-4 py-3 text-base font-medium text-gray-900 hover:bg-nile-teal/10 hover:text-nile-teal transition-colors ${isRTL ? 'text-right' : 'text-left'}`}
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Demo
+                 
+                  <Link href="/try-and-fit" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 transition-colors rounded-md flex items-center">
+                    <SparklesIcon className="h-5 w-5 mr-2" aria-hidden="true" />
+                    {t('header.tryAndFit') || 'Try & Fit'}
                   </Link>
                 </div>
                 <div className={`border-t border-gray-200 py-6 px-4 ${isRTL ? 'text-right' : 'text-left'} bg-gray-50 rounded-b-xl`}>
@@ -343,20 +308,26 @@ export default function Home() {
                 <p className="mt-6 text-lg leading-8 text-gray-700 max-w-xl mx-auto lg:mx-0">
                   {t('hero.description')}
                 </p>
-                <div className={`mt-8 flex gap-x-4 justify-center lg:justify-${isRTL ? 'end' : 'start'}`}>
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                  className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+                >
                   <a
-                    href="#features"
-                    className="rounded-md bg-nile-teal px-4 py-3 text-sm font-semibold text-white shadow-md hover:shadow-lg hover:bg-opacity-90 transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    href="/auth/login"
+                    className="rounded-md bg-nile-teal px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-nile-teal/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-nile-teal transition-all hover:shadow-md"
                   >
-                    {t('hero.exploreFeatures')}
+                    {t('hero.getStarted')}
                   </a>
-                  <a
-                    href="#how-it-works"
-                    className="rounded-md border border-pharaonic-gold px-4 py-3 text-sm font-semibold text-pharaonic-gold shadow-sm hover:bg-pharaonic-gold hover:text-white transition-all"
+                  <Link
+                    href="/try-and-fit"
+                    className="rounded-md bg-pharaonic-gold px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-pharaonic-gold/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pharaonic-gold transition-all hover:shadow-md flex items-center justify-center"
                   >
-                    {t('hero.howItWorks')}
-                  </a>
-                </div>
+                    <SparklesIcon className="h-5 w-5 mr-2" aria-hidden="true" />
+                    {t('hero.tryAndFit') || 'Try & Fit'}
+                  </Link>
+                </motion.div>
                 <div className="mt-6">
                   <p className="text-xs uppercase tracking-wider text-gray-500">
                     The first jewelry digital ecosystem worldwide

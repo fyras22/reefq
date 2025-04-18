@@ -1,0 +1,36 @@
+{
+  "title": "Try & Fit",
+  "subtitle": "Try on jewelry virtually and find your perfect size",
+  "intro": {
+    "title": "Experience Jewelry Before You Buy",
+    "description": "Use our cutting-edge virtual try-on and sizing tools to find the perfect piece of jewelry that fits you just right."
+  },
+  "tabs": {
+    "ar": "Virtual Try-On",
+    "sizeCalculator": "Size Calculator"
+  },
+  "howItWorks": {
+    "title": "How It Works",
+    "step1": {
+      "title": "Virtual Try-On",
+      "description": "Use your device's camera to see how our jewelry looks on you in real-time."
+    },
+    "step2": {
+      "title": "Find Your Size",
+      "description": "Use simple tools to measure and find your exact jewelry size for rings, bracelets, and necklaces."
+    },
+    "step3": {
+      "title": "Shop Confidently",
+      "description": "Choose jewelry that fits perfectly every time with confidence in how it will look and feel."
+    }
+  },
+  "measurements": {
+    "title": "Your Measurements",
+    "type": "Jewelry Type",
+    "size": "Size",
+    "method": "Measurement Method",
+    "value": "Value"
+  },
+  "shopBySize": "Shop Jewelry In Your Size",
+  "backToProducts": "Back to Products"
+} 

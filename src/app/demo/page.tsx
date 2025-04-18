@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import RingViewer from '@/components/demo/RingViewer';
 import ImageUploader from '@/components/demo/ImageUploader';
-import { ExampleLoader } from '@/components/ExampleLoader';
+
 
 // Preset gold colors with realistic hex values
 const GOLD_COLORS = {
@@ -62,14 +62,7 @@ export default function DemoPage() {
               />
             </div>
             
-            {/* Add the loader demo */}
-            <div className="bg-white rounded-lg shadow-lg p-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">Enhanced Loader Component</h2>
-              <p className="text-gray-600 mb-6">
-                Try our new global loading component with beautiful animations:
-              </p>
-              <ExampleLoader />
-            </div>
+
           </div>
 
           {/* Right Column: 3D Viewer and Customization */}
