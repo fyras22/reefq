@@ -47,11 +47,19 @@
   "signup": "Sign up",
   "tryAndFit": "Try & Fit",
   "header": {
+    "features": "Features",
     "tryOn": "Try On",
     "customize": "Customize",
     "performance": "Performance",
     "comparison": "Comparison",
-    "products": "Products"
+    "pricing": "Pricing",
+    "products": "Products",
+    "tryAndFit": "Try & Fit",
+    "getStarted": "Get Started",
+    "jewelryCollection": "Jewelry Collection",
+    "virtualTryOn": "Virtual Try-On",
+    "customizeJewelry": "Customize Jewelry",
+    "knowledgeHub": "Knowledge Hub"
   },
   "hero": {
     "badge": "Innovative Jewelry Technology",

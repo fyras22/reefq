@@ -47,11 +47,19 @@
   "signup": "Inscription",
   "tryAndFit": "Essayer & Ajuster",
   "header": {
+    "features": "Fonctionnalités",
     "tryOn": "Essayer",
     "customize": "Personnaliser",
     "performance": "Performance",
     "comparison": "Comparaison",
-    "products": "Produits"
+    "pricing": "Tarification",
+    "products": "Produits",
+    "tryAndFit": "Essayer & Ajuster",
+    "getStarted": "Commencer",
+    "jewelryCollection": "Collection de Bijoux",
+    "virtualTryOn": "Essayage Virtuel",
+    "customizeJewelry": "Personnaliser les Bijoux",
+    "knowledgeHub": "Centre de Connaissances"
   },
   "hero": {
     "badge": "Technologie Innovante de Bijoux",

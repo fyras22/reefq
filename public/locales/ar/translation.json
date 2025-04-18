@@ -47,11 +47,19 @@
   "signup": "إنشاء حساب",
   "tryAndFit": "جرّب وقيس",
   "header": {
+    "features": "المميزات",
     "tryOn": "جرّب",
     "customize": "تخصيص",
     "performance": "الأداء",
     "comparison": "المقارنة",
-    "products": "المنتجات"
+    "pricing": "الأسعار",
+    "products": "المنتجات",
+    "tryAndFit": "جرّب وقيس",
+    "getStarted": "ابدأ الآن",
+    "jewelryCollection": "مجموعة المجوهرات",
+    "virtualTryOn": "التجربة الافتراضية",
+    "customizeJewelry": "تخصيص المجوهرات",
+    "knowledgeHub": "مركز المعرفة"
   },
   "hero": {
     "badge": "تقنية مجوهرات مبتكرة",
