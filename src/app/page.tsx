@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { CubeIcon, SparklesIcon, ChartBarIcon, CheckIcon } from '@heroicons/react/24/outline';
+import { CubeIcon, SparklesIcon, ChartBarIcon, CheckIcon, SquaresPlusIcon, BookOpenIcon } from '@heroicons/react/24/outline';
 import { ChevronDownIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
@@ -82,21 +82,50 @@ export default function Home() {
       description: t('features.3dVisualization.description'),
       icon: CubeIcon,
       stat: t('features.3dVisualization.stat'),
-      statText: t('features.3dVisualization.statText')
+      statText: t('features.3dVisualization.statText'),
+      image: '/images/features/3d-visualization.jpg',
+      url: '/features/3d-visualization',
+      color: 'from-teal-50'
     },
     {
       name: t('features.arTryOn.name'),
       description: t('features.arTryOn.description'),
       icon: SparklesIcon,
       stat: t('features.arTryOn.stat'),
-      statText: t('features.arTryOn.statText')
+      statText: t('features.arTryOn.statText'),
+      image: '/images/features/virtual-try-on.jpg',
+      url: '/features/virtual-try-on',
+      color: 'from-purple-50'
+    },
+    {
+      name: t('collections.title') || 'Collections',
+      description: t('collections.description') || 'Explore our curated jewelry collections, designed to match your style and occasions.',
+      icon: SquaresPlusIcon,
+      stat: '+200',
+      statText: t('collections.itemCount', { count: 200 }) || '200 unique pieces',
+      image: '/images/features/collections.jpg',
+      url: '/collections',
+      color: 'from-rose-50'
+    },
+    {
+      name: t('header.knowledgeHub') || 'Knowledge Hub',
+      description: 'Educational resources to help you understand jewelry craftsmanship and care',
+      icon: BookOpenIcon,
+      stat: '+50',
+      statText: 'jewelry guides and articles',
+      image: '/images/features/knowledge-hub.jpg', 
+      url: '/knowledge',
+      color: 'from-violet-50'
     },
     {
       name: t('features.sizeOptimization.name'),
       description: t('features.sizeOptimization.description'),
       icon: ChartBarIcon,
       stat: t('features.sizeOptimization.stat'),
-      statText: t('features.sizeOptimization.statText')
+      statText: t('features.sizeOptimization.statText'),
+      image: '/images/features/size-optimization.jpg',
+      url: '/features/size-optimization',
+      color: 'from-amber-50'
     }
   ];
 
@@ -186,6 +215,12 @@ export default function Home() {
             
             {/* Desktop Navigation - Always in the middle */}
             <div className="hidden lg:flex lg:gap-x-8 desktop-nav order-2">
+              <a href="#" className={`font-medium transition-colors ${scrolled ? 'text-gray-700 hover:text-pharaonic-gold' : 'text-gray-800 hover:text-pharaonic-gold'}`}>
+                Home
+              </a>
+              <Link href="/features" className={`font-medium transition-colors ${scrolled ? 'text-gray-700 hover:text-pharaonic-gold' : 'text-gray-800 hover:text-pharaonic-gold'}`}>
+                Features
+              </Link>
               <a href="#features" onClick={(e) => scrollToSection(e, 'features')} className={`font-medium transition-colors ${scrolled ? 'text-gray-700 hover:text-pharaonic-gold' : 'text-gray-800 hover:text-pharaonic-gold'}`}>
                 {t('header.features')}
               </a>
@@ -201,93 +236,149 @@ export default function Home() {
               <a href="#faq" onClick={(e) => scrollToSection(e, 'faq')} className={`font-medium transition-colors ${scrolled ? 'text-gray-700 hover:text-pharaonic-gold' : 'text-gray-800 hover:text-pharaonic-gold'}`}>
                 {t('header.faq')}
               </a>
-              
-              <Link href="/try-and-fit" className={`font-medium transition-colors flex items-center ${scrolled ? 'text-gray-700 hover:text-pharaonic-gold' : 'text-gray-800 hover:text-pharaonic-gold'}`}>
-                <SparklesIcon className="h-4 w-4 mr-1" aria-hidden="true" />
-                {t('header.tryAndFit') || 'Try & Fit'}
-              </Link>
             </div>
             
-            {/* Language Switcher and CTA Button - Right in LTR, Left in RTL */}
-            <div className={`hidden lg:flex lg:flex-1 lg:justify-end gap-4 items-center ${isRTL ? 'order-1' : 'order-3'}`}>
-              <LanguageSwitcher />
-              <a
-                href="/auth/login"
-                className={`inline-flex items-center justify-center rounded-md bg-nile-teal px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-opacity-90 transition-all hover:shadow-md focus:outline-none focus:ring-2 focus:ring-nile-teal focus:ring-offset-2`}
-              >
-                {t('header.getStarted')}
+            {/* Right side - Login/SignUp + Language Selector */}
+            <div className={`lg:flex-1 flex items-center justify-end gap-x-6 ${isRTL ? 'order-1' : 'order-3'}`}>
+              <div className="hidden lg:block">
+                <LanguageSwitcher />
+              </div>
+              <a href="#" className="hidden lg:block lg:text-sm font-semibold leading-6 text-gray-900">
+                {t('header.login')}
               </a>
-            </div>
-            
-            {/* Mobile menu button - Right in LTR, Left in RTL */}
-            <div className={`flex lg:hidden ${isRTL ? 'order-1' : 'order-3'}`}>
+              <a
+                href="#"
+                className="hidden lg:block lg:rounded-md lg:px-3 lg:py-2 lg:text-sm lg:font-semibold lg:leading-6 lg:text-white lg:shadow-sm lg:hover:bg-nile-teal/90 lg:bg-nile-teal"
+              >
+                {t('header.signup')}
+              </a>
               <button
                 type="button"
-                className="inline-flex items-center justify-center rounded-md p-2.5 text-nile-teal hover:bg-nile-teal/10 transition-colors mobile-menu-button"
+                className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 lg:hidden mobile-menu-button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                aria-expanded={mobileMenuOpen}
-                aria-controls="mobile-menu"
               >
                 <span className="sr-only">Open main menu</span>
                 {mobileMenuOpen ? (
-                  <XMarkIcon className="h-7 w-7" aria-hidden="true" />
+                  <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                 ) : (
-                  <Bars3Icon className="h-7 w-7" aria-hidden="true" />
+                  <Bars3Icon className="h-6 w-6" aria-hidden="true" />
                 )}
               </button>
             </div>
           </nav>
         </div>
-        
-        {/* Mobile menu, show/hide based on menu state */}
-        <AnimatePresence>
-          {mobileMenuOpen && (
-            <motion.div
-              className="lg:hidden mobile-menu"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.2 }}
-            >
-              <div className={`bg-white shadow-xl rounded-b-xl mx-4 ${isRTL ? 'mr-auto ml-4 left-0' : 'ml-auto mr-4 right-0'} absolute w-64 max-w-xs border border-gray-100 z-50`} style={{ top: 'calc(100% + 2px)' }}>
-                <div className={`space-y-3 py-5 ${isRTL ? 'text-right' : 'text-left'}`}>
-                  <a href="#features" onClick={(e) => { scrollToSection(e, 'features'); setMobileMenuOpen(false); }} className="block px-4 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 transition-colors rounded-md">
+      
+        {/* Mobile Menu */}
+        <div className={`lg:hidden mobile-menu ${mobileMenuOpen ? 'block' : 'hidden'}`} aria-hidden={!mobileMenuOpen}>
+          <div className="fixed inset-0 z-50"></div>
+          <div
+            className={`fixed inset-y-0 ${isRTL ? 'right-0' : 'left-0'} z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm transition-all duration-300 transform ${
+              mobileMenuOpen ? 'translate-x-0' : isRTL ? 'translate-x-full' : '-translate-x-full'
+            }`}
+          >
+            <div className="flex items-center justify-between">
+              <a href="#" className="-m-1.5 p-1.5">
+                <span className="sr-only">Reefq</span>
+                <Image src="/logo.png" alt="Reefq Logo" width={120} height={40} className="w-auto h-[300%]" priority />
+              </a>
+              <button
+                type="button"
+                className="-m-2.5 rounded-md p-2.5 text-gray-700"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <span className="sr-only">Close menu</span>
+                <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+              </button>
+            </div>
+            <div className="mt-6 flow-root">
+              <div className="-my-6 divide-y divide-gray-500/10">
+                <div className="space-y-2 py-6">
+                  <Link
+                    href="/"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >
+                    Home
+                  </Link>
+                  <Link
+                    href="/features"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >
+                    Features
+                  </Link>
+                  <a
+                    href="#features"
+                    onClick={(e) => {
+                      scrollToSection(e, 'features');
+                      setMobileMenuOpen(false);
+                    }}
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >
                     {t('header.features')}
                   </a>
-                  <a href="#testimonials" onClick={(e) => { scrollToSection(e, 'testimonials'); setMobileMenuOpen(false); }} className="block px-4 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 transition-colors rounded-md">
+                  <a
+                    href="#testimonials"
+                    onClick={(e) => {
+                      scrollToSection(e, 'testimonials');
+                      setMobileMenuOpen(false);
+                    }}
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >
                     {t('header.testimonials')}
                   </a>
-                  <a href="#how-it-works" onClick={(e) => { scrollToSection(e, 'how-it-works'); setMobileMenuOpen(false); }} className="block px-4 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 transition-colors rounded-md">
+                  <a
+                    href="#how-it-works"
+                    onClick={(e) => {
+                      scrollToSection(e, 'how-it-works');
+                      setMobileMenuOpen(false);
+                    }}
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >
                     {t('header.howItWorks')}
                   </a>
-                  <a href="#pricing" onClick={(e) => { scrollToSection(e, 'pricing'); setMobileMenuOpen(false); }} className="block px-4 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 transition-colors rounded-md">
+                  <a
+                    href="#pricing"
+                    onClick={(e) => {
+                      scrollToSection(e, 'pricing');
+                      setMobileMenuOpen(false);
+                    }}
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >
                     {t('header.pricing')}
                   </a>
-                  <a href="#faq" onClick={(e) => { scrollToSection(e, 'faq'); setMobileMenuOpen(false); }} className="block px-4 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 transition-colors rounded-md">
+                  <a
+                    href="#faq"
+                    onClick={(e) => {
+                      scrollToSection(e, 'faq');
+                      setMobileMenuOpen(false);
+                    }}
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >
                     {t('header.faq')}
                   </a>
-                 
-                  <Link href="/try-and-fit" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 transition-colors rounded-md flex items-center">
-                    <SparklesIcon className="h-5 w-5 mr-2" aria-hidden="true" />
-                    {t('header.tryAndFit') || 'Try & Fit'}
-                  </Link>
                 </div>
-                <div className={`border-t border-gray-200 py-6 px-4 ${isRTL ? 'text-right' : 'text-left'} bg-gray-50 rounded-b-xl`}>
-                  <div className={`flex items-center justify-between ${isRTL ? 'flex-row-reverse' : 'flex-row'} mb-4`}>
+                <div className="py-6 space-y-2">
+                  <div className="mb-4">
                     <LanguageSwitcher />
                   </div>
                   <a
-                    href="/auth/login"
-                    className="w-full inline-flex items-center justify-center rounded-md bg-nile-teal px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-nile-teal focus:ring-offset-2 transition-all"
-                    onClick={() => setMobileMenuOpen(false)}
+                    href="#"
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
-                    {t('header.getStarted')}
+                    {t('header.login')}
+                  </a>
+                  <a
+                    href="#"
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 bg-nile-teal text-white text-center hover:bg-nile-teal/90"
+                  >
+                    {t('header.signup')}
                   </a>
                 </div>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+            </div>
+          </div>
+        </div>
       </header>
 
       {/* Hero section with 3D jewelry viewer */}
@@ -385,10 +476,68 @@ export default function Home() {
             </div>
           </div>
           
+          {/* Feature cards with links to feature pages */}
+          <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {features.map((feature, index) => (
+              <motion.div 
+                key={feature.name}
+                className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 bg-white"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <div className={`absolute inset-0 bg-gradient-to-b ${feature.color} opacity-30 z-0`}></div>
+                
+                <div className="relative z-10 p-6">
+                  <div className="flex items-center justify-center h-14 w-14 rounded-full bg-nile-teal text-white mb-4">
+                    <feature.icon className="h-8 w-8" aria-hidden="true" />
+                  </div>
+                  
+                  <h3 className="text-xl font-semibold leading-8 text-gray-900 mb-2">{feature.name}</h3>
+                  <p className="text-base leading-7 text-gray-600 mb-6 line-clamp-3">{feature.description}</p>
+                  
+                  <div className="pt-4 border-t border-gray-200 flex justify-between items-center">
+                    <div className="flex items-center">
+                      <span className="text-2xl font-bold text-pharaonic-gold">{feature.stat}</span>
+                      <span className="ml-2 text-sm text-gray-500">{feature.statText}</span>
+                    </div>
+                    
+                    <Link 
+                      href={feature.url}
+                      className="inline-flex items-center px-3 py-1.5 rounded-md bg-nile-teal/10 text-nile-teal hover:bg-nile-teal/20 transition-colors text-sm font-medium"
+                    >
+                      Learn More 
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                      </svg>
+                    </Link>
+                  </div>
+                </div>
+                
+                <div className="absolute top-0 right-0 h-24 w-24 opacity-10 rounded-bl-full bg-nile-teal"></div>
+              </motion.div>
+            ))}
+          </div>
+          
+          {/* Explore all features button */}
+          <div className="mt-12 text-center">
+            <Link
+              href="/features"
+              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-nile-teal hover:bg-opacity-90 transition-colors"
+            >
+              Explore All Features
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+              </svg>
+            </Link>
+          </div>
+          
+          {/* Features stats grid */}
           <div className="mt-16 grid grid-cols-1 gap-y-10 gap-x-8 sm:grid-cols-2 lg:grid-cols-3">
             {features.map((feature, index) => (
               <motion.div 
-                key={feature.name} 
+                key={`stat-${feature.name}`} 
                 className="bg-bg-light p-8 rounded-xl shadow-md"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -810,29 +959,6 @@ export default function Home() {
                     <li><a href="#" className="text-gray-300 hover:text-pharaonic-gold transition">{t('footer.cookies')}</a></li>
                     <li><a href="#" className="text-gray-300 hover:text-pharaonic-gold transition">{t('footer.licensing')}</a></li>
                   </ul>
-                </div>
-              </div>
-              <div className="mt-12 border-t border-teal-700 pt-8 flex justify-between items-center">
-                <p className="text-sm text-gray-400">{t('footer.copyright', { year: new Date().getFullYear() })}</p>
-                <div className="flex items-center space-x-4">
-                  <a href="#" className="text-gray-400 hover:text-pharaonic-gold transition transform hover:scale-110">
-                    <span className="sr-only">Facebook</span>
-                    <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path fillRule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clipRule="evenodd" />
-                    </svg>
-                  </a>
-                  <a href="#" className="text-gray-400 hover:text-pharaonic-gold transition transform hover:scale-110">
-                    <span className="sr-only">Instagram</span>
-                    <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path fillRule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clipRule="evenodd" />
-                    </svg>
-                  </a>
-                  <a href="#" className="text-gray-400 hover:text-pharaonic-gold transition transform hover:scale-110">
-                    <span className="sr-only">Twitter</span>
-                    <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
-                    </svg>
-                  </a>
                 </div>
               </div>
             </>
