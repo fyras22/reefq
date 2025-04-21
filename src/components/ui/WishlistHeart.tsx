@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { HeartIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useWishlist } from '@/services/wishlist';
 
 interface WishlistHeartProps {
   itemId: string;
@@ -11,16 +12,15 @@ interface WishlistHeartProps {
 }
 
 export function WishlistHeart({ itemId, className, size = 24 }: WishlistHeartProps) {
+  const { hasItem, toggleItem } = useWishlist();
   const [isFavorite, setIsFavorite] = useState(false);
   const [isClient, setIsClient] = useState(false);
   
-  // In a real app, we would check if the item is in the wishlist
-  // For this demo, we'll just use local state
+  // Handle hydration mismatch by only showing on client
   useEffect(() => {
     setIsClient(true);
-    // Mock implementation - in a real app, we would check if the item is in the wishlist
-    setIsFavorite(false);
-  }, [itemId]);
+    setIsFavorite(hasItem(itemId));
+  }, [hasItem, itemId]);
   
   if (!isClient) return null;
   
@@ -29,8 +29,8 @@ export function WishlistHeart({ itemId, className, size = 24 }: WishlistHeartPro
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
+        toggleItem(itemId);
         setIsFavorite(!isFavorite);
-        // In a real app, we would call the wishlist service here
       }}
       className={cn(
         "transition-all duration-300 hover:scale-110 focus:outline-none", 

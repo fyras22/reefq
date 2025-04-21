@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { HeartIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartSolidIcon } from '@heroicons/react/24/solid';
-import { useWishlist, WishlistItem } from '@/services/wishlist';
+import { useWishlist } from '@/services/wishlist';
 
 interface WishlistHeartProps {
   product: {
@@ -31,14 +31,7 @@ export default function WishlistHeart({ product, className = '' }: WishlistHeart
       removeItem(product.id);
       setIsInWishlist(false);
     } else {
-      const wishlistItem: WishlistItem = {
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        image: product.image,
-        category: product.category,
-      };
-      addItem(wishlistItem);
+      addItem(product.id);
       setIsInWishlist(true);
     }
   };

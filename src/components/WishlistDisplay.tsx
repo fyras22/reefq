@@ -4,12 +4,12 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useWishlist } from '@/services/wishlist';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/Button';
 import { WishlistHeart } from '@/components/ui/WishlistHeart';
 import { ShoppingBag } from 'lucide-react';
 
 export function WishlistDisplay() {
-  const { items, isLoading } = useWishlist();
+  const { items, loading } = useWishlist();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export function WishlistDisplay() {
 
   if (!mounted) return null;
 
-  if (isLoading) {
+  if (loading) {
     return (
       <div className="w-full h-60 flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
@@ -36,9 +36,9 @@ export function WishlistDisplay() {
         <p className="text-muted-foreground mb-8">
           Items added to your wishlist will appear here
         </p>
-        <Button asChild>
-          <Link href="/products">Explore Products</Link>
-        </Button>
+        <Link href="/products" className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">
+          Explore Products
+        </Link>
       </div>
     );
   }
@@ -65,7 +65,9 @@ export function WishlistDisplay() {
             <p className="text-sm text-muted-foreground mb-2">{item.category}</p>
             <div className="flex items-center justify-between">
               <p className="font-semibold">${item.price.toFixed(2)}</p>
-              <Button size="sm" variant="outline">Add to Cart</Button>
+              <button className="bg-gray-100 text-gray-800 px-3 py-1 rounded text-sm hover:bg-gray-200 transition">
+                Add to Cart
+              </button>
             </div>
           </div>
         </div>
