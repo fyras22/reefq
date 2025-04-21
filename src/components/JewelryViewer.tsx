@@ -8,10 +8,13 @@ import { CustomEnvironment } from './CustomEnvironment';
 
 interface JewelryViewerProps {
   metalType?: 'gold' | 'silver' | 'platinum' | 'rose-gold' | 'white-gold';
-  gemType?: 'diamond' | 'ruby' | 'sapphire' | 'emerald' | 'amethyst';
+  gemType?: 'diamond' | 'ruby' | 'sapphire' | 'emerald' | 'amethyst' | 'custom';
   size?: number;
   setting?: string;
   engraving?: string;
+  gemArrangement?: string;
+  finish?: string;
+  customGemColor?: string;
 }
 
 function JewelryModel({ 
@@ -19,7 +22,10 @@ function JewelryModel({
   gemType = 'emerald', 
   size = 1,
   setting = 'prong',
-  engraving = ''
+  engraving = '',
+  gemArrangement = 'solitaire',
+  finish = 'polished',
+  customGemColor = '#2A5B5E'
 }: JewelryViewerProps) {
   const { scene } = useGLTF('/models/diamond_engagement_ring.glb');
   const groupRef = useRef<THREE.Group>(null);
@@ -50,6 +56,10 @@ function JewelryModel({
 
   // Get color based on gem type
   function getGemColor(type: string = 'emerald') {
+    if (type === 'custom' && customGemColor) {
+      return customGemColor;
+    }
+
     switch(type) {
       case 'diamond': return '#FFFFFF';
       case 'ruby': return '#E0115F';
@@ -122,6 +132,17 @@ function JewelryModel({
     }
   }
 
+  // Get roughness based on finish type
+  function getFinishRoughness(finishType: string = 'polished') {
+    switch(finishType) {
+      case 'polished': return 0.1;
+      case 'matte': return 0.5;
+      case 'hammered': return 0.7;
+      case 'satin': return 0.3;
+      default: return 0.1;
+    }
+  }
+
   useEffect(() => {
     if (groupRef.current) {
       // Scale the model proportionally
@@ -136,19 +157,34 @@ function JewelryModel({
   }, [size]);
 
   useEffect(() => {
-    // Update materials with the appropriate colors
+    // Update materials with the appropriate colors and finishes
     scene.traverse((child: any) => {
       if (child.isMesh) {
         if (child.material.name === 'Metal') {
           const metalProps = getMetalProps(metalType);
+          const finishRoughness = getFinishRoughness(finish);
+          
           child.material = new THREE.MeshStandardMaterial({
             ...child.material,
             color: getMetalColor(metalType),
             metalness: metalProps.metalness,
-            roughness: metalProps.roughness,
+            roughness: Math.max(metalProps.roughness, finishRoughness), // Use higher roughness value
             envMapIntensity: 1.5,
             needsUpdate: true
           });
+          
+          // Apply special effects for hammered finish
+          if (finish === 'hammered') {
+            // Create a displacement map for hammered effect
+            const displacementMap = new THREE.TextureLoader().load('/textures/hammered-displacement.jpg', (texture) => {
+              texture.wrapS = THREE.RepeatWrapping;
+              texture.wrapT = THREE.RepeatWrapping;
+              texture.repeat.set(4, 4);
+              child.material.displacementMap = texture;
+              child.material.displacementScale = 0.05;
+              child.material.needsUpdate = true;
+            });
+          }
           
           // Remove shadow properties for better performance
           child.castShadow = false;
@@ -172,13 +208,60 @@ function JewelryModel({
             needsUpdate: true
           });
           
+          // Set up different arrangement of gemstones
+          if (gemArrangement === 'solitaire') {
+            // Default - single stone
+          } else if (gemArrangement === 'three-stone') {
+            // Create side stones for three-stone arrangement
+            if (!child.parent.userData.hasSideStones) {
+              // Clone the main stone for side stones
+              const leftStone = child.clone();
+              const rightStone = child.clone();
+              
+              // Position and scale side stones
+              leftStone.scale.set(0.6, 0.6, 0.6);
+              rightStone.scale.set(0.6, 0.6, 0.6);
+              
+              leftStone.position.set(-0.5, 0, 0);
+              rightStone.position.set(0.5, 0, 0);
+              
+              child.parent.add(leftStone);
+              child.parent.add(rightStone);
+              
+              // Mark that we've added side stones to avoid duplication
+              child.parent.userData.hasSideStones = true;
+            }
+          } else if (gemArrangement === 'halo') {
+            // Create a halo of smaller stones
+            if (!child.parent.userData.hasHalo) {
+              const haloStoneCount = 8;
+              const radius = 0.3;
+              
+              for (let i = 0; i < haloStoneCount; i++) {
+                const angle = (i / haloStoneCount) * Math.PI * 2;
+                const haloStone = child.clone();
+                
+                haloStone.scale.set(0.3, 0.3, 0.3);
+                haloStone.position.set(
+                  Math.cos(angle) * radius,
+                  0.05,
+                  Math.sin(angle) * radius
+                );
+                
+                child.parent.add(haloStone);
+              }
+              
+              child.parent.userData.hasHalo = true;
+            }
+          }
+          
           // Remove shadow properties for better performance
           child.castShadow = false;
           child.receiveShadow = false;
         }
       }
     });
-  }, [metalType, gemType, scene, setting]);
+  }, [metalType, gemType, scene, setting, gemArrangement, finish, customGemColor]);
 
   // Add subtle animation to make the jewelry sparkle
   useFrame(({ clock }) => {

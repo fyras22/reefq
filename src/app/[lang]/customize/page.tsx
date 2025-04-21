@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { JewelryCustomizer } from '@/components/JewelryCustomizer';
+import { JewelryVirtualTryOn } from '@/components/JewelryVirtualTryOn';
 import Link from 'next/link';
 
 export default function CustomizePage() {
@@ -12,6 +13,10 @@ export default function CustomizePage() {
   const productId = searchParams.get('product');
   const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('customize');
+  const [metalType, setMetalType] = useState('gold');
+  const [gemType, setGemType] = useState('emerald');
+  const [jewelryType, setJewelryType] = useState('ring');
+  const [showTryOn, setShowTryOn] = useState(false);
 
   useEffect(() => {
     // Simulate loading
@@ -21,12 +26,56 @@ export default function CustomizePage() {
     
     return () => clearTimeout(timer);
   }, []);
+  
+  // Callback to receive state from JewelryCustomizer
+  const handleCustomizerUpdate = (data) => {
+    if (data.metalType) setMetalType(data.metalType);
+    if (data.gemType) setGemType(data.gemType);
+    if (data.jewelryType) setJewelryType(data.jewelryType);
+  };
 
   if (isLoading) {
     return (
       <main className="container mx-auto py-8 px-4">
         <div className="flex justify-center items-center min-h-[60vh]">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-nile-teal"></div>
+        </div>
+      </main>
+    );
+  }
+  
+  if (showTryOn) {
+    return (
+      <main className="container mx-auto py-8 px-4">
+        <div className="mb-4 flex items-center">
+          <button 
+            onClick={() => setShowTryOn(false)}
+            className="flex items-center text-nile-teal hover:underline"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            Back to Customizer
+          </button>
+          <h2 className="text-2xl font-bold text-center flex-1 pr-10">Virtual Try-On</h2>
+        </div>
+        
+        <div className="max-w-lg mx-auto">
+          <JewelryVirtualTryOn 
+            metalType={metalType}
+            gemType={gemType}
+            jewelryType={jewelryType}
+          />
+          
+          <div className="mt-6 bg-gray-50 p-4 rounded-lg">
+            <h3 className="font-medium text-gray-900 mb-2">Try-On Tips</h3>
+            <ul className="list-disc pl-5 text-gray-600 space-y-1">
+              <li>Make sure you're in a well-lit area</li>
+              <li>Hold your device steady for the best results</li>
+              <li>You can adjust the position and size after taking the photo</li>
+              <li>Save the image to share with friends and family</li>
+            </ul>
+          </div>
         </div>
       </main>
     );
@@ -49,6 +98,16 @@ export default function CustomizePage() {
                 Create your perfect piece with our interactive design tool. Customize every detail 
                 from metal type to gemstone and setting style, then visualize it in real-time.
               </p>
+              
+              <button
+                onClick={() => setShowTryOn(true)}
+                className="mt-4 flex items-center text-nile-teal hover:underline font-medium"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+                Try On Virtually
+              </button>
             </div>
             <div className="hidden md:block">
               <Image 
@@ -102,7 +161,10 @@ export default function CustomizePage() {
         {activeTab === 'customize' && (
           <>
             <div className="bg-gray-50 p-4 md:p-8 rounded-2xl">
-              <JewelryCustomizer productId={productId || undefined} />
+              <JewelryCustomizer 
+                productId={productId || undefined} 
+                onUpdate={handleCustomizerUpdate}
+              />
             </div>
 
             <section className="mt-12 grid md:grid-cols-3 gap-6">
