@@ -41,11 +41,12 @@ export function FeatureCardsSection({ t, isRTL }: FeatureCardsSectionProps) {
     },
     {
       id: 'customization',
-      title: t('featureCards.customization.title'),
-      description: t('featureCards.customization.description'),
+      title: t('featureCards.customization.title') || 'Jewelry Customization',
+      description: t('featureCards.customization.description') || 'Create your perfect jewelry piece with our advanced customization tools',
       icon: SparklesIcon,
       color: 'bg-gradient-to-br from-blue-500 to-indigo-700',
-      delay: 0.3
+      delay: 0.3,
+      highlighted: true
     },
     {
       id: 'collections',

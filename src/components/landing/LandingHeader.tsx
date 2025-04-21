@@ -154,6 +154,13 @@ export function LandingHeader({ t, isRTL, scrolled, activeSection = 'hero' }: La
                         <p className="mt-1 text-xs text-gray-500">{t('features.arTryOn.description') || 'Try jewelry virtually'}</p>
                       </Link>
                       <Link
+                        href="/customize"
+                        className="block p-3 rounded-md hover:bg-gray-50"
+                      >
+                        <div className="font-medium text-gray-900">{t('header.customizeJewelry') || 'Customize Jewelry'}</div>
+                        <p className="mt-1 text-xs text-gray-500">Design your unique jewelry piece with our customization tools</p>
+                      </Link>
+                      <Link
                         href="/features/size-optimization"
                         className="block p-3 rounded-md hover:bg-gray-50"
                       >
@@ -357,6 +364,14 @@ export function LandingHeader({ t, isRTL, scrolled, activeSection = 'hero' }: La
                     >
                       <div className="font-medium">{t('features.arTryOn.name') || 'Virtual Try-On'}</div>
                       <p className="mt-1 text-xs text-gray-500">{t('features.arTryOn.description') || 'Try jewelry virtually'}</p>
+                    </Link>
+                    <Link
+                      href="/customize"
+                      className="block rounded-md px-3 py-2 text-base text-gray-700 hover:bg-gray-50 hover:text-nile-teal"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <div className="font-medium">{t('header.customizeJewelry') || 'Customize Jewelry'}</div>
+                      <p className="mt-1 text-xs text-gray-500">Design your unique jewelry piece with our customization tools</p>
                     </Link>
                     <Link
                       href="/features/size-optimization"

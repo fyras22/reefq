@@ -98,6 +98,17 @@ export default function Home() {
       color: 'from-purple-50'
     },
     {
+      name: t('header.customizeJewelry') || 'Customize Jewelry',
+      description: 'Design and create your perfect jewelry piece with our advanced customization tools',
+      icon: SparklesIcon,
+      stat: '+1000',
+      statText: 'unique combinations',
+      image: '/images/features/customize.jpg',
+      url: '/customize',
+      color: 'from-blue-50',
+      highlighted: true
+    },
+    {
       name: t('collections.title') || 'Collections',
       description: t('collections.description') || 'Explore our curated jewelry collections, designed to match your style and occasions.',
       icon: SquaresPlusIcon,
