@@ -3,14 +3,14 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
-export default function ProductsRedirect() {
+export default function KnowledgeRedirect() {
   const router = useRouter();
   
   useEffect(() => {
-    // Redirect to the language-specific products page
+    // Redirect to the language-specific knowledge page
     // Default to English if no language preference is detected
     const lang = navigator.language.split('-')[0] || 'en';
-    router.replace(`/${lang}/products`);
+    router.replace(`/${lang}/knowledge`);
   }, [router]);
 
   return (
