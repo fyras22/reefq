@@ -10,12 +10,17 @@
     "signup": "Sign Up",
     "tryAndFit": "Try & Fit"
   },
+  "home": "Home",
   "wishlist": "Wishlist",
   "cart": "Cart",
   "account": "Account",
   "collections": {
     "title": "Our Collections",
     "description": "Explore our curated jewelry collections, designed to match your style and occasions.",
+    "headerTitle": "Timeless Elegance, Curated Collections",
+    "headerDescription": "Discover our handcrafted jewelry collections, each piece telling a unique story of craftsmanship and luxury. Find the perfect expression of your personal style.",
+    "exploreAll": "Explore All Collections",
+    "tryVirtually": "Try Virtually",
     "featuredTitle": "Featured Collections",
     "featuredDescription": "Discover our most popular jewelry collections for this season.",
     "itemCount": "{{count}} items",
@@ -28,7 +33,8 @@
     "backToCollections": "Back to Collections",
     "addToCart": "Add to Cart",
     "errorTitle": "Unable to Load Collections",
-    "tryAgain": "Try Again"
+    "tryAgain": "Try Again",
+    "exploreMore": "Looking for more curated collections?"
   },
   "hero": {
     "title": "ReefQ",

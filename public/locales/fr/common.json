@@ -10,12 +10,17 @@
     "signup": "S'inscrire",
     "tryAndFit": "Essayer"
   },
+  "home": "Accueil",
   "wishlist": "Favoris",
   "cart": "Panier",
   "account": "Compte",
   "collections": {
     "title": "Nos Collections",
     "description": "Explorez nos collections de bijoux soigneusement sélectionnées, conçues pour correspondre à votre style et à vos occasions.",
+    "headerTitle": "Élégance Intemporelle, Collections Raffinées",
+    "headerDescription": "Découvrez nos collections de bijoux fabriqués à la main, chaque pièce racontant une histoire unique d'artisanat et de luxe. Trouvez l'expression parfaite de votre style personnel.",
+    "exploreAll": "Explorer Toutes les Collections",
+    "tryVirtually": "Essayer Virtuellement",
     "featuredTitle": "Collections en Vedette",
     "featuredDescription": "Découvrez nos collections de bijoux les plus populaires pour cette saison.",
     "itemCount": "{{count}} articles",
@@ -28,7 +33,8 @@
     "backToCollections": "Retour aux Collections",
     "addToCart": "Ajouter au Panier",
     "errorTitle": "Impossible de Charger les Collections",
-    "tryAgain": "Réessayer"
+    "tryAgain": "Réessayer",
+    "exploreMore": "Vous cherchez plus de collections soigneusement sélectionnées?"
   },
   "hero": {
     "title": "ReefQ",

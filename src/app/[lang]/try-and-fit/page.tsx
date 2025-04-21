@@ -621,7 +621,7 @@ export default function TryAndFitPage({ params }: { params: { lang: string } }) 
                   </a>
                 </div>
               </div>
-            </div>
+          </div>
           )}
         </div>
       </header>
@@ -639,15 +639,15 @@ export default function TryAndFitPage({ params }: { params: { lang: string } }) 
             {translation.subtitle}
           </p>
 
-          {/* Introduction */}
-          <div className="text-center mb-12">
+        {/* Introduction */}
+        <div className="text-center mb-12">
             <motion.h2 
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               className="text-3xl font-bold text-gray-900 mb-4"
             >
-              {translation.intro.title}
+            {translation.intro.title}
             </motion.h2>
             <motion.p 
               initial={{ opacity: 0 }}
@@ -655,54 +655,54 @@ export default function TryAndFitPage({ params }: { params: { lang: string } }) 
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-lg text-gray-600 max-w-3xl mx-auto"
             >
-              {translation.intro.description}
+            {translation.intro.description}
             </motion.p>
-          </div>
+        </div>
 
-          {/* Feature Tabs */}
+        {/* Feature Tabs */}
           <div className="bg-white rounded-xl shadow-sm overflow-hidden mb-12">
-            <div className="border-b border-gray-200">
-              <nav className="-mb-px flex" aria-label="Tabs">
-                <button
+          <div className="border-b border-gray-200">
+            <nav className="-mb-px flex" aria-label="Tabs">
+              <button
                   onClick={() => {
                     setActiveTab('ar');
                     handleFeatureEngagement('ar_tab');
                   }}
-                  className={`w-1/2 py-4 px-1 text-center border-b-2 font-medium text-sm ${
-                    activeTab === 'ar'
-                      ? 'border-primary text-primary'
-                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                  }`}
-                >
-                  <ViewfinderCircleIcon className="w-5 h-5 inline-block mr-2" />
-                  {translation.tabs.ar}
-                </button>
-                <button
+                className={`w-1/2 py-4 px-1 text-center border-b-2 font-medium text-sm ${
+                  activeTab === 'ar'
+                    ? 'border-primary text-primary'
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                }`}
+              >
+                <ViewfinderCircleIcon className="w-5 h-5 inline-block mr-2" />
+                {translation.tabs.ar}
+              </button>
+              <button
                   onClick={() => {
                     setActiveTab('size');
                     handleFeatureEngagement('size_calculator_tab');
                   }}
-                  className={`w-1/2 py-4 px-1 text-center border-b-2 font-medium text-sm ${
-                    activeTab === 'size'
-                      ? 'border-primary text-primary'
-                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                  }`}
-                >
-                  <ArrowsPointingOutIcon className="w-5 h-5 inline-block mr-2" />
-                  {translation.tabs.sizeCalculator}
-                </button>
-              </nav>
-            </div>
+                className={`w-1/2 py-4 px-1 text-center border-b-2 font-medium text-sm ${
+                  activeTab === 'size'
+                    ? 'border-primary text-primary'
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                }`}
+              >
+                <ArrowsPointingOutIcon className="w-5 h-5 inline-block mr-2" />
+                {translation.tabs.sizeCalculator}
+              </button>
+            </nav>
+          </div>
 
-            <div className="p-6">
-              {/* AR Try-On Experience */}
-              {activeTab === 'ar' && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <ARViewer onSessionComplete={handleComplete} />
+          <div className="p-6">
+            {/* AR Try-On Experience */}
+            {activeTab === 'ar' && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+              >
+                <ARViewer onSessionComplete={handleComplete} />
                   
                   {/* Share Experience */}
                   <div className="mt-6 p-4 bg-gray-50 rounded-lg">
@@ -724,62 +724,62 @@ export default function TryAndFitPage({ params }: { params: { lang: string } }) 
                       </button>
                     </div>
                   </div>
-                </motion.div>
-              )}
+              </motion.div>
+            )}
 
-              {/* Size Calculator */}
-              {activeTab === 'size' && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <SizeCalculator onMeasurementComplete={handleComplete} />
-                </motion.div>
-              )}
-            </div>
+            {/* Size Calculator */}
+            {activeTab === 'size' && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+              >
+                <SizeCalculator onMeasurementComplete={handleComplete} />
+              </motion.div>
+            )}
           </div>
+        </div>
 
-          {/* Measurements Results */}
-          {measurements && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+        {/* Measurements Results */}
+        {measurements && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
               className="mb-12 bg-gray-50 rounded-lg p-6 border border-gray-200"
-            >
-              <h3 className="text-xl font-bold text-gray-900 mb-4">{translation.measurements.title}</h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="bg-white p-4 rounded-md shadow-sm">
-                  <div className="text-sm text-gray-500">{translation.measurements.jewelryType}</div>
-                  <div className="font-medium text-gray-900 capitalize">{measurements.type}</div>
-                </div>
-                <div className="bg-white p-4 rounded-md shadow-sm">
-                  <div className="text-sm text-gray-500">{translation.measurements.size}</div>
-                  <div className="font-medium text-gray-900">{measurements.size}</div>
-                </div>
-                <div className="bg-white p-4 rounded-md shadow-sm">
-                  <div className="text-sm text-gray-500">{translation.measurements.method}</div>
-                  <div className="font-medium text-gray-900 capitalize">{measurements.measurements?.method || ''}</div>
-                </div>
-                <div className="bg-white p-4 rounded-md shadow-sm">
-                  <div className="text-sm text-gray-500">{translation.measurements.value}</div>
-                  <div className="font-medium text-gray-900">
-                    {measurements.measurements?.method === 'circumference'
-                      ? measurements.measurements?.circumference
-                      : measurements.measurements?.diameter}{' '}
-                    {measurements.measurements?.measurementUnit || ''}
-                  </div>
+          >
+            <h3 className="text-xl font-bold text-gray-900 mb-4">{translation.measurements.title}</h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="bg-white p-4 rounded-md shadow-sm">
+                <div className="text-sm text-gray-500">{translation.measurements.jewelryType}</div>
+                <div className="font-medium text-gray-900 capitalize">{measurements.type}</div>
+              </div>
+              <div className="bg-white p-4 rounded-md shadow-sm">
+                <div className="text-sm text-gray-500">{translation.measurements.size}</div>
+                <div className="font-medium text-gray-900">{measurements.size}</div>
+              </div>
+              <div className="bg-white p-4 rounded-md shadow-sm">
+                <div className="text-sm text-gray-500">{translation.measurements.method}</div>
+                <div className="font-medium text-gray-900 capitalize">{measurements.measurements?.method || ''}</div>
+              </div>
+              <div className="bg-white p-4 rounded-md shadow-sm">
+                <div className="text-sm text-gray-500">{translation.measurements.value}</div>
+                <div className="font-medium text-gray-900">
+                  {measurements.measurements?.method === 'circumference'
+                    ? measurements.measurements?.circumference
+                    : measurements.measurements?.diameter}{' '}
+                  {measurements.measurements?.measurementUnit || ''}
                 </div>
               </div>
+            </div>
 
               <div className="mt-6 flex flex-wrap gap-4 justify-center">
-                <Link
+              <Link
                   href={`/jewelry?type=${measurements.type}&size=${measurements.size}`}
-                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary/90"
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary/90"
                   onClick={() => handleShopNowClick('measurement_results')}
-                >
-                  {translation.measurements.shopNow} <ArrowLongRightIcon className="ml-2 h-5 w-5" />
-                </Link>
+              >
+                {translation.measurements.shopNow} <ArrowLongRightIcon className="ml-2 h-5 w-5" />
+              </Link>
                 
                 <button
                   onClick={handleSaveResults}
@@ -916,9 +916,9 @@ export default function TryAndFitPage({ params }: { params: { lang: string } }) 
                     Continue Shopping
                   </button>
                 </div>
-              </div>
-            </motion.div>
-          )}
+            </div>
+          </motion.div>
+        )}
 
           {/* Recently Viewed Products */}
           <div className="mb-16">
@@ -957,23 +957,23 @@ export default function TryAndFitPage({ params }: { params: { lang: string } }) 
           {/* How It Works - Improved with icons and better visual hierarchy */}
           <div className="mt-16 bg-gray-50 rounded-lg p-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">
-              {translation.howItWorks.title}
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {translation.howItWorks.title}
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="bg-white rounded-lg shadow-sm p-6 text-center relative">
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary text-white">
                   1
                 </div>
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 text-primary mb-4">
                   <ViewfinderCircleIcon className="h-8 w-8" />
-                </div>
-                <h3 className="text-lg font-medium text-gray-900 mb-2">
-                  {translation.howItWorks.step1.title}
-                </h3>
-                <p className="text-gray-600">
-                  {translation.howItWorks.step1.description}
-                </p>
               </div>
+              <h3 className="text-lg font-medium text-gray-900 mb-2">
+                {translation.howItWorks.step1.title}
+              </h3>
+              <p className="text-gray-600">
+                {translation.howItWorks.step1.description}
+              </p>
+            </div>
               
               <div className="bg-white rounded-lg shadow-sm p-6 text-center relative">
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary text-white">
@@ -981,14 +981,14 @@ export default function TryAndFitPage({ params }: { params: { lang: string } }) 
                 </div>
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 text-primary mb-4">
                   <UserIcon className="h-8 w-8" />
-                </div>
-                <h3 className="text-lg font-medium text-gray-900 mb-2">
-                  {translation.howItWorks.step2.title}
-                </h3>
-                <p className="text-gray-600">
-                  {translation.howItWorks.step2.description}
-                </p>
               </div>
+              <h3 className="text-lg font-medium text-gray-900 mb-2">
+                {translation.howItWorks.step2.title}
+              </h3>
+              <p className="text-gray-600">
+                {translation.howItWorks.step2.description}
+              </p>
+            </div>
               
               <div className="bg-white rounded-lg shadow-sm p-6 text-center relative">
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary text-white">
@@ -996,13 +996,13 @@ export default function TryAndFitPage({ params }: { params: { lang: string } }) 
                 </div>
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 text-primary mb-4">
                   <ArrowsPointingOutIcon className="h-8 w-8" />
-                </div>
-                <h3 className="text-lg font-medium text-gray-900 mb-2">
-                  {translation.howItWorks.step3.title}
-                </h3>
-                <p className="text-gray-600">
-                  {translation.howItWorks.step3.description}
-                </p>
+              </div>
+              <h3 className="text-lg font-medium text-gray-900 mb-2">
+                {translation.howItWorks.step3.title}
+              </h3>
+              <p className="text-gray-600">
+                {translation.howItWorks.step3.description}
+              </p>
               </div>
             </div>
           </div>

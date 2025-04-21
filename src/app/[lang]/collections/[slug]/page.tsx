@@ -7,6 +7,7 @@ import { useTranslation } from '@/app/i18n-client';
 import Image from 'next/image';
 import Link from 'next/link';
 import { WishlistHeart } from '@/components/ui/WishlistHeart';
+import { motion } from 'framer-motion';
 
 // Mock product data that we'll use with collection
 interface Product {
@@ -164,50 +165,71 @@ export default function CollectionDetailPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-12">
-      <div className="mb-8">
-        <Link href={`/${lang}/collections`} className="text-primary hover:underline mb-4 inline-block">
-          &larr; {t('collections.backToCollections')}
-        </Link>
+    <>
+      {/* Hero Section */}
+      <div className="relative h-96 w-full overflow-hidden">
+        <Image
+          src={collection.image}
+          alt={collection.name}
+          fill
+          priority
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
         
-        <div className="flex flex-col md:flex-row gap-8 mt-4">
-          <div className="md:w-1/2">
-            <div className="relative h-80 md:h-96 w-full rounded-lg overflow-hidden">
-              <Image
-                src={collection.image}
-                alt={collection.name}
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover"
-              />
-              {collection.featured && (
-                <div className="absolute top-4 right-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-medium">
-                  {t('collections.featured')}
-                </div>
-              )}
-            </div>
-          </div>
-          
-          <div className="md:w-1/2">
-            <h1 className="text-3xl font-bold mb-3">{collection.name}</h1>
-            <p className="text-gray-600 mb-4">{collection.description}</p>
-            <div className="flex items-center space-x-2 mb-6">
-              <span className="text-sm text-gray-500">
-                {t('collections.itemCount', { count: collection.products.length })}
-              </span>
-            </div>
+        <div className="container mx-auto px-4 h-full relative z-10">
+          <div className="flex flex-col justify-end h-full pb-12">
+            <nav className="flex mb-6 text-sm md:text-base text-white">
+              <Link href={`/${lang}`} className="text-gray-300 hover:text-white transition-colors">
+                {t('home')}
+              </Link>
+              <span className="mx-2 text-gray-500">/</span>
+              <Link href={`/${lang}/collections`} className="text-gray-300 hover:text-white transition-colors">
+                {t('collections.title')}
+              </Link>
+              <span className="mx-2 text-gray-500">/</span>
+              <span className="text-white font-medium">{collection.name}</span>
+            </nav>
+            
+            <motion.h1 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-4xl md:text-5xl font-bold text-white mb-4"
+            >
+              {collection.name}
+            </motion.h1>
+            
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-lg text-gray-200 max-w-2xl"
+            >
+              {collection.description}
+            </motion.p>
           </div>
         </div>
       </div>
-
-      <hr className="my-8" />
       
-      <div className="mb-8">
-        <h2 className="text-2xl font-bold mb-6">{t('collections.productsInCollection')}</h2>
+      {/* Products Section */}
+      <div className="container mx-auto px-4 py-16">
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-2xl md:text-3xl font-bold">{t('collections.productsInCollection')}</h2>
+          <span className="px-4 py-2 bg-gray-100 rounded-full text-sm font-medium">
+            {t('collections.itemCount', { count: collection.products.length })}
+          </span>
+        </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {collectionProducts.map((product) => (
-            <div key={product.id} className="group relative border rounded-lg overflow-hidden">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+          {collectionProducts.map((product, index) => (
+            <motion.div 
+              key={product.id} 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: index * 0.1 }}
+              className="group relative border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+            >
               <div className="aspect-square relative">
                 <Link href={`/${lang}/products/${product.id}`}>
                   <Image 
@@ -217,12 +239,12 @@ export default function CollectionDetailPage() {
                     className="object-cover transition-transform group-hover:scale-105"
                   />
                 </Link>
-                <div className="absolute top-2 right-2">
+                <div className="absolute top-2 right-2 z-10">
                   <WishlistHeart itemId={product.id} />
                 </div>
               </div>
               <div className="p-4">
-                <h3 className="font-medium truncate">{product.name}</h3>
+                <h3 className="font-medium truncate group-hover:text-primary transition-colors">{product.name}</h3>
                 <p className="text-sm text-gray-500 mb-2">{product.category}</p>
                 <div className="flex items-center justify-between">
                   <p className="font-semibold">${product.price.toFixed(2)}</p>
@@ -231,10 +253,20 @@ export default function CollectionDetailPage() {
                   </button>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
+        
+        <div className="mt-16 text-center">
+          <p className="text-gray-600 mb-6">{t('collections.exploreMore')}</p>
+          <Link
+            href={`/${lang}/collections`}
+            className="inline-block bg-primary text-white px-6 py-3 rounded-md hover:bg-primary-dark transition"
+          >
+            {t('collections.backToCollections')}
+          </Link>
+        </div>
       </div>
-    </div>
+    </>
   );
 } 
