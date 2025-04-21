@@ -36,6 +36,33 @@ export default function FeaturesIndexPage() {
       color: 'from-purple-50'
     },
     {
+      id: 'customize',
+      name: t('header.customizeJewelry') || 'Customize Jewelry',
+      description: 'Design and create your perfect jewelry piece with our advanced customization tools',
+      stat: '+1000',
+      statText: 'unique combinations',
+      image: '/images/features/customize.jpg',
+      color: 'from-blue-50'
+    },
+    {
+      id: 'collections',
+      name: t('collections.title') || 'Collections',
+      description: t('collections.description') || 'Explore our curated jewelry collections, designed to match your style and occasions',
+      stat: '+200',
+      statText: t('collections.itemCount', { count: 200 }) || '200 unique pieces',
+      image: '/images/features/collections.jpg',
+      color: 'from-rose-50'
+    },
+    {
+      id: 'knowledge-hub',
+      name: t('header.knowledgeHub') || 'Knowledge Hub',
+      description: 'Educational resources to help you understand jewelry craftsmanship and care',
+      stat: '+50',
+      statText: 'jewelry guides and articles',
+      image: '/images/features/knowledge-hub.jpg',
+      color: 'from-violet-50'
+    },
+    {
       id: 'size-optimization',
       name: t('features.sizeOptimization.name') || 'Size Optimization',
       description: t('features.sizeOptimization.description') || 'Advanced algorithms providing accurate size suggestions based on customer data',

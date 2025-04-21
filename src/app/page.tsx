@@ -226,12 +226,7 @@ export default function Home() {
             
             {/* Desktop Navigation - Always in the middle */}
             <div className="hidden lg:flex lg:gap-x-8 desktop-nav order-2">
-              <a href="#" className={`font-medium transition-colors ${scrolled ? 'text-gray-700 hover:text-pharaonic-gold' : 'text-gray-800 hover:text-pharaonic-gold'}`}>
-                Home
-              </a>
-              <Link href="/features" className={`font-medium transition-colors ${scrolled ? 'text-gray-700 hover:text-pharaonic-gold' : 'text-gray-800 hover:text-pharaonic-gold'}`}>
-                Features
-              </Link>
+
               <a href="#features" onClick={(e) => scrollToSection(e, 'features')} className={`font-medium transition-colors ${scrolled ? 'text-gray-700 hover:text-pharaonic-gold' : 'text-gray-800 hover:text-pharaonic-gold'}`}>
                 {t('header.features')}
               </a>
@@ -304,20 +299,6 @@ export default function Home() {
             <div className="mt-6 flow-root">
               <div className="-my-6 divide-y divide-gray-500/10">
                 <div className="space-y-2 py-6">
-                  <Link
-                    href="/"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    Home
-                  </Link>
-                  <Link
-                    href="/features"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    Features
-                  </Link>
                   <a
                     href="#features"
                     onClick={(e) => {
@@ -543,32 +524,7 @@ export default function Home() {
               </svg>
             </Link>
           </div>
-          
-          {/* Features stats grid */}
-          <div className="mt-16 grid grid-cols-1 gap-y-10 gap-x-8 sm:grid-cols-2 lg:grid-cols-3">
-            {features.map((feature, index) => (
-              <motion.div 
-                key={`stat-${feature.name}`} 
-                className="bg-bg-light p-8 rounded-xl shadow-md"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <div className="flex items-center justify-center h-14 w-14 rounded-full bg-nile-teal text-white mb-6">
-                  <feature.icon className="h-8 w-8" aria-hidden="true" />
-                </div>
-                <h3 className="text-xl font-semibold leading-8 text-gray-900 mb-3">{feature.name}</h3>
-                <p className="text-base leading-7 text-gray-600 mb-6">{feature.description}</p>
-                <div className="pt-4 border-t border-gray-200">
-                  <div className="flex items-center">
-                    <span className="text-2xl font-bold text-pharaonic-gold">{feature.stat}</span>
-                    <span className="ml-2 text-gray-500">{feature.statText}</span>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+   
         </div>
       </section>
 
