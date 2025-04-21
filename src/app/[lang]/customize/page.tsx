@@ -88,12 +88,12 @@ export default function CustomizePage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <section className="mb-8">
+      <section className="mb-8">
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
                 Customize Your Jewelry
-              </h1>
+        </h1>
               <p className="text-lg text-gray-600 max-w-3xl">
                 Create your perfect piece with our interactive design tool. Customize every detail 
                 from metal type to gemstone and setting style, then visualize it in real-time.
@@ -200,8 +200,8 @@ export default function CustomizePage() {
                   defects for complete peace of mind.
                 </p>
               </div>
-            </section>
-
+      </section>
+      
             <section className="mt-12 mb-8">
               <h2 className="text-2xl font-bold mb-6 text-gray-800">Frequently Asked Questions</h2>
               <div className="space-y-4">
@@ -328,7 +328,7 @@ export default function CustomizePage() {
                 Start Customizing Now
               </button>
             </div>
-          </div>
+      </div>
         )}
       </motion.div>
     </main>

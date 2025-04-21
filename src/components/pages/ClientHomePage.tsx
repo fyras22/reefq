@@ -16,7 +16,7 @@ const PerformanceSection = lazy(() => import('@/components/landing/PerformanceSe
 const ComparisonToolSection = lazy(() => import('@/components/landing/ComparisonToolSection'));
 const FaqSection = lazy(() => import('@/components/landing/FaqSection'));
 import { LandingFooter } from '@/components/landing/LandingFooter';
-import { CubeIcon, SparklesIcon, ChartBarIcon, SquaresPlusIcon, TagIcon, BookOpenIcon } from '@heroicons/react/24/outline';
+import { CubeIcon, SparklesIcon, ChartBarIcon } from '@heroicons/react/24/outline';
 import { motion, AnimatePresence } from 'framer-motion';
 import AdvancedSEO from '@/components/seo/AdvancedSEO';
 
@@ -120,27 +120,6 @@ export default function ClientHomePage({ lang }: ClientHomePageProps) {
       icon: ChartBarIcon,
       stat: t('features.sizeOptimization.stat'),
       statText: t('features.sizeOptimization.statText')
-    },
-    {
-      name: t('collections.title'),
-      description: t('collections.description'),
-      icon: SquaresPlusIcon,
-      stat: "+350",
-      statText: "unique pieces in our collections"
-    },
-    {
-      name: t('header.products'),
-      description: "Explore our exquisite selection of handcrafted jewelry",
-      icon: TagIcon,
-      stat: "+150",
-      statText: "new products every season"
-    },
-    {
-      name: t('header.knowledgeHub'),
-      description: "Learn about jewelry materials, gemstones, and care tips",
-      icon: BookOpenIcon,
-      stat: "+200",
-      statText: "expert articles and guides"
     }
   ], [t]);
 

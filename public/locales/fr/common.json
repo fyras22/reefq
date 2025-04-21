@@ -8,7 +8,12 @@
     "getStarted": "Commencer",
     "login": "Connexion",
     "signup": "S'inscrire",
-    "tryAndFit": "Essayer"
+    "tryAndFit": "Essayer",
+    "products": "Produits",
+    "jewelryCollection": "Collection de Bijoux",
+    "virtualTryOn": "Essayage Virtuel",
+    "customizeJewelry": "Personnaliser les Bijoux",
+    "knowledgeHub": "Centre de Connaissances"
   },
   "home": "Accueil",
   "wishlist": "Favoris",

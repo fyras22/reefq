@@ -8,7 +8,12 @@
     "getStarted": "Get Started",
     "login": "Login",
     "signup": "Sign Up",
-    "tryAndFit": "Try & Fit"
+    "tryAndFit": "Try & Fit",
+    "products": "Products",
+    "jewelryCollection": "Jewelry Collection",
+    "virtualTryOn": "Virtual Try-On",
+    "customizeJewelry": "Customize Jewelry",
+    "knowledgeHub": "Knowledge Hub"
   },
   "home": "Home",
   "wishlist": "Wishlist",
