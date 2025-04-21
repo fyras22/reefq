@@ -8,10 +8,14 @@ import {
   ChartBarIcon, 
   ShieldCheckIcon, 
   DevicePhoneMobileIcon, 
-  LightBulbIcon
+  LightBulbIcon,
+  BookOpenIcon,
+  SquaresPlusIcon,
+  TagIcon
 } from '@heroicons/react/24/outline';
 import { TFunction } from 'i18next';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface FeatureCardsSectionProps {
   t: TFunction;
@@ -43,7 +47,8 @@ export function FeatureCardsSection({ t, isRTL }: FeatureCardsSectionProps) {
       description: t('featureCards.customization.description'),
       icon: SparklesIcon,
       color: 'bg-gradient-to-br from-blue-500 to-indigo-700',
-      delay: 0.3
+      delay: 0.3,
+      link: '/customize'
     },
     {
       id: 'sizing',
@@ -54,12 +59,39 @@ export function FeatureCardsSection({ t, isRTL }: FeatureCardsSectionProps) {
       delay: 0.4
     },
     {
+      id: 'collections',
+      title: t('collections.title'),
+      description: t('collections.description'),
+      icon: SquaresPlusIcon,
+      color: 'bg-gradient-to-br from-rose-500 to-pink-700',
+      delay: 0.5,
+      link: '/collections'
+    },
+    {
+      id: 'products',
+      title: t('header.products'),
+      description: "Explore our exquisite selection of handcrafted jewelry pieces designed for every occasion.",
+      icon: TagIcon,
+      color: 'bg-gradient-to-br from-orange-500 to-red-700',
+      delay: 0.6,
+      link: '/products'
+    },
+    {
+      id: 'knowledge',
+      title: t('header.knowledgeHub'),
+      description: "Learn about jewelry materials, gemstones, and care tips from our comprehensive knowledge center.",
+      icon: BookOpenIcon,
+      color: 'bg-gradient-to-br from-sky-500 to-blue-700',
+      delay: 0.7,
+      link: '/knowledge'
+    },
+    {
       id: 'security',
       title: t('featureCards.security.title'),
       description: t('featureCards.security.description'),
       icon: ShieldCheckIcon,
       color: 'bg-gradient-to-br from-red-500 to-pink-700',
-      delay: 0.5
+      delay: 0.8
     },
     {
       id: 'ai',
@@ -67,7 +99,7 @@ export function FeatureCardsSection({ t, isRTL }: FeatureCardsSectionProps) {
       description: t('featureCards.ai.description'),
       icon: LightBulbIcon,
       color: 'bg-gradient-to-br from-pharaonic-gold to-amber-700',
-      delay: 0.6
+      delay: 0.9
     }
   ];
 
@@ -135,6 +167,19 @@ export function FeatureCardsSection({ t, isRTL }: FeatureCardsSectionProps) {
               <div className="px-6 py-5">
                 <h3 className="text-lg font-semibold text-gray-900">{feature.title}</h3>
                 <p className="mt-2 text-gray-600">{feature.description}</p>
+                {feature.link && (
+                  <div className="mt-4 text-right">
+                    <Link 
+                      href={feature.link} 
+                      className="text-sm font-medium text-nile-teal hover:text-nile-teal/80 inline-flex items-center"
+                    >
+                      Explore
+                      <svg xmlns="http://www.w3.org/2000/svg" className={`ml-1 h-4 w-4 ${isRTL ? 'transform rotate-180' : ''}`} viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </Link>
+                  </div>
+                )}
               </div>
             </motion.div>
           ))}
