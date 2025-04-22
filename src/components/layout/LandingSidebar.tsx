@@ -13,6 +13,7 @@ import {
   ChatBubbleLeftRightIcon,
   XMarkIcon
 } from '@heroicons/react/24/outline';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 const navigation = [
   { 
@@ -102,16 +103,21 @@ export default function LandingSidebar({ isRTL = false, activeSection = 'hero', 
             <div className="flex flex-col h-full">
               {/* Header with logo and close button */}
               <div className="p-4 flex items-center justify-between border-b border-gray-200">
-                <Link href="/" className="flex items-center gap-2">
-                  <Image
-                    src="/images/logo.svg"
-                    alt="Reefq"
-                    width={120}
-                    height={40}
-                    className="h-8 w-auto object-contain"
-                    priority
-                  />
-                </Link>
+                <div className="flex items-center gap-3">
+                  <Link href="/" className="flex items-center">
+                    <Image
+                      src="/images/logo.svg"
+                      alt="Reefq"
+                      width={100}
+                      height={32}
+                      className="h-8 w-auto object-contain"
+                      priority
+                    />
+                  </Link>
+                  <div className="ml-2">
+                    <LanguageSwitcher />
+                  </div>
+                </div>
                 <button 
                   onClick={onClose}
                   className="p-2 rounded-md text-gray-500 hover:bg-gray-100"

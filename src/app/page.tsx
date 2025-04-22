@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { CubeIcon, SparklesIcon, ChartBarIcon, CheckIcon, SquaresPlusIcon, BookOpenIcon } from '@heroicons/react/24/outline';
+import { CubeIcon, SparklesIcon, ChartBarIcon, CheckIcon, SquaresPlusIcon, BookOpenIcon, UserIcon } from '@heroicons/react/24/outline';
 import { ChevronDownIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
@@ -327,7 +327,7 @@ export default function Home() {
                   <Bars3Icon className="h-6 w-6" aria-hidden="true" />
                 </button>
                 
-                {/* Mobile menu button - for language/login */}
+                {/* Mobile menu button - for login/signup */}
                 <button
                   type="button"
                   className="inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 mobile-menu-button"
@@ -337,7 +337,7 @@ export default function Home() {
                   {mobileMenuOpen ? (
                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                   ) : (
-                    <LanguageSwitcher />
+                    <UserIcon className="h-6 w-6" aria-hidden="true" />
                   )}
                 </button>
               </div>
@@ -369,62 +369,7 @@ export default function Home() {
             </div>
             <div className="mt-6 flow-root">
               <div className="-my-6 divide-y divide-gray-500/10">
-                <div className="space-y-2 py-6">
-                  <a
-                    href="#features"
-                    onClick={(e) => {
-                      scrollToSection(e, 'features');
-                      setMobileMenuOpen(false);
-                    }}
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    {t('header.features')}
-                  </a>
-                  <a
-                    href="#testimonials"
-                    onClick={(e) => {
-                      scrollToSection(e, 'testimonials');
-                      setMobileMenuOpen(false);
-                    }}
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    {t('header.testimonials')}
-                  </a>
-                  <a
-                    href="#how-it-works"
-                    onClick={(e) => {
-                      scrollToSection(e, 'how-it-works');
-                      setMobileMenuOpen(false);
-                    }}
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    {t('header.howItWorks')}
-                  </a>
-                  <a
-                    href="#pricing"
-                    onClick={(e) => {
-                      scrollToSection(e, 'pricing');
-                      setMobileMenuOpen(false);
-                    }}
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    {t('header.pricing')}
-                  </a>
-                  <a
-                    href="#faq"
-                    onClick={(e) => {
-                      scrollToSection(e, 'faq');
-                      setMobileMenuOpen(false);
-                    }}
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    {t('header.faq')}
-                  </a>
-                </div>
                 <div className="py-6 space-y-2">
-                  <div className="mb-4">
-                    <LanguageSwitcher />
-                  </div>
                   <a
                     href="#"
                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
