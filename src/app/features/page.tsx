@@ -5,10 +5,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from '@/app/i18n';
+import { useParams } from 'next/navigation';
 
 export default function FeaturesIndexPage() {
   const { t } = useTranslation();
   const [isRTL, setIsRTL] = useState(false);
+
+  const params = useParams();
+  const lang = params?.lang as string || 'en';
 
   useEffect(() => {
     // Set RTL status
@@ -139,7 +143,7 @@ export default function FeaturesIndexPage() {
                   {feature.description}
                 </p>
                 <div className="mt-8">
-                  <Link href={`/features/${feature.id}`} className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-nile-teal hover:bg-opacity-90 transition-colors">
+                  <Link href={`/${lang}/${feature.id}`} className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-nile-teal hover:bg-opacity-90 transition-colors">
                     Learn More
                     <ArrowRightIcon className="ml-2 h-5 w-5 text-white" />
                   </Link>

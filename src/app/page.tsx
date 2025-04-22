@@ -111,16 +111,7 @@ export default function Home() {
   
   // Generate features array from translations
   const features = [
-    {
-      name: t('features.3dVisualization.name'),
-      description: t('features.3dVisualization.description'),
-      icon: CubeIcon,
-      stat: t('features.3dVisualization.stat'),
-      statText: t('features.3dVisualization.statText'),
-      image: '/images/features/3d-visualization.jpg',
-      url: '/features/3d-visualization',
-      color: 'from-teal-50'
-    },
+
     {
       name: t('features.arTryOn.name'),
       description: t('features.arTryOn.description'),
@@ -128,7 +119,7 @@ export default function Home() {
       stat: t('features.arTryOn.stat'),
       statText: t('features.arTryOn.statText'),
       image: '/images/features/virtual-try-on.jpg',
-      url: '/features/virtual-try-on',
+      url: '/virtual-try-on',
       color: 'from-purple-50'
     },
     {
@@ -162,16 +153,7 @@ export default function Home() {
       url: '/knowledge',
       color: 'from-violet-50'
     },
-    {
-      name: t('features.sizeOptimization.name'),
-      description: t('features.sizeOptimization.description'),
-      icon: ChartBarIcon,
-      stat: t('features.sizeOptimization.stat'),
-      statText: t('features.sizeOptimization.statText'),
-      image: '/images/features/size-optimization.jpg',
-      url: '/features/size-optimization',
-      color: 'from-amber-50'
-    }
+
   ];
 
   // Generate testimonials array from translations

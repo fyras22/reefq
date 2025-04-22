@@ -3,10 +3,6 @@
 import { useState, useEffect, Fragment } from "react";
 import { useTranslation } from "@/app/i18n-client";
 import { 
-  ScaleIcon, 
-  ArrowPathIcon, 
-  ViewfinderCircleIcon, 
-  CubeTransparentIcon,
   XMarkIcon,
   Bars3Icon,
   ShoppingBagIcon,
@@ -73,9 +69,9 @@ export default function MeasurementsFeature({ params }: { params: { lang: string
       name: t("navigation.features", "Features"), 
       id: "features",
       items: [
-        { name: t("features.measurements", "Size & Measurements"), href: `/${params.lang}/features/measurements` },
-        { name: t("features.visualization", "3D Visualization"), href: `/${params.lang}/features/visualization` },
-        { name: t("features.tryOn", "Virtual Try-On"), href: `/${params.lang}/features/try-on` },
+        { name: t("features.measurements", "Size & Measurements"), href: `/${params.lang}/measurements` },
+        { name: t("features.visualization", "3D Visualization"), href: `/${params.lang}/visualization` },
+        { name: t("features.tryOn", "Virtual Try-On"), href: `/${params.lang}/try-on` },
       ]
     }
   ];
@@ -97,21 +93,6 @@ export default function MeasurementsFeature({ params }: { params: { lang: string
     { name: t("account.settings", "Settings"), href: `/${params.lang}/account/settings` },
   ];
 
-  // Feature content
-  const relatedFeatures = [
-    {
-      name: "3D Visualization",
-      description: "See jewelry in three dimensions",
-      icon: ViewfinderCircleIcon,
-      href: `/${params.lang}/features/visualization`,
-    },
-    {
-      name: "Virtual Try-On",
-      description: "Try jewelry on virtually",
-      icon: CubeTransparentIcon,
-      href: `/${params.lang}/features/try-on`,
-    },
-  ];
 
   // Handle dropdown toggle
   const toggleDropdown = (id: string) => {
@@ -648,36 +629,6 @@ export default function MeasurementsFeature({ params }: { params: { lang: string
                 "Explore these additional features to enhance your jewelry experience"
               )}
             </p>
-          </div>
-          <div className="mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-2 lg:max-w-none">
-            {relatedFeatures.map((feature) => (
-              <div
-                key={feature.name}
-                className="flex flex-col rounded-lg shadow-lg overflow-hidden"
-              >
-                <div className="flex-1 bg-white p-6 flex flex-col justify-between">
-                  <div className="flex-1">
-                    <div className="flex items-center">
-                      <feature.icon className="h-10 w-10 text-indigo-500" />
-                      <h3 className="ml-2 text-xl font-semibold text-gray-900">
-                        {t(`features.${feature.name}`, feature.name)}
-                      </h3>
-                    </div>
-                    <p className="mt-3 text-base text-gray-500">
-                      {t(`features.${feature.name}Description`, feature.description)}
-                    </p>
-                  </div>
-                  <div className="mt-6">
-                    <Link
-                      href={feature.href}
-                      className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                      {t("features.explore", "Explore")}
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </div>

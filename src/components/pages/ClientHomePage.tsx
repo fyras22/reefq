@@ -235,11 +235,11 @@ export default function ClientHomePage({ lang }: ClientHomePageProps) {
           <div id="hero">
             <HeroSection t={t} isRTL={isRTL} />
           </div>
-          
+{/*           
           <div id="features">
             <FeatureCardsSection t={t} isRTL={isRTL} />
           </div>
-          
+           */}
           <div id="core-features">
             <CoreFeaturesSection t={t} isRTL={isRTL} features={features} />
           </div>
