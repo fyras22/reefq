@@ -280,7 +280,7 @@ export default function Home() {
       </header>
 
       {/* Main content */}
-      <div className="lg:pl-64">
+      <div className="w-full">
         {/* Hero Section */}
         <div id="hero" className="relative min-h-screen pt-24 pb-16 overflow-hidden">
           <div className="relative isolate px-6 lg:px-8">
