@@ -106,7 +106,7 @@ export default function LandingSidebar({ isRTL = false, activeSection = 'hero', 
                 <div className="flex items-center gap-3">
                   <Link href="/" className="flex items-center">
                     <Image
-                      src="/images/logo.svg"
+                      src="/logo.png"
                       alt="Reefq"
                       width={100}
                       height={32}

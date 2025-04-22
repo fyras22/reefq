@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { CubeIcon, SparklesIcon, ChartBarIcon, CheckIcon, SquaresPlusIcon, BookOpenIcon, UserIcon } from '@heroicons/react/24/outline';
+import { CubeIcon, SparklesIcon, ChartBarIcon, CheckIcon, SquaresPlusIcon, BookOpenIcon } from '@heroicons/react/24/outline';
 import { ChevronDownIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
@@ -55,25 +55,10 @@ const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => 
 
 export default function Home() {
   const { t, i18n } = useTranslation();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [scrolled, setScrolled] = useState(true);
   const [activeSection, setActiveSection] = useState('hero');
   
-  // Close mobileMenu when sidebar is opened
-  useEffect(() => {
-    if (sidebarOpen) {
-      setMobileMenuOpen(false);
-    }
-  }, [sidebarOpen]);
-  
-  // Close sidebar when mobile menu is opened
-  useEffect(() => {
-    if (mobileMenuOpen) {
-      setSidebarOpen(false);
-    }
-  }, [mobileMenuOpen]);
-
   // Add scroll event listener and track active section
   useEffect(() => {
     const handleScroll = () => {
@@ -231,24 +216,6 @@ export default function Home() {
     }
   ];
   
-  // Add click outside listener for mobile menu
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const mobileMenu = document.querySelector('.mobile-menu');
-      const mobileMenuButton = document.querySelector('.mobile-menu-button');
-      
-      if (mobileMenuOpen && mobileMenu && !mobileMenu.contains(event.target as Node) && 
-          mobileMenuButton && !mobileMenuButton.contains(event.target as Node)) {
-        setMobileMenuOpen(false);
-      }
-    };
-    
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [mobileMenuOpen]);
-  
   return (
     <main className={`bg-white ${isRTL ? 'rtl' : 'ltr'}`}>
       {/* Mobile Sidebar */}
@@ -261,7 +228,7 @@ export default function Home() {
       
       {/* Header with Logo - Fixed with scroll effect */}
       <header className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 w-full full-width ${
-        scrolled || mobileMenuOpen
+        scrolled
           ? 'bg-white/95 backdrop-blur-sm shadow-md py-2' 
           : 'bg-transparent py-4'
       }`}>
@@ -305,14 +272,12 @@ export default function Home() {
               <div className="hidden lg:block">
                 <LanguageSwitcher />
               </div>
-              <a href="#" className="hidden lg:block lg:text-sm font-semibold leading-6 text-gray-900">
-                {t('header.login')}
-              </a>
+
               <a
-                href="#"
+                href="/auth/register"
                 className="hidden lg:block lg:rounded-md lg:px-3 lg:py-2 lg:text-sm lg:font-semibold lg:leading-6 lg:text-white lg:shadow-sm lg:hover:bg-nile-teal/90 lg:bg-nile-teal"
               >
-                {t('header.signup')}
+                 {t('header.getStarted') || 'Get Started'}
               </a>
 
               {/* Mobile buttons */}
@@ -326,66 +291,9 @@ export default function Home() {
                 >
                   <Bars3Icon className="h-6 w-6" aria-hidden="true" />
                 </button>
-                
-                {/* Mobile menu button - for login/signup */}
-                <button
-                  type="button"
-                  className="inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 mobile-menu-button"
-                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  aria-label="Open menu"
-                >
-                  {mobileMenuOpen ? (
-                    <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-                  ) : (
-                    <UserIcon className="h-6 w-6" aria-hidden="true" />
-                  )}
-                </button>
               </div>
             </div>
           </nav>
-        </div>
-      
-        {/* Mobile Menu */}
-        <div className={`lg:hidden mobile-menu ${mobileMenuOpen ? 'block' : 'hidden'}`} aria-hidden={!mobileMenuOpen}>
-          <div className="fixed inset-0 z-50"></div>
-          <div
-            className={`fixed inset-y-0 ${isRTL ? 'right-0' : 'left-0'} z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm transition-all duration-300 transform ${
-              mobileMenuOpen ? 'translate-x-0' : isRTL ? 'translate-x-full' : '-translate-x-full'
-            }`}
-          >
-            <div className="flex items-center justify-between">
-              <a href="#" className="-m-1.5 p-1.5">
-                <span className="sr-only">Reefq</span>
-                <Image src="/logo.png" alt="Reefq Logo" width={120} height={40} className="w-auto h-[300%]" priority />
-              </a>
-              <button
-                type="button"
-                className="-m-2.5 rounded-md p-2.5 text-gray-700"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <span className="sr-only">Close menu</span>
-                <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-              </button>
-            </div>
-            <div className="mt-6 flow-root">
-              <div className="-my-6 divide-y divide-gray-500/10">
-                <div className="py-6 space-y-2">
-                  <a
-                    href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    {t('header.login')}
-                  </a>
-                  <a
-                    href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 bg-nile-teal text-white text-center hover:bg-nile-teal/90"
-                  >
-                    {t('header.signup')}
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </header>
 
