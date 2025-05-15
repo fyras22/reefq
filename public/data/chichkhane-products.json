@@ -1,0 +1,56 @@
+[
+  {
+    "id": "chichkhane-1",
+    "name": "Bracelet Diamants Rose \"Chichkhane\" 70391",
+    "originalImage": "https://www.bijouterie-chichkhane.com/image/cache/catalog/bijoux/bracelet-diamants-rose-chichkhane-70391-550x550.jpg",
+    "image": "https://via.placeholder.com/500x500.jpg?text=Bracelet+Diamants+Rose",
+    "price": "Demander à la bijouterie",
+    "category": "Bracelets",
+    "description": "Elegant bracelet with pink diamonds from the Bijouterie Chichkhane collection. Features delicate craftsmanship and premium materials, creating a stunning accent for any outfit. The pink diamonds provide a unique and feminine touch to this exceptional piece."
+  },
+  {
+    "id": "chichkhane-2",
+    "name": "Bracelet Zircon 66185",
+    "originalImage": "https://www.bijouterie-chichkhane.com/image/cache/catalog/bijoux/bracelet-zircon-66185-550x550.jpg",
+    "image": "https://via.placeholder.com/500x500.jpg?text=Bracelet+Zircon",
+    "price": "Demander à la bijouterie",
+    "category": "Bracelets",
+    "description": "Elegant zircon bracelet from the Bijouterie Chichkhane collection. The sparkling zircon stones create a stunning effect on the wrist. This versatile piece can be worn for both casual and formal occasions, adding a touch of refinement to any look."
+  },
+  {
+    "id": "chichkhane-3",
+    "name": "Ensemble Diamants MO2244B",
+    "originalImage": "https://www.bijouterie-chichkhane.com/image/cache/catalog/bijoux/ensemble-diamants-mo2244b-550x550.jpg",
+    "image": "https://via.placeholder.com/500x500.jpg?text=Ensemble+Diamants",
+    "price": "2340 TND",
+    "category": "Sets",
+    "description": "Elegant diamond set from the Bijouterie Chichkhane collection. This complete set includes matching pieces for a coordinated look. Perfect for special occasions and celebrations, it showcases the fine craftsmanship that Chichkhane is known for."
+  },
+  {
+    "id": "chichkhane-4",
+    "name": "Collier Diamants 68381",
+    "originalImage": "https://www.bijouterie-chichkhane.com/image/cache/catalog/bijoux/collier-diamants-68381-550x550.jpg",
+    "image": "https://via.placeholder.com/500x500.jpg?text=Collier+Diamants",
+    "price": "Demander à la bijouterie",
+    "category": "Necklaces",
+    "description": "Elegant diamond necklace from the Bijouterie Chichkhane collection. The diamonds are set to maximize brilliance and sparkle, creating a captivating piece that catches the light from every angle. An exquisite addition to any jewelry collection."
+  },
+  {
+    "id": "chichkhane-5",
+    "name": "Bague Zircon 65459",
+    "originalImage": "https://www.bijouterie-chichkhane.com/image/cache/catalog/bijoux/bague-zircon-65459-550x550.jpg",
+    "image": "https://via.placeholder.com/500x500.jpg?text=Bague+Zircon",
+    "price": "1460 TND",
+    "category": "Rings",
+    "description": "Elegant zircon ring from the Bijouterie Chichkhane collection. The carefully cut zircon creates a brilliant sparkle effect. The contemporary design makes this ring an eye-catching accessory that can be worn every day or for special occasions."
+  },
+  {
+    "id": "chichkhane-6",
+    "name": "Boucles D'oreilles Zircon 61457",
+    "originalImage": "https://www.bijouterie-chichkhane.com/image/cache/catalog/bijoux/boucles-doreilles-zircon-61457-550x550.jpg",
+    "image": "https://via.placeholder.com/500x500.jpg?text=Boucles+D'oreilles",
+    "price": "1090 TND",
+    "category": "Earrings",
+    "description": "Elegant zircon earrings from the Bijouterie Chichkhane collection. These earrings add a touch of elegance to any outfit. Their sophisticated design combines timeless style with the brilliance of zircon stones, creating a versatile accessory for both day and evening wear."
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "id": "chichkhane",
+  "name": "Chichkhane Collection",
+  "description": "Elegant jewelry pieces from the renowned Bijouterie Chichkhane based in Tunisia. This collection features exquisite craftsmanship and timeless designs, showcasing rings, necklaces, bracelets, earrings, and complete sets. Each piece is meticulously crafted with high-quality materials including gold, diamonds, and zircon for a stunning and refined look.",
+  "image": "https://via.placeholder.com/1200x600.jpg?text=Chichkhane+Collection",
+  "products": [
+    "chichkhane-1",
+    "chichkhane-2",
+    "chichkhane-3",
+    "chichkhane-4",
+    "chichkhane-5",
+    "chichkhane-6"
+  ],
+  "featured": true,
+  "slug": "chichkhane-collection"
+}
