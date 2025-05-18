@@ -50,6 +50,17 @@
     "getStarted": "Get Started",
     "tryAndFit": "Try & Fit"
   },
+  "home": {
+    "hero": {
+      "title1": "3D Jewelry",
+      "title2": "Visualization Platform",
+      "description": "Transform your jewelry business with stunning 3D visualization and AR try-on experiences. Boost sales with interactive product showcases."
+    }
+  },
+  "buttons": {
+    "tryAndFit": "Try & Fit",
+    "exploreJewelry": "Explore Jewelry"
+  },
   "features": {
     "title": "Immersive Jewelry Shopping",
     "subtitle": "Transform the customer experience with advanced 3D technologies",
@@ -206,4 +217,4 @@
     "arabic": "Arabic (رِفق)",
     "switchLanguage": "Switch Language"
   }
-} 
+}
