@@ -239,7 +239,7 @@ export default function ClientHomePage({ lang }: ClientHomePageProps) {
 
       <AnimatePresence>
         <motion.main
-          className={`bg-white ${isRTL ? "rtl" : "ltr"}`}
+          className={`bg-skin-base ${isRTL ? "rtl" : "ltr"}`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
