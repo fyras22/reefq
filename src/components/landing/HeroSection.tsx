@@ -45,7 +45,7 @@ export function HeroSection({ t, isRTL }: HeroSectionProps) {
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="mx-auto max-w-screen-2xl px-6 lg:px-8">
         <div
           className={`flex flex-col lg:flex-row ${isRTL ? "lg:flex-row-reverse" : ""} items-center gap-x-8 gap-y-16`}
         >
@@ -58,8 +58,8 @@ export function HeroSection({ t, isRTL }: HeroSectionProps) {
               transition={{ duration: 0.5 }}
               className="mb-6"
             >
-              <span className="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium bg-nile-teal bg-opacity-10 text-nile-teal dark:text-[--color-primary-teal] dark:bg-[--color-primary-teal]/10 ring-1 ring-inset ring-nile-teal/20 dark:ring-[--color-primary-teal]/20">
-                {isRTL ? "رِفق" : "ReefQ"}
+              <span className="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium bg-white text-nile-teal dark:bg-neutral-800 dark:text-[--color-primary-teal] ring-1 ring-inset ring-nile-teal/20 dark:ring-[--color-primary-teal]/20 shadow-sm">
+                {t("hero.badge")}
               </span>
             </motion.div>
 
@@ -102,7 +102,7 @@ export function HeroSection({ t, isRTL }: HeroSectionProps) {
               </a>
               <a
                 href="#features"
-                className="rounded-md bg-white px-6 py-3 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 transition-all duration-200 flex items-center justify-center"
+                className="rounded-md bg-white dark:bg-neutral-800 px-6 py-3 text-sm font-semibold text-gray-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-700 hover:bg-gray-50 dark:hover:bg-neutral-700 transition-all duration-200 flex items-center justify-center"
               >
                 {t("buttons.exploreJewelry")}
               </a>
@@ -188,7 +188,7 @@ export function HeroSection({ t, isRTL }: HeroSectionProps) {
             <div className="aspect-[4/3] w-full rounded-2xl bg-gray-50 dark:bg-neutral-800 object-cover lg:aspect-[1/1] lg:h-[34rem] overflow-hidden shadow-xl">
               <div className="absolute inset-0 flex items-center justify-center">
                 <Image
-                  src="/images/hero-jewelry.webp"
+                  src="/images/hero-jewelry.jpg"
                   alt={isRTL ? "مجوهرات رِفق" : "ReefQ Jewelry"}
                   width={800}
                   height={800}

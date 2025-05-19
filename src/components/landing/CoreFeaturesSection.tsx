@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { TFunction } from 'i18next';
+import { motion } from "framer-motion";
+import { TFunction } from "i18next";
+import React from "react";
 
 interface Feature {
   name: string;
@@ -18,35 +18,39 @@ interface CoreFeaturesSectionProps {
   features: Feature[];
 }
 
-export function CoreFeaturesSection({ t, isRTL, features }: CoreFeaturesSectionProps) {
+export function CoreFeaturesSection({
+  t,
+  isRTL,
+  features,
+}: CoreFeaturesSectionProps) {
   return (
     <section className="py-24 bg-white overflow-hidden">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.5 }}
             className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
           >
-            {t('coreFeatures.title')}
+            {t("coreFeatures.title")}
           </motion.h2>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.5, delay: 0.1 }}
             className="mt-4 max-w-2xl text-lg text-gray-600 mx-auto"
           >
-            {t('coreFeatures.subtitle')}
+            {t("coreFeatures.subtitle")}
           </motion.p>
         </div>
 
         <div className="grid grid-cols-1 gap-y-20 lg:grid-cols-3 lg:gap-x-12 lg:gap-y-0">
           {features.map((feature, index) => (
-            <motion.div 
-              key={feature.name} 
+            <motion.div
+              key={feature.name}
               className="relative"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -56,7 +60,10 @@ export function CoreFeaturesSection({ t, isRTL, features }: CoreFeaturesSectionP
               <div className="flex flex-col items-center text-center">
                 <div className="relative">
                   <div className="h-16 w-16 rounded-full bg-nile-teal/10 flex items-center justify-center">
-                    <feature.icon className="h-8 w-8 text-nile-teal" aria-hidden="true" />
+                    <feature.icon
+                      className="h-8 w-8 text-nile-teal"
+                      aria-hidden="true"
+                    />
                   </div>
                   <div className="absolute -top-3 -right-3 bg-pharaonic-gold text-white text-xs rounded-full h-8 w-8 flex items-center justify-center font-bold">
                     {feature.stat}
@@ -86,21 +93,21 @@ export function CoreFeaturesSection({ t, isRTL, features }: CoreFeaturesSectionP
           <div className="px-6 py-12 sm:px-12 sm:py-16 lg:flex lg:items-center lg:p-20">
             <div className="lg:w-0 lg:flex-1">
               <h2 className="text-3xl font-bold tracking-tight text-white">
-                {t('coreFeatures.cta.title')}
+                {t("coreFeatures.cta.title")}
               </h2>
               <p className="mt-4 max-w-3xl text-lg text-white/90">
-                {t('coreFeatures.cta.description')}
+                {t("coreFeatures.cta.description")}
               </p>
             </div>
             <div className="mt-12 sm:w-full sm:max-w-md lg:mt-0 lg:ml-8 lg:flex-1">
-              <div className={`sm:flex ${isRTL ? 'sm:flex-row-reverse' : ''}`}>
+              <div className={`sm:flex ${isRTL ? "sm:flex-row-reverse" : ""}`}>
                 <div className="mt-4 sm:mt-0 sm:ml-3">
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     className="block w-full rounded-md border border-transparent bg-white px-5 py-3 text-base font-medium text-nile-teal shadow hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-nile-teal sm:px-10"
                   >
-                    {t('coreFeatures.cta.button')}
+                    {t("coreFeatures.cta.button")}
                   </motion.button>
                 </div>
               </div>
@@ -110,4 +117,4 @@ export function CoreFeaturesSection({ t, isRTL, features }: CoreFeaturesSectionP
       </div>
     </section>
   );
-} 
+}

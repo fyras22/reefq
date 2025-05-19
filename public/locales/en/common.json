@@ -15,7 +15,21 @@
     "customizeJewelry": "Customize Jewelry",
     "knowledgeHub": "Knowledge Hub"
   },
-  "home": "Home",
+  "meta": {
+    "home": {
+      "title": "ReefQ - 3D Jewelry Visualization & Try-On Platform",
+      "description": "Experience luxury jewelry like never before with our interactive 3D visualization and AR try-on platform."
+    }
+  },
+  "nav": {
+    "home": "Home",
+    "products": "Products",
+    "collections": "Collections",
+    "try_fit": "Try & Fit",
+    "jewelry_knowledge": "Jewelry Knowledge",
+    "about": "About",
+    "contact": "Contact"
+  },
   "wishlist": "Wishlist",
   "cart": "Cart",
   "account": "Account",

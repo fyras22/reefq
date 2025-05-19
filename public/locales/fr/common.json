@@ -15,7 +15,21 @@
     "customizeJewelry": "Personnaliser les Bijoux",
     "knowledgeHub": "Centre de Connaissances"
   },
-  "home": "Accueil",
+  "meta": {
+    "home": {
+      "title": "ReefQ - Plateforme de Visualisation 3D et d'Essayage de Bijoux",
+      "description": "Découvrez le luxe des bijoux comme jamais auparavant avec notre plateforme interactive de visualisation 3D et d'essayage en réalité augmentée."
+    }
+  },
+  "nav": {
+    "home": "Accueil",
+    "products": "Produits",
+    "collections": "Collections",
+    "try_fit": "Essayer & Ajuster",
+    "jewelry_knowledge": "Connaissances sur les Bijoux",
+    "about": "À Propos",
+    "contact": "Contact"
+  },
   "wishlist": "Favoris",
   "cart": "Panier",
   "account": "Compte",
