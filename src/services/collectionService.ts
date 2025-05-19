@@ -1,3 +1,4 @@
+import { collections as chichkhaneCollections } from "@/data/collections";
 import { create } from "zustand";
 
 export interface CollectionItem {
@@ -5,9 +6,12 @@ export interface CollectionItem {
   name: string;
   description: string;
   image: string;
-  products: string[]; // Array of product IDs
-  featured: boolean;
-  slug: string;
+  products?: string[]; // Array of product IDs
+  featured?: boolean;
+  slug?: string;
+  price?: string;
+  category?: string;
+  source?: string;
 }
 
 interface CollectionState {
@@ -17,6 +21,27 @@ interface CollectionState {
   error: string | null;
   fetchCollections: () => Promise<void>;
   getCollectionBySlug: (slug: string) => CollectionItem | undefined;
+}
+
+// Process the imported collections to create valid CollectionItems
+function processImportedCollections(collections: any[]): CollectionItem[] {
+  return collections.map((item) => {
+    // Create a slug from the name if not present
+    const slug = item.slug || item.name.toLowerCase().replace(/\s+/g, "-");
+
+    // Create a product ID from the ID if products array is not present
+    const products = item.products || [item.id];
+
+    // Set featured to true if not specified
+    const featured = item.featured !== undefined ? item.featured : true;
+
+    return {
+      ...item,
+      slug,
+      products,
+      featured,
+    };
+  });
 }
 
 // Mock data for development
@@ -57,23 +82,6 @@ const mockCollections: CollectionItem[] = [
     featured: true,
     slug: "bridal-collection",
   },
-  {
-    id: "chichkhane",
-    name: "Chichkhane Collection",
-    description:
-      "Elegant jewelry pieces from the renowned Bijouterie Chichkhane, featuring exquisite craftsmanship and timeless designs.",
-    image: "/images/collections/chichkhane-collection.jpg",
-    products: [
-      "chichkhane-1",
-      "chichkhane-2",
-      "chichkhane-3",
-      "chichkhane-4",
-      "chichkhane-5",
-      "chichkhane-6",
-    ],
-    featured: true,
-    slug: "chichkhane-collection",
-  },
 ];
 
 export const useCollectionStore = create<CollectionState>((set, get) => ({
@@ -90,35 +98,74 @@ export const useCollectionStore = create<CollectionState>((set, get) => ({
       // For now, we'll use mock data with a simulated delay
       await new Promise((resolve) => setTimeout(resolve, 500));
 
-      let collections = mockCollections;
-
-      // Try to load Chichkhane collection data from file if available
-      try {
-        const response = await fetch("/data/chichkhane-collection.json");
-        if (response.ok) {
-          const chichkhaneCollection = await response.json();
-
-          // Replace the mock Chichkhane collection with the one from the file
-          collections = collections.filter((c) => c.id !== "chichkhane");
-          collections.push(chichkhaneCollection);
-        }
-      } catch (error) {
-        console.warn(
-          "Could not load Chichkhane collection from file, using mock data",
-          error
-        );
-      }
-
-      const featuredCollections = collections.filter(
-        (collection) => collection.featured
+      // Combine mock collections with imported Chichkhane collections
+      const processedChichkhaneCollections = processImportedCollections(
+        chichkhaneCollections
       );
 
+      // Group the Chichkhane collections by category
+      const chichkhaneCategorized = {} as Record<string, CollectionItem[]>;
+      processedChichkhaneCollections.forEach((item) => {
+        if (item.category) {
+          if (!chichkhaneCategorized[item.category]) {
+            chichkhaneCategorized[item.category] = [];
+          }
+          chichkhaneCategorized[item.category].push(item);
+        }
+      });
+
+      // Create a new collection for each category
+      const chichkhaneByCategory = Object.entries(chichkhaneCategorized).map(
+        ([category, items]) => {
+          return {
+            id: `chichkhane-${category.toLowerCase()}`,
+            name: `Chichkhane ${category} Collection`,
+            description: `Beautiful ${category.toLowerCase()} pieces from Bijouterie Chichkhane, featuring exquisite craftsmanship and timeless designs.`,
+            image: items[0].image, // Use the first item's image as the collection image
+            products: items.map((item) => item.id),
+            featured: true,
+            slug: `chichkhane-${category.toLowerCase()}-collection`,
+            source: "Chichkhane",
+          };
+        }
+      );
+
+      // Create a main Chichkhane collection that includes all items
+      const mainChichkhaneCollection = {
+        id: "chichkhane",
+        name: "Chichkhane Collection",
+        description:
+          "Elegant jewelry pieces from the renowned Bijouterie Chichkhane, featuring exquisite craftsmanship and timeless designs.",
+        image: processedChichkhaneCollections[0].image,
+        products: processedChichkhaneCollections.map((item) => item.id),
+        featured: true,
+        slug: "chichkhane-collection",
+        source: "Chichkhane",
+      };
+
+      // Add the processedChichkhaneCollections directly to the main collections array
+      // instead of creating an additional category structure
+      const allCollections = [
+        ...mockCollections,
+        mainChichkhaneCollection,
+        ...chichkhaneByCategory,
+        ...processedChichkhaneCollections, // Include all individual products directly in the collection list
+      ];
+
+      const featuredCollections = [
+        ...mockCollections.filter((collection) => collection.featured),
+        mainChichkhaneCollection, // Always feature the main Chichkhane collection
+        // Only include a few category collections to avoid overwhelming the featured section
+        ...chichkhaneByCategory.slice(0, 2),
+      ];
+
       set({
-        collections,
+        collections: allCollections,
         featuredCollections,
         isLoading: false,
       });
     } catch (error) {
+      console.error("Failed to fetch collections:", error);
       set({
         error:
           error instanceof Error

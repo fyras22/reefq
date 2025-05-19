@@ -1,0 +1,92 @@
+[
+  {
+    "id": "chichkhane_1",
+    "name": "Ensemble Diamants MO2362R",
+    "description": "Ensemble Diamants MO2362R - Bijouterie Chichkhane - Set of diamond jewelry with rose gold finish.",
+    "price": "2520 TND",
+    "imageUrl": "placeholder",
+    "category": "Set",
+    "localImagePath": "scraped_data/images/jewelry_1_1747688711658.svg"
+  },
+  {
+    "id": "chichkhane_2",
+    "name": "Ensemble Diamants MO2362B",
+    "description": "Ensemble Diamants MO2362B - Bijouterie Chichkhane - Set of diamond jewelry with white gold finish.",
+    "price": "2520 TND",
+    "imageUrl": "placeholder",
+    "category": "Set",
+    "localImagePath": "scraped_data/images/jewelry_2_1747688711658.svg"
+  },
+  {
+    "id": "chichkhane_3",
+    "name": "Ensemble Diamants MO2362J",
+    "description": "Ensemble Diamants MO2362J - Bijouterie Chichkhane - Set of diamond jewelry with yellow gold finish.",
+    "price": "2520 TND",
+    "imageUrl": "placeholder",
+    "category": "Set",
+    "localImagePath": "scraped_data/images/jewelry_3_1747688711658.svg"
+  },
+  {
+    "id": "chichkhane_4",
+    "name": "Bracelet Diamants Rose",
+    "description": "Bracelet Diamants Rose \"Chichkhane\" 70391 - Bijouterie Chichkhane - Beautiful rose diamond bracelet with unique Tunisian craftsmanship.",
+    "price": "Prix sur demande",
+    "imageUrl": "placeholder",
+    "category": "Bracelet",
+    "localImagePath": "scraped_data/images/jewelry_4_1747688711658.svg"
+  },
+  {
+    "id": "chichkhane_5",
+    "name": "Collier Diamants 68381",
+    "description": "Collier Diamants 68381 - Bijouterie Chichkhane - Elegant diamond necklace made with high-quality materials.",
+    "price": "Prix sur demande",
+    "imageUrl": "placeholder",
+    "category": "Necklace",
+    "localImagePath": "scraped_data/images/jewelry_5_1747688711658.svg"
+  },
+  {
+    "id": "chichkhane_6",
+    "name": "Boucles D'oreilles Diamants",
+    "description": "Boucles D'oreilles Diamants - Bijouterie Chichkhane - Stunning diamond earrings with intricate detailing.",
+    "price": "1200 TND",
+    "imageUrl": "placeholder",
+    "category": "Earrings",
+    "localImagePath": "scraped_data/images/jewelry_6_1747688711658.svg"
+  },
+  {
+    "id": "chichkhane_7",
+    "name": "Bague Solitaire Diamant",
+    "description": "Bague Solitaire Diamant - Bijouterie Chichkhane - Classic solitaire diamond ring, perfect for engagement.",
+    "price": "3500 TND",
+    "imageUrl": "placeholder",
+    "category": "Ring",
+    "localImagePath": "scraped_data/images/jewelry_7_1747688711658.svg"
+  },
+  {
+    "id": "chichkhane_8",
+    "name": "Pendentif Zircon",
+    "description": "Pendentif Zircon - Bijouterie Chichkhane - Beautiful zircon pendant with gold chain.",
+    "price": "760 TND",
+    "imageUrl": "placeholder",
+    "category": "Pendant",
+    "localImagePath": "scraped_data/images/jewelry_8_1747688711658.svg"
+  },
+  {
+    "id": "chichkhane_9",
+    "name": "Alliance Diamants",
+    "description": "Alliance Diamants - Bijouterie Chichkhane - Classic wedding band with small diamonds.",
+    "price": "1500 TND",
+    "imageUrl": "placeholder",
+    "category": "Ring",
+    "localImagePath": "scraped_data/images/jewelry_9_1747688711658.svg"
+  },
+  {
+    "id": "chichkhane_10",
+    "name": "Parure Mariage Diamants",
+    "description": "Parure Mariage Diamants - Bijouterie Chichkhane - Complete wedding jewelry set including necklace, earrings, and bracelet.",
+    "price": "5000 TND",
+    "imageUrl": "placeholder",
+    "category": "Set",
+    "localImagePath": "scraped_data/images/jewelry_10_1747688711658.svg"
+  }
+]

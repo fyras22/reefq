@@ -19,6 +19,9 @@
   "wishlist": "Favoris",
   "cart": "Panier",
   "account": "Compte",
+  "navigation": {
+    "home": "Accueil"
+  },
   "collections": {
     "title": "Nos Collections",
     "description": "Explorez nos collections de bijoux sélectionnées, conçues pour correspondre à votre style et à vos occasions.",

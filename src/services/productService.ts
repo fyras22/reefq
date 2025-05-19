@@ -8,6 +8,7 @@ export interface Product {
   image: string;
   category: string;
   link?: string;
+  source?: string;
 }
 
 interface ProductState {
@@ -199,34 +200,96 @@ export const useProductStore = create<ProductState>((set, get) => ({
 
       let products = { ...mockProducts };
 
-      // Try to load Chichkhane products data from file if available
+      // Import Chichkhane collections
       try {
-        const response = await fetch("/data/chichkhane-products.json");
-        if (response.ok) {
-          const chichkhaneProducts = await response.json();
+        // Dynamic import of collections to avoid circular dependencies
+        const collectionsModule = await import("@/data/collections");
+        const chichkhaneProducts = collectionsModule.collections.filter(
+          (item: any) => item.source === "Chichkhane" && item.isProduct
+        );
 
-          // Add each Chichkhane product to the products object
-          chichkhaneProducts.forEach((product: Product) => {
-            products[product.id] = product;
-          });
+        console.log(
+          `Importing ${chichkhaneProducts.length} Chichkhane products to product service`
+        );
+
+        // Add each Chichkhane product to the products object
+        chichkhaneProducts.forEach((collection: any) => {
+          if (collection.products && collection.products.length > 0) {
+            const productId = collection.products[0];
+
+            // Create a product from the collection data
+            products[productId] = {
+              id: productId,
+              name: collection.name,
+              description: collection.description,
+              price: "Contact for price", // Default price if not available
+              image: collection.image,
+              category: collection.name.split(" ")[0], // Use the first word as category
+              source: "Chichkhane",
+            };
+          }
+        });
+
+        // Additionally, look for any products directly in the chichkhaneCollections file
+        try {
+          const chichkhaneModule = await import("@/data/chichkhaneCollections");
+          if (chichkhaneModule.chichkhaneCollections) {
+            console.log(
+              `Found ${chichkhaneModule.chichkhaneCollections.length} direct Chichkhane products`
+            );
+
+            chichkhaneModule.chichkhaneCollections.forEach((product: any) => {
+              // Check if this product is already in our products object
+              if (!products[product.id]) {
+                // Convert price format if needed
+                let price = product.price;
+                if (typeof price === "string" && price.includes("TND")) {
+                  // Convert from TND to USD at a fixed rate for display purposes
+                  const tndValue = parseFloat(price.replace(/[^0-9.]/g, ""));
+                  if (!isNaN(tndValue)) {
+                    // Approximate conversion rate
+                    const usdValue = (tndValue * 0.32).toFixed(2);
+                    price = `$${usdValue}`;
+                  }
+                }
+
+                // Ensure image path is correct - check if .png extension but file is .jpg
+                let imagePath = product.image;
+                if (imagePath && imagePath.endsWith(".png")) {
+                  // Try .jpg instead for real images
+                  const jpgPath = imagePath.replace(".png", ".jpg");
+                  console.log(
+                    `Converting image path from ${imagePath} to ${jpgPath}`
+                  );
+                  imagePath = jpgPath;
+                }
+
+                // Add the product to our products object
+                products[product.id] = {
+                  id: product.id,
+                  name: product.name,
+                  description: product.description || product.name,
+                  price: price,
+                  image: imagePath,
+                  category: product.category || "Jewelry",
+                  source: "Chichkhane",
+                };
+              }
+            });
+          }
+        } catch (chichkhaneError) {
+          console.error(
+            "Error importing chichkhaneCollections:",
+            chichkhaneError
+          );
         }
       } catch (error) {
-        console.warn(
-          "Could not load Chichkhane products from file, using mock data",
-          error
-        );
+        console.error("Error importing collections for products:", error);
       }
 
-      set({
-        products,
-        isLoading: false,
-      });
+      set({ products, isLoading: false });
     } catch (error) {
-      set({
-        error:
-          error instanceof Error ? error.message : "Failed to fetch products",
-        isLoading: false,
-      });
+      set({ error: (error as Error).message, isLoading: false });
     }
   },
 

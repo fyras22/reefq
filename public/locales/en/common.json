@@ -19,6 +19,9 @@
   "wishlist": "Wishlist",
   "cart": "Cart",
   "account": "Account",
+  "navigation": {
+    "home": "Home"
+  },
   "collections": {
     "title": "Our Collections",
     "description": "Explore our curated jewelry collections, designed to match your style and occasions.",

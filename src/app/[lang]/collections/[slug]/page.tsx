@@ -1,11 +1,11 @@
 "use client";
 
 import { useTranslation } from "@/app/i18n-client";
+import { ProductImage } from "@/components/ui/ProductImage";
 import { WishlistHeart } from "@/components/ui/WishlistHeart";
 import { useCollections } from "@/services/collectionService";
 import { useProducts, type Product } from "@/services/productService";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -145,7 +145,7 @@ export default function CollectionDetailPage() {
 
   useEffect(() => {
     const collection = getCollectionBySlug(slug);
-    if (collection) {
+    if (collection && collection.products) {
       // Get the products for this collection using our product service
       const productItems = getProductsByIds(collection.products);
 
@@ -161,8 +161,10 @@ export default function CollectionDetailPage() {
           }));
 
         setCollectionProducts(fallbackProducts as unknown as Product[]);
+        console.log("Using fallback products:", fallbackProducts);
       } else {
         setCollectionProducts(productItems);
+        console.log("Using actual products:", productItems);
       }
     }
   }, [getCollectionBySlug, getProductsByIds, products, slug]);
@@ -204,12 +206,11 @@ export default function CollectionDetailPage() {
     <>
       {/* Hero Section */}
       <div className="relative h-96 w-full overflow-hidden">
-        <Image
+        <ProductImage
           src={collection.image}
           alt={collection.name}
-          fill
-          priority
           className="object-cover"
+          productId={collection.id}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
 
@@ -220,7 +221,7 @@ export default function CollectionDetailPage() {
                 href={`/${lang}`}
                 className="text-gray-300 hover:text-white transition-colors"
               >
-                {t("home")}
+                {t("navigation.home")}
               </Link>
               <span className="mx-2 text-gray-500">/</span>
               <Link
@@ -261,7 +262,9 @@ export default function CollectionDetailPage() {
             {t("collections.productsInCollection")}
           </h2>
           <span className="px-4 py-2 bg-gray-100 rounded-full text-sm font-medium">
-            {t("collections.itemCount", { count: collection.products.length })}
+            {t("collections.itemCount", {
+              count: collection.products?.length || 0,
+            })}
           </span>
         </div>
 
@@ -276,11 +279,11 @@ export default function CollectionDetailPage() {
             >
               <div className="aspect-square relative">
                 <Link href={`/${lang}/products/${product.id}`}>
-                  <Image
+                  <ProductImage
                     src={product.image}
                     alt={product.name}
-                    fill
                     className="object-cover transition-transform group-hover:scale-105"
+                    productId={product.id}
                   />
                 </Link>
                 <div className="absolute top-2 right-2 z-10">
