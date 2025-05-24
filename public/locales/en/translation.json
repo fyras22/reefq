@@ -31,6 +31,9 @@
       "description": "Unleash a new vision of digital jewelry with the ReefQ platform. We combine augmented reality technology with high-fidelity 3D visualization to provide a unique jewelry shopping experience for merchants and customers."
     }
   },
+  "hero": {
+    "badge": "Premium Jewelry Experience"
+  },
   "products": "Products",
   "try_fit": "Try & Fit",
   "jewelry_knowledge": "Jewelry Knowledge",
@@ -157,18 +160,26 @@
       "feature7": "API Access",
       "feature8": "White-label Solution"
     },
-    "cta": "Choose ReefQ Today"
+    "cta": "Choose ReefQ Today",
+    "feature": "Feature"
   },
   "faq": {
     "stillHaveQuestions": "Still have questions?",
-    "contactUs": "Contact our team"
+    "contactUs": "Contact our team",
+    "moreQuestions": "Have more questions? We're here to help."
   },
   "footer": {
     "slogan": "Transforming jewelry shopping with innovative technology",
     "craftedWith": "Crafted with"
   },
   "buttons": {
-    "explore": "Explore"
+    "explore": "Explore",
+    "tryItNow": "Try It Now",
+    "contactUs": "Contact Us"
+  },
+  "pricing": {
+    "contactUs": "Contact Us for Details",
+    "mostPopular": "Most Popular"
   },
   "jewelryViewer": {
     "title": "Interactive 3D Jewelry Explorer",

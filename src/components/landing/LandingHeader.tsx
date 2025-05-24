@@ -1,6 +1,6 @@
 "use client";
 
-import { ThemeSwitch } from "@/components/ui/ThemeSwitch";
+import { FallbackImage, ThemeSwitch } from "@/components/ui";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/providers/AuthProvider";
 import {
@@ -11,7 +11,6 @@ import {
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import { AnimatePresence, motion } from "framer-motion";
 import { TFunction } from "i18next";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
@@ -119,7 +118,7 @@ export function LandingHeader({
           : "bg-transparent backdrop-blur-sm py-4"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 flex justify-between items-center">
+      <div className="container mx-auto flex justify-between items-center">
         {/* Logo - Left in LTR, Right in RTL */}
         <div
           className={`flex-shrink-0 ${isRTL ? "order-3 lg:order-3" : "order-1"}`}
@@ -127,13 +126,14 @@ export function LandingHeader({
           <Link href={`/${lang}`} className="flex items-center">
             <span className="sr-only">Reefq</span>
             {/* Consistent logo regardless of scroll state */}
-            <Image
+            <FallbackImage
               src="/logo.png"
               alt={isRTL ? "رِفق" : "ReefQ"}
-              width={180}
-              height={60}
-              className="h-14 lg:h-16 w-auto object-contain"
+              width={200}
+              height={70}
+              className="h-16 lg:h-20 w-auto object-contain"
               priority
+              fallbackSrc="/images/fallback-logo.svg"
             />
           </Link>
         </div>

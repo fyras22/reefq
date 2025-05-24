@@ -25,7 +25,7 @@ export function CoreFeaturesSection({
 }: CoreFeaturesSectionProps) {
   return (
     <section className="py-24 bg-white overflow-hidden">
-      <div className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto">
         <div className="text-center mb-16">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}

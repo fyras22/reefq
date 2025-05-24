@@ -1,8 +1,8 @@
 "use client";
 
+import { FallbackImage } from "@/components/ui";
 import { motion } from "framer-motion";
 import { TFunction } from "i18next";
-import Image from "next/image";
 
 interface HowItWorksSectionProps {
   t: TFunction;
@@ -15,31 +15,31 @@ export function HowItWorksSection({ t, isRTL }: HowItWorksSectionProps) {
       id: "step1",
       title: t("howItWorks.step1.title"),
       description: t("howItWorks.step1.description"),
-      imageUrl: "/images/how-it-works/step1.webp",
+      imageUrl: "/images/how-it-works/step1.svg",
     },
     {
       id: "step2",
       title: t("howItWorks.step2.title"),
       description: t("howItWorks.step2.description"),
-      imageUrl: "/images/how-it-works/step2.webp",
+      imageUrl: "/images/how-it-works/step2.svg",
     },
     {
       id: "step3",
       title: t("howItWorks.step3.title"),
       description: t("howItWorks.step3.description"),
-      imageUrl: "/images/how-it-works/step3.webp",
+      imageUrl: "/images/how-it-works/step3.svg",
     },
     {
       id: "step4",
       title: t("howItWorks.step4.title"),
       description: t("howItWorks.step4.description"),
-      imageUrl: "/images/how-it-works/step4.webp",
+      imageUrl: "/images/how-it-works/step4.svg",
     },
   ];
 
   return (
     <section className="py-24 bg-gray-50">
-      <div className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto">
         <div className="text-center mb-16">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -92,11 +92,12 @@ export function HowItWorksSection({ t, isRTL }: HowItWorksSectionProps) {
                 </div>
                 <div className="md:w-1/2">
                   <div className="rounded-2xl overflow-hidden shadow-lg relative aspect-video">
-                    <Image
+                    <FallbackImage
                       src={step.imageUrl}
                       alt={step.title}
                       className="object-cover"
                       fill
+                      fallbackSrc="/images/fallback-how-it-works.svg"
                     />
                   </div>
                 </div>

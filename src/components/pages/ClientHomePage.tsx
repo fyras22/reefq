@@ -11,7 +11,7 @@ import { LandingHeader } from "@/components/landing/LandingHeader";
 import { TestimonialsSection } from "@/components/landing/TestimonialsSection";
 import LandingSidebar from "@/components/layout/LandingSidebar";
 import AdvancedSEO from "@/components/seo/AdvancedSEO";
-import { Button, Card } from "@/components/ui";
+import { Button, Card, FallbackImage } from "@/components/ui";
 import {
   BookOpenIcon,
   ChartBarIcon,
@@ -20,7 +20,6 @@ import {
   SquaresPlusIcon,
 } from "@heroicons/react/24/outline";
 import { AnimatePresence, motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
 import { Suspense, lazy, useEffect, useMemo, useState } from "react";
 
@@ -420,7 +419,7 @@ export default function ClientHomePage({ lang }: ClientHomePageProps) {
             id="collections"
             className="py-20 bg-skin-soft dark:bg-neutral-800/20"
           >
-            <div className="mx-auto max-w-screen-2xl px-6 lg:px-8">
+            <div className="container mx-auto">
               <div className="text-center mb-16">
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
                   {t("collections.title")}
@@ -435,7 +434,7 @@ export default function ClientHomePage({ lang }: ClientHomePageProps) {
 
           {/* Extended Features Section */}
           <section id="features" className="py-20 bg-white dark:bg-neutral-900">
-            <div className="mx-auto max-w-screen-2xl px-6 lg:px-8">
+            <div className="container mx-auto">
               <div className="text-center mb-16">
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
                   {t("features.title")}
@@ -480,11 +479,12 @@ export default function ClientHomePage({ lang }: ClientHomePageProps) {
 
                       {feature.image && (
                         <div className="relative h-48 mb-4 rounded-lg overflow-hidden">
-                          <Image
+                          <FallbackImage
                             src={feature.image}
                             alt={feature.name}
                             fill
                             className="object-cover"
+                            fallbackSrc="/images/fallback-collection.svg"
                           />
                         </div>
                       )}
@@ -518,7 +518,7 @@ export default function ClientHomePage({ lang }: ClientHomePageProps) {
             id="jewelry-viewer"
             className="py-20 bg-skin-soft dark:bg-neutral-800/20 overflow-hidden"
           >
-            <div className="mx-auto max-w-screen-2xl px-6 lg:px-8">
+            <div className="container mx-auto">
               <div className="text-center mb-16">
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
                   {t("jewelryViewer.title")}
@@ -567,7 +567,7 @@ export default function ClientHomePage({ lang }: ClientHomePageProps) {
                   </div>
                 </div>
 
-                <div className="lg:w-1/2 h-[500px] bg-white dark:bg-neutral-800 rounded-lg shadow-xl overflow-hidden">
+                <div className="lg:w-2/5 w-full max-w-md h-[350px] bg-white dark:bg-neutral-800 rounded-lg shadow-xl overflow-hidden p-0 mx-auto">
                   <JewelryViewer />
                 </div>
               </div>
@@ -609,7 +609,7 @@ export default function ClientHomePage({ lang }: ClientHomePageProps) {
 
           {/* FAQ Section (with custom FaqItem component) */}
           <section id="faq" className="py-20 bg-white dark:bg-neutral-900">
-            <div className="mx-auto max-w-screen-2xl px-6 lg:px-8">
+            <div className="container mx-auto">
               <div className="text-center mb-16">
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
                   {t("faq.title")}

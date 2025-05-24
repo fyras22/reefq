@@ -28,7 +28,8 @@
     "hero": {
       "title1": "Votre expérience bijoux",
       "title2": "numérique réinventée",
-      "description": "Découvrez une nouvelle vision des bijoux numériques avec la plateforme ReefQ. Nous combinons la technologie de réalité augmentée avec une visualisation 3D haute-fidélité pour offrir une expérience d'achat unique aux marchands et aux clients."
+      "description": "Découvrez une nouvelle vision des bijoux numériques avec la plateforme ReefQ. Nous combinons la technologie de réalité augmentée avec une visualisation 3D haute-fidélité pour offrir une expérience d'achat unique aux marchands et aux clients.",
+      "badge": "Expérience Bijouterie Premium"
     }
   },
   "products": "Produits",
@@ -89,7 +90,7 @@
   },
   "pricing": {
     "mostPopular": "Le Plus Populaire",
-    "contactUs": "Contactez-Nous"
+    "contactUs": "Contactez-nous pour plus de détails"
   },
   "virtualTryOn": {
     "title": "Expérience d'Essayage Virtuel",
@@ -155,18 +156,22 @@
       "feature7": "Accès API",
       "feature8": "Solution en Marque Blanche"
     },
-    "cta": "Choisissez ReefQ Aujourd'hui"
+    "cta": "Choisissez ReefQ Aujourd'hui",
+    "feature": "Fonctionnalité"
   },
   "faq": {
     "stillHaveQuestions": "Vous avez encore des questions ?",
-    "contactUs": "Contactez notre équipe"
+    "contactUs": "Contactez notre équipe",
+    "moreQuestions": "Vous avez d'autres questions? Nous sommes là pour vous aider."
   },
   "footer": {
     "slogan": "Transformer l'achat de bijoux avec une technologie innovante",
     "craftedWith": "Conçu avec"
   },
   "buttons": {
-    "explore": "Explorer"
+    "explore": "Explorer",
+    "tryItNow": "Essayez Maintenant",
+    "contactUs": "Contactez-nous"
   },
   "jewelryViewer": {
     "title": "Explorateur 3D de Bijoux Interactif",

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <rect width="800" height="600" fill="#C4A265"/>
+  <text x="400" y="250" font-family="Arial" font-size="40" font-weight="bold" fill="white" text-anchor="middle">Royal Heritage Collection</text>
+  <text x="400" y="320" font-family="Arial" font-size="24" fill="white" text-anchor="middle">Elegant jewelry inspired by ancient royal designs</text>
+  <g fill="white" transform="translate(350, 400) scale(0.12)">
+    <path d="M490.3 40.4C512.2 62.3 512.2 97.7 490.3 119.6L460.3 149.7L350.3 39.6L380.4 9.7C402.3-12.3 437.7-12.2 459.6 9.7L490.3 40.4zM172.4 241.7L339.7 74.4L449.8 184.4L282.4 351.7C266.8 367.3 246.4 377.4 224.7 380.7L129.1 392C113.1 394.5 100.3 383.5 98.5 368.1L88.3 275.2C85.6 254.2 95.1 233.6 110.3 218.3H110.3L172.4 241.7zM0 512C0 482.3 24.3 458 54 458H470C499.7 458 524 482.3 524 512C524 541.7 499.7 566 470 566H54C24.3 566 0 541.7 0 512z"/>
+  </g>
+</svg> 

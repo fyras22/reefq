@@ -1,16 +1,68 @@
 "use client";
 
-import { ArrowRightIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowPathIcon,
+  ArrowRightIcon,
+  MagnifyingGlassIcon,
+  SparklesIcon,
+  SwatchIcon,
+} from "@heroicons/react/24/outline";
 import { motion } from "framer-motion";
 import { TFunction } from "i18next";
-import Image from "next/image";
+import dynamic from "next/dynamic";
+import { useState } from "react";
 
 interface HeroSectionProps {
   t: TFunction;
   isRTL: boolean;
 }
 
+// Dynamically import the JewelryViewer with no SSR
+const DynamicJewelryViewer = dynamic(
+  () =>
+    import("@/components/JewelryViewer").then((mod) => ({
+      default: mod.JewelryViewer,
+    })),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="flex h-full w-full items-center justify-center">
+        <div className="text-center">
+          <div className="text-sm font-medium text-gray-900 dark:text-white">
+            Loading 3D Viewer...
+          </div>
+          <div className="mt-2 h-2 w-32 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
+            <div className="h-full w-1/3 animate-pulse bg-nile-teal" />
+          </div>
+        </div>
+      </div>
+    ),
+  }
+);
+
 export function HeroSection({ t, isRTL }: HeroSectionProps) {
+  // State for jewelry viewer options
+  const [metalType, setMetalType] = useState<
+    "gold" | "silver" | "platinum" | "rose-gold"
+  >("gold");
+  const [gemType, setGemType] = useState<
+    "diamond" | "ruby" | "sapphire" | "emerald"
+  >("emerald");
+  const [zoomLevel, setZoomLevel] = useState(1);
+  const [showZoomSlider, setShowZoomSlider] = useState(false);
+
+  // Function to reset view
+  const resetView = () => {
+    setMetalType("gold");
+    setGemType("emerald");
+    setZoomLevel(1);
+  };
+
+  // Function to handle zoom level change
+  const handleZoomChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setZoomLevel(parseFloat(e.target.value));
+  };
+
   return (
     <section className="relative overflow-hidden pt-20 pb-16 sm:pt-32 sm:pb-24 lg:pb-32">
       {/* Background decorative elements */}
@@ -45,7 +97,7 @@ export function HeroSection({ t, isRTL }: HeroSectionProps) {
         </div>
       </div>
 
-      <div className="mx-auto max-w-screen-2xl px-6 lg:px-8">
+      <div className="container mx-auto">
         <div
           className={`flex flex-col lg:flex-row ${isRTL ? "lg:flex-row-reverse" : ""} items-center gap-x-8 gap-y-16`}
         >
@@ -178,7 +230,7 @@ export function HeroSection({ t, isRTL }: HeroSectionProps) {
             </motion.div>
           </div>
 
-          {/* Hero Image */}
+          {/* Hero 3D Jewelry Viewer */}
           <motion.div
             initial={{ opacity: 0, x: isRTL ? -50 : 50 }}
             animate={{ opacity: 1, x: 0 }}
@@ -186,15 +238,116 @@ export function HeroSection({ t, isRTL }: HeroSectionProps) {
             className="lg:w-1/2 relative"
           >
             <div className="aspect-[4/3] w-full rounded-2xl bg-gray-50 dark:bg-neutral-800 object-cover lg:aspect-[1/1] lg:h-[34rem] overflow-hidden shadow-xl">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <Image
-                  src="/images/hero-jewelry.jpg"
-                  alt={isRTL ? "مجوهرات رِفق" : "ReefQ Jewelry"}
-                  width={800}
-                  height={800}
-                  className="w-full h-full object-cover"
-                  priority
+              <div className="absolute inset-0">
+                <DynamicJewelryViewer
+                  metalType={metalType}
+                  gemType={gemType}
+                  size={zoomLevel}
                 />
+              </div>
+
+              {/* Interactive Controls */}
+              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex items-center gap-2 z-20">
+                <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-full p-1 flex items-center gap-1 shadow-lg">
+                  {/* Zoom control */}
+                  <div className="relative">
+                    <button
+                      onClick={() => setShowZoomSlider(!showZoomSlider)}
+                      className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-neutral-700 transition-colors relative"
+                      aria-label="Zoom controls"
+                      title="Zoom controls"
+                    >
+                      <MagnifyingGlassIcon className="h-5 w-5 text-gray-700 dark:text-gray-300" />
+                      <span className="absolute -top-2 -right-2 bg-nile-teal text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                        {Math.round(zoomLevel * 10) / 10}x
+                      </span>
+                    </button>
+
+                    {/* Zoom slider popup */}
+                    {showZoomSlider && (
+                      <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-white dark:bg-neutral-800 rounded-lg shadow-lg p-3 min-w-[200px]">
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
+                            0.5x
+                          </span>
+                          <span className="text-sm font-medium text-nile-teal">
+                            {zoomLevel.toFixed(1)}x
+                          </span>
+                          <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
+                            2.0x
+                          </span>
+                        </div>
+                        <input
+                          type="range"
+                          min="0.5"
+                          max="2"
+                          step="0.1"
+                          value={zoomLevel}
+                          onChange={handleZoomChange}
+                          className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-nile-teal"
+                        />
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Metal type selector */}
+                  <div className="p-2 flex items-center gap-1">
+                    <SwatchIcon className="h-5 w-5 text-gray-700 dark:text-gray-300" />
+                    <select
+                      value={metalType}
+                      onChange={(e) =>
+                        setMetalType(
+                          e.target.value as
+                            | "gold"
+                            | "silver"
+                            | "platinum"
+                            | "rose-gold"
+                        )
+                      }
+                      className="bg-transparent border-none text-sm text-gray-700 dark:text-gray-300 focus:ring-0 focus:outline-none p-0"
+                      aria-label="Select metal type"
+                    >
+                      <option value="gold">Gold</option>
+                      <option value="silver">Silver</option>
+                      <option value="platinum">Platinum</option>
+                      <option value="rose-gold">Rose Gold</option>
+                    </select>
+                  </div>
+
+                  {/* Gem type selector */}
+                  <div className="p-2 flex items-center gap-1">
+                    <SparklesIcon className="h-5 w-5 text-gray-700 dark:text-gray-300" />
+                    <select
+                      value={gemType}
+                      onChange={(e) =>
+                        setGemType(
+                          e.target.value as
+                            | "diamond"
+                            | "ruby"
+                            | "sapphire"
+                            | "emerald"
+                        )
+                      }
+                      className="bg-transparent border-none text-sm text-gray-700 dark:text-gray-300 focus:ring-0 focus:outline-none p-0"
+                      aria-label="Select gem type"
+                    >
+                      <option value="diamond">Diamond</option>
+                      <option value="ruby">Ruby</option>
+                      <option value="sapphire">Sapphire</option>
+                      <option value="emerald">Emerald</option>
+                    </select>
+                  </div>
+
+                  {/* Reset view */}
+                  <button
+                    onClick={resetView}
+                    className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-neutral-700 transition-colors"
+                    aria-label="Reset view"
+                    title="Reset view"
+                  >
+                    <ArrowPathIcon className="h-5 w-5 text-gray-700 dark:text-gray-300" />
+                  </button>
+                </div>
               </div>
 
               {/* Floating badges */}
@@ -202,7 +355,7 @@ export function HeroSection({ t, isRTL }: HeroSectionProps) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5, duration: 0.5 }}
-                className={`absolute -top-6 ${isRTL ? "right-10" : "left-10"} bg-white dark:bg-neutral-800 rounded-lg shadow-lg p-3 flex items-center gap-3`}
+                className={`absolute -top-6 ${isRTL ? "right-10" : "left-10"} bg-white dark:bg-neutral-800 rounded-lg shadow-lg p-3 flex items-center gap-3 z-10`}
               >
                 <div className="rounded-full bg-nile-teal/10 p-2">
                   <svg
@@ -233,7 +386,7 @@ export function HeroSection({ t, isRTL }: HeroSectionProps) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.7, duration: 0.5 }}
-                className={`absolute -bottom-6 ${isRTL ? "left-10" : "right-10"} bg-white dark:bg-neutral-800 rounded-lg shadow-lg p-3 flex items-center gap-3`}
+                className={`absolute -bottom-6 ${isRTL ? "left-10" : "right-10"} bg-white dark:bg-neutral-800 rounded-lg shadow-lg p-3 flex items-center gap-3 z-10`}
               >
                 <div className="rounded-full bg-pharaonic-gold/10 p-2">
                   <svg

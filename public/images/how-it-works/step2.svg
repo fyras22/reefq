@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f8f9fa" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#e9ecef" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="gold-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e6c566" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#C4A265" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="gem-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2A5B5E" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#1a3739" stop-opacity="1"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="450" fill="url(#bg-gradient)" rx="15" ry="15"/>
+  
+  <!-- App interface -->
+  <rect x="100" y="50" width="600" height="350" rx="10" ry="10" fill="white" stroke="#dee2e6" stroke-width="2"/>
+  
+  <!-- Left panel - customization options -->
+  <rect x="100" y="50" width="200" height="350" rx="10" ry="10" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1"/>
+  
+  <!-- Option categories -->
+  <rect x="120" y="80" width="160" height="40" rx="5" ry="5" fill="#e9ecef"/>
+  <text x="200" y="105" font-family="Arial" font-size="14" fill="#495057" text-anchor="middle">Metal Type</text>
+  
+  <rect x="120" y="130" width="50" height="25" rx="12.5" ry="12.5" fill="url(#gold-gradient)" stroke="#dee2e6" stroke-width="1"/>
+  <rect x="180" y="130" width="50" height="25" rx="12.5" ry="12.5" fill="#e0e0e0" stroke="#dee2e6" stroke-width="1"/>
+  <rect x="240" y="130" width="50" height="25" rx="12.5" ry="12.5" fill="#e5e4e2" stroke="#dee2e6" stroke-width="1"/>
+  
+  <rect x="120" y="180" width="160" height="40" rx="5" ry="5" fill="#e9ecef"/>
+  <text x="200" y="205" font-family="Arial" font-size="14" fill="#495057" text-anchor="middle">Gemstone</text>
+  
+  <circle cx="145" cy="245" r="12" fill="white" stroke="#dee2e6" stroke-width="1"/>
+  <circle cx="180" cy="245" r="12" fill="#E0115F" stroke="#dee2e6" stroke-width="1"/>
+  <circle cx="215" cy="245" r="12" fill="#0F52BA" stroke="#dee2e6" stroke-width="1"/>
+  <circle cx="250" cy="245" r="12" fill="url(#gem-gradient)" stroke="#dee2e6" stroke-width="1"/>
+  
+  <rect x="120" y="280" width="160" height="40" rx="5" ry="5" fill="#e9ecef"/>
+  <text x="200" y="305" font-family="Arial" font-size="14" fill="#495057" text-anchor="middle">Size</text>
+  
+  <rect x="120" y="330" width="160" height="20" rx="10" ry="10" fill="#dee2e6"/>
+  <circle cx="200" cy="340" r="10" fill="#2A5B5E" stroke="white" stroke-width="2"/>
+  
+  <!-- Right panel - jewelry preview -->
+  <rect x="320" y="70" width="360" height="240" rx="5" ry="5" fill="#f8f9fa"/>
+  
+  <!-- Ring visualization -->
+  <circle cx="500" cy="190" r="100" fill="none" stroke="url(#gold-gradient)" stroke-width="20"/>
+  <circle cx="500" cy="120" r="25" fill="url(#gem-gradient)"/>
+  
+  <!-- Controls -->
+  <circle cx="400" cy="190" r="15" fill="white" stroke="#dee2e6" stroke-width="2"/>
+  <path d="M395 190 L405 190 M400 185 L400 195" stroke="#6c757d" stroke-width="2"/>
+  
+  <circle cx="600" cy="190" r="15" fill="white" stroke="#dee2e6" stroke-width="2"/>
+  <path d="M595 190 L605 190" stroke="#6c757d" stroke-width="2"/>
+  
+  <rect x="420" y="340" width="160" height="40" rx="5" ry="5" fill="#2A5B5E"/>
+  <text x="500" y="365" font-family="Arial" font-size="14" fill="white" text-anchor="middle">Customize Now</text>
+  
+  <!-- Title -->
+  <text x="400" y="400" font-family="Arial" font-size="22" font-weight="bold" fill="#343a40" text-anchor="middle" visibility="hidden">Customize Your Jewelry</text>
+  <text x="400" y="430" font-family="Arial" font-size="16" fill="#6c757d" text-anchor="middle" visibility="hidden">Design your perfect piece</text>
+</svg> 

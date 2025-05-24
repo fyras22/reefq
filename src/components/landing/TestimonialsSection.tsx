@@ -1,5 +1,6 @@
 "use client";
 
+import { FallbackImage } from "@/components/ui";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { motion } from "framer-motion";
 import { TFunction } from "i18next";
@@ -37,7 +38,7 @@ export function TestimonialsSection({
 
   return (
     <section className="py-24 bg-white">
-      <div className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto">
         <div className="text-center">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -161,31 +162,43 @@ export function TestimonialsSection({
           </p>
           <div className="mt-6 grid grid-cols-2 gap-8 md:grid-cols-4">
             <div className="col-span-1 flex justify-center md:col-span-1">
-              <img
+              <FallbackImage
                 className="h-12 grayscale"
                 src="/images/logos/logo-1.svg"
                 alt="Company 1"
+                width={200}
+                height={70}
+                fallbackSrc="/images/fallback-logo.svg"
               />
             </div>
             <div className="col-span-1 flex justify-center md:col-span-1">
-              <img
+              <FallbackImage
                 className="h-12 grayscale"
                 src="/images/logos/logo-2.svg"
                 alt="Company 2"
+                width={200}
+                height={70}
+                fallbackSrc="/images/fallback-logo.svg"
               />
             </div>
             <div className="col-span-1 flex justify-center md:col-span-1">
-              <img
+              <FallbackImage
                 className="h-12 grayscale"
                 src="/images/logos/logo-3.svg"
                 alt="Company 3"
+                width={200}
+                height={70}
+                fallbackSrc="/images/fallback-logo.svg"
               />
             </div>
             <div className="col-span-1 flex justify-center md:col-span-1">
-              <img
+              <FallbackImage
                 className="h-12 grayscale"
                 src="/images/logos/logo-4.svg"
                 alt="Company 4"
+                width={200}
+                height={70}
+                fallbackSrc="/images/fallback-logo.svg"
               />
             </div>
           </div>

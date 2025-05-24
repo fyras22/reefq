@@ -1,11 +1,43 @@
 "use client";
 
 import { useTranslation } from "@/app/i18n-client";
+import { FallbackImage } from "@/components/ui";
 import { useCollections } from "@/services/collectionService";
-import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
+// Mock collection data with local SVG images
+const mockCollections = [
+  {
+    id: "royal-heritage",
+    name: "Royal Heritage",
+    description: "Elegant jewelry inspired by ancient royal designs",
+    image: "/images/collections-generated/royal-heritage.svg",
+    products: Array(24).fill({}),
+    slug: "royal-heritage",
+    featured: true,
+  },
+  {
+    id: "nature-inspired",
+    name: "Nature Inspired",
+    description:
+      "Beautiful pieces that capture the essence of natural elements",
+    image: "/images/collections-generated/nature-inspired.svg",
+    products: Array(18).fill({}),
+    slug: "nature-inspired",
+    featured: true,
+  },
+  {
+    id: "vintage-elegance",
+    name: "Vintage Elegance",
+    description: "Timeless pieces inspired by classic jewelry designs",
+    image: "/images/collections-generated/vintage-elegance.svg",
+    products: Array(21).fill({}),
+    slug: "vintage-elegance",
+    featured: true,
+  },
+];
 
 export function FeaturedCollections() {
   const { featuredCollections, isLoading, error, fetchCollections } =
@@ -13,12 +45,27 @@ export function FeaturedCollections() {
   const params = useParams();
   const lang = (params?.lang as string) || "en";
   const { t } = useTranslation(lang, "common");
+  const [collections, setCollections] = useState(mockCollections);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // First try to fetch real collections
     fetchCollections();
+    // Add a short timeout to prevent loading flash
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 500);
+    return () => clearTimeout(timer);
   }, [fetchCollections]);
 
-  if (isLoading) {
+  useEffect(() => {
+    // If we got real collections from the service, use them
+    if (featuredCollections && featuredCollections.length > 0) {
+      setCollections(featuredCollections);
+    }
+  }, [featuredCollections]);
+
+  if (loading) {
     return (
       <div className="flex justify-center items-center h-60">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
@@ -26,14 +73,14 @@ export function FeaturedCollections() {
     );
   }
 
-  if (error || featuredCollections.length === 0) {
+  if (error && collections.length === 0) {
     return null;
   }
 
   return (
-    <div className="mx-auto max-w-screen-2xl px-6 lg:px-8">
+    <div className="container mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {featuredCollections.slice(0, 3).map((collection) => (
+        {collections.slice(0, 3).map((collection) => (
           <Link
             key={collection.id}
             href={`/${lang}/collections/${collection.slug}`}
@@ -41,15 +88,13 @@ export function FeaturedCollections() {
           >
             <div className="overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 h-full">
               <div className="relative h-80 w-full">
-                <Image
-                  src={
-                    collection.image ||
-                    "/images/collections/fallback-collection.jpg"
-                  }
+                <FallbackImage
+                  src={collection.image}
                   alt={collection.name}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  fallbackSrc="/images/fallback-collection.svg"
                 />
                 <div className="absolute top-4 right-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-medium">
                   {t("collections.featured")}

@@ -192,6 +192,25 @@ h6 {
 }
 
 @layer components {
+  .container {
+    width: 100%;
+    max-width: 1536px; /* Increased from 1280px (max-w-7xl) to 1536px (max-w-8xl) */
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+
+    @media (min-width: 640px) {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+
+    @media (min-width: 1024px) {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
   .container-fluid {
     width: 100%;
     padding-right: 1rem;

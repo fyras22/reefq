@@ -1,11 +1,16 @@
 "use client";
 
-import { Html, OrbitControls, useGLTF } from "@react-three/drei";
+import {
+  Html,
+  OrbitControls,
+  PerspectiveCamera,
+  useGLTF,
+} from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
-import Image from "next/image";
 import { Suspense, useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { CustomEnvironment } from "./CustomEnvironment";
+import { FallbackImage } from "./ui";
 
 interface JewelryViewerProps {
   metalType?: "gold" | "silver" | "platinum" | "rose-gold" | "white-gold";
@@ -167,16 +172,19 @@ function JewelryModel({
     }
   }
 
+  // Apply zoom level
   useEffect(() => {
     if (groupRef.current) {
-      // Scale the model proportionally
-      groupRef.current.scale.set(size, size, size);
+      // Apply the size as a scale factor
+      const baseScale = 2.5; // Base scale of the model
+      groupRef.current.scale.set(
+        baseScale * size,
+        baseScale * size,
+        baseScale * size
+      );
 
-      // Position it higher in the viewport (increased y position)
-      groupRef.current.position.set(0, 1.5, 0);
-
-      // Slightly rotate for better initial view
-      groupRef.current.rotation.set(-Math.PI / 12, Math.PI / 6, 0);
+      // Position it higher in the viewport for better visibility
+      groupRef.current.position.set(0, 0.5, 0);
     }
   }, [size]);
 
@@ -302,17 +310,17 @@ function JewelryModel({
   useFrame(({ clock }) => {
     if (groupRef.current) {
       const t = clock.getElapsedTime();
-      // Very subtle floating motion
-      groupRef.current.position.y = 1.5 + Math.sin(t * 0.5) * 0.03;
+      // Very subtle floating motion - reduced amplitude
+      groupRef.current.position.y = 1.2 + Math.sin(t * 0.5) * 0.02;
 
-      // Very subtle rotation
-      groupRef.current.rotation.y = Math.PI / 6 + Math.sin(t * 0.25) * 0.05;
+      // Very subtle rotation - reduced amplitude
+      groupRef.current.rotation.y = Math.PI / 6 + Math.sin(t * 0.25) * 0.03;
     }
   });
 
   return (
-    <group ref={groupRef}>
-      <primitive object={scene} />
+    <group ref={groupRef} dispose={null} rotation={[0.5, 0, 0]}>
+      <primitive object={scene.clone()} />
       {engraving && (
         <Html
           position={[0, -0.5, 0]}
@@ -365,13 +373,14 @@ export function JewelryViewer(props: JewelryViewerProps) {
   // Fall back to image if there's an error
   if (error) {
     return (
-      <div className="mx-auto max-w-screen-2xl px-6 lg:px-8 text-center py-12">
-        <Image
+      <div className="w-full h-full text-center">
+        <FallbackImage
           src="/images/jewelry-fallback.jpg"
           alt="Jewelry"
           width={600}
           height={400}
           className="mx-auto rounded-lg shadow-lg"
+          fallbackSrc="/images/fallback-product.svg"
         />
         <p className="mt-4 text-gray-500">
           Interactive 3D viewer unavailable. Please try another browser.
@@ -381,8 +390,8 @@ export function JewelryViewer(props: JewelryViewerProps) {
   }
 
   return (
-    <div className="mx-auto max-w-screen-2xl px-6 lg:px-8">
-      <div className="relative w-full h-[500px] bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 rounded-xl overflow-hidden shadow-xl">
+    <div className="w-full h-full">
+      <div className="relative w-full h-full bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden">
         {loading && (
           <div className="absolute inset-0 flex items-center justify-center bg-white dark:bg-gray-900 bg-opacity-80 dark:bg-opacity-80 z-10">
             <div className="flex flex-col items-center">
@@ -394,37 +403,48 @@ export function JewelryViewer(props: JewelryViewerProps) {
           </div>
         )}
 
-        <Suspense fallback={null}>
-          <Canvas
-            camera={{ position: [0, 0, 5], fov: 45 }}
-            dpr={[1, 2]}
-            gl={{ preserveDrawingBuffer: true }}
-            shadows
-            className="touch-none"
-          >
-            <ambientLight intensity={0.5} />
-            <spotLight
-              position={[10, 10, 10]}
-              angle={0.15}
-              penumbra={1}
-              intensity={1}
-              castShadow
-            />
-            <pointLight position={[-10, -10, -10]} intensity={0.5} />
+        {error && (
+          <div className="absolute inset-0 flex items-center justify-center bg-white dark:bg-gray-900 bg-opacity-80 dark:bg-opacity-80 z-10">
+            <div className="flex flex-col items-center">
+              <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-nile-teal"></div>
+              <p className="mt-4 text-gray-600 dark:text-gray-300">
+                Error loading 3D Model...
+              </p>
+            </div>
+          </div>
+        )}
+
+        <Canvas
+          shadows
+          camera={{ position: [0, 0, 5], fov: 50 }}
+          className="w-full h-full"
+          dpr={[1, 2]}
+          gl={{ preserveDrawingBuffer: true }}
+        >
+          <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={50} />
+          <ambientLight intensity={0.5} />
+          <spotLight
+            position={[10, 10, 10]}
+            angle={0.15}
+            penumbra={1}
+            intensity={1}
+            castShadow
+          />
+          <pointLight position={[-10, -10, -10]} intensity={0.5} />
+          <Suspense fallback={null}>
             <JewelryModel {...props} />
             <CustomEnvironment />
-            <OrbitControls
-              enablePan={false}
-              enableZoom={true}
-              minDistance={2}
-              maxDistance={7}
-              rotateSpeed={0.5}
-              zoomSpeed={0.5}
-              minPolarAngle={Math.PI / 4}
-              maxPolarAngle={Math.PI / 1.5}
-            />
-          </Canvas>
-        </Suspense>
+          </Suspense>
+          <OrbitControls
+            enablePan={true}
+            enableZoom={true}
+            enableRotate={true}
+            autoRotate={false}
+            autoRotateSpeed={1}
+            minDistance={2}
+            maxDistance={8}
+          />
+        </Canvas>
       </div>
     </div>
   );

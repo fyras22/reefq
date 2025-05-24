@@ -62,7 +62,8 @@
     "exploreFeatures": "Explore Features",
     "howItWorks": "How It Works",
     "getStarted": "Get Started",
-    "tryAndFit": "Try & Fit"
+    "tryAndFit": "Try & Fit",
+    "badge": "Premium Jewelry Experience"
   },
   "home": {
     "hero": {
@@ -73,7 +74,9 @@
   },
   "buttons": {
     "tryAndFit": "Try & Fit",
-    "exploreJewelry": "Explore Jewelry"
+    "exploreJewelry": "Explore Jewelry",
+    "tryItNow": "Try It Now",
+    "contactUs": "Contact Us"
   },
   "features": {
     "title": "Immersive Jewelry Shopping",
@@ -145,6 +148,8 @@
     "subtitle": "One-time payment, lifetime value",
     "description": "Choose the perfect plan for your business. No hidden fees, no monthly subscriptions.",
     "oneTime": "one-time",
+    "contactUs": "Contact Us for Details",
+    "mostPopular": "Most Popular",
     "free": {
       "name": "Free",
       "price": "$0",
@@ -186,10 +191,14 @@
       "cta": "Contact Sales"
     }
   },
+  "comparison": {
+    "feature": "Feature"
+  },
   "faq": {
     "title": "Frequently Asked Questions",
     "subtitle": "Everything you need to know",
     "description": "Couldn't find the answer you're looking for? Reach out to our customer support team.",
+    "moreQuestions": "Have more questions? We're here to help.",
     "question1": {
       "question": "Do I need technical expertise to use ReefQ?",
       "answer": "No, we designed ReefQ to be easy to use. All you need to do is upload your product images, and we take care of the rest. User-friendly interface and clear instructions are provided."

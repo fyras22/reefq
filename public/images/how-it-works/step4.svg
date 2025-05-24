@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f8f9fa" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#e9ecef" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="gold-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e6c566" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#C4A265" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="teal-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2A5B5E" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#1a3739" stop-opacity="0.9"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="450" fill="url(#bg-gradient)" rx="15" ry="15"/>
+  
+  <!-- Left side - checkout form -->
+  <rect x="100" y="80" width="300" height="300" rx="10" ry="10" fill="white" filter="url(#shadow)"/>
+  
+  <!-- Form elements -->
+  <text x="120" y="120" font-family="Arial" font-size="18" font-weight="bold" fill="#343a40">Checkout</text>
+  
+  <text x="120" y="150" font-family="Arial" font-size="12" fill="#6c757d">Contact Information</text>
+  <rect x="120" y="160" width="260" height="30" rx="5" ry="5" fill="#f1f3f5" stroke="#dee2e6" stroke-width="1"/>
+  
+  <text x="120" y="210" font-family="Arial" font-size="12" fill="#6c757d">Shipping Address</text>
+  <rect x="120" y="220" width="260" height="30" rx="5" ry="5" fill="#f1f3f5" stroke="#dee2e6" stroke-width="1"/>
+  
+  <text x="120" y="270" font-family="Arial" font-size="12" fill="#6c757d">Payment Method</text>
+  <rect x="120" y="280" width="260" height="30" rx="5" ry="5" fill="#f1f3f5" stroke="#dee2e6" stroke-width="1"/>
+  
+  <rect x="120" y="330" width="120" height="40" rx="5" ry="5" fill="url(#teal-gradient)"/>
+  <text x="180" y="355" font-family="Arial" font-size="14" fill="white" text-anchor="middle">Place Order</text>
+  
+  <!-- Right side - order summary and package -->
+  <rect x="440" y="80" width="260" height="160" rx="10" ry="10" fill="white" filter="url(#shadow)"/>
+  
+  <text x="460" y="110" font-family="Arial" font-size="16" font-weight="bold" fill="#343a40">Order Summary</text>
+  
+  <text x="460" y="140" font-family="Arial" font-size="12" fill="#6c757d">Custom Diamond Ring</text>
+  <text x="660" y="140" font-family="Arial" font-size="12" fill="#343a40" text-anchor="end">$1,999</text>
+  
+  <text x="460" y="170" font-family="Arial" font-size="12" fill="#6c757d">Shipping</text>
+  <text x="660" y="170" font-family="Arial" font-size="12" fill="#343a40" text-anchor="end">$19.99</text>
+  
+  <line x1="460" y1="185" x2="660" y2="185" stroke="#dee2e6" stroke-width="1"/>
+  
+  <text x="460" y="215" font-family="Arial" font-size="14" font-weight="bold" fill="#343a40">Total</text>
+  <text x="660" y="215" font-family="Arial" font-size="14" font-weight="bold" fill="#343a40" text-anchor="end">$2,018.99</text>
+  
+  <!-- Package/delivery illustration -->
+  <rect x="500" y="260" width="140" height="80" fill="url(#gold-gradient)" rx="5" ry="5"/>
+  <rect x="480" y="260" width="180" height="15" fill="url(#gold-gradient)" rx="5" ry="5"/>
+  <circle cx="570" cy="260" r="8" fill="#C4A265" stroke="#e6c566" stroke-width="1"/>
+  
+  <!-- Delivery elements -->
+  <path d="M530 300 L475 350" stroke="#343a40" stroke-width="2" stroke-dasharray="5,3"/>
+  <path d="M610 300 L665 350" stroke="#343a40" stroke-width="2" stroke-dasharray="5,3"/>
+  
+  <circle cx="475" cy="350" r="15" fill="white" stroke="#343a40" stroke-width="2"/>
+  <circle cx="665" cy="350" r="15" fill="white" stroke="#343a40" stroke-width="2"/>
+  
+  <!-- Title -->
+  <text x="400" y="420" font-family="Arial" font-size="22" font-weight="bold" fill="#343a40" text-anchor="middle">Checkout & Delivery</text>
+  <text x="400" y="445" font-family="Arial" font-size="16" fill="#6c757d" text-anchor="middle">Secure payment and premium delivery service</text>
+</svg> 

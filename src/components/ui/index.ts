@@ -4,6 +4,7 @@ export * from "./Button";
 export * from "./Card";
 export * from "./CircleLoader";
 export * from "./CollectionsHeader";
+export { default as FallbackImage } from "./FallbackImage";
 export * from "./Input";
 export * from "./LoadingSpinner";
 export * from "./Navbar";
