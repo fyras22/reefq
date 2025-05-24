@@ -16,7 +16,12 @@ const nextConfig = {
 
   // Image configuration for deployment
   images: {
-    domains: ["reefq.vercel.app", "via.placeholder.com"],
+    domains: [
+      "reefq.vercel.app",
+      "via.placeholder.com",
+      "picsum.photos",
+      "placehold.co",
+    ],
     remotePatterns: [
       {
         protocol: "https",
@@ -26,7 +31,18 @@ const nextConfig = {
         protocol: "https",
         hostname: "via.placeholder.com",
       },
+      {
+        protocol: "https",
+        hostname: "picsum.photos",
+      },
+      {
+        protocol: "https",
+        hostname: "placehold.co",
+      },
     ],
+    dangerouslyAllowSVG: true,
+    contentDispositionType: "attachment",
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 };
 

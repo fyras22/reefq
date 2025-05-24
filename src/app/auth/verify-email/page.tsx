@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
-import { Button } from '@/components/ui/Button';
-import { useAuth } from '@/providers/AuthProvider';
-import { Mail, CheckCircle } from 'lucide-react';
+import { Button } from "@/components/ui/Button";
+import { useAuth } from "@/providers/AuthProvider";
+import { CheckCircle, Mail } from "lucide-react";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function VerifyEmailPage() {
   const searchParams = useSearchParams();
@@ -18,14 +18,14 @@ export default function VerifyEmailPage() {
 
   useEffect(() => {
     // Check if we have a token in the URL (clicked from email link)
-    const token = searchParams.get('token');
+    const token = searchParams.get("token");
     if (token) {
       setToken(token);
       verifyWithToken(token);
     }
-    
+
     // Get the email from the URL or from the current user
-    const urlEmail = searchParams.get('email');
+    const urlEmail = searchParams.get("email");
     if (urlEmail) {
       setEmail(urlEmail);
     } else if (user?.email) {
@@ -36,7 +36,7 @@ export default function VerifyEmailPage() {
   const verifyWithToken = async (token: string) => {
     setIsLoading(true);
     setError(null);
-    
+
     try {
       const result = await verifyEmail(token);
       if (result.error) {
@@ -45,7 +45,7 @@ export default function VerifyEmailPage() {
         setSuccess(true);
       }
     } catch (error: any) {
-      setError(error.message || 'Something went wrong');
+      setError(error.message || "Something went wrong");
     } finally {
       setIsLoading(false);
     }
@@ -54,19 +54,19 @@ export default function VerifyEmailPage() {
   const handleResendVerification = async () => {
     setIsLoading(true);
     setError(null);
-    
+
     try {
       // Implementation would depend on your auth provider's API
       // For example:
       // await resendVerificationEmail(email);
-      
+
       // For now, we'll just simulate a delay
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
       // Show success message (optionally)
       // setResendSuccess(true);
     } catch (error: any) {
-      setError(error.message || 'Failed to resend verification email');
+      setError(error.message || "Failed to resend verification email");
     } finally {
       setIsLoading(false);
     }
@@ -82,7 +82,7 @@ export default function VerifyEmailPage() {
           </Link>
         </div>
       </header>
-      
+
       {/* Main content */}
       <main className="flex-1 flex items-center justify-center px-4 py-12">
         <div className="w-full max-w-md space-y-8 bg-white p-8 rounded-xl shadow-sm border border-gray-100">
@@ -91,7 +91,9 @@ export default function VerifyEmailPage() {
               <div className="mx-auto w-16 h-16 flex items-center justify-center rounded-full bg-brand-teal/10 mb-4">
                 <CheckCircle className="h-8 w-8 text-brand-teal" />
               </div>
-              <h2 className="text-2xl font-bold text-gray-900">Email verified</h2>
+              <h2 className="text-2xl font-bold text-gray-900">
+                Email verified
+              </h2>
               <p className="mt-2 text-gray-600">
                 Your email has been successfully verified
               </p>
@@ -110,8 +112,14 @@ export default function VerifyEmailPage() {
                 <div className="mx-auto w-16 h-16 flex items-center justify-center rounded-full bg-brand-teal/10 mb-4">
                   <Mail className="h-8 w-8 text-brand-teal" />
                 </div>
-                <h1 className="text-3xl font-bold text-gray-900">Verify your email</h1>
-                {email && <p className="mt-2 text-gray-600">We've sent a verification email to <strong>{email}</strong></p>}
+                <h1 className="text-3xl font-bold text-gray-900">
+                  Verify your email
+                </h1>
+                {email && (
+                  <p className="mt-2 text-gray-600">
+                    We've sent a verification email to <strong>{email}</strong>
+                  </p>
+                )}
               </div>
 
               {error && (
@@ -123,8 +131,9 @@ export default function VerifyEmailPage() {
               <div className="space-y-6">
                 <div className="rounded-md bg-blue-50 p-4 text-blue-700 text-sm">
                   <p>
-                    Please check your inbox and click the verification link in the email we sent you.
-                    If you don't see it, check your spam folder.
+                    Please check your inbox and click the verification link in
+                    the email we sent you. If you don't see it, check your spam
+                    folder.
                   </p>
                 </div>
 
@@ -135,7 +144,7 @@ export default function VerifyEmailPage() {
                   <Button
                     type="button"
                     onClick={handleResendVerification}
-                    isLoading={isLoading}
+                    loading={isLoading}
                     disabled={!email}
                     className="border border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
                   >
@@ -161,15 +170,32 @@ export default function VerifyEmailPage() {
       <footer className="py-4 border-t border-gray-200 bg-white">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between">
-            <p className="text-sm text-gray-500">© {new Date().getFullYear()} ReefQ. All rights reserved.</p>
+            <p className="text-sm text-gray-500">
+              © {new Date().getFullYear()} ReefQ. All rights reserved.
+            </p>
             <div className="mt-4 md:mt-0 flex space-x-6">
-              <Link href="/privacy" className="text-sm text-gray-500 hover:text-gray-700">Privacy</Link>
-              <Link href="/terms" className="text-sm text-gray-500 hover:text-gray-700">Terms</Link>
-              <Link href="/contact" className="text-sm text-gray-500 hover:text-gray-700">Contact</Link>
+              <Link
+                href="/privacy"
+                className="text-sm text-gray-500 hover:text-gray-700"
+              >
+                Privacy
+              </Link>
+              <Link
+                href="/terms"
+                className="text-sm text-gray-500 hover:text-gray-700"
+              >
+                Terms
+              </Link>
+              <Link
+                href="/contact"
+                className="text-sm text-gray-500 hover:text-gray-700"
+              >
+                Contact
+              </Link>
             </div>
           </div>
         </div>
       </footer>
     </div>
   );
-} 
+}

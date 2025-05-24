@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f8f9fa" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#e9ecef" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="accent-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2A5B5E" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#C4A265" stop-opacity="0.8"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="450" fill="url(#bg-gradient)" rx="15" ry="15"/>
+  
+  <!-- Center circle -->
+  <circle cx="400" cy="225" r="150" fill="none" stroke="url(#accent-gradient)" stroke-width="2" stroke-dasharray="5,5"/>
+  
+  <!-- Process steps as circles around the main circle -->
+  <circle cx="250" cy="150" r="40" fill="url(#accent-gradient)" opacity="0.8"/>
+  <circle cx="550" cy="150" r="40" fill="url(#accent-gradient)" opacity="0.8"/>
+  <circle cx="250" cy="300" r="40" fill="url(#accent-gradient)" opacity="0.8"/>
+  <circle cx="550" cy="300" r="40" fill="url(#accent-gradient)" opacity="0.8"/>
+  
+  <!-- Step numbers -->
+  <text x="250" y="155" font-family="Arial" font-size="20" font-weight="bold" fill="white" text-anchor="middle">1</text>
+  <text x="550" y="155" font-family="Arial" font-size="20" font-weight="bold" fill="white" text-anchor="middle">2</text>
+  <text x="250" y="305" font-family="Arial" font-size="20" font-weight="bold" fill="white" text-anchor="middle">3</text>
+  <text x="550" y="305" font-family="Arial" font-size="20" font-weight="bold" fill="white" text-anchor="middle">4</text>
+  
+  <!-- Connection lines -->
+  <line x1="290" y1="150" x2="510" y2="150" stroke="#C4A265" stroke-width="2" stroke-dasharray="5,3"/>
+  <line x1="550" y1="190" x2="550" y2="260" stroke="#C4A265" stroke-width="2" stroke-dasharray="5,3"/>
+  <line x1="510" y1="300" x2="290" y2="300" stroke="#C4A265" stroke-width="2" stroke-dasharray="5,3"/>
+  <line x1="250" y1="260" x2="250" y2="190" stroke="#C4A265" stroke-width="2" stroke-dasharray="5,3"/>
+  
+  <!-- Jewelry icon in the center -->
+  <circle cx="400" cy="225" r="60" fill="white" stroke="#C4A265" stroke-width="3"/>
+  <circle cx="400" cy="225" r="40" fill="none" stroke="#2A5B5E" stroke-width="3"/>
+  <circle cx="400" cy="195" r="10" fill="#2A5B5E"/>
+  
+  <!-- Title -->
+  <text x="400" y="400" font-family="Arial" font-size="24" font-weight="bold" fill="#343a40" text-anchor="middle">How It Works</text>
+  <text x="400" y="430" font-family="Arial" font-size="16" fill="#6c757d" text-anchor="middle">Our simple jewelry shopping process</text>
+</svg> 

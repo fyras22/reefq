@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f8f9fa" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#e9ecef" stop-opacity="1"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="800" fill="url(#grad1)"/>
+  
+  <!-- Decorative ring shape -->
+  <circle cx="400" cy="400" r="150" stroke="#C4A265" stroke-width="30" fill="none"/>
+  <circle cx="400" cy="400" r="120" stroke="#2A5B5E" stroke-width="4" fill="none" stroke-dasharray="10,5"/>
+  
+  <!-- Gem representation -->
+  <polygon points="400,320 430,370 400,420 370,370" fill="#2A5B5E" stroke="#C4A265" stroke-width="2"/>
+  
+  <text x="400" y="550" font-family="Arial" font-size="32" font-weight="bold" fill="#495057" text-anchor="middle">Product Image</text>
+  <text x="400" y="590" font-family="Arial" font-size="22" fill="#6c757d" text-anchor="middle">Elegant jewelry awaiting your discovery</text>
+</svg> 

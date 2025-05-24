@@ -3,27 +3,41 @@
     "features": "Fonctionnalités",
     "testimonials": "Témoignages",
     "howItWorks": "Comment ça marche",
-    "pricing": "Tarifs",
+    "pricing": "Tarification",
     "faq": "FAQ",
     "getStarted": "Commencer",
     "login": "Connexion",
-    "signup": "S'inscrire",
-    "tryAndFit": "Essayer",
+    "signup": "Inscription",
+    "tryAndFit": "Essayer & Ajuster",
     "products": "Produits",
     "jewelryCollection": "Collection de Bijoux",
     "virtualTryOn": "Essayage Virtuel",
     "customizeJewelry": "Personnaliser les Bijoux",
     "knowledgeHub": "Centre de Connaissances"
   },
-  "home": "Accueil",
+  "meta": {
+    "home": {
+      "title": "ReefQ - Plateforme de Visualisation 3D et d'Essayage de Bijoux",
+      "description": "Découvrez le luxe des bijoux comme jamais auparavant avec notre plateforme interactive de visualisation 3D et d'essayage en réalité augmentée."
+    }
+  },
+  "nav": {
+    "home": "Accueil",
+    "products": "Produits",
+    "collections": "Collections",
+    "try_fit": "Essayer & Ajuster",
+    "jewelry_knowledge": "Connaissances sur les Bijoux",
+    "about": "À Propos",
+    "contact": "Contact"
+  },
   "wishlist": "Favoris",
   "cart": "Panier",
   "account": "Compte",
   "collections": {
     "title": "Nos Collections",
-    "description": "Explorez nos collections de bijoux soigneusement sélectionnées, conçues pour correspondre à votre style et à vos occasions.",
-    "headerTitle": "Élégance Intemporelle, Collections Raffinées",
-    "headerDescription": "Découvrez nos collections de bijoux fabriqués à la main, chaque pièce racontant une histoire unique d'artisanat et de luxe. Trouvez l'expression parfaite de votre style personnel.",
+    "description": "Explorez nos collections de bijoux sélectionnées, conçues pour correspondre à votre style et à vos occasions.",
+    "headerTitle": "Élégance Intemporelle, Collections Sélectionnées",
+    "headerDescription": "Découvrez nos collections de bijoux faits à la main, chaque pièce racontant une histoire unique d'artisanat et de luxe. Trouvez l'expression parfaite de votre style personnel.",
     "exploreAll": "Explorer Toutes les Collections",
     "tryVirtually": "Essayer Virtuellement",
     "featuredTitle": "Collections en Vedette",
@@ -39,7 +53,7 @@
     "addToCart": "Ajouter au Panier",
     "errorTitle": "Impossible de Charger les Collections",
     "tryAgain": "Réessayer",
-    "exploreMore": "Vous cherchez plus de collections soigneusement sélectionnées?"
+    "exploreMore": "Vous cherchez plus de collections sélectionnées?"
   },
   "hero": {
     "title": "ReefQ",
@@ -49,6 +63,17 @@
     "howItWorks": "Comment ça marche",
     "getStarted": "Commencer",
     "tryAndFit": "Essayer & Ajuster"
+  },
+  "home": {
+    "hero": {
+      "title1": "Bijoux 3D",
+      "title2": "Plateforme de visualisation",
+      "description": "Transformez votre entreprise de bijouterie avec une visualisation 3D époustouflante et des expériences d'essayage en RA. Augmentez vos ventes avec des présentations de produits interactives."
+    }
+  },
+  "buttons": {
+    "tryAndFit": "Essayer & Ajuster",
+    "exploreJewelry": "Explorer les Bijoux"
   },
   "features": {
     "title": "Shopping de bijoux immersif",
@@ -72,117 +97,117 @@
       "statText": "Ajustements parfaits livrés"
     }
   },
-  "howItWorks": {
-    "title": "Comment ça marche",
-    "subtitle": "Découvrez la simplicité de notre plateforme de bijoux 3D en quelques étapes",
-    "step1": {
-      "title": "Choisissez vos bijoux",
-      "description": "Sélectionnez parmi notre collection de bagues, colliers et boucles d'oreilles pour commencer à personnaliser."
-    },
-    "step2": {
-      "title": "Personnalisez les matériaux",
-      "description": "Choisissez votre type de métal préféré, pierre précieuse et ajustez la taille selon vos goûts."
-    },
-    "step3": {
-      "title": "Visualisez en 3D",
-      "description": "Interagissez avec vos bijoux en 3D pour les voir sous tous les angles avec des détails impressionnants."
-    },
-    "step4": {
-      "title": "Essayez avec la RA",
-      "description": "Utilisez la caméra de votre appareil pour voir comment les bijoux vous vont en réalité augmentée."
-    },
-    "cta": "Commencez à concevoir maintenant"
-  },
   "testimonials": {
-    "title": "Témoignages",
-    "subtitle": "Approuvé par les principaux détaillants de bijoux",
+    "title": "Ce que disent nos clients",
+    "subtitle": "Retours d'expérience des clients utilisant la plateforme ReefQ",
     "testimonial1": {
-      "quote": "ReefQ a transformé notre façon de vendre des bijoux en ligne. Nos clients peuvent désormais visualiser parfaitement les pièces avant l'achat.",
-      "author": "Sarah Chen",
-      "role": "PDG",
-      "company": "Luxe Jewelers"
+      "quote": "ReefQ a transformé notre façon de vendre des bijoux en ligne. Les clients sont plus confiants dans leurs achats, et les retours ont considérablement diminué.",
+      "author": "Sarah Johnson",
+      "role": "Directrice des Ventes",
+      "company": "Diamond Jewelers"
     },
     "testimonial2": {
-      "quote": "La fonction d'essayage en RA a réduit notre taux de retour de plus de 60%. C'est révolutionnaire pour la vente de bijoux en ligne.",
-      "author": "Michael Rodriguez",
-      "role": "Responsable E-commerce",
-      "company": "Diamond & Co."
+      "quote": "Grâce à la technologie ReefQ, nous pouvons désormais présenter notre collection complète de bijoux de manière interactive et engageante. Les résultats ont été incroyables!",
+      "author": "Michael Brown",
+      "role": "PDG",
+      "company": "Authentic Jewels"
     },
     "testimonial3": {
-      "quote": "La qualité de visualisation 3D est exceptionnelle. Nos clients peuvent voir chaque détail de nos pièces.",
-      "author": "Emma Thompson",
-      "role": "Directrice créative",
-      "company": "Artisan Jewelry"
+      "quote": "Depuis l'intégration de ReefQ à notre boutique en ligne, les ventes ont augmenté de 45%. C'est un outil indispensable pour tout détaillant de bijoux sérieux.",
+      "author": "Leila Richards",
+      "role": "Directrice Marketing",
+      "company": "Eastern Pearls"
     }
+  },
+  "howItWorks": {
+    "title": "Comment ça marche",
+    "subtitle": "Processus simple pour ajouter la visualisation 3D à votre boutique",
+    "step1": {
+      "title": "Inscription et Configuration",
+      "description": "Créez votre compte et configurez les paramètres de base pour votre boutique"
+    },
+    "step2": {
+      "title": "Téléchargement des Modèles de Bijoux",
+      "description": "Téléchargez vos images de produits et nous les transformerons en modèles 3D haute-fidélité"
+    },
+    "step3": {
+      "title": "Personnalisation de l'Expérience Utilisateur",
+      "description": "Personnalisez l'interface de la visionneuse 3D pour correspondre à votre marque et à la conception de votre site web"
+    },
+    "step4": {
+      "title": "Intégration et Lancement",
+      "description": "Intégrez la visionneuse 3D dans votre site web à l'aide du simple extrait de code que nous fournissons"
+    },
+    "cta": "Commencer à Concevoir Maintenant"
   },
   "pricing": {
     "title": "Tarification Simple",
     "subtitle": "Paiement unique, valeur à vie",
-    "description": "Choisissez le forfait parfait pour votre entreprise. Pas de frais cachés, pas d'abonnements mensuels.",
+    "description": "Choisissez le plan parfait pour votre entreprise. Pas de frais cachés, pas d'abonnements mensuels.",
+    "oneTime": "unique",
     "free": {
       "name": "Gratuit",
       "price": "0€",
       "description": "Parfait pour tester les eaux",
-      "features": [
-        "Jusqu'à 10 modèles 3D",
-        "Essayage en RA basique",
-        "Support standard",
-        "Accès communautaire"
-      ],
+      "features": {
+        "0": "Jusqu'à 10 modèles 3D",
+        "1": "Essayage RA de base",
+        "2": "Support standard",
+        "3": "Accès à la communauté"
+      },
       "cta": "Commencer"
     },
     "professional": {
       "name": "Professionnel",
       "price": "499€",
       "description": "Paiement unique, accès à vie",
-      "features": [
-        "Modèles 3D illimités",
-        "Essayage en RA avancé",
-        "Support prioritaire",
-        "Marque personnalisée",
-        "Tableau de bord analytique",
-        "Accès API"
-      ],
-      "cta": "Acheter maintenant"
+      "features": {
+        "0": "Modèles 3D illimités",
+        "1": "Essayage RA avancé",
+        "2": "Support prioritaire",
+        "3": "Marquage personnalisé",
+        "4": "Tableau de bord analytique",
+        "5": "Accès API"
+      },
+      "cta": "Acheter Maintenant"
     },
     "enterprise": {
       "name": "Entreprise",
-      "price": "Personnalisé",
+      "price": "Sur Mesure",
       "description": "Solutions sur mesure pour grandes entreprises",
-      "features": [
-        "Tout ce qui est inclus dans Professionnel",
-        "Développement personnalisé",
-        "Support dédié",
-        "Garantie SLA",
-        "Intégrations personnalisées",
-        "Sessions de formation"
-      ],
-      "cta": "Contacter les ventes"
-    },
-    "oneTime": "unique"
-  },
-  "faq": {
-    "title": "Questions fréquemment posées",
-    "subtitle": "Tout ce que vous devez savoir",
-    "description": "Vous ne trouvez pas la réponse que vous cherchez? Contactez notre équipe de support.",
-    "question1": {
-      "question": "Est-ce un abonnement?",
-      "answer": "Non, nous croyons en une tarification simple et transparente. Notre forfait Professionnel est un paiement unique de 499€, vous donnant un accès à vie à toutes les fonctionnalités."
-    },
-    "question2": {
-      "question": "Est-ce compatible avec ma plateforme?",
-      "answer": "Oui, notre solution fonctionne avec toutes les principales plateformes de commerce électronique, y compris Shopify, WooCommerce, Magento et les solutions personnalisées."
-    },
-    "question3": {
-      "question": "Dois-je savoir coder?",
-      "answer": "Aucun codage requis! Copiez et collez simplement notre extrait d'intégration dans votre site web. Notre solution est conçue pour être plug-and-play."
-    },
-    "question4": {
-      "question": "Ça fonctionne sur mobile?",
-      "answer": "Oui, notre visionneuse 3D et nos fonctionnalités d'essayage en RA sont entièrement réactives et optimisées pour tous les appareils."
+      "features": {
+        "0": "Tout ce qui est dans Professionnel",
+        "1": "Développement personnalisé",
+        "2": "Support dédié",
+        "3": "Garantie de niveau de service",
+        "4": "Intégrations personnalisées",
+        "5": "Sessions de formation"
+      },
+      "cta": "Contacter les Ventes"
     }
   },
-"footer": {
+  "faq": {
+    "title": "Foire Aux Questions",
+    "subtitle": "Tout ce que vous devez savoir",
+    "description": "Vous n'avez pas trouvé la réponse que vous cherchez? Contactez notre équipe de support client.",
+    "question1": {
+      "question": "Ai-je besoin d'expertise technique pour utiliser ReefQ?",
+      "answer": "Non, nous avons conçu ReefQ pour être facile à utiliser. Tout ce que vous avez à faire est de télécharger vos images de produits, et nous nous occupons du reste. Une interface conviviale et des instructions claires sont fournies."
+    },
+    "question2": {
+      "question": "Comment ajouter la visionneuse 3D à mon site web?",
+      "answer": "Après avoir configuré votre compte, vous obtiendrez un simple extrait de code que vous pourrez ajouter au HTML de votre site web. Nous proposons également des intégrations avec des plateformes e-commerce populaires comme Shopify, WooCommerce et Magento."
+    },
+    "question3": {
+      "question": "Quelles sont les exigences matérielles pour les clients utilisant l'expérience RA?",
+      "answer": "La plupart des smartphones et tablettes modernes sont compatibles avec notre expérience RA. Pour les fonctionnalités RA, nous recommandons des appareils fonctionnant sous iOS 12+ ou Android 8.0+."
+    },
+    "question4": {
+      "question": "Puis-je personnaliser l'apparence de la visionneuse 3D?",
+      "answer": "Oui, nous proposons de nombreuses options de personnalisation, notamment les couleurs, les polices et la disposition générale de l'interface. Vous pouvez également ajuster les arrière-plans et l'éclairage pour mettre en valeur vos bijoux de manière optimale."
+    }
+  },
+  "footer": {
     "company": "Entreprise",
     "about": "À propos de ReefQ",
     "careers": "Carrières",
@@ -193,17 +218,25 @@
     "help": "Aide",
     "tutorials": "Tutoriels",
     "api": "API",
-    "legal": "Légal",
-    "privacy": "Politique de confidentialité",
-    "terms": "Conditions d'utilisation",
-    "cookies": "Politique des cookies",
-    "licensing": "Licence",
+    "legal": "Mentions légales",
+    "privacy": "Politique de Confidentialité",
+    "terms": "Conditions d'Utilisation",
+    "cookies": "Politique de Cookies",
+    "licensing": "Licences",
     "copyright": "© {{year}} ReefQ. Tous droits réservés."
   },
-  "languages": {
-    "en": "English",
+  "language": {
+    "english": "Anglais",
+    "french": "Français",
+    "arabic": "Arabe (رِفق)",
+    "switchLanguage": "Changer de Langue",
+    "en": "Anglais",
     "fr": "Français",
-    "ar": "العربية"
+    "ar": "Arabe"
   },
-  "direction": "ltr"
-} 
+  "direction": "ltr",
+  "buttons": {
+    "tryAndFit": "Essayer & Ajuster",
+    "exploreJewelry": "Explorer les Bijoux"
+  }
+}

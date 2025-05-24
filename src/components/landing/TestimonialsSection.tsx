@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { TFunction } from 'i18next';
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
-import Image from 'next/image';
+import { FallbackImage } from "@/components/ui";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import { motion } from "framer-motion";
+import { TFunction } from "i18next";
+import { useState } from "react";
 
 interface Testimonial {
   quote: string;
@@ -19,7 +19,11 @@ interface TestimonialsSectionProps {
   testimonials: Testimonial[];
 }
 
-export function TestimonialsSection({ t, isRTL, testimonials }: TestimonialsSectionProps) {
+export function TestimonialsSection({
+  t,
+  isRTL,
+  testimonials,
+}: TestimonialsSectionProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextTestimonial = () => {
@@ -27,30 +31,32 @@ export function TestimonialsSection({ t, isRTL, testimonials }: TestimonialsSect
   };
 
   const prevTestimonial = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length);
+    setCurrentIndex(
+      (prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length
+    );
   };
 
   return (
     <section className="py-24 bg-white">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto">
         <div className="text-center">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.5 }}
             className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
           >
-            {t('testimonials.title')}
+            {t("testimonials.title")}
           </motion.h2>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.5, delay: 0.1 }}
             className="mt-4 max-w-2xl text-lg text-gray-600 mx-auto"
           >
-            {t('testimonials.subtitle')}
+            {t("testimonials.subtitle")}
           </motion.p>
         </div>
 
@@ -61,9 +67,14 @@ export function TestimonialsSection({ t, isRTL, testimonials }: TestimonialsSect
                 key={index}
                 className="absolute inset-0 flex flex-col items-center justify-center px-4"
                 initial={{ opacity: 0 }}
-                animate={{ 
+                animate={{
                   opacity: currentIndex === index ? 1 : 0,
-                  x: currentIndex === index ? 0 : (currentIndex > index ? -100 : 100),
+                  x:
+                    currentIndex === index
+                      ? 0
+                      : currentIndex > index
+                        ? -100
+                        : 100,
                 }}
                 transition={{ duration: 0.5 }}
               >
@@ -82,8 +93,14 @@ export function TestimonialsSection({ t, isRTL, testimonials }: TestimonialsSect
                   <div className="mt-8">
                     <div className="md:flex md:items-center md:justify-center">
                       <div className="mt-3 text-center md:mt-0 md:flex md:items-center">
-                        <div className="text-base font-medium text-gray-900">{testimonial.author}</div>
-                        <svg className="hidden md:block mx-1 h-5 w-5 text-nile-teal" fill="currentColor" viewBox="0 0 20 20">
+                        <div className="text-base font-medium text-gray-900">
+                          {testimonial.author}
+                        </div>
+                        <svg
+                          className="hidden md:block mx-1 h-5 w-5 text-nile-teal"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
                           <path d="M11 0h3v20h-3V0zM6 0h3v20H6V0z" />
                         </svg>
                         <div className="text-base font-medium text-gray-500">
@@ -124,7 +141,7 @@ export function TestimonialsSection({ t, isRTL, testimonials }: TestimonialsSect
                 key={index}
                 onClick={() => setCurrentIndex(index)}
                 className={`h-2 w-2 rounded-full transition-colors ${
-                  index === currentIndex ? 'bg-nile-teal' : 'bg-gray-300'
+                  index === currentIndex ? "bg-nile-teal" : "bg-gray-300"
                 }`}
                 aria-label={`Go to testimonial ${index + 1}`}
               />
@@ -133,7 +150,7 @@ export function TestimonialsSection({ t, isRTL, testimonials }: TestimonialsSect
         </div>
 
         {/* Logos section */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
@@ -141,24 +158,52 @@ export function TestimonialsSection({ t, isRTL, testimonials }: TestimonialsSect
           className="mt-20"
         >
           <p className="text-center text-base font-semibold text-gray-500">
-            {t('testimonials.trustedBy')}
+            {t("testimonials.trustedBy")}
           </p>
           <div className="mt-6 grid grid-cols-2 gap-8 md:grid-cols-4">
             <div className="col-span-1 flex justify-center md:col-span-1">
-              <img className="h-12 grayscale" src="/images/logos/logo-1.svg" alt="Company 1" />
+              <FallbackImage
+                className="h-12 grayscale"
+                src="/images/logos/logo-1.svg"
+                alt="Company 1"
+                width={200}
+                height={70}
+                fallbackSrc="/images/fallback-logo.svg"
+              />
             </div>
             <div className="col-span-1 flex justify-center md:col-span-1">
-              <img className="h-12 grayscale" src="/images/logos/logo-2.svg" alt="Company 2" />
+              <FallbackImage
+                className="h-12 grayscale"
+                src="/images/logos/logo-2.svg"
+                alt="Company 2"
+                width={200}
+                height={70}
+                fallbackSrc="/images/fallback-logo.svg"
+              />
             </div>
             <div className="col-span-1 flex justify-center md:col-span-1">
-              <img className="h-12 grayscale" src="/images/logos/logo-3.svg" alt="Company 3" />
+              <FallbackImage
+                className="h-12 grayscale"
+                src="/images/logos/logo-3.svg"
+                alt="Company 3"
+                width={200}
+                height={70}
+                fallbackSrc="/images/fallback-logo.svg"
+              />
             </div>
             <div className="col-span-1 flex justify-center md:col-span-1">
-              <img className="h-12 grayscale" src="/images/logos/logo-4.svg" alt="Company 4" />
+              <FallbackImage
+                className="h-12 grayscale"
+                src="/images/logos/logo-4.svg"
+                alt="Company 4"
+                width={200}
+                height={70}
+                fallbackSrc="/images/fallback-logo.svg"
+              />
             </div>
           </div>
         </motion.div>
       </div>
     </section>
   );
-} 
+}
