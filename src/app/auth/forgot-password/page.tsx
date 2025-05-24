@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
-import { useAuth } from '@/providers/AuthProvider';
-import { Mail } from 'lucide-react';
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
+import { useAuth } from "@/providers/AuthProvider";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Mail } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 const forgotPasswordSchema = z.object({
-  email: z.string().email('Please enter a valid email'),
+  email: z.string().email("Please enter a valid email"),
 });
 
 type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>;
@@ -30,16 +30,16 @@ export default function ForgotPasswordPage() {
   } = useForm<ForgotPasswordFormValues>({
     resolver: zodResolver(forgotPasswordSchema),
     defaultValues: {
-      email: '',
+      email: "",
     },
   });
 
-  const email = watch('email');
+  const email = watch("email");
 
   const onSubmit = async (data: ForgotPasswordFormValues) => {
     setIsLoading(true);
     setError(null);
-    
+
     try {
       const result = await requestPasswordReset(data.email);
       if (result.error) {
@@ -48,7 +48,7 @@ export default function ForgotPasswordPage() {
         setSuccess(true);
       }
     } catch (error: any) {
-      setError(error.message || 'Something went wrong');
+      setError(error.message || "Something went wrong");
     } finally {
       setIsLoading(false);
     }
@@ -64,7 +64,7 @@ export default function ForgotPasswordPage() {
           </Link>
         </div>
       </header>
-      
+
       {/* Main content */}
       <main className="flex-1 flex items-center justify-center px-4 py-12">
         <div className="w-full max-w-md space-y-8 bg-white p-8 rounded-xl shadow-sm border border-gray-100">
@@ -73,7 +73,9 @@ export default function ForgotPasswordPage() {
               <div className="mx-auto w-16 h-16 flex items-center justify-center rounded-full bg-brand-teal/10 mb-4">
                 <Mail className="h-8 w-8 text-brand-teal" />
               </div>
-              <h2 className="text-2xl font-bold text-gray-900">Check your inbox</h2>
+              <h2 className="text-2xl font-bold text-gray-900">
+                Check your inbox
+              </h2>
               <p className="mt-2 text-gray-600">
                 We've sent a password reset link to <strong>{email}</strong>
               </p>
@@ -92,9 +94,12 @@ export default function ForgotPasswordPage() {
           ) : (
             <>
               <div className="text-center">
-                <h1 className="text-3xl font-bold text-gray-900">Reset your password</h1>
+                <h1 className="text-3xl font-bold text-gray-900">
+                  Reset your password
+                </h1>
                 <p className="mt-2 text-gray-600">
-                  Enter your email and we'll send you a link to reset your password
+                  Enter your email and we'll send you a link to reset your
+                  password
                 </p>
               </div>
 
@@ -108,14 +113,15 @@ export default function ForgotPasswordPage() {
                 <Input
                   label="Email address"
                   type="email"
-                  error={errors.email?.message}
-                  {...register('email')}
+                  error={!!errors.email}
+                  helperText={errors.email?.message}
+                  {...register("email")}
                 />
 
-                <Button 
-                  type="submit" 
-                  fullWidth={true} 
-                  isLoading={isLoading}
+                <Button
+                  type="submit"
+                  fullWidth={true}
+                  loading={isLoading}
                   className="bg-brand-teal hover:bg-brand-teal/90 text-white font-medium"
                 >
                   Send reset link
@@ -139,15 +145,32 @@ export default function ForgotPasswordPage() {
       <footer className="py-4 border-t border-gray-200 bg-white">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between">
-            <p className="text-sm text-gray-500">© {new Date().getFullYear()} ReefQ. All rights reserved.</p>
+            <p className="text-sm text-gray-500">
+              © {new Date().getFullYear()} ReefQ. All rights reserved.
+            </p>
             <div className="mt-4 md:mt-0 flex space-x-6">
-              <Link href="/privacy" className="text-sm text-gray-500 hover:text-gray-700">Privacy</Link>
-              <Link href="/terms" className="text-sm text-gray-500 hover:text-gray-700">Terms</Link>
-              <Link href="/contact" className="text-sm text-gray-500 hover:text-gray-700">Contact</Link>
+              <Link
+                href="/privacy"
+                className="text-sm text-gray-500 hover:text-gray-700"
+              >
+                Privacy
+              </Link>
+              <Link
+                href="/terms"
+                className="text-sm text-gray-500 hover:text-gray-700"
+              >
+                Terms
+              </Link>
+              <Link
+                href="/contact"
+                className="text-sm text-gray-500 hover:text-gray-700"
+              >
+                Contact
+              </Link>
             </div>
           </div>
         </div>
       </footer>
     </div>
   );
-} 
+}
