@@ -1,10 +1,9 @@
 "use client";
 
-import { Button } from "@/components/ui/Button";
-import { Input } from "@/components/ui/Input";
-import { useAuth } from "@/providers/AuthProvider";
+import { useSupabaseAuth } from "@/hooks/useSupabaseAuth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -29,14 +28,13 @@ export default function ResetPasswordPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const token = searchParams?.get("token") || "";
-  const { resetPassword } = useAuth();
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const { resetPassword, isLoading, error, clearError } = useSupabaseAuth();
+  const [localError, setLocalError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     if (!token) {
-      setError(
+      setLocalError(
         "Invalid or missing reset token. Please request a new password reset link."
       );
     }
@@ -56,153 +54,187 @@ export default function ResetPasswordPage() {
 
   const onSubmit = async (data: ResetPasswordFormValues) => {
     if (!token) {
-      setError(
+      setLocalError(
         "Invalid or missing reset token. Please request a new password reset link."
       );
       return;
     }
 
-    setIsLoading(true);
-    setError(null);
+    clearError();
+    setLocalError(null);
 
     try {
-      const result = await resetPassword(token, data.password);
+      console.log("Attempting to reset password with new password");
 
-      if (result.error) {
-        setError(result.error.message);
-      } else {
-        setSuccess(true);
+      const result = await resetPassword(data.password);
+
+      if (!result.success) {
+        setLocalError(result.error?.message || "Failed to reset password");
+        return;
       }
+
+      // Success! Show success message
+      console.log("Password reset successful");
+      setSuccess(true);
     } catch (error: any) {
-      setError(error.message || "Something went wrong");
-    } finally {
-      setIsLoading(false);
+      console.error("Password reset error:", error);
+      setLocalError(error.message || "Something went wrong");
     }
   };
 
+  // Display error from hook or local error
+  const displayError = error || localError;
+
   return (
-    <div className="flex min-h-screen flex-col bg-gradient-to-b from-white to-gray-50">
-      {/* Header */}
-      <header className="py-4 border-b border-gray-200 bg-white/80 backdrop-blur-sm">
-        <div className="container mx-auto px-4 flex justify-center">
-          <Link href={`/${lang}`} className="flex items-center">
-            <span className="text-brand-teal text-2xl font-bold">ReefQ</span>
+    <div className="min-h-screen flex bg-[#f9f7f4]">
+      {/* Left side with background image */}
+      <div className="hidden lg:block lg:w-1/2 relative">
+        <Image
+          src="/images/branding/branding5.jpg"
+          alt="ReefQ Jewelry"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-black/20"></div>
+      </div>
+
+      {/* Right side with form */}
+      <div className="w-full lg:w-1/2 flex flex-col">
+        {/* Logo header */}
+        <div className="px-8 py-6">
+          <Link href={`/${lang}`} className="inline-block">
+            <Image
+              src="/images/logo/logo-light.png"
+              alt="ReefQ"
+              width={120}
+              height={40}
+            />
           </Link>
         </div>
-      </header>
 
-      {/* Main content */}
-      <main className="flex-1 flex items-center justify-center px-4 py-12">
-        <div className="w-full max-w-md space-y-8 bg-white p-8 rounded-xl shadow-sm border border-gray-100">
-          {success ? (
-            <div className="text-center">
-              <div className="mx-auto w-16 h-16 flex items-center justify-center rounded-full bg-green-100 mb-4">
-                <CheckCircle className="h-8 w-8 text-green-500" />
-              </div>
-              <h2 className="text-2xl font-bold text-gray-900">
-                Password updated
-              </h2>
-              <p className="mt-2 text-gray-600">
-                Your password has been updated successfully. You can now sign in
-                with your new password.
-              </p>
-              <div className="mt-6">
-                <Link
-                  href={`/${lang}/auth/login`}
-                  className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-brand-teal hover:bg-brand-teal/90"
-                >
-                  Sign in
-                </Link>
-              </div>
-            </div>
-          ) : (
-            <>
+        {/* Form container */}
+        <div className="flex-1 flex items-center justify-center px-8 py-6">
+          <div className="w-full max-w-md">
+            {success ? (
               <div className="text-center">
-                <h1 className="text-3xl font-bold text-gray-900">
-                  Reset your password
-                </h1>
-                <p className="mt-2 text-gray-600">
-                  Enter your new password below
-                </p>
-              </div>
-
-              {error && (
-                <div className="rounded-md bg-red-50 p-4 text-red-500 text-sm">
-                  <p>{error}</p>
+                <div className="mx-auto w-16 h-16 flex items-center justify-center rounded-full bg-green-100 mb-6">
+                  <CheckCircle className="h-8 w-8 text-green-500" />
                 </div>
-              )}
-
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                <Input
-                  label="New password"
-                  type="password"
-                  error={!!errors.password}
-                  helperText={errors.password?.message}
-                  {...register("password")}
-                />
-
-                <Input
-                  label="Confirm new password"
-                  type="password"
-                  error={!!errors.confirmPassword}
-                  helperText={errors.confirmPassword?.message}
-                  {...register("confirmPassword")}
-                />
-
-                <Button
-                  type="submit"
-                  fullWidth={true}
-                  loading={isLoading}
-                  disabled={!token}
-                  className="bg-brand-teal hover:bg-brand-teal/90 text-white font-medium"
-                >
-                  Reset password
-                </Button>
-
-                <div className="text-center">
+                <h2 className="text-2xl font-semibold text-gray-900 mb-2">
+                  Password updated
+                </h2>
+                <p className="text-gray-600">
+                  Your password has been updated successfully. You can now sign
+                  in with your new password.
+                </p>
+                <div className="mt-6">
                   <Link
                     href={`/${lang}/auth/login`}
-                    className="text-brand-teal hover:text-brand-teal/80 font-medium"
+                    className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-black bg-pharaonic-gold hover:bg-pharaonic-gold/90"
                   >
-                    Back to sign in
+                    Sign in
                   </Link>
                 </div>
-              </form>
-            </>
-          )}
-        </div>
-      </main>
+              </div>
+            ) : (
+              <>
+                <div className="text-center mb-8">
+                  <h1 className="text-3xl font-semibold text-gray-900 mb-2">
+                    Reset your password
+                  </h1>
+                  <p className="text-gray-600">Enter your new password below</p>
+                </div>
 
-      {/* Footer */}
-      <footer className="py-4 border-t border-gray-200 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <p className="text-sm text-gray-500">
-              © {new Date().getFullYear()} ReefQ. All rights reserved.
-            </p>
-            <div className="mt-4 md:mt-0 flex space-x-6">
-              <Link
-                href={`/${lang}/privacy`}
-                className="text-sm text-gray-500 hover:text-gray-700"
-              >
-                Privacy
-              </Link>
-              <Link
-                href={`/${lang}/terms`}
-                className="text-sm text-gray-500 hover:text-gray-700"
-              >
-                Terms
-              </Link>
-              <Link
-                href={`/${lang}/contact`}
-                className="text-sm text-gray-500 hover:text-gray-700"
-              >
-                Contact
-              </Link>
-            </div>
+                {displayError && (
+                  <div className="rounded-md bg-red-50 p-4 text-red-500 text-sm mb-6 border border-red-100">
+                    <p>{displayError}</p>
+                  </div>
+                )}
+
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      New password
+                    </label>
+                    <input
+                      type="password"
+                      className="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-pharaonic-gold focus:border-pharaonic-gold"
+                      placeholder="Enter new password"
+                      {...register("password")}
+                    />
+                    {errors.password && (
+                      <p className="mt-1 text-sm text-red-600">
+                        {errors.password.message}
+                      </p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Confirm new password
+                    </label>
+                    <input
+                      type="password"
+                      className="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-pharaonic-gold focus:border-pharaonic-gold"
+                      placeholder="Confirm new password"
+                      {...register("confirmPassword")}
+                    />
+                    {errors.confirmPassword && (
+                      <p className="mt-1 text-sm text-red-600">
+                        {errors.confirmPassword.message}
+                      </p>
+                    )}
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={isLoading || !token}
+                    className="w-full bg-pharaonic-gold hover:bg-pharaonic-gold/90 text-black font-medium py-2.5 px-4 rounded-md mt-2 transition-colors"
+                  >
+                    {isLoading ? (
+                      <span className="flex items-center justify-center">
+                        <svg
+                          className="animate-spin -ml-1 mr-2 h-4 w-4 text-black"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          ></circle>
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          ></path>
+                        </svg>
+                        Resetting password...
+                      </span>
+                    ) : (
+                      "Reset password"
+                    )}
+                  </button>
+
+                  <div className="text-center mt-6">
+                    <Link
+                      href={`/${lang}/auth/login`}
+                      className="text-pharaonic-gold hover:underline font-medium"
+                    >
+                      Back to sign in
+                    </Link>
+                  </div>
+                </form>
+              </>
+            )}
           </div>
         </div>
-      </footer>
+      </div>
     </div>
   );
 }
