@@ -15,7 +15,21 @@
     "customizeJewelry": "Customize Jewelry",
     "knowledgeHub": "Knowledge Hub"
   },
-  "home": "Home",
+  "meta": {
+    "home": {
+      "title": "ReefQ - 3D Jewelry Visualization & Try-On Platform",
+      "description": "Experience luxury jewelry like never before with our interactive 3D visualization and AR try-on platform."
+    }
+  },
+  "nav": {
+    "home": "Home",
+    "products": "Products",
+    "collections": "Collections",
+    "try_fit": "Try & Fit",
+    "jewelry_knowledge": "Jewelry Knowledge",
+    "about": "About",
+    "contact": "Contact"
+  },
   "wishlist": "Wishlist",
   "cart": "Cart",
   "account": "Account",
@@ -39,7 +53,8 @@
     "addToCart": "Add to Cart",
     "errorTitle": "Unable to Load Collections",
     "tryAgain": "Try Again",
-    "exploreMore": "Looking for more curated collections?"
+    "exploreMore": "Looking for more curated collections?",
+    "badge": "Curated Selection"
   },
   "hero": {
     "title": "ReefQ",
@@ -48,11 +63,26 @@
     "exploreFeatures": "Explore Features",
     "howItWorks": "How It Works",
     "getStarted": "Get Started",
-    "tryAndFit": "Try & Fit"
+    "tryAndFit": "Try & Fit",
+    "badge": "Premium Jewelry Experience"
+  },
+  "home": {
+    "hero": {
+      "title1": "3D Jewelry",
+      "title2": "Visualization Platform",
+      "description": "Transform your jewelry business with stunning 3D visualization and AR try-on experiences. Boost sales with interactive product showcases."
+    }
+  },
+  "buttons": {
+    "tryAndFit": "Try & Fit",
+    "exploreJewelry": "Explore Jewelry",
+    "tryItNow": "Try It Now",
+    "contactUs": "Contact Us"
   },
   "features": {
     "title": "Immersive Jewelry Shopping",
     "subtitle": "Transform the customer experience with advanced 3D technologies",
+    "badge": "Explore Features",
     "3dVisualization": {
       "name": "3D Visualization",
       "description": "Stunning jewelry display allowing customers to see every detail of the piece",
@@ -75,6 +105,7 @@
   "testimonials": {
     "title": "What Our Customers Say",
     "subtitle": "Feedback from customers using the ReefQ platform",
+    "badge": "Client Feedback",
     "testimonial1": {
       "quote": "ReefQ has transformed how we sell jewelry online. Customers are more confident in their purchases, and returns have significantly decreased.",
       "author": "Sarah Johnson",
@@ -120,6 +151,9 @@
     "subtitle": "One-time payment, lifetime value",
     "description": "Choose the perfect plan for your business. No hidden fees, no monthly subscriptions.",
     "oneTime": "one-time",
+    "contactUs": "Contact Us for Details",
+    "mostPopular": "Most Popular",
+    "badge": "Pricing Plans",
     "free": {
       "name": "Free",
       "price": "$0",
@@ -161,10 +195,15 @@
       "cta": "Contact Sales"
     }
   },
+  "comparison": {
+    "feature": "Feature"
+  },
   "faq": {
     "title": "Frequently Asked Questions",
     "subtitle": "Everything you need to know",
     "description": "Couldn't find the answer you're looking for? Reach out to our customer support team.",
+    "moreQuestions": "Have more questions? We're here to help.",
+    "badge": "Questions & Answers",
     "question1": {
       "question": "Do I need technical expertise to use ReefQ?",
       "answer": "No, we designed ReefQ to be easy to use. All you need to do is upload your product images, and we take care of the rest. User-friendly interface and clear instructions are provided."
@@ -205,5 +244,84 @@
     "french": "French",
     "arabic": "Arabic (رِفق)",
     "switchLanguage": "Switch Language"
+  },
+  "branding": {
+    "title": "Our Brand Vision",
+    "subtitle": "Explore the visual identity of Reefq - where luxury meets innovation in jewelry visualization"
+  },
+  "coreFeatures": {
+    "badge": "Core Features",
+    "title": "Elevate Your Jewelry Business",
+    "subtitle": "Our platform provides powerful tools to transform your jewelry business with cutting-edge technology",
+    "learnMore": "Learn more",
+    "cta": {
+      "title": "Ready to transform your jewelry business?",
+      "description": "Join thousands of jewelry businesses that have already enhanced their customer experience with our platform.",
+      "button": "Get Started Today",
+      "noCreditCard": "No credit card required to start"
+    }
+  },
+  "featureCards": {
+    "badge": "Why Choose ReefQ",
+    "sectionTitle": "Powerful Features for Your Jewelry Business",
+    "sectionDescription": "Discover how ReefQ transforms your jewelry business with cutting-edge technology and innovative solutions.",
+    "visualization": {
+      "title": "3D Visualization",
+      "description": "Experience jewelry in stunning 3D detail before purchase"
+    },
+    "tryOn": {
+      "title": "Virtual Try-On",
+      "description": "See how jewelry looks on you with our AR technology"
+    },
+    "customization": {
+      "title": "Jewelry Customization",
+      "description": "Create your perfect jewelry piece with our advanced customization tools"
+    },
+    "collections": {
+      "title": "Curated Collections",
+      "description": "Explore our handcrafted jewelry collections for every style and occasion"
+    },
+    "knowledgeHub": {
+      "title": "Knowledge Hub",
+      "description": "Educational resources to help you understand jewelry craftsmanship and care"
+    },
+    "sizing": {
+      "title": "Accurate Sizing",
+      "description": "Get the perfect fit with our precise sizing technology"
+    },
+    "security": {
+      "title": "Secure Shopping",
+      "description": "Shop with confidence with our secure payment and data protection"
+    },
+    "ai": {
+      "title": "AI Recommendations",
+      "description": "Get personalized jewelry suggestions based on your preferences"
+    },
+    "showcaseAlt": "Jewelry showcase",
+    "showcase": {
+      "title": "Transform Your Jewelry Experience",
+      "description": "Experience the future of jewelry shopping with our cutting-edge platform that brings your designs to life.",
+      "cta": "Explore Features"
+    }
+  },
+  "jewelryViewer": {
+    "title": "Interactive 3D Jewelry Viewer",
+    "description": "Experience our jewelry in stunning detail with our interactive 3D viewer",
+    "interactiveTitle": "Interact with Jewelry in Real-Time",
+    "interactiveDescription": "Rotate, zoom, and explore every detail of our jewelry pieces before making a purchase decision.",
+    "benefit1": "Examine intricate details from every angle",
+    "benefit2": "See how different metals and gems look together",
+    "benefit3": "Get a true sense of proportions and design",
+    "badge": "Interactive Experience"
+  },
+  "virtualTryOn": {
+    "title": "Try Before You Buy",
+    "description": "Experience our jewelry virtually with our augmented reality try-on feature",
+    "badge": "Virtual Try-On"
+  },
+  "performance": {
+    "title": "Optimized for Performance",
+    "description": "Our 3D visualization technology is built for speed and efficiency",
+    "badge": "Performance Metrics"
   }
-} 
+}

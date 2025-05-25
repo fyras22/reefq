@@ -24,7 +24,14 @@
     "french": "Français",
     "arabic": "Arabe"
   },
-  "home": "Accueil",
+  "home": {
+    "hero": {
+      "title1": "Votre expérience bijoux",
+      "title2": "numérique réinventée",
+      "description": "Découvrez une nouvelle vision des bijoux numériques avec la plateforme ReefQ. Nous combinons la technologie de réalité augmentée avec une visualisation 3D haute-fidélité pour offrir une expérience d'achat unique aux marchands et aux clients.",
+      "badge": "Expérience Bijouterie Premium"
+    }
+  },
   "products": "Produits",
   "try_fit": "Essayer & Ajuster",
   "jewelry_knowledge": "Connaissances sur les Bijoux",
@@ -37,53 +44,11 @@
   "read_more": "Lire Plus",
   "related_articles": "Articles Connexes",
   "back_to_all_articles": "Retour à Tous les Articles",
-  "features": "Fonctionnalités",
-  "testimonials": "Témoignages",
-  "howItWorks": "Comment ça marche",
-  "pricing": "Tarification",
-  "faq": "FAQ",
-  "getStarted": "Commencer",
-  "login": "Connexion",
-  "signup": "Inscription",
-  "tryAndFit": "Essayer & Ajuster",
-  "header": {
-    "features": "Fonctionnalités",
-    "tryOn": "Essayer",
-    "customize": "Personnaliser",
-    "performance": "Performance",
-    "comparison": "Comparaison",
-    "pricing": "Tarification",
-    "products": "Produits",
-    "tryAndFit": "Essayer & Ajuster",
-    "getStarted": "Commencer",
-    "jewelryCollection": "Collection de Bijoux",
-    "virtualTryOn": "Essayage Virtuel",
-    "customizeJewelry": "Personnaliser les Bijoux",
-    "knowledgeHub": "Centre de Connaissances"
-  },
-  "hero": {
-    "badge": "Technologie Innovante de Bijoux",
-    "title1": "Votre expérience bijoux",
-    "title2": "numérique réinventée",
-    "description": "Découvrez une nouvelle vision des bijoux numériques avec la plateforme ReefQ. Nous combinons la technologie de réalité augmentée avec une visualisation 3D haute-fidélité pour offrir une expérience d'achat unique aux marchands et aux clients.",
-    "ctaPrimary": "Explorer les Fonctionnalités",
-    "ctaSecondary": "Comment ça Marche",
-    "trustBadge1": "Utilisé par plus de 200 détaillants",
-    "trustBadge2": "Technologie de pointe",
-    "trustBadge3": "Plateforme primée",
-    "imageAlt": "Plateforme de Visualisation de Bijoux 3D ReefQ",
-    "badge1Title": "Précision",
-    "badge1Text": "Visualisation haute-fidélité",
-    "badge2Title": "Innovation",
-    "badge2Text": "Technologie RA de pointe"
-  },
-  "featureCards": {
-    "sectionTitle": "Fonctionnalités Puissantes",
-    "sectionDescription": "Découvrez comment ReefQ transforme l'expérience d'achat de bijoux",
-    "visualization": {
-      "title": "Visualisation 3D Réaliste",
-      "description": "Modèles haute-fidélité qui capturent chaque détail et brillance"
-    },
+  "features": {
+    "immersiveTitle": "Expérience Immersive de Bijouterie",
+    "title": "Expérience Immersive de Bijouterie",
+    "description": "Découvrez une nouvelle façon d'acheter des bijoux avec des fonctionnalités interactives et engageantes",
+    "popular": "Populaire",
     "tryOn": {
       "title": "Essayage Virtuel",
       "description": "Permettez aux clients de voir comment les bijoux leur vont grâce à la RA"
@@ -125,7 +90,7 @@
   },
   "pricing": {
     "mostPopular": "Le Plus Populaire",
-    "contactUs": "Contactez-Nous"
+    "contactUs": "Contactez-nous pour plus de détails"
   },
   "virtualTryOn": {
     "title": "Expérience d'Essayage Virtuel",
@@ -191,14 +156,30 @@
       "feature7": "Accès API",
       "feature8": "Solution en Marque Blanche"
     },
-    "cta": "Choisissez ReefQ Aujourd'hui"
+    "cta": "Choisissez ReefQ Aujourd'hui",
+    "feature": "Fonctionnalité"
   },
   "faq": {
     "stillHaveQuestions": "Vous avez encore des questions ?",
-    "contactUs": "Contactez notre équipe"
+    "contactUs": "Contactez notre équipe",
+    "moreQuestions": "Vous avez d'autres questions? Nous sommes là pour vous aider."
   },
   "footer": {
     "slogan": "Transformer l'achat de bijoux avec une technologie innovante",
     "craftedWith": "Conçu avec"
+  },
+  "buttons": {
+    "explore": "Explorer",
+    "tryItNow": "Essayez Maintenant",
+    "contactUs": "Contactez-nous"
+  },
+  "jewelryViewer": {
+    "title": "Explorateur 3D de Bijoux Interactif",
+    "description": "Examinez les bijoux sous tous les angles avec notre visionneuse 3D de pointe",
+    "interactiveTitle": "Expérience Immersive de Bijouterie",
+    "interactiveDescription": "Faites pivoter, zoomez et explorez chaque détail de nos pièces exquises avec une précision impressionnante",
+    "benefit1": "Visualisation photoréaliste des matériaux et des pierres précieuses",
+    "benefit2": "Inspection détaillée de l'artisanat et du design",
+    "benefit3": "Essayez différentes variations avant de prendre une décision"
   }
-} 
+}

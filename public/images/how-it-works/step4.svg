@@ -1,0 +1,101 @@
+<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" rx="20" fill="#F5F5F7"/>
+  <g filter="url(#filter0_d)">
+    <rect x="150" y="100" width="500" height="350" rx="16" fill="white"/>
+    
+    <!-- Checkout Interface Header -->
+    <rect x="150" y="100" width="500" height="40" rx="16" fill="#2A5B5E" />
+    <text x="400" y="126" font-family="Arial" font-size="16" font-weight="bold" fill="white" text-anchor="middle">Secure Checkout</text>
+    
+    <!-- Main Content Area -->
+    <rect x="170" y="160" width="460" height="270" rx="8" fill="#F9F9F9"/>
+    
+    <!-- Left Panel - Order Summary -->
+    <rect x="190" y="180" width="200" height="230" rx="8" fill="white" stroke="#EEEEEE" stroke-width="1"/>
+    <text x="290" y="205" font-family="Arial" font-size="14" font-weight="bold" fill="#333333" text-anchor="middle">Order Summary</text>
+    
+    <!-- Product Image -->
+    <rect x="210" y="220" width="70" height="70" rx="8" fill="#EEEEEE"/>
+    <circle cx="245" cy="255" r="20" fill="#C4A265" opacity="0.8"/>
+    <circle cx="245" cy="255" r="10" fill="white"/>
+    
+    <!-- Product Details -->
+    <text x="315" y="235" font-family="Arial" font-size="12" font-weight="bold" fill="#333333" text-anchor="middle">Gold Diamond Ring</text>
+    <text x="315" y="255" font-family="Arial" font-size="12" fill="#666666" text-anchor="middle">Size: 7 | 18K Gold</text>
+    <text x="315" y="275" font-family="Arial" font-size="12" font-weight="bold" fill="#2A5B5E" text-anchor="middle">$1,499.00</text>
+    
+    <!-- Divider -->
+    <line x1="210" y1="310" x2="370" y2="310" stroke="#EEEEEE" stroke-width="1"/>
+    
+    <!-- Subtotal -->
+    <text x="230" y="335" font-family="Arial" font-size="12" fill="#666666">Subtotal:</text>
+    <text x="350" y="335" font-family="Arial" font-size="12" fill="#666666" text-anchor="end">$1,499.00</text>
+    
+    <!-- Shipping -->
+    <text x="230" y="355" font-family="Arial" font-size="12" fill="#666666">Shipping:</text>
+    <text x="350" y="355" font-family="Arial" font-size="12" fill="#666666" text-anchor="end">$0.00</text>
+    
+    <!-- Tax -->
+    <text x="230" y="375" font-family="Arial" font-size="12" fill="#666666">Tax:</text>
+    <text x="350" y="375" font-family="Arial" font-size="12" fill="#666666" text-anchor="end">$89.94</text>
+    
+    <!-- Total -->
+    <line x1="210" y1="385" x2="370" y2="385" stroke="#EEEEEE" stroke-width="1"/>
+    <text x="230" y="405" font-family="Arial" font-size="14" font-weight="bold" fill="#333333">Total:</text>
+    <text x="350" y="405" font-family="Arial" font-size="14" font-weight="bold" fill="#2A5B5E" text-anchor="end">$1,588.94</text>
+    
+    <!-- Right Panel - Payment Form -->
+    <rect x="410" y="180" width="220" height="230" rx="8" fill="white" stroke="#EEEEEE" stroke-width="1"/>
+    <text x="520" y="205" font-family="Arial" font-size="14" font-weight="bold" fill="#333333" text-anchor="middle">Payment Details</text>
+    
+    <!-- Payment Method -->
+    <text x="430" y="235" font-family="Arial" font-size="12" fill="#666666">Payment Method</text>
+    
+    <!-- Card Options -->
+    <rect x="430" y="245" width="180" height="40" rx="6" fill="#F9F9F9" stroke="#DDDDDD" stroke-width="1"/>
+    <rect x="440" y="255" width="24" height="20" rx="2" fill="#F44336"/>
+    <rect x="474" y="255" width="24" height="20" rx="2" fill="#2196F3"/>
+    <rect x="508" y="255" width="24" height="20" rx="2" fill="#4CAF50"/>
+    <rect x="542" y="255" width="24" height="20" rx="2" fill="#FFC107"/>
+    
+    <!-- Card Number -->
+    <text x="430" y="305" font-family="Arial" font-size="12" fill="#666666">Card Number</text>
+    <rect x="430" y="315" width="180" height="30" rx="6" fill="#F9F9F9" stroke="#DDDDDD" stroke-width="1"/>
+    <text x="450" y="335" font-family="Arial" font-size="12" fill="#999999">•••• •••• •••• 4242</text>
+    
+    <!-- Card Details Row -->
+    <text x="430" y="365" font-family="Arial" font-size="12" fill="#666666">Expiry Date</text>
+    <rect x="430" y="375" width="85" height="30" rx="6" fill="#F9F9F9" stroke="#DDDDDD" stroke-width="1"/>
+    <text x="450" y="395" font-family="Arial" font-size="12" fill="#999999">MM/YY</text>
+    
+    <text x="525" y="365" font-family="Arial" font-size="12" fill="#666666">CVV</text>
+    <rect x="525" y="375" width="85" height="30" rx="6" fill="#F9F9F9" stroke="#DDDDDD" stroke-width="1"/>
+    <text x="545" y="395" font-family="Arial" font-size="12" fill="#999999">•••</text>
+    
+    <!-- Checkout Button -->
+    <rect x="410" y="420" width="220" height="40" rx="8" fill="#C4A265"/>
+    <text x="520" y="445" font-family="Arial" font-size="14" font-weight="bold" fill="white" text-anchor="middle">Complete Purchase</text>
+    
+    <!-- Secure Badge -->
+    <circle cx="440" cy="445" r="12" fill="#FFFFFF" stroke="#2A5B5E" stroke-width="1"/>
+    <path d="M440,438 L440,445 M437,441 L440,444 L443,441" stroke="#2A5B5E" stroke-width="1.5"/>
+  </g>
+  
+  <!-- Decorative Elements -->
+  <circle cx="100" cy="300" r="50" fill="#2A5B5E" opacity="0.1"/>
+  <circle cx="700" cy="200" r="70" fill="#C4A265" opacity="0.1"/>
+  <path d="M60,400 Q120,350 70,300 T80,200" stroke="#2A5B5E" stroke-width="3" stroke-dasharray="6 6" opacity="0.3" fill="none"/>
+  <path d="M700,300 Q650,350 690,400 T680,500" stroke="#C4A265" stroke-width="3" stroke-dasharray="6 6" opacity="0.3" fill="none"/>
+  
+  <defs>
+    <filter id="filter0_d" x="140" y="95" width="520" height="370" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+      <feOffset dy="5"/>
+      <feGaussianBlur stdDeviation="5"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
+      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+    </filter>
+  </defs>
+</svg> 

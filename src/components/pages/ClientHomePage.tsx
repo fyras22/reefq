@@ -2,20 +2,29 @@
 
 import { useTranslation } from "@/app/i18n-client";
 import { FeaturedCollections } from "@/components/FeaturedCollections";
+import { JewelryViewer } from "@/components/JewelryViewer";
+import BrandingCarousel from "@/components/landing/BrandingCarousel";
 import { CoreFeaturesSection } from "@/components/landing/CoreFeaturesSection";
+import { FeatureCardsSection } from "@/components/landing/FeatureCardsSection";
 import { HeroSection } from "@/components/landing/HeroSection";
 import { HowItWorksSection } from "@/components/landing/HowItWorksSection";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 import { LandingHeader } from "@/components/landing/LandingHeader";
 import { TestimonialsSection } from "@/components/landing/TestimonialsSection";
+import LandingSidebar from "@/components/layout/LandingSidebar";
 import AdvancedSEO from "@/components/seo/AdvancedSEO";
+import { Button, Card, FallbackImage } from "@/components/ui";
 import {
+  BookOpenIcon,
   ChartBarIcon,
   CubeIcon,
   SparklesIcon,
+  SquaresPlusIcon,
 } from "@heroicons/react/24/outline";
 import { AnimatePresence, motion } from "framer-motion";
+import Link from "next/link";
 import { Suspense, lazy, useEffect, useMemo, useState } from "react";
+
 // Lazy load non-critical sections
 const PricingSection = lazy(() =>
   import("@/components/landing/PricingSection").then((mod) => ({
@@ -33,6 +42,62 @@ const ComparisonToolSection = lazy(
 );
 const FaqSection = lazy(() => import("@/components/landing/FaqSection"));
 
+// Add helper function for smooth scrolling
+const scrollToSection = (
+  e: React.MouseEvent<HTMLAnchorElement>,
+  id: string
+) => {
+  e.preventDefault();
+  const element = document.getElementById(id);
+  if (element) {
+    const headerOffset = 80; // Account for header height
+    const elementPosition = element.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: "smooth",
+    });
+  }
+};
+
+function FaqItem({ question, answer }: { question: string; answer: string }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="border-b border-gray-200 dark:border-gray-700 pb-4">
+      <button
+        className="flex w-full items-center justify-between py-3 text-left text-lg font-medium leading-7 text-gray-900 dark:text-white hover:text-nile-teal dark:hover:text-[--color-primary-teal] transition-colors"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <span>{question}</span>
+        <svg
+          className={`h-5 w-5 text-pharaonic-gold dark:text-[--color-primary-gold] transition-transform ${isOpen ? "rotate-180 transform" : ""}`}
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            fillRule="evenodd"
+            d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+            clipRule="evenodd"
+          />
+        </svg>
+      </button>
+      <motion.div
+        initial={false}
+        animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
+        className="overflow-hidden"
+        transition={{ duration: 0.3 }}
+      >
+        <div className="py-3 text-base text-gray-600 dark:text-gray-300">
+          {answer}
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
 interface ClientHomePageProps {
   lang: string;
 }
@@ -43,6 +108,7 @@ export default function ClientHomePage({ lang }: ClientHomePageProps) {
   const [isRTL, setIsRTL] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [activeSection, setActiveSection] = useState("hero");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Initialize language and load translations
   useEffect(() => {
@@ -81,12 +147,15 @@ export default function ClientHomePage({ lang }: ClientHomePageProps) {
       const sections = [
         "hero",
         "features",
+        "collections",
         "core-features",
         "how-it-works",
+        "branding",
         "testimonials",
         "pricing",
         "virtual-try-on",
         "performance",
+        "jewelry-knowledge",
         "comparison",
         "faq",
       ];
@@ -135,6 +204,59 @@ export default function ClientHomePage({ lang }: ClientHomePageProps) {
         icon: ChartBarIcon,
         stat: t("features.sizeOptimization.stat"),
         statText: t("features.sizeOptimization.statText"),
+      },
+    ],
+    [t]
+  );
+
+  // Extended features from the root page
+  const extendedFeatures = useMemo(
+    () => [
+      {
+        name: t("features.arTryOn.name"),
+        description: t("features.arTryOn.description"),
+        icon: SparklesIcon,
+        stat: t("features.arTryOn.stat"),
+        statText: t("features.arTryOn.statText"),
+        image: "/images/features/virtual-try-on.jpg",
+        url: "/virtual-try-on",
+        color: "from-purple-50",
+      },
+      {
+        name: t("header.customizeJewelry") || "Customize Jewelry",
+        description:
+          "Design and create your perfect jewelry piece with our advanced customization tools",
+        icon: SparklesIcon,
+        stat: "+1000",
+        statText: "unique combinations",
+        image: "/images/features/customize.jpg",
+        url: "/customize",
+        color: "from-blue-50",
+        highlighted: true,
+      },
+      {
+        name: t("collections.title") || "Collections",
+        description:
+          t("collections.description") ||
+          "Explore our curated jewelry collections, designed to match your style and occasions.",
+        icon: SquaresPlusIcon,
+        stat: "+200",
+        statText:
+          t("collections.itemCount", { count: 200 }) || "200 unique pieces",
+        image: "/images/features/collections.jpg",
+        url: "/collections",
+        color: "from-rose-50",
+      },
+      {
+        name: t("header.knowledgeHub") || "Knowledge Hub",
+        description:
+          "Educational resources to help you understand jewelry craftsmanship and care",
+        icon: BookOpenIcon,
+        stat: "+50",
+        statText: "jewelry guides and articles",
+        image: "/images/features/knowledge-hub.jpg",
+        url: "/knowledge",
+        color: "from-violet-50",
       },
     ],
     [t]
@@ -237,9 +359,17 @@ export default function ClientHomePage({ lang }: ClientHomePageProps) {
         twitter={seoData.twitter}
       />
 
+      {/* Landing Sidebar */}
+      <LandingSidebar
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+        activeSection={activeSection}
+        isRTL={isRTL}
+      />
+
       <AnimatePresence>
         <motion.main
-          className={`bg-white ${isRTL ? "rtl" : "ltr"}`}
+          className={`bg-skin-base ${isRTL ? "rtl" : "ltr"}`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
@@ -250,11 +380,12 @@ export default function ClientHomePage({ lang }: ClientHomePageProps) {
               <div className="absolute top-0 left-0 w-64 h-64 -translate-x-1/3 -translate-y-1/3">
                 <svg
                   viewBox="0 0 200 200"
+                  className="text-neutral-700 h-full w-full"
                   xmlns="http://www.w3.org/2000/svg"
-                  className="w-full h-full text-pharaonic-gold fill-current"
                 >
                   <path
-                    d="M36.9,-48.2C46.2,-39.9,51.2,-26.6,55,-12.6C58.8,1.4,61.5,16,56.6,27.7C51.8,39.4,39.4,48.3,25.8,53.9C12.2,59.5,-2.7,61.8,-17.8,59C-32.8,56.3,-47.9,48.6,-55.7,36.3C-63.5,24.1,-64,7.4,-62,-8.8C-60,-25,-55.4,-40.7,-44.8,-49C-34.1,-57.3,-17.1,-58.2,-1.6,-56.2C13.8,-54.2,27.5,-56.5,36.9,-48.2Z"
+                    fill="currentColor"
+                    d="M40.9,-68.5C51.8,-62.1,58.3,-47.3,61.7,-33.1C65.1,-19,65.3,-5.5,61,5.4C56.7,16.2,47.8,24.3,39.8,33C31.8,41.7,24.6,51,15.2,56.4C5.8,61.8,-5.8,63.3,-17.2,61.5C-28.6,59.7,-39.7,54.5,-48.8,46.1C-57.9,37.7,-64.9,26,-64.8,14.4C-64.7,2.9,-57.5,-8.5,-52.4,-20.7C-47.4,-32.9,-44.5,-45.9,-36.1,-53.7C-27.7,-61.5,-13.9,-64,-0.1,-63.9C13.7,-63.8,30,-74.9,40.9,-68.5Z"
                     transform="translate(100 100)"
                   />
                 </svg>
@@ -262,11 +393,12 @@ export default function ClientHomePage({ lang }: ClientHomePageProps) {
               <div className="absolute bottom-0 right-0 w-96 h-96 translate-x-1/3 translate-y-1/3">
                 <svg
                   viewBox="0 0 200 200"
+                  className="text-neutral-700 h-full w-full"
                   xmlns="http://www.w3.org/2000/svg"
-                  className="w-full h-full text-nile-teal fill-current"
                 >
                   <path
-                    d="M40.9,-56.3C51.1,-44.9,56.2,-30.1,60.8,-14.8C65.4,0.5,69.6,16.4,64.4,28.5C59.3,40.7,44.8,49.2,30.6,53.8C16.3,58.5,2.2,59.4,-12.9,58.1C-28,56.9,-44.1,53.5,-55.3,43.5C-66.5,33.5,-72.8,17,-74.2,-0.8C-75.6,-18.7,-72.1,-37.4,-60.7,-48.8C-49.4,-60.2,-30.2,-64.3,-13.2,-64.1C3.9,-63.9,30.7,-67.6,40.9,-56.3Z"
+                    fill="currentColor"
+                    d="M34.1,-58.5C45.2,-51.9,55.7,-44.5,62.8,-33.7C69.9,-22.9,73.5,-8.6,70.8,4.1C68.1,16.8,59,27.9,49.9,38.1C40.8,48.2,31.6,57.4,20.3,62.3C9,67.2,-4.4,67.8,-16.8,64.3C-29.1,60.8,-40.3,53.2,-49.1,43.1C-57.9,33,-64.3,20.4,-66.7,6.7C-69,-7,-67.4,-21.7,-61.1,-33.7C-54.8,-45.7,-43.9,-54.9,-31.9,-61C-19.9,-67.1,-7,-70,3.4,-75.5C13.8,-81,23,-65.1,34.1,-58.5Z"
                     transform="translate(100 100)"
                   />
                 </svg>
@@ -274,6 +406,7 @@ export default function ClientHomePage({ lang }: ClientHomePageProps) {
             </div>
           )}
 
+          {/* Header */}
           <LandingHeader
             t={t}
             isRTL={isRTL}
@@ -281,124 +414,289 @@ export default function ClientHomePage({ lang }: ClientHomePageProps) {
             activeSection={activeSection}
           />
 
-          <div id="hero">
-            <HeroSection t={t} isRTL={isRTL} />
-          </div>
-          {/*           
-          <div id="features">
-            <FeatureCardsSection t={t} isRTL={isRTL} />
-          </div>
-           */}
-          <div id="core-features">
-            <CoreFeaturesSection t={t} isRTL={isRTL} features={features} />
-          </div>
+          {/* Hero Section */}
+          <HeroSection t={t} isRTL={isRTL} />
 
-          <div id="how-it-works">
-            <HowItWorksSection t={t} isRTL={isRTL} />
-          </div>
+          {/* Branding Carousel Section - Moved to be second section */}
+          <BrandingCarousel
+            title={t("branding.title", "Our Brand Vision")}
+            subtitle={t(
+              "branding.subtitle",
+              "Explore the visual identity of Reefq - where luxury meets innovation in jewelry visualization"
+            )}
+            isRTL={isRTL}
+          />
 
-          <div id="featured-collections">
-            <FeaturedCollections />
-          </div>
-
-          <div id="testimonials">
-            <TestimonialsSection
-              t={t}
-              isRTL={isRTL}
-              testimonials={testimonials}
-            />
-          </div>
-
-          {/* Lazy loaded sections */}
-          <Suspense
-            fallback={
-              <div className="h-96 flex items-center justify-center">
-                <div className="w-8 h-8 border-4 border-t-nile-teal border-nile-teal/20 rounded-full animate-spin"></div>
-              </div>
-            }
+          {/* Featured Collections Section */}
+          <section
+            id="collections"
+            className="py-20 bg-skin-soft dark:bg-neutral-800/20"
           >
-            <div id="pricing">
-              <PricingSection t={t} isRTL={isRTL} />
+            <div className="container mx-auto">
+              <div className="text-center mb-16">
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                  className="inline-flex items-center rounded-full px-4 py-1 text-sm font-medium bg-nile-teal/10 text-nile-teal dark:bg-nile-teal/30 dark:text-white ring-1 ring-inset ring-nile-teal/20 mb-4"
+                >
+                  {t("collections.badge", "Curated Selection")}
+                </motion.span>
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                  {t("collections.title")}
+                </h2>
+                <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                  {t("collections.description")}
+                </p>
+              </div>
+              <FeaturedCollections />
             </div>
+          </section>
+
+          {/* Extended Features Section */}
+          <section id="features" className="py-20 bg-white dark:bg-neutral-900">
+            <div className="container mx-auto">
+              <div className="text-center mb-16">
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                  className="inline-flex items-center rounded-full px-4 py-1 text-sm font-medium bg-nile-teal/10 text-nile-teal dark:bg-nile-teal/30 dark:text-white ring-1 ring-inset ring-nile-teal/20 mb-4"
+                >
+                  {t("features.badge", "Explore Features")}
+                </motion.span>
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                  {t("features.title")}
+                </h2>
+                <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                  {t("features.description")}
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                {extendedFeatures.map((feature, index) => (
+                  <Card
+                    key={index}
+                    className={`relative overflow-hidden group ${
+                      feature.highlighted
+                        ? "ring-2 ring-nile-teal dark:ring-[--color-primary-teal]"
+                        : ""
+                    }`}
+                  >
+                    <div
+                      className={`absolute inset-0 bg-gradient-to-b ${feature.color} dark:from-neutral-800 dark:to-neutral-900 opacity-30 group-hover:opacity-50 transition-opacity`}
+                    />
+                    <div className="relative p-6 flex flex-col h-full">
+                      {feature.highlighted && (
+                        <div className="absolute top-0 right-0 bg-nile-teal dark:bg-[--color-primary-teal] text-white px-3 py-1 text-sm font-medium rounded-bl-lg">
+                          {t("features.popular")}
+                        </div>
+                      )}
+
+                      <div className="mb-6">
+                        <div className="bg-white dark:bg-neutral-800 p-3 rounded-lg inline-block shadow-sm">
+                          <feature.icon className="h-8 w-8 text-nile-teal dark:text-[--color-primary-teal]" />
+                        </div>
+                      </div>
+
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                        {feature.name}
+                      </h3>
+                      <p className="text-gray-600 dark:text-gray-300 mb-4 flex-grow">
+                        {feature.description}
+                      </p>
+
+                      {feature.image && (
+                        <div className="relative h-48 mb-4 rounded-lg overflow-hidden">
+                          <FallbackImage
+                            src={feature.image}
+                            alt={feature.name}
+                            fill
+                            className="object-cover"
+                            fallbackSrc="/images/fallback-collection.svg"
+                          />
+                        </div>
+                      )}
+
+                      <div className="flex justify-between items-center mt-2">
+                        <div>
+                          <p className="text-2xl font-bold text-nile-teal dark:text-[--color-primary-teal]">
+                            {feature.stat}
+                          </p>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">
+                            {feature.statText}
+                          </p>
+                        </div>
+
+                        <Link
+                          href={feature.url || "#"}
+                          className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-nile-teal dark:bg-[--color-primary-teal] hover:bg-nile-teal-dark dark:hover:bg-[--color-primary-teal]/90 transition-colors"
+                        >
+                          {t("buttons.explore")}
+                        </Link>
+                      </div>
+                    </div>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* 3D Jewelry Viewer Section */}
+          <section
+            id="jewelry-viewer"
+            className="py-20 bg-skin-soft dark:bg-neutral-800/20 overflow-hidden"
+          >
+            <div className="container mx-auto">
+              <div className="text-center mb-16">
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                  className="inline-flex items-center rounded-full px-4 py-1 text-sm font-medium bg-nile-teal/10 text-nile-teal dark:bg-nile-teal/30 dark:text-white ring-1 ring-inset ring-nile-teal/20 mb-4"
+                >
+                  {t("jewelryViewer.badge", "Interactive Experience")}
+                </motion.span>
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                  {t("jewelryViewer.title")}
+                </h2>
+                <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                  {t("jewelryViewer.description")}
+                </p>
+              </div>
+
+              <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+                <div className="lg:w-1/2">
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                    {t("jewelryViewer.interactiveTitle")}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-300 mb-6">
+                    {t("jewelryViewer.interactiveDescription")}
+                  </p>
+
+                  <div className="space-y-4">
+                    {[1, 2, 3].map((i) => (
+                      <div key={i} className="flex items-start">
+                        <div className="flex-shrink-0 h-6 w-6 rounded-full bg-nile-teal dark:bg-[--color-primary-teal] flex items-center justify-center text-white">
+                          <svg
+                            className="h-4 w-4"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                        <p className="ml-3 text-gray-600 dark:text-gray-300">
+                          {t(`jewelryViewer.benefit${i}`)}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-8">
+                    <Button className="bg-nile-teal dark:bg-[--color-primary-teal] text-white">
+                      {t("buttons.tryItNow")}
+                    </Button>
+                  </div>
+                </div>
+
+                <div className="lg:w-2/5 w-full max-w-md h-[350px] bg-white dark:bg-neutral-900 rounded-lg shadow-xl overflow-hidden p-0 mx-auto">
+                  <JewelryViewer />
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Core Features */}
+          <CoreFeaturesSection t={t} isRTL={isRTL} features={features} />
+
+          {/* Why Choose ReefQ Section */}
+          <FeatureCardsSection t={t} isRTL={isRTL} />
+
+          {/* How It Works Section */}
+          <HowItWorksSection t={t} isRTL={isRTL} />
+
+          {/* Testimonials Section */}
+          <TestimonialsSection
+            t={t}
+            testimonials={testimonials}
+            isRTL={isRTL}
+          />
+
+          {/* Pricing Section */}
+          <Suspense fallback={<div>Loading...</div>}>
+            <PricingSection t={t} isRTL={isRTL} />
           </Suspense>
 
-          <Suspense
-            fallback={
-              <div className="h-96 flex items-center justify-center">
-                <div className="w-8 h-8 border-4 border-t-nile-teal border-nile-teal/20 rounded-full animate-spin"></div>
-              </div>
-            }
-          >
-            <div id="virtual-try-on">
-              <VirtualTryOnSection t={t} isRTL={isRTL} />
-            </div>
+          {/* Virtual Try-On Section */}
+          <Suspense fallback={<div>Loading...</div>}>
+            <VirtualTryOnSection t={t} isRTL={isRTL} />
           </Suspense>
 
-          <Suspense
-            fallback={
-              <div className="h-96 flex items-center justify-center">
-                <div className="w-8 h-8 border-4 border-t-nile-teal border-nile-teal/20 rounded-full animate-spin"></div>
-              </div>
-            }
-          >
-            <div id="performance">
-              <PerformanceSection t={t} />
-            </div>
+          {/* Performance Section */}
+          <Suspense fallback={<div>Loading...</div>}>
+            <PerformanceSection t={t} />
           </Suspense>
 
-          <Suspense
-            fallback={
-              <div className="h-96 flex items-center justify-center">
-                <div className="w-8 h-8 border-4 border-t-nile-teal border-nile-teal/20 rounded-full animate-spin"></div>
-              </div>
-            }
-          >
-            <div id="comparison">
-              <ComparisonToolSection t={t} isRTL={isRTL} />
-            </div>
-          </Suspense>
+          {/* Comparison Tool Section */}
+          {/* <Suspense fallback={<div>Loading...</div>}>
+            <ComparisonToolSection t={t} isRTL={isRTL} />
+          </Suspense> */}
 
-          <Suspense
-            fallback={
-              <div className="h-96 flex items-center justify-center">
-                <div className="w-8 h-8 border-4 border-t-nile-teal border-nile-teal/20 rounded-full animate-spin"></div>
+          {/* FAQ Section (with custom FaqItem component) */}
+          <section id="faq" className="py-20 bg-white dark:bg-neutral-900">
+            <div className="container mx-auto">
+              <div className="text-center mb-16">
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                  className="inline-flex items-center rounded-full px-4 py-1 text-sm font-medium bg-nile-teal/10 text-nile-teal dark:bg-nile-teal/30 dark:text-white ring-1 ring-inset ring-nile-teal/20 mb-4"
+                >
+                  {t("faq.badge", "Questions & Answers")}
+                </motion.span>
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                  {t("faq.title")}
+                </h2>
+                <p className="text-xl text-gray-600 dark:text-gray-300">
+                  {t("faq.description")}
+                </p>
               </div>
-            }
-          >
-            <div id="faq">
-              <FaqSection t={t} isRTL={isRTL} faqs={faqs} />
-            </div>
-          </Suspense>
 
+              <div className="space-y-6">
+                {faqs.map((faq, index) => (
+                  <FaqItem
+                    key={index}
+                    question={faq.question}
+                    answer={faq.answer}
+                  />
+                ))}
+              </div>
+
+              <div className="mt-12 text-center">
+                <p className="text-gray-600 dark:text-gray-300 mb-6">
+                  {t("faq.moreQuestions")}
+                </p>
+                <Link
+                  href={`/${lang}/contact`}
+                  className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-nile-teal hover:bg-nile-teal-dark dark:bg-[--color-primary-teal] dark:hover:bg-[--color-primary-teal]/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-nile-teal dark:focus:ring-[--color-primary-teal] transition-colors"
+                >
+                  {t("buttons.contactUs")}
+                </Link>
+              </div>
+            </div>
+          </section>
+
+          {/* Footer */}
           <LandingFooter t={t} isRTL={isRTL} />
-
-          {/* Back to top button */}
-          <motion.button
-            className="fixed bottom-8 right-8 z-50 p-2 rounded-full bg-pharaonic-gold shadow-xl text-white"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            initial={{ opacity: 0, y: 100 }}
-            animate={{
-              opacity: scrolled ? 1 : 0,
-              y: scrolled ? 0 : 100,
-            }}
-            transition={{ duration: 0.3 }}
-            aria-label="Back to top"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M5 15l7-7 7 7"
-              />
-            </svg>
-          </motion.button>
         </motion.main>
       </AnimatePresence>
     </>

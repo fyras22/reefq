@@ -1,0 +1,80 @@
+<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" rx="20" fill="#F5F5F7"/>
+  <g filter="url(#filter0_d)">
+    <rect x="150" y="100" width="500" height="350" rx="16" fill="white"/>
+    
+    <!-- Device Frame -->
+    <rect x="250" y="120" width="300" height="310" rx="20" fill="#2A2A2A"/>
+    <rect x="270" y="140" width="260" height="250" rx="2" fill="#FFFFFF"/>
+    
+    <!-- Virtual Try-On Screen -->
+    <g clip-path="url(#screen-clip)">
+      <!-- Hand image background -->
+      <rect x="270" y="140" width="260" height="250" fill="#F5F3F0"/>
+      
+      <!-- Stylized hand silhouette -->
+      <path d="M350,390 Q370,350 390,330 Q410,310 440,315 Q470,320 480,350 Q490,380 480,390 L350,390 Z" fill="#E5E0DB"/>
+      
+      <!-- Ring on finger -->
+      <ellipse cx="420" cy="340" rx="28" ry="12" fill="#C4A265" opacity="0.9" transform="rotate(15, 420, 340)"/>
+      <ellipse cx="420" cy="340" rx="20" ry="8" fill="#FFFFFF" transform="rotate(15, 420, 340)"/>
+      <ellipse cx="420" cy="340" rx="12" ry="6" fill="#2A5B5E" opacity="0.8" transform="rotate(15, 420, 340)"/>
+    </g>
+    
+    <!-- Phone Elements -->
+    <circle cx="400" cy="410" r="15" fill="#444444" stroke="#222222" stroke-width="1"/>
+    <rect x="360" y="150" width="80" height="15" rx="7.5" fill="#444444"/>
+    
+    <!-- AR Interface Elements -->
+    <rect x="290" y="160" width="60" height="25" rx="12.5" fill="#FFFFFF" fill-opacity="0.8"/>
+    <text x="320" y="177" font-family="Arial" font-size="12" fill="#2A5B5E" text-anchor="middle">AR MODE</text>
+    
+    <rect x="450" y="160" width="60" height="25" rx="12.5" fill="#C4A265" fill-opacity="0.8"/>
+    <text x="480" y="177" font-family="Arial" font-size="12" fill="white" text-anchor="middle">CAPTURE</text>
+    
+    <!-- Control elements -->
+    <g transform="translate(290, 350)">
+      <circle cx="25" cy="0" r="20" fill="white" fill-opacity="0.8" stroke="#2A5B5E" stroke-width="2"/>
+      <path d="M18,0 L32,0 M25,-7 L25,7" stroke="#2A5B5E" stroke-width="2"/>
+    </g>
+    
+    <g transform="translate(400, 350)">
+      <circle cx="0" cy="0" r="25" fill="#C4A265" fill-opacity="0.8" stroke="white" stroke-width="2"/>
+    </g>
+    
+    <g transform="translate(485, 350)">
+      <circle cx="0" cy="0" r="20" fill="white" fill-opacity="0.8" stroke="#2A5B5E" stroke-width="2"/>
+      <path d="M-7,0 L7,0" stroke="#2A5B5E" stroke-width="2"/>
+    </g>
+  </g>
+  
+  <!-- Decorative Elements -->
+  <circle cx="100" cy="250" r="60" fill="#C4A265" opacity="0.1"/>
+  <circle cx="700" cy="350" r="80" fill="#2A5B5E" opacity="0.1"/>
+  
+  <!-- AR Rays around phone -->
+  <path d="M200,250 L230,250" stroke="#2A5B5E" stroke-width="2" stroke-dasharray="4 4"/>
+  <path d="M570,250 L600,250" stroke="#2A5B5E" stroke-width="2" stroke-dasharray="4 4"/>
+  <path d="M400,70 L400,100" stroke="#2A5B5E" stroke-width="2" stroke-dasharray="4 4"/>
+  <path d="M400,430 L400,460" stroke="#2A5B5E" stroke-width="2" stroke-dasharray="4 4"/>
+  
+  <path d="M230,150 L260,180" stroke="#C4A265" stroke-width="2" stroke-dasharray="4 4"/>
+  <path d="M540,350 L570,380" stroke="#C4A265" stroke-width="2" stroke-dasharray="4 4"/>
+  <path d="M540,150 L570,120" stroke="#C4A265" stroke-width="2" stroke-dasharray="4 4"/>
+  <path d="M230,350 L260,380" stroke="#C4A265" stroke-width="2" stroke-dasharray="4 4"/>
+  
+  <defs>
+    <filter id="filter0_d" x="140" y="95" width="520" height="370" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+      <feOffset dy="5"/>
+      <feGaussianBlur stdDeviation="5"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
+      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+    </filter>
+    <clipPath id="screen-clip">
+      <rect x="270" y="140" width="260" height="250" rx="2"/>
+    </clipPath>
+  </defs>
+</svg> 

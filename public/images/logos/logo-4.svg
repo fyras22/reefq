@@ -1,0 +1,15 @@
+<svg width="200" height="70" viewBox="0 0 200 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="70" rx="8" fill="white"/>
+  
+  <!-- MINIMAL Logo -->
+  <g transform="translate(30, 20)">
+    <!-- Minimalist Square -->
+    <rect x="0" y="0" width="25" height="25" stroke="#2A5B5E" stroke-width="2" fill="none"/>
+    
+    <!-- Text -->
+    <text x="35" y="18" font-family="Arial" font-size="20" font-weight="300" letter-spacing="3" fill="#333333">MINIMAL</text>
+    
+    <!-- Decorative Element -->
+    <line x1="35" y1="25" x2="140" y2="25" stroke="#C4A265" stroke-width="1"/>
+  </g>
+</svg> 

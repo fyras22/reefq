@@ -1,0 +1,71 @@
+<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" rx="20" fill="#F5F5F7"/>
+  <g filter="url(#filter0_d)">
+    <rect x="150" y="100" width="500" height="350" rx="16" fill="white"/>
+    
+    <!-- Customization Interface Header -->
+    <rect x="150" y="100" width="500" height="40" rx="16" fill="#2A5B5E" />
+    <text x="400" y="126" font-family="Arial" font-size="16" font-weight="bold" fill="white" text-anchor="middle">Customize Your Jewelry</text>
+    
+    <!-- Main Content Area -->
+    <rect x="170" y="160" width="460" height="270" rx="8" fill="#F9F9F9"/>
+    
+    <!-- 3D Jewelry Preview -->
+    <circle cx="300" cy="250" r="80" fill="#EEEEEE" stroke="#C4A265" stroke-width="2"/>
+    <circle cx="300" cy="250" r="40" fill="#C4A265" opacity="0.7"/>
+    <circle cx="300" cy="250" r="20" fill="#FFFFFF"/>
+    
+    <!-- Rotation Controls -->
+    <circle cx="240" cy="340" r="15" fill="#FFFFFF" stroke="#2A5B5E" stroke-width="2"/>
+    <path d="M235,340 L245,340 M240,335 L240,345" stroke="#2A5B5E" stroke-width="2"/>
+    
+    <circle cx="300" cy="340" r="15" fill="#FFFFFF" stroke="#2A5B5E" stroke-width="2"/>
+    <path d="M295,340 L305,340" stroke="#2A5B5E" stroke-width="2"/>
+    
+    <circle cx="360" cy="340" r="15" fill="#FFFFFF" stroke="#2A5B5E" stroke-width="2"/>
+    <path d="M355,340 L365,340 M360,335 L360,345" stroke="#2A5B5E" stroke-width="2"/>
+    
+    <!-- Customization Controls -->
+    <rect x="440" y="170" width="180" height="250" rx="8" fill="#FFFFFF" stroke="#EEEEEE" stroke-width="1"/>
+    
+    <!-- Material Selection -->
+    <text x="530" y="190" font-family="Arial" font-size="14" fill="#333333" text-anchor="middle">Material</text>
+    <rect x="450" y="200" width="50" height="30" rx="4" fill="#FFD700" stroke="#C4A265" stroke-width="2"/>
+    <rect x="505" y="200" width="50" height="30" rx="4" fill="#C0C0C0" stroke="#DDDDDD" stroke-width="1"/>
+    <rect x="560" y="200" width="50" height="30" rx="4" fill="#FFFFFF" stroke="#DDDDDD" stroke-width="1"/>
+    
+    <!-- Size Selection -->
+    <text x="530" y="260" font-family="Arial" font-size="14" fill="#333333" text-anchor="middle">Size</text>
+    <rect x="450" y="270" width="160" height="20" rx="10" fill="#EEEEEE"/>
+    <circle cx="510" cy="280" r="10" fill="#2A5B5E" stroke="#FFFFFF" stroke-width="2"/>
+    
+    <!-- Stone Selection -->
+    <text x="530" y="320" font-family="Arial" font-size="14" fill="#333333" text-anchor="middle">Stone</text>
+    <circle cx="470" cy="340" r="15" fill="#FF5555" stroke="#DDDDDD" stroke-width="1"/>
+    <circle cx="510" cy="340" r="15" fill="#5555FF" stroke="#2A5B5E" stroke-width="2"/>
+    <circle cx="550" cy="340" r="15" fill="#55FF55" stroke="#DDDDDD" stroke-width="1"/>
+    <circle cx="590" cy="340" r="15" fill="#FFFFFF" stroke="#DDDDDD" stroke-width="1"/>
+    
+    <!-- Save Button -->
+    <rect x="450" y="380" width="160" height="30" rx="6" fill="#C4A265"/>
+    <text x="530" y="400" font-family="Arial" font-size="14" font-weight="bold" fill="white" text-anchor="middle">Save Design</text>
+  </g>
+  
+  <!-- Decorative Elements -->
+  <circle cx="100" cy="200" r="50" fill="#2A5B5E" opacity="0.1"/>
+  <circle cx="700" cy="400" r="70" fill="#C4A265" opacity="0.1"/>
+  <path d="M60,450 Q120,400 70,350 T80,250" stroke="#2A5B5E" stroke-width="3" stroke-dasharray="6 6" opacity="0.3" fill="none"/>
+  <path d="M700,150 Q650,200 690,250 T680,350" stroke="#C4A265" stroke-width="3" stroke-dasharray="6 6" opacity="0.3" fill="none"/>
+  
+  <defs>
+    <filter id="filter0_d" x="140" y="95" width="520" height="370" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+      <feOffset dy="5"/>
+      <feGaussianBlur stdDeviation="5"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
+      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+    </filter>
+  </defs>
+</svg> 

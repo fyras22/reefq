@@ -24,7 +24,16 @@
     "french": "French",
     "arabic": "Arabic"
   },
-  "home": "Home",
+  "home": {
+    "hero": {
+      "title1": "Your digital jewelry",
+      "title2": "experience reimagined",
+      "description": "Unleash a new vision of digital jewelry with the ReefQ platform. We combine augmented reality technology with high-fidelity 3D visualization to provide a unique jewelry shopping experience for merchants and customers."
+    }
+  },
+  "hero": {
+    "badge": "Premium Jewelry Experience"
+  },
   "products": "Products",
   "try_fit": "Try & Fit",
   "jewelry_knowledge": "Jewelry Knowledge",
@@ -37,52 +46,16 @@
   "read_more": "Read More",
   "related_articles": "Related Articles",
   "back_to_all_articles": "Back to All Articles",
-  "features": "Features",
-  "testimonials": "Testimonials",
-  "howItWorks": "How It Works",
-  "pricing": "Pricing",
-  "faq": "FAQ",
-  "getStarted": "Get Started",
-  "login": "Login",
-  "signup": "Sign up",
-  "tryAndFit": "Try & Fit",
-  "header": {
-    "features": "Features",
-    "tryOn": "Try On",
-    "customize": "Customize",
-    "performance": "Performance",
-    "comparison": "Comparison",
-    "pricing": "Pricing",
-    "products": "Products",
-    "tryAndFit": "Try & Fit",
-    "getStarted": "Get Started",
-    "jewelryCollection": "Jewelry Collection",
-    "virtualTryOn": "Virtual Try-On",
-    "customizeJewelry": "Customize Jewelry",
-    "knowledgeHub": "Knowledge Hub"
-  },
-  "hero": {
-    "badge": "Innovative Jewelry Technology",
-    "title1": "Your digital jewelry",
-    "title2": "experience reimagined",
-    "description": "Unleash a new vision of digital jewelry with the ReefQ platform. We combine augmented reality technology with high-fidelity 3D visualization to provide a unique jewelry shopping experience for merchants and customers.",
-    "ctaPrimary": "Explore Features",
-    "ctaSecondary": "How It Works",
-    "trustBadge1": "Trusted by 200+ retailers",
-    "trustBadge2": "Industry-leading technology",
-    "trustBadge3": "Award-winning platform",
-    "imageAlt": "ReefQ 3D Jewelry Visualization Platform",
-    "badge1Title": "Precision",
-    "badge1Text": "High-fidelity visualization",
-    "badge2Title": "Innovation",
-    "badge2Text": "Cutting-edge AR technology"
-  },
-  "featureCards": {
-    "sectionTitle": "Powerful Features",
-    "sectionDescription": "Discover how ReefQ transforms the jewelry shopping experience",
-    "visualization": {
-      "title": "Realistic 3D Visualization",
-      "description": "High-fidelity models that capture every detail and sparkle"
+  "features": {
+    "immersiveTitle": "Immersive Jewelry Shopping",
+    "title": "Immersive Jewelry Shopping",
+    "description": "Experience a new way to shop for jewelry with interactive and engaging features",
+    "popular": "Popular",
+    "3dVisualization": {
+      "name": "3D Visualization",
+      "description": "Explore jewelry in high-quality 3D",
+      "stat": "4K",
+      "statText": "Ultra HD rendering"
     },
     "tryOn": {
       "title": "Virtual Try-On",
@@ -187,14 +160,34 @@
       "feature7": "API Access",
       "feature8": "White-label Solution"
     },
-    "cta": "Choose ReefQ Today"
+    "cta": "Choose ReefQ Today",
+    "feature": "Feature"
   },
   "faq": {
     "stillHaveQuestions": "Still have questions?",
-    "contactUs": "Contact our team"
+    "contactUs": "Contact our team",
+    "moreQuestions": "Have more questions? We're here to help."
   },
   "footer": {
     "slogan": "Transforming jewelry shopping with innovative technology",
     "craftedWith": "Crafted with"
+  },
+  "buttons": {
+    "explore": "Explore",
+    "tryItNow": "Try It Now",
+    "contactUs": "Contact Us"
+  },
+  "pricing": {
+    "contactUs": "Contact Us for Details",
+    "mostPopular": "Most Popular"
+  },
+  "jewelryViewer": {
+    "title": "Interactive 3D Jewelry Explorer",
+    "description": "Examine jewelry from every angle with our state-of-the-art 3D viewer",
+    "interactiveTitle": "Immersive Jewelry Experience",
+    "interactiveDescription": "Rotate, zoom and explore every detail of our exquisite pieces in stunning detail",
+    "benefit1": "Photorealistic visualization of materials and gemstones",
+    "benefit2": "Detailed inspection of craftsmanship and design",
+    "benefit3": "Try different variations before making a decision"
   }
-} 
+}

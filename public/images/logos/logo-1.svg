@@ -1,0 +1,16 @@
+<svg width="200" height="70" viewBox="0 0 200 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="70" rx="8" fill="white"/>
+  
+  <!-- LUMINA Jewelry Logo -->
+  <g transform="translate(20, 15)">
+    <!-- Diamond Icon -->
+    <path d="M20,0 L30,10 L20,20 L10,10 Z" fill="#2A5B5E" opacity="0.9"/>
+    
+    <!-- Text -->
+    <text x="45" y="25" font-family="Arial" font-size="24" font-weight="bold" letter-spacing="2" fill="#2A5B5E">LUMINA</text>
+    
+    <!-- Decorative Line -->
+    <line x1="45" y1="30" x2="145" y2="30" stroke="#C4A265" stroke-width="2"/>
+    <text x="75" y="40" font-family="Arial" font-size="10" letter-spacing="1" fill="#666666">FINE JEWELRY</text>
+  </g>
+</svg> 

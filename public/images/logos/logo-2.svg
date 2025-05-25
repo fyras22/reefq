@@ -1,0 +1,17 @@
+<svg width="200" height="70" viewBox="0 0 200 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="70" rx="8" fill="white"/>
+  
+  <!-- GEM STUDIO Logo -->
+  <g transform="translate(30, 15)">
+    <!-- Gem Icon -->
+    <path d="M10,10 L20,0 L30,10 L20,25 Z" fill="#C4A265" opacity="0.9"/>
+    
+    <!-- Text -->
+    <text x="40" y="15" font-family="Arial" font-size="18" font-weight="bold" fill="#333333">GEM</text>
+    <text x="40" y="35" font-family="Arial" font-size="18" font-weight="bold" fill="#333333">STUDIO</text>
+    
+    <!-- Decorative Elements -->
+    <rect x="0" y="40" width="140" height="1" fill="#2A5B5E"/>
+    <rect x="0" y="43" width="100" height="1" fill="#2A5B5E"/>
+  </g>
+</svg> 
