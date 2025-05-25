@@ -69,8 +69,30 @@ export default function VirtualTryOnSection({
   };
 
   return (
-    <section className="py-24 bg-white overflow-hidden">
-      <div className="container mx-auto">
+    <section
+      id="virtual-try-on"
+      className="py-24 bg-white dark:bg-gray-900 overflow-hidden"
+    >
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <motion.span
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center rounded-full px-4 py-1 text-sm font-medium bg-nile-teal/10 text-nile-teal dark:bg-nile-teal/30 dark:text-white ring-1 ring-inset ring-nile-teal/20 mb-4"
+          >
+            {t("virtualTryOn.badge", "Virtual Try-On")}
+          </motion.span>
+
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl mb-4">
+            {t("virtualTryOn.title")}
+          </h2>
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            {t("virtualTryOn.description")}
+          </p>
+        </div>
+
         <div
           className={`flex flex-col lg:flex-row ${isRTL ? "lg:flex-row-reverse" : ""} items-center gap-12`}
         >
@@ -78,20 +100,20 @@ export default function VirtualTryOnSection({
             className="lg:w-1/2"
             initial={{ opacity: 0, x: isRTL ? 50 : -50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
+            viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
               {t("virtualTryOn.title")}
             </h2>
-            <p className="mt-4 text-lg text-gray-600">
+            <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
               {t("virtualTryOn.description")}
             </p>
 
             <div className="mt-8 space-y-6">
               <div className="flex">
                 <div className="flex-shrink-0">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-md bg-nile-teal/10 text-nile-teal">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-md bg-nile-teal/10 dark:bg-nile-teal/20 text-nile-teal dark:text-nile-teal/90">
                     <DevicePhoneMobileIcon
                       className="h-6 w-6"
                       aria-hidden="true"
@@ -99,10 +121,10 @@ export default function VirtualTryOnSection({
                   </div>
                 </div>
                 <div className="ml-4">
-                  <h3 className="text-lg font-medium text-gray-900">
+                  <h3 className="text-lg font-medium text-gray-900 dark:text-white">
                     {t("virtualTryOn.feature1.title")}
                   </h3>
-                  <p className="mt-2 text-base text-gray-600">
+                  <p className="mt-2 text-base text-gray-600 dark:text-gray-300">
                     {t("virtualTryOn.feature1.description")}
                   </p>
                 </div>
@@ -110,7 +132,7 @@ export default function VirtualTryOnSection({
 
               <div className="flex">
                 <div className="flex-shrink-0">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-md bg-nile-teal/10 text-nile-teal">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-md bg-nile-teal/10 dark:bg-nile-teal/20 text-nile-teal dark:text-nile-teal/90">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -128,10 +150,10 @@ export default function VirtualTryOnSection({
                   </div>
                 </div>
                 <div className="ml-4">
-                  <h3 className="text-lg font-medium text-gray-900">
+                  <h3 className="text-lg font-medium text-gray-900 dark:text-white">
                     {t("virtualTryOn.feature2.title")}
                   </h3>
-                  <p className="mt-2 text-base text-gray-600">
+                  <p className="mt-2 text-base text-gray-600 dark:text-gray-300">
                     {t("virtualTryOn.feature2.description")}
                   </p>
                 </div>
@@ -141,7 +163,7 @@ export default function VirtualTryOnSection({
             <div className="mt-10">
               <Link
                 href="/try-and-fit"
-                className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-nile-teal hover:bg-nile-teal-dark"
+                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-nile-teal hover:bg-nile-teal-dark dark:bg-nile-teal/90 dark:hover:bg-nile-teal transition-all duration-200"
               >
                 {t("virtualTryOn.cta")}
                 <ArrowRightIcon
@@ -155,7 +177,7 @@ export default function VirtualTryOnSection({
             className="lg:w-1/2 relative"
             initial={{ opacity: 0, x: isRTL ? -50 : 50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
+            viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <div className="relative h-[500px] w-full rounded-2xl overflow-hidden shadow-2xl bg-gray-50 dark:bg-neutral-800">
@@ -167,9 +189,22 @@ export default function VirtualTryOnSection({
                 />
               </div>
 
+              {/* See how it works overlay */}
+              <div className="absolute top-4 right-4 z-30">
+                <a
+                  href="#how-it-works"
+                  className="flex items-center gap-2 px-4 py-2 bg-white/80 dark:bg-black/50 backdrop-blur-sm rounded-full shadow-lg hover:bg-white dark:hover:bg-black/60 transition-all duration-200 group"
+                >
+                  <span className="text-sm font-medium text-gray-900 dark:text-white group-hover:text-nile-teal dark:group-hover:text-nile-teal/90 transition-colors">
+                    {t("virtualTryOn.seeHowItWorks", "See how it works")}
+                  </span>
+                  <ArrowRightIcon className="h-4 w-4 text-nile-teal" />
+                </a>
+              </div>
+
               {/* Interactive Controls */}
               <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex items-center gap-2 z-20">
-                <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-full p-1 flex items-center gap-1 shadow-lg">
+                <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-full p-1 flex items-center gap-1 shadow-lg border border-gray-100 dark:border-gray-700">
                   {/* Zoom control */}
                   <div className="relative">
                     <button
@@ -179,19 +214,19 @@ export default function VirtualTryOnSection({
                       title="Zoom controls"
                     >
                       <MagnifyingGlassIcon className="h-5 w-5 text-gray-700 dark:text-gray-300" />
-                      <span className="absolute -top-2 -right-2 bg-nile-teal text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                      <span className="absolute -top-2 -right-2 bg-nile-teal dark:bg-nile-teal/90 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                         {Math.round(zoomLevel * 10) / 10}x
                       </span>
                     </button>
 
                     {/* Zoom slider popup */}
                     {showZoomSlider && (
-                      <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-white dark:bg-neutral-800 rounded-lg shadow-lg p-3 min-w-[200px]">
+                      <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-white dark:bg-neutral-800 rounded-lg shadow-lg p-3 min-w-[200px] border border-gray-100 dark:border-gray-700">
                         <div className="flex items-center justify-between mb-2">
                           <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
                             0.5x
                           </span>
-                          <span className="text-sm font-medium text-nile-teal">
+                          <span className="text-sm font-medium text-nile-teal dark:text-nile-teal/90">
                             {zoomLevel.toFixed(1)}x
                           </span>
                           <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
@@ -259,7 +294,7 @@ export default function VirtualTryOnSection({
                     </select>
                   </div>
 
-                  {/* Reset view */}
+                  {/* Reset button */}
                   <button
                     onClick={resetView}
                     className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-neutral-700 transition-colors"
@@ -268,16 +303,6 @@ export default function VirtualTryOnSection({
                   >
                     <ArrowPathIcon className="h-5 w-5 text-gray-700 dark:text-gray-300" />
                   </button>
-                </div>
-              </div>
-
-              {/* Floating UI elements for decoration */}
-              <div className="absolute -top-4 -right-4 bg-white p-4 rounded-lg shadow-lg">
-                <div className="flex items-center space-x-2">
-                  <div className="h-4 w-4 bg-green-500 rounded-full"></div>
-                  <p className="text-sm font-medium text-gray-900">
-                    {t("virtualTryOn.livePreview")}
-                  </p>
                 </div>
               </div>
             </div>

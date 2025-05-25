@@ -1,11 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="200" height="70" viewBox="0 0 200 70">
-  <!-- Elegant square frame -->
-  <rect x="30" y="10" width="140" height="50" stroke="#333" stroke-width="1" fill="none"/>
+<svg width="200" height="70" viewBox="0 0 200 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="70" rx="8" fill="white"/>
   
-  <!-- Brand name -->
-  <text x="100" y="35" font-family="Times New Roman, serif" font-size="22" font-weight="normal" text-anchor="middle" fill="#333">CROWN</text>
-  <text x="100" y="55" font-family="Times New Roman, serif" font-size="14" font-style="italic" text-anchor="middle" fill="#666">jewels</text>
-  
-  <!-- Crown icon -->
-  <path d="M80 25 L85 15 L90 25 L95 15 L100 25 L105 15 L110 25 L115 15 L120 25 L115 20 L85 20 Z" fill="#333"/>
+  <!-- CROWN jewels Logo -->
+  <g transform="translate(40, 15)">
+    <!-- Crown Icon -->
+    <path d="M0,25 L10,5 L20,15 L30,5 L40,25 Z" fill="none" stroke="#C4A265" stroke-width="2"/>
+    <path d="M5,25 L35,25 L35,30 L5,30 Z" fill="#C4A265"/>
+    
+    <!-- Text -->
+    <text x="60" y="20" font-family="Georgia" font-size="18" font-weight="bold" fill="#333333">CROWN</text>
+    <text x="63" y="38" font-family="Georgia" font-size="12" font-style="italic" fill="#666666">jewels</text>
+    
+    <!-- Decorative Elements -->
+    <line x1="45" y1="25" x2="120" y2="25" stroke="#2A5B5E" stroke-width="1" stroke-dasharray="1 1"/>
+  </g>
 </svg> 

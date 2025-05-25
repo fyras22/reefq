@@ -165,7 +165,7 @@ export function HeroSection({ t, isRTL }: HeroSectionProps) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="mt-12 flex flex-wrap justify-center lg:justify-start gap-8"
+              className="mt-12 flex flex-wrap justify-center lg:justify-start gap-x-8 gap-y-4"
             >
               <div className="flex items-center gap-2">
                 <div className="rounded-full bg-green-100 p-1">
@@ -290,8 +290,8 @@ export function HeroSection({ t, isRTL }: HeroSectionProps) {
                     )}
                   </div>
 
-                  {/* Metal type selector */}
-                  <div className="p-2 flex items-center gap-1">
+                  {/* Metal type selector - Hide on small screens */}
+                  <div className="hidden sm:flex p-2 items-center gap-1">
                     <SwatchIcon className="h-5 w-5 text-gray-700 dark:text-gray-300" />
                     <select
                       value={metalType}
@@ -314,8 +314,8 @@ export function HeroSection({ t, isRTL }: HeroSectionProps) {
                     </select>
                   </div>
 
-                  {/* Gem type selector */}
-                  <div className="p-2 flex items-center gap-1">
+                  {/* Gem type selector - Hide on small screens */}
+                  <div className="hidden sm:flex p-2 items-center gap-1">
                     <SparklesIcon className="h-5 w-5 text-gray-700 dark:text-gray-300" />
                     <select
                       value={gemType}
@@ -350,12 +350,12 @@ export function HeroSection({ t, isRTL }: HeroSectionProps) {
                 </div>
               </div>
 
-              {/* Floating badges */}
+              {/* Floating badges - Hide on small screens, show on medium and up */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5, duration: 0.5 }}
-                className={`absolute -top-6 ${isRTL ? "right-10" : "left-10"} bg-white dark:bg-neutral-800 rounded-lg shadow-lg p-3 flex items-center gap-3 z-10`}
+                className={`hidden md:flex absolute -top-6 ${isRTL ? "right-10" : "left-10"} bg-white dark:bg-neutral-800 rounded-lg shadow-lg p-3 items-center gap-3 z-10`}
               >
                 <div className="rounded-full bg-nile-teal/10 p-2">
                   <svg
@@ -386,7 +386,7 @@ export function HeroSection({ t, isRTL }: HeroSectionProps) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.7, duration: 0.5 }}
-                className={`absolute -bottom-6 ${isRTL ? "left-10" : "right-10"} bg-white dark:bg-neutral-800 rounded-lg shadow-lg p-3 flex items-center gap-3 z-10`}
+                className={`hidden md:flex absolute -bottom-6 ${isRTL ? "left-10" : "right-10"} bg-white dark:bg-neutral-800 rounded-lg shadow-lg p-3 items-center gap-3 z-10`}
               >
                 <div className="rounded-full bg-pharaonic-gold/10 p-2">
                   <svg

@@ -7,6 +7,7 @@ import {
   ChatBubbleLeftRightIcon,
   CubeTransparentIcon,
   CurrencyDollarIcon,
+  PhotoIcon,
   QuestionMarkCircleIcon,
   SparklesIcon,
   XMarkIcon,
@@ -26,6 +27,16 @@ const navigation = [
     name: "How It Works",
     href: "#how-it-works",
     icon: <ChartBarIcon className="h-5 w-5" />,
+  },
+  {
+    name: "Why Choose ReefQ",
+    href: "#why-choose-reefq",
+    icon: <SparklesIcon className="h-5 w-5" />,
+  },
+  {
+    name: "Brand Vision",
+    href: "#branding",
+    icon: <PhotoIcon className="h-5 w-5" />,
   },
   {
     name: "Performance",

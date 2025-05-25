@@ -1,21 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="200" height="70" viewBox="0 0 200 70">
-  <defs>
-    <linearGradient id="teal-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#2A5B5E" stop-opacity="1"/>
-      <stop offset="100%" stop-color="#1a3739" stop-opacity="1"/>
-    </linearGradient>
-  </defs>
+<svg width="200" height="70" viewBox="0 0 200 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="70" rx="8" fill="white"/>
   
-  <!-- Circular background -->
-  <circle cx="50" cy="35" r="25" fill="url(#teal-gradient)"/>
-  
-  <!-- Initial letter -->
-  <text x="50" y="42" font-family="Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" fill="white">G</text>
-  
-  <!-- Studio name -->
-  <text x="135" y="35" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#333">GEM</text>
-  <text x="135" y="55" font-family="Helvetica, Arial, sans-serif" font-size="16" text-anchor="middle" fill="#666">STUDIO</text>
-  
-  <!-- Decorative dot -->
-  <circle cx="185" cy="35" r="3" fill="#2A5B5E"/>
+  <!-- GEM STUDIO Logo -->
+  <g transform="translate(30, 15)">
+    <!-- Gem Icon -->
+    <path d="M10,10 L20,0 L30,10 L20,25 Z" fill="#C4A265" opacity="0.9"/>
+    
+    <!-- Text -->
+    <text x="40" y="15" font-family="Arial" font-size="18" font-weight="bold" fill="#333333">GEM</text>
+    <text x="40" y="35" font-family="Arial" font-size="18" font-weight="bold" fill="#333333">STUDIO</text>
+    
+    <!-- Decorative Elements -->
+    <rect x="0" y="40" width="140" height="1" fill="#2A5B5E"/>
+    <rect x="0" y="43" width="100" height="1" fill="#2A5B5E"/>
+  </g>
 </svg> 

@@ -3,7 +3,9 @@
 import { useTranslation } from "@/app/i18n-client";
 import { FeaturedCollections } from "@/components/FeaturedCollections";
 import { JewelryViewer } from "@/components/JewelryViewer";
+import BrandingCarousel from "@/components/landing/BrandingCarousel";
 import { CoreFeaturesSection } from "@/components/landing/CoreFeaturesSection";
+import { FeatureCardsSection } from "@/components/landing/FeatureCardsSection";
 import { HeroSection } from "@/components/landing/HeroSection";
 import { HowItWorksSection } from "@/components/landing/HowItWorksSection";
 import { LandingFooter } from "@/components/landing/LandingFooter";
@@ -148,6 +150,7 @@ export default function ClientHomePage({ lang }: ClientHomePageProps) {
         "collections",
         "core-features",
         "how-it-works",
+        "branding",
         "testimonials",
         "pricing",
         "virtual-try-on",
@@ -356,12 +359,12 @@ export default function ClientHomePage({ lang }: ClientHomePageProps) {
         twitter={seoData.twitter}
       />
 
-      {/* Mobile Sidebar */}
+      {/* Landing Sidebar */}
       <LandingSidebar
-        isRTL={isRTL}
-        activeSection={activeSection}
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
+        activeSection={activeSection}
+        isRTL={isRTL}
       />
 
       <AnimatePresence>
@@ -414,6 +417,16 @@ export default function ClientHomePage({ lang }: ClientHomePageProps) {
           {/* Hero Section */}
           <HeroSection t={t} isRTL={isRTL} />
 
+          {/* Branding Carousel Section - Moved to be second section */}
+          <BrandingCarousel
+            title={t("branding.title", "Our Brand Vision")}
+            subtitle={t(
+              "branding.subtitle",
+              "Explore the visual identity of Reefq - where luxury meets innovation in jewelry visualization"
+            )}
+            isRTL={isRTL}
+          />
+
           {/* Featured Collections Section */}
           <section
             id="collections"
@@ -421,6 +434,15 @@ export default function ClientHomePage({ lang }: ClientHomePageProps) {
           >
             <div className="container mx-auto">
               <div className="text-center mb-16">
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                  className="inline-flex items-center rounded-full px-4 py-1 text-sm font-medium bg-nile-teal/10 text-nile-teal dark:bg-nile-teal/30 dark:text-white ring-1 ring-inset ring-nile-teal/20 mb-4"
+                >
+                  {t("collections.badge", "Curated Selection")}
+                </motion.span>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
                   {t("collections.title")}
                 </h2>
@@ -436,6 +458,15 @@ export default function ClientHomePage({ lang }: ClientHomePageProps) {
           <section id="features" className="py-20 bg-white dark:bg-neutral-900">
             <div className="container mx-auto">
               <div className="text-center mb-16">
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                  className="inline-flex items-center rounded-full px-4 py-1 text-sm font-medium bg-nile-teal/10 text-nile-teal dark:bg-nile-teal/30 dark:text-white ring-1 ring-inset ring-nile-teal/20 mb-4"
+                >
+                  {t("features.badge", "Explore Features")}
+                </motion.span>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
                   {t("features.title")}
                 </h2>
@@ -520,6 +551,15 @@ export default function ClientHomePage({ lang }: ClientHomePageProps) {
           >
             <div className="container mx-auto">
               <div className="text-center mb-16">
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                  className="inline-flex items-center rounded-full px-4 py-1 text-sm font-medium bg-nile-teal/10 text-nile-teal dark:bg-nile-teal/30 dark:text-white ring-1 ring-inset ring-nile-teal/20 mb-4"
+                >
+                  {t("jewelryViewer.badge", "Interactive Experience")}
+                </motion.span>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
                   {t("jewelryViewer.title")}
                 </h2>
@@ -567,7 +607,7 @@ export default function ClientHomePage({ lang }: ClientHomePageProps) {
                   </div>
                 </div>
 
-                <div className="lg:w-2/5 w-full max-w-md h-[350px] bg-white dark:bg-neutral-800 rounded-lg shadow-xl overflow-hidden p-0 mx-auto">
+                <div className="lg:w-2/5 w-full max-w-md h-[350px] bg-white dark:bg-neutral-900 rounded-lg shadow-xl overflow-hidden p-0 mx-auto">
                   <JewelryViewer />
                 </div>
               </div>
@@ -575,7 +615,10 @@ export default function ClientHomePage({ lang }: ClientHomePageProps) {
           </section>
 
           {/* Core Features */}
-          <CoreFeaturesSection t={t} features={features} isRTL={isRTL} />
+          <CoreFeaturesSection t={t} isRTL={isRTL} features={features} />
+
+          {/* Why Choose ReefQ Section */}
+          <FeatureCardsSection t={t} isRTL={isRTL} />
 
           {/* How It Works Section */}
           <HowItWorksSection t={t} isRTL={isRTL} />
@@ -603,14 +646,23 @@ export default function ClientHomePage({ lang }: ClientHomePageProps) {
           </Suspense>
 
           {/* Comparison Tool Section */}
-          <Suspense fallback={<div>Loading...</div>}>
+          {/* <Suspense fallback={<div>Loading...</div>}>
             <ComparisonToolSection t={t} isRTL={isRTL} />
-          </Suspense>
+          </Suspense> */}
 
           {/* FAQ Section (with custom FaqItem component) */}
           <section id="faq" className="py-20 bg-white dark:bg-neutral-900">
             <div className="container mx-auto">
               <div className="text-center mb-16">
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                  className="inline-flex items-center rounded-full px-4 py-1 text-sm font-medium bg-nile-teal/10 text-nile-teal dark:bg-nile-teal/30 dark:text-white ring-1 ring-inset ring-nile-teal/20 mb-4"
+                >
+                  {t("faq.badge", "Questions & Answers")}
+                </motion.span>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
                   {t("faq.title")}
                 </h2>

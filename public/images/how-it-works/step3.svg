@@ -1,75 +1,80 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" rx="20" fill="#F5F5F7"/>
+  <g filter="url(#filter0_d)">
+    <rect x="150" y="100" width="500" height="350" rx="16" fill="white"/>
+    
+    <!-- Device Frame -->
+    <rect x="250" y="120" width="300" height="310" rx="20" fill="#2A2A2A"/>
+    <rect x="270" y="140" width="260" height="250" rx="2" fill="#FFFFFF"/>
+    
+    <!-- Virtual Try-On Screen -->
+    <g clip-path="url(#screen-clip)">
+      <!-- Hand image background -->
+      <rect x="270" y="140" width="260" height="250" fill="#F5F3F0"/>
+      
+      <!-- Stylized hand silhouette -->
+      <path d="M350,390 Q370,350 390,330 Q410,310 440,315 Q470,320 480,350 Q490,380 480,390 L350,390 Z" fill="#E5E0DB"/>
+      
+      <!-- Ring on finger -->
+      <ellipse cx="420" cy="340" rx="28" ry="12" fill="#C4A265" opacity="0.9" transform="rotate(15, 420, 340)"/>
+      <ellipse cx="420" cy="340" rx="20" ry="8" fill="#FFFFFF" transform="rotate(15, 420, 340)"/>
+      <ellipse cx="420" cy="340" rx="12" ry="6" fill="#2A5B5E" opacity="0.8" transform="rotate(15, 420, 340)"/>
+    </g>
+    
+    <!-- Phone Elements -->
+    <circle cx="400" cy="410" r="15" fill="#444444" stroke="#222222" stroke-width="1"/>
+    <rect x="360" y="150" width="80" height="15" rx="7.5" fill="#444444"/>
+    
+    <!-- AR Interface Elements -->
+    <rect x="290" y="160" width="60" height="25" rx="12.5" fill="#FFFFFF" fill-opacity="0.8"/>
+    <text x="320" y="177" font-family="Arial" font-size="12" fill="#2A5B5E" text-anchor="middle">AR MODE</text>
+    
+    <rect x="450" y="160" width="60" height="25" rx="12.5" fill="#C4A265" fill-opacity="0.8"/>
+    <text x="480" y="177" font-family="Arial" font-size="12" fill="white" text-anchor="middle">CAPTURE</text>
+    
+    <!-- Control elements -->
+    <g transform="translate(290, 350)">
+      <circle cx="25" cy="0" r="20" fill="white" fill-opacity="0.8" stroke="#2A5B5E" stroke-width="2"/>
+      <path d="M18,0 L32,0 M25,-7 L25,7" stroke="#2A5B5E" stroke-width="2"/>
+    </g>
+    
+    <g transform="translate(400, 350)">
+      <circle cx="0" cy="0" r="25" fill="#C4A265" fill-opacity="0.8" stroke="white" stroke-width="2"/>
+    </g>
+    
+    <g transform="translate(485, 350)">
+      <circle cx="0" cy="0" r="20" fill="white" fill-opacity="0.8" stroke="#2A5B5E" stroke-width="2"/>
+      <path d="M-7,0 L7,0" stroke="#2A5B5E" stroke-width="2"/>
+    </g>
+  </g>
+  
+  <!-- Decorative Elements -->
+  <circle cx="100" cy="250" r="60" fill="#C4A265" opacity="0.1"/>
+  <circle cx="700" cy="350" r="80" fill="#2A5B5E" opacity="0.1"/>
+  
+  <!-- AR Rays around phone -->
+  <path d="M200,250 L230,250" stroke="#2A5B5E" stroke-width="2" stroke-dasharray="4 4"/>
+  <path d="M570,250 L600,250" stroke="#2A5B5E" stroke-width="2" stroke-dasharray="4 4"/>
+  <path d="M400,70 L400,100" stroke="#2A5B5E" stroke-width="2" stroke-dasharray="4 4"/>
+  <path d="M400,430 L400,460" stroke="#2A5B5E" stroke-width="2" stroke-dasharray="4 4"/>
+  
+  <path d="M230,150 L260,180" stroke="#C4A265" stroke-width="2" stroke-dasharray="4 4"/>
+  <path d="M540,350 L570,380" stroke="#C4A265" stroke-width="2" stroke-dasharray="4 4"/>
+  <path d="M540,150 L570,120" stroke="#C4A265" stroke-width="2" stroke-dasharray="4 4"/>
+  <path d="M230,350 L260,380" stroke="#C4A265" stroke-width="2" stroke-dasharray="4 4"/>
+  
   <defs>
-    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#f8f9fa" stop-opacity="1"/>
-      <stop offset="100%" stop-color="#e9ecef" stop-opacity="1"/>
-    </linearGradient>
-    <linearGradient id="gold-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#e6c566" stop-opacity="1"/>
-      <stop offset="100%" stop-color="#C4A265" stop-opacity="1"/>
-    </linearGradient>
-    <linearGradient id="hand-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ffecd2" stop-opacity="1"/>
-      <stop offset="100%" stop-color="#e6c8a4" stop-opacity="1"/>
-    </linearGradient>
+    <filter id="filter0_d" x="140" y="95" width="520" height="370" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+      <feOffset dy="5"/>
+      <feGaussianBlur stdDeviation="5"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
+      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+    </filter>
+    <clipPath id="screen-clip">
+      <rect x="270" y="140" width="260" height="250" rx="2"/>
+    </clipPath>
   </defs>
-  
-  <!-- Background -->
-  <rect width="800" height="450" fill="url(#bg-gradient)" rx="15" ry="15"/>
-  
-  <!-- Phone frame -->
-  <rect x="250" y="50" width="300" height="350" rx="20" ry="20" fill="#343a40"/>
-  <rect x="270" y="70" width="260" height="310" rx="5" ry="5" fill="#111111"/>
-  
-  <!-- Camera app interface -->
-  <rect x="270" y="70" width="260" height="310" fill="#111111"/>
-  
-  <!-- Hand silhouette -->
-  <path d="M300 250 
-           Q310 240, 320 235
-           Q340 225, 360 220
-           Q380 215, 400 215
-           Q420 215, 440 220
-           Q460 225, 480 235
-           Q490 240, 500 250
-           Q510 260, 515 280
-           Q520 300, 515 320
-           Q510 340, 500 350
-           Q490 360, 480 365
-           Q460 375, 440 380
-           Q420 385, 400 385
-           Q380 385, 360 380
-           Q340 375, 320 365
-           Q310 360, 300 350
-           Q290 340, 285 320
-           Q280 300, 285 280
-           Q290 260, 300 250
-           Z" 
-     fill="url(#hand-gradient)"/>
-  
-  <!-- Ring on finger -->
-  <ellipse cx="400" cy="300" rx="25" ry="8" fill="none" stroke="url(#gold-gradient)" stroke-width="3"/>
-  <ellipse cx="400" cy="300" rx="12" ry="5" fill="#111111"/>
-  
-  <!-- UI elements -->
-  <circle cx="400" cy="350" r="20" fill="white" stroke="#dee2e6" stroke-width="2"/>
-  <circle cx="460" cy="330" r="12" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1"/>
-  <circle cx="340" cy="330" r="12" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1"/>
-  
-  <!-- Lighting effect -->
-  <rect x="270" y="70" width="260" height="310" fill="white" opacity="0.1"/>
-  <circle cx="400" cy="300" r="100" fill="white" opacity="0.05"/>
-  
-  <!-- AR indicators -->
-  <rect x="300" y="100" width="40" height="20" rx="5" ry="5" fill="#2A5B5E" opacity="0.9"/>
-  <text x="320" y="114" font-family="Arial" font-size="10" fill="white" text-anchor="middle">AR ON</text>
-  
-  <path d="M450 120 L480 120 L480 150" fill="none" stroke="#C4A265" stroke-width="2" stroke-dasharray="4"/>
-  <path d="M350 120 L320 120 L320 150" fill="none" stroke="#C4A265" stroke-width="2" stroke-dasharray="4"/>
-  <path d="M450 280 L480 280 L480 250" fill="none" stroke="#C4A265" stroke-width="2" stroke-dasharray="4"/>
-  <path d="M350 280 L320 280 L320 250" fill="none" stroke="#C4A265" stroke-width="2" stroke-dasharray="4"/>
-  
-  <!-- Title -->
-  <text x="400" y="420" font-family="Arial" font-size="22" font-weight="bold" fill="#343a40" text-anchor="middle">Virtual Try-On</text>
-  <text x="400" y="445" font-family="Arial" font-size="16" fill="#6c757d" text-anchor="middle">See how the jewelry looks on you</text>
 </svg> 

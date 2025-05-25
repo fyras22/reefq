@@ -391,11 +391,11 @@ export function JewelryViewer(props: JewelryViewerProps) {
 
   return (
     <div className="w-full h-full">
-      <div className="relative w-full h-full bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden">
+      <div className="relative w-full h-full bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900 overflow-hidden">
         {loading && (
-          <div className="absolute inset-0 flex items-center justify-center bg-white dark:bg-gray-900 bg-opacity-80 dark:bg-opacity-80 z-10">
+          <div className="absolute inset-0 flex items-center justify-center bg-white dark:bg-gray-950 bg-opacity-80 dark:bg-opacity-80 z-10">
             <div className="flex flex-col items-center">
-              <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-nile-teal"></div>
+              <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-nile-teal dark:border-[--color-primary-teal]"></div>
               <p className="mt-4 text-gray-600 dark:text-gray-300">
                 Loading 3D Model...
               </p>
@@ -404,9 +404,9 @@ export function JewelryViewer(props: JewelryViewerProps) {
         )}
 
         {error && (
-          <div className="absolute inset-0 flex items-center justify-center bg-white dark:bg-gray-900 bg-opacity-80 dark:bg-opacity-80 z-10">
+          <div className="absolute inset-0 flex items-center justify-center bg-white dark:bg-gray-950 bg-opacity-80 dark:bg-opacity-80 z-10">
             <div className="flex flex-col items-center">
-              <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-nile-teal"></div>
+              <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-nile-teal dark:border-[--color-primary-teal]"></div>
               <p className="mt-4 text-gray-600 dark:text-gray-300">
                 Error loading 3D Model...
               </p>

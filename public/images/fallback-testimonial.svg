@@ -1,50 +1,41 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400">
-  <defs>
-    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#f8f9fa" stop-opacity="1"/>
-      <stop offset="100%" stop-color="#e9ecef" stop-opacity="1"/>
-    </linearGradient>
-    <linearGradient id="accent-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#2A5B5E" stop-opacity="0.8"/>
-      <stop offset="100%" stop-color="#C4A265" stop-opacity="0.8"/>
-    </linearGradient>
-  </defs>
+<svg width="800" height="400" viewBox="0 0 800 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="400" rx="20" fill="#F5F5F7"/>
   
-  <!-- Background -->
-  <rect width="800" height="400" fill="url(#bg-gradient)" rx="15" ry="15"/>
+  <!-- Decorative Background Elements -->
+  <circle cx="100" cy="100" r="60" fill="#2A5B5E" opacity="0.1"/>
+  <circle cx="700" cy="300" r="80" fill="#C4A265" opacity="0.1"/>
+  <path d="M60,350 Q120,300 70,250 T80,150" stroke="#2A5B5E" stroke-width="3" stroke-dasharray="6 6" opacity="0.3" fill="none"/>
+  <path d="M700,50 Q650,100 690,150 T680,250" stroke="#C4A265" stroke-width="3" stroke-dasharray="6 6" opacity="0.3" fill="none"/>
   
-  <!-- Quote icon -->
-  <path d="M200 140
-           C180 140, 160 160, 160 190
-           C160 220, 180 240, 200 240
-           L180 240
-           C160 240, 140 220, 140 200
-           C140 140, 200 120, 220 120
-           Z" 
-        fill="url(#accent-gradient)" opacity="0.7"/>
+  <!-- Central Content -->
+  <rect x="250" y="100" width="300" height="200" rx="16" fill="white" filter="url(#shadow)"/>
   
-  <path d="M280 140
-           C260 140, 240 160, 240 190
-           C240 220, 260 240, 280 240
-           L260 240
-           C240 240, 220 220, 220 200
-           C220 140, 280 120, 300 120
-           Z" 
-        fill="url(#accent-gradient)" opacity="0.7"/>
+  <!-- Quote Marks -->
+  <path d="M300,140 L320,140 L320,160 L300,180 L300,140 Z" fill="#2A5B5E" opacity="0.2"/>
+  <path d="M330,140 L350,140 L350,160 L330,180 L330,140 Z" fill="#2A5B5E" opacity="0.2"/>
   
-  <!-- Testimonial text placeholders -->
-  <rect x="160" y="270" width="480" height="15" rx="2" ry="2" fill="#6c757d" opacity="0.2"/>
-  <rect x="200" y="295" width="400" height="15" rx="2" ry="2" fill="#6c757d" opacity="0.2"/>
-  <rect x="240" y="320" width="320" height="15" rx="2" ry="2" fill="#6c757d" opacity="0.2"/>
+  <!-- Text Placeholder -->
+  <rect x="300" y="190" width="200" height="10" rx="5" fill="#EEEEEE"/>
+  <rect x="300" y="210" width="180" height="10" rx="5" fill="#EEEEEE"/>
+  <rect x="300" y="230" width="160" height="10" rx="5" fill="#EEEEEE"/>
   
-  <!-- Stars -->
-  <polygon points="400,180 410,200 430,205 415,220 420,240 400,230 380,240 385,220 370,205 390,200" fill="#C4A265" opacity="0.7"/>
-  <polygon points="450,180 460,200 480,205 465,220 470,240 450,230 430,240 435,220 420,205 440,200" fill="#C4A265" opacity="0.7"/>
-  <polygon points="500,180 510,200 530,205 515,220 520,240 500,230 480,240 485,220 470,205 490,200" fill="#C4A265" opacity="0.7"/>
-  <polygon points="550,180 560,200 580,205 565,220 570,240 550,230 530,240 535,220 520,205 540,200" fill="#C4A265" opacity="0.7"/>
-  <polygon points="600,180 610,200 630,205 615,220 620,240 600,230 580,240 585,220 570,205 590,200" fill="#C4A265" opacity="0.3"/>
+  <!-- Author Placeholder -->
+  <circle cx="315" cy="260" r="15" fill="#EEEEEE"/>
+  <rect x="340" y="250" width="100" height="10" rx="5" fill="#EEEEEE"/>
+  <rect x="340" y="265" width="70" height="8" rx="4" fill="#EEEEEE"/>
   
   <!-- Title -->
-  <text x="400" y="80" font-family="Arial" font-size="28" font-weight="bold" fill="#343a40" text-anchor="middle">Customer Testimonials</text>
-  <text x="400" y="110" font-family="Arial" font-size="16" fill="#6c757d" text-anchor="middle">What our customers say about us</text>
+  <text x="400" y="350" font-family="Arial" font-size="18" font-weight="bold" fill="#2A5B5E" text-anchor="middle">What Our Customers Say</text>
+  
+  <defs>
+    <filter id="shadow" x="240" y="95" width="320" height="220" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+      <feOffset dy="5"/>
+      <feGaussianBlur stdDeviation="5"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
+      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+    </filter>
+  </defs>
 </svg> 
